@@ -4,5 +4,8 @@ export const modules: ModuleMap = {
   "./components/mockups/aivass-homepage/ArchitecturalTransformation.tsx": () => import("../components/mockups/aivass-homepage/ArchitecturalTransformation.tsx"),
   "./components/mockups/aivass-homepage/ConstellationConvergence.tsx": () => import("../components/mockups/aivass-homepage/ConstellationConvergence.tsx"),
   "./components/mockups/aivass-homepage/PurposeProofPermanence.tsx": () => import("../components/mockups/aivass-homepage/PurposeProofPermanence.tsx"),
+  "./components/mockups/aivass-final/FinalHomepage.tsx": () => import("../components/mockups/aivass-final/FinalHomepage.tsx"),
+  "./components/mockups/aivass-final/GuidesStorefront.tsx": () => import("../components/mockups/aivass-final/GuidesStorefront.tsx"),
+  "./components/mockups/aivass-final/ThreePathsTriad.tsx": () => import("../components/mockups/aivass-final/ThreePathsTriad.tsx"),
   "./components/mockups/templates/FirstLightCyclingLookbook-9iv5g5/ClikClakDuskMix.tsx": () => import("../components/mockups/templates/FirstLightCyclingLookbook-9iv5g5/ClikClakDuskMix.tsx")
 };
