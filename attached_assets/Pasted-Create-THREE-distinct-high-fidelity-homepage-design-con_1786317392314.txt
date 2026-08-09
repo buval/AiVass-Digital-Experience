@@ -1,0 +1,216 @@
+Create THREE distinct high-fidelity homepage design concepts for AiVass, shown side by side on the Design canvas.
+
+Do NOT build code yet. Do NOT choose a generic website template. This step is visual concept exploration only.
+
+BRAND
+
+AiVass is a boutique premium transformation studio.
+
+Master tagline:
+BUILDING EXTRAORDINARY FUTURES
+
+Operating philosophy:
+Automation with Soul.
+
+AiVass combines intelligent systems, strategy, automation, human connection and transformation to help individuals, businesses and organizations build extraordinary futures.
+
+BRAND PERSONALITY
+
+Intelligent
+Sovereign
+Human
+Transformative
+Cultivated
+Visionary
+Precise
+Relational
+
+The website must feel like a premium global strategy/design studio, not a small consulting-company template.
+
+COLOR SYSTEM
+
+Navy #12233F
+Navy-mid #2C405D
+Oxblood #7E3033
+Ox-light #D9A39B
+Cream #F7F3E9
+Paper #FDFBF6
+Grey #5F6673
+
+Use approximately:
+70% cream
+25% navy
+5% oxblood
+
+CRITICAL RULE:
+Oxblood #7E3033 only on light surfaces.
+Ox-light #D9A39B only on navy.
+
+GOLD IS RETIRED.
+Do not use gold, bronze, yellow-gold or champagne accents.
+
+MASTER BRAND SYMBOL
+
+The AiVass master mark is the T1 TRIAD:
+three four-point star nodes connected into a triangle.
+
+The Triad represents a connected transformation architecture.
+
+For this homepage, the three points also represent:
+
+INDIVIDUALS
+BUSINESSES
+ORGANIZATIONS
+
+CORE HOMEPAGE EXPERIENCE
+
+The opening experience should visually communicate THREE INDEPENDENT ELEMENTS COMING TOGETHER TO FORM THE AIVASS TRIAD.
+
+The design should suggest this motion:
+
+1. Three star-nodes begin apart.
+2. They move toward one another.
+3. Fine lines connect them.
+4. They form the AiVass T1 Triad.
+5. The wordmark appears:
+AiVass
+BUILDING EXTRAORDINARY FUTURES
+6. A quieter secondary line appears:
+Automation with Soul.
+
+Do not make the movement playful, bouncy, gaming-like, crypto-like or futuristic-tech cliché.
+
+It should feel:
+architectural
+precise
+inevitable
+calm
+premium
+meaningful
+
+VISUAL LANGUAGE
+
+Use:
+- generous negative space
+- editorial typography
+- architectural forms
+- portals / arches used subtly
+- horizons
+- soft natural light
+- refined geometric lines
+- subtle paper texture
+- thin rules
+- four-point AiVass stars
+- sophisticated asymmetry
+- calm human warmth
+- premium art direction
+
+Avoid:
+- purple AI gradients
+- neon
+- cyberpunk
+- glowing brains
+- robot imagery
+- circuit boards
+- generic AI graphics
+- excessive glassmorphism
+- excessive rounded cards
+- stock corporate handshakes
+- loud luxury
+- New Age spirituality
+- dark-on-dark layouts
+
+TYPOGRAPHY
+
+Use an elegant high-contrast editorial serif for major brand/headline moments and a clean contemporary sans-serif for navigation, UI and supporting copy.
+
+The serif should feel cultivated, intelligent and timeless.
+The sans-serif should feel modern, precise and digital.
+
+HOMEPAGE HERO COPY
+
+AiVass
+
+BUILDING EXTRAORDINARY FUTURES
+
+Supporting copy:
+
+A boutique transformation studio where intelligent systems, human connection and strategic architecture come together to build what comes next.
+
+Secondary statement:
+
+Automation with Soul.
+
+Primary CTA:
+Explore AiVass
+
+Secondary CTA:
+Find Your Path
+
+NAVIGATION
+
+AiVass
+Solutions
+Insights
+About
+Contact
+
+Primary CTA:
+Start a Conversation
+
+THE THREE DESIGN CONCEPTS
+
+CONCEPT A — CONSTELLATION / CONVERGENCE
+
+Create a very spacious, editorial hero where three separated star nodes move conceptually toward the center and form the Triad.
+
+Use subtle constellation / orbital geometry, but keep it sophisticated and restrained.
+
+The atmosphere should feel like intelligence, possibility and connection.
+
+CONCEPT B — ARCHITECTURAL TRANSFORMATION
+
+Create a highly architectural experience where three visual fields / planes / openings gradually align into the Triad.
+
+Use cream architectural space, horizon light, subtle depth, portals and strong editorial typography.
+
+This should feel like a premium transformation studio and be the most visually luxurious of the three, without becoming decorative luxury.
+
+CONCEPT C — PURPOSE / PROOF / PERMANENCE
+
+Create an intellectual, strategic interpretation of the Triad.
+
+Each point represents:
+
+PURPOSE
+What should transform and why?
+
+PROOF
+How is transformation made visible?
+
+PERMANENCE
+What remains after the transformation?
+
+The three ideas visually assemble into one AiVass system.
+
+This concept should feel the most strategic and ownable.
+
+IMPORTANT
+
+For EACH concept create:
+
+1. Desktop homepage hero
+2. Mobile homepage hero
+3. A short visual indication of how the next section transitions into the interactive three-path system:
+   Individuals
+   Businesses
+   Organizations
+
+Keep all three concepts recognizably AiVass, but make their visual and motion ideas genuinely different.
+
+Do not continue into the full website yet.
+
+At the end, visually label the concepts:
+A — Constellation / Convergence
+B — Architectural Transformation
+C — Purpose / Proof / Permanence

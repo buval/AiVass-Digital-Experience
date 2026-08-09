@@ -1,0 +1,37 @@
+@keyframes aivass-node-left {
+  0% { transform: translate(-46px, 18px); opacity: .18; }
+  62%, 100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes aivass-node-right {
+  0% { transform: translate(46px, 18px); opacity: .18; }
+  62%, 100% { transform: translate(0, 0); opacity: 1; }
+}
+@keyframes aivass-node-top {
+  0% { transform: translateY(-40px); opacity: .18; }
+  62%, 100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes aivass-lines {
+  0%, 42% { stroke-dashoffset: 220; opacity: 0; }
+  68%, 100% { stroke-dashoffset: 0; opacity: .7; }
+}
+@keyframes aivass-wordmark {
+  0%, 64% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes aivass-rule {
+  0%, 70% { transform: scaleX(0); transform-origin: left; }
+  100% { transform: scaleX(1); transform-origin: left; }
+}
+.aivass-constellation .node-left { animation: aivass-node-left 2.2s cubic-bezier(.2,.75,.25,1) both; }
+.aivass-constellation .node-right { animation: aivass-node-right 2.2s cubic-bezier(.2,.75,.25,1) both; }
+.aivass-constellation .node-top { animation: aivass-node-top 2.2s cubic-bezier(.2,.75,.25,1) both; }
+.aivass-constellation .triad-lines { stroke-dasharray: 220; animation: aivass-lines 2.2s ease-out both; }
+.aivass-constellation .wordmark-reveal { animation: aivass-wordmark 2.7s ease-out both; }
+.aivass-constellation .hero-rule { animation: aivass-rule 2.6s ease-out both; }
+.aivass-constellation .paper-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aivass-constellation * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
