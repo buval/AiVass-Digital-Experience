@@ -2,6 +2,7 @@
 // DO NOT edit names, slugs, descriptions or prices without confirming against live Stripe products.
 // Purchase CTAs currently link to https://aivass.com/guides/${slug} until checkout is migrated to this build.
 // TODO: When checkout is migrated, replace purchaseUrl with internal Stripe payment link.
+// Hero images generated 2026-08-10 — stored in public/images/
 
 export interface Guide {
   id: string;
@@ -14,7 +15,12 @@ export interface Guide {
   pageCount: number;
   isBundle: boolean;
   category: string;
-  sampleSlug?: string; // /samples/${sampleSlug}-sample.pdf
+  sampleSlug?: string;            // /samples/${sampleSlug}-sample.pdf
+  heroImage: string;              // filename from public/images/
+  heroAlt: string;                // descriptive alt text
+  audience: string;               // who this guide is for
+  learningPoints: string[];       // what the reader will learn
+  relatedGuides: string[];        // slugs of related guides (shown at bottom of detail page)
 }
 
 export const GUIDES: Guide[] = [
@@ -31,6 +37,16 @@ export const GUIDES: Guide[] = [
     isBundle: false,
     category: "Extraordinary Ability",
     sampleSlug: "eb1a-master",
+    heroImage: "guide-hero-eb1a-master.jpg",
+    heroAlt: "Architectural blueprint spread across a refined desk — representing the strategic architecture of an EB-1A petition",
+    audience: "Self-petitioners across all fields preparing an EB-1A extraordinary ability petition.",
+    learningPoints: [
+      "How USCIS adjudicators evaluate each of the 10 criteria",
+      "How to build and structure your evidence portfolio",
+      "How to frame a winning narrative across any field of endeavor",
+      "The strategic architecture behind a complete, coherent petition",
+    ],
+    relatedGuides: ["eb1a-business", "eb1a-arts", "eb1a-athletics"],
   },
   {
     id: "9097abd9-96dc-4533-af0b-9cd006ce120a",
@@ -45,6 +61,16 @@ export const GUIDES: Guide[] = [
     isBundle: false,
     category: "Extraordinary Ability",
     sampleSlug: "eb1a-business",
+    heroImage: "guide-hero-eb1a-business.jpg",
+    heroAlt: "Executive leader in a refined strategic workspace — representing the authority and vision required for EB-1A Business Leader petitions",
+    audience: "Founders, executives, and operators seeking an EB-1A extraordinary ability green card.",
+    learningPoints: [
+      "How to translate funding rounds and revenue impact into criterion evidence",
+      "Mapping press coverage, board roles and speaking engagements to specific criteria",
+      "Building the founder narrative USCIS recognises as extraordinary",
+      "The evidence categories most commonly used by business leaders",
+    ],
+    relatedGuides: ["eb1a-master", "eb1a-science"],
   },
   {
     id: "1349a4d7-123b-4159-801e-36a2ca63e819",
@@ -59,6 +85,16 @@ export const GUIDES: Guide[] = [
     isBundle: false,
     category: "Extraordinary Ability",
     sampleSlug: "eb1a-arts",
+    heroImage: "guide-hero-eb1a-artists.jpg",
+    heroAlt: "Artist working in a contemporary studio with natural light — representing creative work as extraordinary ability evidence",
+    audience: "Artists, designers, performers, and creative practitioners of all disciplines.",
+    learningPoints: [
+      "How exhibitions, sales records and press coverage map to the 10 criteria",
+      "Building a distinguished reputation case from gallery and commercial history",
+      "How creative careers translate into evidence USCIS understands",
+      "Documentation strategies for subjective creative achievement",
+    ],
+    relatedGuides: ["eb1a-master", "eb1a-education"],
   },
   {
     id: "6fb3a66a-944e-4109-aa0c-5bd93407683e",
@@ -73,6 +109,16 @@ export const GUIDES: Guide[] = [
     isBundle: false,
     category: "Extraordinary Ability",
     sampleSlug: "eb1a-athletics",
+    heroImage: "guide-hero-eb1a-athletes.jpg",
+    heroAlt: "Elite athlete in a moment of focused preparation on court — representing performance excellence and extraordinary ability",
+    audience: "Professional and elite athletes and coaches across all sports and disciplines.",
+    learningPoints: [
+      "How rankings, championships and national team selection translate to EB-1A criteria",
+      "Building a media and recognition evidence portfolio from athletic achievement",
+      "Coaching credentials, high-performance program leadership, and critical role evidence",
+      "The most common mistakes athletes make on EB-1A petitions",
+    ],
+    relatedGuides: ["eb1a-master", "eb1a-education"],
   },
   {
     id: "f1c7a439-8a02-40f1-9466-a0981acf0bf3",
@@ -87,6 +133,16 @@ export const GUIDES: Guide[] = [
     isBundle: false,
     category: "Extraordinary Ability",
     sampleSlug: "eb1a-education",
+    heroImage: "guide-hero-eb1a-educators.jpg",
+    heroAlt: "Professor in a university library surrounded by reference volumes — representing scholarly authority and educational impact",
+    audience: "Educators, professors, curriculum leaders, and academic administrators.",
+    learningPoints: [
+      "How to document teaching innovation and curriculum influence as evidence",
+      "Using awards, judging and publications beyond raw citation counts",
+      "Building the authority narrative expected by adjudicators",
+      "Evidence strategies for academics who publish less than research-focused peers",
+    ],
+    relatedGuides: ["eb1a-master", "eb1a-science"],
   },
   {
     id: "fb3ebf0f-0c2f-4d8b-b9fb-05abae0836e4",
@@ -101,6 +157,16 @@ export const GUIDES: Guide[] = [
     isBundle: false,
     category: "Extraordinary Ability",
     sampleSlug: "eb1a-science",
+    heroImage: "guide-hero-eb1a-scientists.jpg",
+    heroAlt: "Scientist studying research data at a precise laboratory bench — representing discovery and intellectual authority",
+    audience: "Scientists, researchers, and research engineers across all scientific fields.",
+    learningPoints: [
+      "How to frame research impact beyond raw citation numbers",
+      "Peer review service, editorial roles, and original contribution evidence",
+      "Documentation strategies for patent holders and applied researchers",
+      "How lab leadership, funding and interdisciplinary impact build the case",
+    ],
+    relatedGuides: ["eb1a-master", "eb1a-education"],
   },
 ];
 
@@ -116,13 +182,20 @@ export const BUNDLE: Guide = {
   pageCount: 275,
   isBundle: true,
   category: "Extraordinary Ability",
+  heroImage: "guide-hero-eb1a-master.jpg",
+  heroAlt: "Complete EB-1A collection — six guides, one strategic architecture",
+  audience: "Anyone who wants comprehensive coverage of every EB-1A field and criterion.",
+  learningPoints: [
+    "The Master Guide: all 10 criteria and the full evidentiary framework",
+    "Five field-specific guides for Business, Arts, Athletics, Education, and Science",
+    "275 pages of strategic guidance, delivered instantly as PDF downloads",
+  ],
+  relatedGuides: [],
 };
 
 // Checkout: links to existing live site during migration period
 // TODO: Replace with internal Stripe payment links once checkout is migrated to this build
 export function guideCheckoutUrl(slug: string): string {
-  // MISSING VERIFIED CHECKOUT URL — currently routing to existing live site
-  // Owner must supply direct Stripe payment links or confirm migration plan
   return `https://aivass.com/guides/${slug}`;
 }
 

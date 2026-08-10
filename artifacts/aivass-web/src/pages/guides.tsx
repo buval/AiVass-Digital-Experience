@@ -6,24 +6,17 @@ import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics"
 export default function Guides() {
   useSeoMeta({
     title: "EB-1A Guides for Extraordinary Ability",
-    description: "Strategic guides for EB-1A extraordinary ability petitions. 6 field-specific guides plus a complete collection — written for self-petitioners, delivered instantly as PDF downloads.",
+    description:
+      "Strategic guides for EB-1A extraordinary ability petitions. 6 field-specific guides plus a complete collection — written for self-petitioners, delivered instantly as PDF downloads.",
     canonical: "https://aivass.com/guides",
   });
-  const individualGuides = GUIDES.filter(g => !g.isBundle);
 
-  // Map slug to cover image based on prompt mapping
-  const coverMap: Record<string, string> = {
-    "eb1a-master": "aivass-guide-ability.png",
-    "eb1a-business": "aivass-guide-ability_2.png",
-    "eb1a-arts": "aivass-guide-systems.png",
-    "eb1a-athletics": "aivass-guide-systems_2.png",
-    "eb1a-education": "aivass-guide-evidence.png",
-    "eb1a-science": "aivass-guide-evidence_2.png"
-  };
+  const individualGuides = GUIDES.filter((g) => !g.isBundle);
 
   return (
     <div className="bg-cream min-h-screen pt-[60px] pb-[100px]">
       <div className="wrap">
+        {/* Header */}
         <div className="grid md:grid-cols-[1fr_auto] items-end mb-12 gap-8">
           <div>
             <div className="eyebrow mb-6">Storefront</div>
@@ -32,7 +25,8 @@ export default function Guides() {
               <em className="text-oxblood italic">Extraordinary Futures.</em>
             </h1>
             <p className="text-[16px] text-navy-mid max-w-[600px] leading-[1.65]">
-              Every guide you need to document, position and defend extraordinary ability. Written for self-petitioners, delivered instantly as PDF downloads.
+              Every guide you need to document, position and defend extraordinary ability. Written for
+              self-petitioners, delivered instantly as PDF downloads.
             </p>
           </div>
         </div>
@@ -46,31 +40,74 @@ export default function Guides() {
         </div>
 
         <div className="eyebrow mb-[18px]">EXTRAORDINARY ABILITY · Available now · 6 guides</div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-[60px] mb-[100px]">
+
+        {/* Guide grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-[60px] mb-[100px]">
           {individualGuides.map((guide, i) => {
-            const coverImg = coverMap[guide.slug] || "aivass-guide-evidence.png";
-            
+            // Slight focal-point variation per card for editorial feel
+            const positions = [
+              "object-center",
+              "object-top",
+              "object-center",
+              "object-bottom",
+              "object-top",
+              "object-center",
+            ];
+            const pos = positions[i] ?? "object-center";
+
             return (
               <article key={guide.id} className="border-t border-navy pt-[18px]">
-                <div className="h-[350px] md:h-[420px] bg-paper flex justify-center items-center overflow-hidden mb-5 border border-navy/5 group relative">
-                  <img
-                    src={`${import.meta.env.BASE_URL}images/${coverImg}`}
-                    onError={(e) => { (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/aivass-guide-evidence.png`; }}
-                    alt={`${guide.name} cover`}
-                    className="w-[75%] h-[90%] object-cover shadow-md border border-navy/10 group-hover:scale-[1.02] transition-transform duration-500"
-                  />
-                </div>
+                {/* Hero image — full bleed editorial */}
+                <Link href={`/guides/${guide.slug}`}>
+                  <div className="aspect-[4/3] overflow-hidden mb-5 group cursor-pointer">
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/${guide.heroImage}`}
+                      alt={guide.heroAlt}
+                      className={`w-full h-full object-cover ${pos} group-hover:scale-[1.03] transition-transform duration-700`}
+                    />
+                  </div>
+                </Link>
+
                 <div className="mb-6">
-                  <h2 className="font-serif text-[24px] text-navy leading-tight mb-1">{guide.name}</h2>
+                  <Link href={`/guides/${guide.slug}`} className="group">
+                    <h2 className="font-serif text-[24px] text-navy leading-tight mb-1 group-hover:text-oxblood transition-colors">
+                      {guide.name}
+                    </h2>
+                  </Link>
                   <p className="font-serif italic text-[14px] text-oxblood mb-3">{guide.subtitle}</p>
-                  <div className="text-[11px] tracking-[0.1em] uppercase text-grey mb-3">{guide.pageCount} pages</div>
-                  <p className="text-[13px] text-navy-mid leading-[1.6] line-clamp-1">{guide.description}</p>
+                  <div className="text-[11px] tracking-[0.1em] uppercase text-grey mb-3">
+                    {guide.pageCount} pages
+                  </div>
+                  <p className="text-[13px] text-navy-mid leading-[1.6] line-clamp-2">
+                    {guide.description}
+                  </p>
                 </div>
+
                 <div className="flex gap-3">
-                  <a href={guideSampleUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn-outline flex-1 !px-2" onClick={() => trackGuideSampleClick(guide.slug)}>View Free Sample ↗</a>
-                  <a href={guideCheckoutUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn-fill flex-1 !px-2" onClick={() => trackGuidePurchaseClick(guide.slug)}>Purchase →</a>
-                  {/* // TODO: Migrate checkout to new build */}
+                  <a
+                    href={guideSampleUrl(guide.slug)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline flex-1 !px-2 text-center"
+                    onClick={() => trackGuideSampleClick(guide.slug)}
+                  >
+                    Free Sample ↗
+                  </a>
+                  <a
+                    href={guideCheckoutUrl(guide.slug)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-fill flex-1 !px-2 text-center"
+                    onClick={() => trackGuidePurchaseClick(guide.slug)}
+                  >
+                    Purchase →
+                  </a>
+                </div>
+
+                <div className="mt-3 text-center">
+                  <Link href={`/guides/${guide.slug}`} className="text-[10px] tracking-[0.12em] uppercase text-grey hover:text-oxblood transition-colors">
+                    View full details →
+                  </Link>
                 </div>
               </article>
             );
@@ -81,29 +118,30 @@ export default function Guides() {
         <div className="bg-navy text-cream p-[40px] md:p-[60px] flex flex-col md:flex-row items-center gap-10 md:gap-16">
           <div className="flex-1">
             <div className="eyebrow text-ox-light mb-4">The Bundle</div>
-            <h2 className="font-serif text-[36px] md:text-[48px] leading-tight mb-4">
-              {BUNDLE.name}
-            </h2>
-            <p className="text-[16px] text-ox-light mb-6">
-              All 6 guides · 275 pages
-            </p>
-            <p className="text-[14px] text-cream/70 leading-[1.6] max-w-[500px]">
-              {BUNDLE.description}
-            </p>
+            <h2 className="font-serif text-[36px] md:text-[48px] leading-tight mb-4">{BUNDLE.name}</h2>
+            <p className="text-[16px] text-ox-light mb-6">All 6 guides · 275 pages</p>
+            <p className="text-[14px] text-cream/70 leading-[1.6] max-w-[500px]">{BUNDLE.description}</p>
           </div>
           <div className="w-full md:w-auto bg-white/5 p-8 border border-white/10 flex flex-col items-center text-center shrink-0">
             <span className="text-[48px] font-serif leading-none mb-2">{formatPrice(BUNDLE.priceCents)}</span>
-            <span className="text-[11px] tracking-[0.1em] text-ox-light uppercase mb-8">Save vs. buying individually</span>
-            <a href={guideCheckoutUrl(BUNDLE.slug)} target="_blank" rel="noopener noreferrer" className="btn-fill !bg-cream !text-navy hover:!bg-paper w-full" onClick={() => trackGuidePurchaseClick(BUNDLE.slug)}>
+            <span className="text-[11px] tracking-[0.1em] text-ox-light uppercase mb-8">
+              Save vs. buying individually
+            </span>
+            <a
+              href={guideCheckoutUrl(BUNDLE.slug)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-fill !bg-cream !text-navy hover:!bg-paper w-full"
+              onClick={() => trackGuidePurchaseClick(BUNDLE.slug)}
+            >
               Get the Complete Collection →
             </a>
-            {/* // TODO: Migrate checkout to new build */}
           </div>
         </div>
 
         <div className="mt-20 border-t border-navy/20 pt-16 text-center">
           <p className="font-serif italic text-[28px] flex flex-col items-center gap-3">
-            <span className="text-navy">CAREER & EVIDENCE — COMING NEXT</span>
+            <span className="text-navy">CAREER &amp; EVIDENCE — COMING NEXT</span>
           </p>
         </div>
       </div>

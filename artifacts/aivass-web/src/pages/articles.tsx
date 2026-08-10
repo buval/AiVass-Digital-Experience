@@ -5,85 +5,94 @@ import { useSeoMeta } from "@/lib/seo";
 export default function Articles() {
   useSeoMeta({
     title: "Articles — Analysis & Strategy",
-    description: "Long-form strategic thinking on transformation, capability architecture, and the intelligent future. All AiVass articles are free and indexed for search and AI discovery.",
-    canonical: "https://aivass.com/articles",
+    description:
+      "Long-form strategic thinking on transformation, capability architecture, and the intelligent future. All AiVass articles are free and indexed for search and AI discovery.",
+    canonical: "https://aivass.com/insights/articles",
   });
+
   return (
-    <div className="bg-cream min-h-screen pt-[60px] pb-[100px]">
-      <div className="wrap">
+    <div className="min-h-screen bg-cream">
+      {/* Header */}
+      <div className="bg-navy text-cream pt-12 pb-[80px] md:pt-[60px] md:pb-[100px]">
+        <div className="wrap">
+          <nav className="text-[10px] tracking-[0.15em] uppercase text-ox-light/60 mb-[50px]">
+            <Link href="/insights" className="hover:text-ox-light transition-colors">Insights</Link>
+            <span className="mx-2 opacity-40">›</span>
+            <span>Articles</span>
+          </nav>
+          <div className="eyebrow text-ox-light mb-6">Editorial</div>
+          <h1 className="text-[50px] md:text-[80px] font-serif leading-none tracking-[-0.05em] mb-6">
+            Editorial analysis.<br />
+            <em className="text-ox-light italic">Long-form thinking.</em>
+          </h1>
+          <p className="text-[16px] text-ox-light/70 max-w-[500px] leading-[1.65]">
+            Strategic frameworks and field intelligence — written for search, readable by humans.
+            All articles are free and indexed for discoverability.
+          </p>
+        </div>
+      </div>
 
-        <nav className="text-[10px] tracking-[0.15em] uppercase text-grey mb-8">
-          <Link href="/insights" className="hover:text-oxblood transition-colors">Insights</Link>
-          <span className="mx-2 opacity-40">›</span>
-          <span>Articles</span>
-        </nav>
-
-        <div className="eyebrow mb-6">Articles</div>
-        <h1 className="text-[50px] md:text-[80px] font-serif leading-none tracking-[-0.05em] mb-6">
-          Editorial analysis.<br />
-          <em className="text-oxblood italic">Long-form thinking.</em>
-        </h1>
-        <p className="text-[16px] text-navy-mid max-w-[550px] leading-[1.65] mb-[60px]">
-          Long-form strategic thinking on transformation, capability architecture, and the intelligent future. All articles are free and indexed for search and AI discoverability.
-        </p>
-
-        {/* Article grid */}
-        <div className="grid grid-cols-1 gap-[1px] bg-navy/10 mb-16">
+      {/* Article list */}
+      <div className="wrap py-[60px] md:py-[90px]">
+        <div className="space-y-0 border-t border-navy/10">
           {ARTICLES.map((article) => (
-            <article
-              key={article.slug}
-              className="bg-cream hover:bg-paper transition-colors p-[30px] md:p-[45px] grid grid-cols-1 md:grid-cols-[1fr_2.2fr] gap-6 md:gap-[60px]"
-            >
-              <div>
-                <div className="eyebrow mb-3">{article.categoryLabel}</div>
-                <time className="text-[11px] text-grey tracking-[0.05em] block mb-1">
-                  {new Date(article.publishedAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                  })}
-                </time>
-                <span className="text-[11px] text-grey tracking-[0.05em]">
-                  {article.author} · {article.readingTime} min
-                </span>
+            <div key={article.slug} className="border-b border-navy/10 py-10 md:py-12 group">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 md:gap-16 items-start">
+                <div>
+                  <div className="eyebrow mb-4">{article.categoryLabel}</div>
+                  <Link href={`/insights/articles/${article.slug}`}>
+                    <h2 className="font-serif text-[28px] md:text-[38px] leading-[1.1] tracking-[-0.04em] mb-4 group-hover:text-oxblood transition-colors cursor-pointer">
+                      {article.title}
+                    </h2>
+                  </Link>
+                  <p className="text-[14px] text-navy-mid leading-[1.7] mb-6 max-w-[560px]">
+                    {article.excerpt}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-5 text-[11px] tracking-[0.1em] uppercase text-grey">
+                    <span>By {article.author}</span>
+                    <span className="w-[1px] h-3 bg-navy/20" />
+                    <time dateTime={article.publishedAt}>
+                      {new Date(article.publishedAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    <span className="w-[1px] h-3 bg-navy/20" />
+                    <span>{article.readingTime} min read</span>
+                  </div>
+                </div>
+
+                {/* Thumbnail + CTA */}
+                <div className="flex flex-col gap-5">
+                  {article.heroImage && (
+                    <Link href={`/insights/articles/${article.slug}`}>
+                      <div className="aspect-[16/10] overflow-hidden">
+                        <img
+                          src={`${import.meta.env.BASE_URL}images/${article.heroImage}`}
+                          alt={article.heroAlt}
+                          className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                        />
+                      </div>
+                    </Link>
+                  )}
+                  <Link
+                    href={`/insights/articles/${article.slug}`}
+                    className="btn-outline w-full text-center"
+                  >
+                    Read Article →
+                  </Link>
+                </div>
               </div>
-              <div>
-                <Link href={`/articles/${article.slug}`}>
-                  <h2 className="font-serif text-[26px] md:text-[34px] leading-[1.15] tracking-[-0.04em] mb-4 hover:text-oxblood transition-colors cursor-pointer">
-                    {article.title}
-                  </h2>
-                </Link>
-                <p className="text-[14px] text-navy-mid leading-[1.65] mb-6">{article.excerpt}</p>
-                <Link href={`/articles/${article.slug}`} className="link-under text-oxblood inline-block cursor-pointer">
-                  Read Article →
-                </Link>
-              </div>
-            </article>
+            </div>
           ))}
         </div>
 
-        {/* Content strategy note */}
-        <div className="border-t border-navy/20 pt-[40px] grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <div className="eyebrow mb-4">Strategist Companion Pages</div>
-            <p className="text-[13px] text-grey leading-[1.7]">
-              Each AiVass Strategist Deck will have a crawlable HTML companion page containing the deck introduction, summary, key ideas and related analysis. Optimised for search and AI-search discovery.
-            </p>
-          </div>
-          <div>
-            <div className="eyebrow mb-4">Subscribe</div>
-            <p className="text-[13px] text-grey leading-[1.7] mb-4">
-              New articles and Strategist Decks are published regularly. Follow AiVass on LinkedIn or subscribe to be notified.
-            </p>
-            <a
-              href="https://www.linkedin.com/company/aivass"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-under text-oxblood inline-block"
-            >
-              Follow on LinkedIn ↗
-            </a>
-          </div>
+        {/* Back to Insights */}
+        <div className="mt-[60px] text-center">
+          <Link href="/insights" className="link-under text-[11px] tracking-[0.12em] uppercase">
+            ← Back to Insights
+          </Link>
         </div>
       </div>
     </div>

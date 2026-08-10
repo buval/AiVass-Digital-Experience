@@ -21,6 +21,7 @@ import Individuals from '@/pages/solutions/individuals';
 import Businesses from '@/pages/solutions/businesses';
 import Organizations from '@/pages/solutions/organizations';
 import Guides from '@/pages/guides';
+import GuideDetail from '@/pages/guides/guide-detail';
 import Insights from '@/pages/insights';
 import Articles from '@/pages/articles';
 import ArticleDetail from '@/pages/article-detail';
@@ -30,7 +31,13 @@ import Legal from '@/pages/legal';
 import Privacy from '@/pages/privacy';
 import OrderSuccess from '@/pages/order-success';
 import OrderCancel from '@/pages/order-cancel';
-import { HowItWorksRedirect, OnboardingRedirect, ShopRedirect, BlogRedirect } from '@/pages/redirects';
+import {
+  HowItWorksRedirect,
+  OnboardingRedirect,
+  ShopRedirect,
+  BlogRedirect,
+  ArticleRedirect,
+} from '@/pages/redirects';
 
 const queryClient = new QueryClient();
 
@@ -56,12 +63,20 @@ function Router() {
           <Route path="/solutions/businesses" component={Businesses} />
           <Route path="/solutions/organizations" component={Organizations} />
 
+          {/* Guides — storefront + detail pages */}
           <Route path="/guides" component={Guides} />
+          <Route path="/guides/:slug" component={GuideDetail} />
+
+          {/* Insights hub */}
           <Route path="/insights" component={Insights} />
 
-          <Route path="/articles" component={Articles} />
-          <Route path="/articles/:slug" component={ArticleDetail} />
+          {/* Articles — canonical at /insights/articles/:slug */}
           <Route path="/insights/articles" component={Articles} />
+          <Route path="/insights/articles/:slug" component={ArticleDetail} />
+
+          {/* Legacy /articles — redirects to canonical /insights/articles paths */}
+          <Route path="/articles" component={Articles} />
+          <Route path="/articles/:slug" component={ArticleRedirect} />
 
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
@@ -90,10 +105,6 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
 }
 
 function App() {
-  // Initialize GA4 once on app mount.
-  // Consent defaults are already set by the inline script in index.html;
-  // the analytics module only loads the gtag.js script when
-  // VITE_GA_MEASUREMENT_ID is set to a valid G-XXXXXXXXXX value.
   useEffect(() => {
     initGA();
   }, []);

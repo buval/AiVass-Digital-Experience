@@ -1,73 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core pages -->
+  <url><loc>https://aivass.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://aivass.com/solutions</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aivass.com/solutions/individuals</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aivass.com/solutions/businesses</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aivass.com/solutions/organizations</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Guides — storefront + individual guide detail pages -->
+  <url><loc>https://aivass.com/guides</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aivass.com/guides/eb1a-master</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aivass.com/guides/eb1a-business</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aivass.com/guides/eb1a-arts</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aivass.com/guides/eb1a-athletics</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aivass.com/guides/eb1a-education</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aivass.com/guides/eb1a-science</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Insights hub + canonical article URLs -->
+  <url><loc>https://aivass.com/insights</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://aivass.com/insights/articles</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url>
-    <loc>https://aivass.com/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/solutions</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/solutions/individuals</loc>
+    <loc>https://aivass.com/insights/articles/from-surviving-to-thriving</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-08-05</lastmod>
   </url>
   <url>
-    <loc>https://aivass.com/solutions/businesses</loc>
+    <loc>https://aivass.com/insights/articles/eb1a-critical-role-criterion</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>2026-02-27</lastmod>
   </url>
-  <url>
-    <loc>https://aivass.com/solutions/organizations</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/guides</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/insights</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/articles</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/articles/from-surviving-to-thriving</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/articles/eb1a-critical-role-criterion</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/legal</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://aivass.com/privacy</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+
+  <!-- Other pages -->
+  <url><loc>https://aivass.com/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://aivass.com/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://aivass.com/legal</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://aivass.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
 </urlset>

@@ -1,9 +1,7 @@
 // Real AiVass articles — sourced from /api/posts on the live site (2026-08-10)
-// Two articles currently published. Article body content must be fetched from the live API or CMS.
-// TODO: Fetch full article body content from API or owner-supplied source before launch.
-// Current URLs: aivass.com/blog/${slug} → new URL: aivass.com/articles/${slug}
-// Redirect required: /blog/from-surviving-to-thriving → /articles/from-surviving-to-thriving
-// Redirect required: /blog/eb1a-critical-role-criterion → /articles/eb1a-critical-role-criterion
+// Full body content migrated 2026-08-10; source: https://aivass.com/api/posts/{slug}
+// Canonical URL: https://aivass.com/insights/articles/{slug}
+// Old /blog/{slug} URLs redirect to /insights/articles/{slug}
 
 export interface Article {
   id: string;
@@ -21,7 +19,11 @@ export interface Article {
   readingTime: number;
   featured: boolean;
   coverImage: string | null;
-  // body: string — full HTML body not yet migrated; owner must supply or connect to API
+  heroImage: string | null;         // hero image filename from public/images/
+  heroAlt: string;                  // descriptive alt text for the hero image
+  relatedGuides: string[];          // guide slugs shown at end of article
+  relatedArticles: string[];        // article slugs shown as related
+  hasToc: boolean;                  // show table of contents (long articles)
 }
 
 export const ARTICLES: Article[] = [
@@ -43,6 +45,11 @@ export const ARTICLES: Article[] = [
     readingTime: 9,
     featured: true,
     coverImage: null,
+    heroImage: "article-hero-surviving-to-thriving.jpg",
+    heroAlt: "Light entering through a tall doorway into a serene garden — a visual metaphor for transformation and becoming",
+    relatedGuides: ["eb1a-master"],
+    relatedArticles: ["eb1a-critical-role-criterion"],
+    hasToc: false,
   },
   {
     id: "eb1a-critical-role-criterion",
@@ -62,5 +69,10 @@ export const ARTICLES: Article[] = [
     readingTime: 18,
     featured: true,
     coverImage: null,
+    heroImage: "article-hero-eb1a-criterion-8.jpg",
+    heroAlt: "Research documents and fountain pen on a refined desk — representing the precision required for EB-1A petition evidence",
+    relatedGuides: ["eb1a-master", "eb1a-science"],
+    relatedArticles: ["from-surviving-to-thriving"],
+    hasToc: true,
   },
 ];
