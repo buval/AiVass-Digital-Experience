@@ -119,7 +119,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Art column — editorial human portrait */}
+          {/* Art column — lighthouse beacon */}
           <div
             className="mt-7 md:mt-0 relative"
             data-reveal="fade"
@@ -127,13 +127,13 @@ export default function Home() {
           >
             <div className="relative h-[55vh] md:h-[88vh] overflow-hidden">
               <img
-                src={`${import.meta.env.BASE_URL}images/editorial-hero-human.jpg`}
-                alt="A professional in a moment of quiet authority and focused clarity"
-                className="w-full h-full object-cover object-[center_20%]"
+                src={`${import.meta.env.BASE_URL}images/hero-lighthouse.jpg`}
+                alt="A lighthouse beacon cutting through the dark — a symbol of hope, guidance and clarity"
+                className="w-full h-full object-cover object-[center_40%]"
               />
-              {/* Fade left edge into text column, fade bottom to next section */}
+              {/* Fade left edge into cream text column, soft bottom fade */}
               <div className="absolute inset-0 pointer-events-none" style={{
-                background: "linear-gradient(to right, rgba(247,243,233,0.45) 0%, transparent 28%), linear-gradient(to bottom, transparent 72%, rgba(247,243,233,0.35) 100%)"
+                background: "linear-gradient(to right, rgba(247,243,233,0.55) 0%, rgba(247,243,233,0.1) 22%, transparent 40%), linear-gradient(to bottom, transparent 65%, rgba(247,243,233,0.45) 100%)"
               }} />
             </div>
           </div>
