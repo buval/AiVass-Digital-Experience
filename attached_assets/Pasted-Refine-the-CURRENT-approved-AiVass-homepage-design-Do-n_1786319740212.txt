@@ -1,0 +1,617 @@
+Refine the CURRENT approved AiVass homepage design. Do not replace the visual direction.
+
+KEEP:
+- Concept B Architectural Transformation as the dominant design language
+- subtle convergence/orbital geometry from Concept A
+- Purpose · Proof · Permanence framework from Concept C
+- the existing premium Guides visual treatment
+- cream / navy / restrained oxblood palette
+- architectural space, horizons, natural light, editorial typography
+- the T1 Triad as the master AiVass symbol
+
+This is an INFORMATION ARCHITECTURE + COPY REFINEMENT round.
+
+Do not build code yet.
+
+--------------------------------------------------
+MASTER POSITIONING
+--------------------------------------------------
+
+AiVass is a boutique technology-enabled transformation studio.
+
+Master tagline:
+BUILDING EXTRAORDINARY FUTURES
+
+Operating philosophy:
+Automation with Soul.
+
+AiVass is NOT fundamentally an immigration company.
+
+The master brand must be broad enough to expand over time into:
+- intelligent automation
+- technology-enabled transformation
+- professional services
+- hospitality
+- sports & wellness
+- other future industries
+
+However, DO NOT advertise all of these future ambitions prominently now.
+
+The public website should feel focused on what AiVass offers TODAY while the underlying design architecture remains expandable.
+
+--------------------------------------------------
+SIMPLE TOP-LEVEL ARCHITECTURE
+--------------------------------------------------
+
+Navigation:
+
+Solutions
+Guides
+Insights
+About
+Contact
+
+Primary CTA:
+Start a Conversation
+
+Secondary partnership CTA where relevant:
+Discuss a Partnership
+
+SOLUTIONS should contain only:
+
+For Individuals
+For Businesses
+For Organizations
+
+Do NOT create additional top-level audience categories.
+
+--------------------------------------------------
+PURPOSE · PROOF · PERMANENCE
+--------------------------------------------------
+
+Keep this framework.
+
+Define it precisely:
+
+PURPOSE
+Why are we transforming?
+What future are we building?
+
+PROOF
+How do we know the transformation is real?
+What evidence demonstrates progress and value?
+
+PERMANENCE
+What remains after the transformation?
+
+IMPORTANT:
+Permanence does NOT mean guaranteeing permanent outcomes or unchanging circumstances.
+
+It means designing transformation so that capability, knowledge, systems, evidence, ownership and value remain after the intervention ends.
+
+Preferred short definition:
+
+PERMANENCE
+Designing transformation so capability, knowledge and value remain after the intervention ends.
+
+Do not use claims such as:
+- permanent results
+- guaranteed lasting outcomes
+- results forever
+
+--------------------------------------------------
+FOR INDIVIDUALS
+--------------------------------------------------
+
+The current primary commercial vertical is extraordinary ability and profile-driven global mobility.
+
+Do NOT position AiVass as a law firm.
+
+The individual journey should be visually simple:
+
+EXPLORE
+→ ASSESS
+→ RECEIVE YOUR PATHWAY
+
+There are three layers.
+
+LAYER 1 — GUIDES
+
+Self-directed digital products.
+
+At launch there are ONLY five actual guides.
+
+All five currently belong to:
+
+EXTRAORDINARY ABILITY
+
+Do not invent guide titles, prices or products.
+Use placeholders for the five real guide covers until assets are uploaded.
+
+Create a category architecture that can expand later.
+
+Show subtly:
+
+EXTRAORDINARY ABILITY
+Available now · 5 guides
+
+CAREER & EVIDENCE
+Coming next
+
+Future Career & Evidence subject areas may include:
+- finding direction and passion
+- career identity
+- strengths and differentiation
+- evidence of impact
+- professional positioning
+- reinvention / next chapter
+
+Do not describe these as therapy or psychological treatment.
+
+They are future self-discovery, professional-development and career-development guides.
+
+Later the Guides architecture may support other collections, but do not show fake products today.
+
+GUIDES ARE PAID DIGITAL PRODUCTS.
+
+Keep Guides visually distinct from free Insights.
+
+--------------------------------------------------
+LAYER 2 — STRATEGIC PROFILE ASSESSMENT
+--------------------------------------------------
+
+This is the gateway to all premium individual programs.
+
+IMPORTANT:
+AiVass does NOT offer free discovery calls.
+
+Do not use:
+Free Consultation
+Free Discovery Call
+Book a Free Call
+Let's Chat
+
+Preferred public language:
+
+STRATEGIC PROFILE ASSESSMENT
+
+Supporting copy:
+
+A private assessment of your current profile, evidence, readiness, gaps and potential pathway.
+
+The assessment flow should eventually support:
+
+1. Submit / upload CV or résumé
+2. Complete a short profile questionnaire
+3. Enter the existing paid booking flow
+4. Select a calendar time
+
+IMPORTANT:
+DO NOT DISPLAY THE ASSESSMENT PRICE anywhere on the public website.
+
+The existing booking/payment/calendar flow already works and will be preserved and audited during Build.
+
+Do not redesign or replace it during Design.
+
+CTA:
+
+Assess Your Profile
+
+or
+
+Book a Strategic Assessment
+
+Do NOT show a price beside the CTA.
+
+--------------------------------------------------
+LAYER 3 — PREMIUM PATHWAYS
+--------------------------------------------------
+
+After the Strategic Profile Assessment, AiVass determines whether the person is a fit and which pathway is appropriate.
+
+The CLIENT DOES NOT self-select the premium program.
+
+Possible outcomes include:
+
+- continue self-directed preparation
+- not ready yet
+- AiVass is not the appropriate fit
+- RISE
+- SHINE
+- SIGNATURE
+
+Create three elegant premium-program introductions:
+
+AIVASS RISE
+
+Positioning:
+An accelerated, intensive pathway for profiles that are already strong and ready to move quickly.
+
+Internally this is a shorter high-intensity engagement.
+
+DO NOT publish:
+duration
+session frequency
+price
+
+CTA:
+Start with an Assessment
+
+AIVASS SHINE
+
+Positioning:
+A structured premium pathway for extraordinary-ability candidates who need deeper evidence architecture, strategic sequencing, structure, coaching and accountability.
+
+Use the BOOK glyph for SHINE.
+
+Do NOT publish:
+duration
+number of sessions
+price
+
+CTA:
+Start with an Assessment
+
+AIVASS SIGNATURE
+
+Positioning:
+A bespoke, long-horizon engagement for complex or highly individualized profiles requiring a custom transformation architecture.
+
+Do NOT publish:
+duration
+price
+
+CTA:
+Start with an Assessment
+
+IMPORTANT:
+Do not design RISE / SHINE / SIGNATURE as Bronze / Silver / Gold pricing tiers.
+
+Do not add comparison pricing tables.
+
+Do not use Buy Now or Enroll Now.
+
+They are selective premium engagements entered only after assessment.
+
+--------------------------------------------------
+GLOBAL MOBILITY / FUTURE PATHWAYS
+--------------------------------------------------
+
+EB-1A is the current primary pathway.
+
+The information architecture must remain expandable later for additional profile-driven pathways such as:
+- EB-2 NIW
+- O-1
+- other future pathways
+
+Do not make these prominent homepage offers today unless real products/services are supplied.
+
+The long-term intellectual concept is:
+
+Build the profile.
+Understand the evidence.
+Choose the right pathway.
+
+--------------------------------------------------
+STUDENTS / EARLY CAREER
+--------------------------------------------------
+
+Do NOT create Students as a fourth top-level audience.
+
+Students and early-career professionals belong under Individuals.
+
+The future system should be able to support education around:
+
+BUILD YOUR EXTRAORDINARY PROFILE
+
+Examples:
+expertise
+evidence
+visibility
+leadership
+publications
+awards
+judging
+speaking
+measurable impact
+
+This can connect naturally with future RISE / Career & Evidence offerings.
+
+For now, keep this understated.
+
+--------------------------------------------------
+FOR BUSINESSES
+--------------------------------------------------
+
+Keep this broad and technology-centered.
+
+AiVass may support:
+- intelligent business systems
+- automation
+- positioning / GTM
+- transformation
+- operating architecture
+- professional-service businesses
+- future methodology licensing
+
+Do not overpopulate the homepage with all services.
+
+Use a concise transformation story.
+
+Include a secondary pathway:
+
+DISCUSS A PARTNERSHIP
+
+This can eventually support:
+- professional practices
+- boutique law firms
+- licensing
+- collaborations
+- custom implementation
+
+Do NOT show public licensing prices.
+
+--------------------------------------------------
+FOR ORGANIZATIONS
+--------------------------------------------------
+
+Keep this broad and enterprise-ready.
+
+Potential capabilities:
+
+- AI capability
+- transformation
+- workforce enablement
+- education and training
+- intelligent operating systems
+- program architecture
+- custom implementation
+- future enterprise methodology licensing
+
+Larger legal practices, universities, educational institutions and other institutions may belong here.
+
+Use:
+
+DISCUSS A PARTNERSHIP
+
+as a partnership / custom engagement CTA.
+
+Do not create a public licensing store.
+
+--------------------------------------------------
+LAWYERS / PROFESSIONAL PRACTICES
+--------------------------------------------------
+
+Do NOT create Lawyers as a top-level navigation item.
+
+Routing logic:
+
+solo attorney / boutique practice
+→ Businesses
+
+larger firm / institutional legal team
+→ Organizations
+
+Future offer:
+
+AiVass methodology licensing / professional-practice implementation
+
+Keep this as a future capability.
+
+At this stage publicly use:
+Discuss a Partnership
+
+Do NOT display licensing prices or detailed legal-commercial terms.
+
+--------------------------------------------------
+INSIGHTS
+--------------------------------------------------
+
+INSIGHTS = FREE intellectual content.
+
+Include:
+
+The Strategist
+Field Notes
+
+Headline:
+Ideas for building what comes next.
+
+Do not mix paid Guides into Insights.
+
+--------------------------------------------------
+HOMEPAGE STRUCTURE — FINAL
+--------------------------------------------------
+
+01 HERO
+AiVass
+BUILDING EXTRAORDINARY FUTURES
+Automation with Soul.
+
+Architectural / converging Triad experience.
+
+02 ONE HOUSE. THREE PATHS
+
+Individuals
+Businesses
+Organizations
+
+Connected through the Triad.
+No generic three-card layout.
+
+03 AUTOMATION WITH SOUL
+
+The future should become more intelligent without becoming less human.
+
+04 PURPOSE · PROOF · PERMANENCE
+
+Use the revised Permanence definition above.
+
+05 FOR INDIVIDUALS
+
+Show the journey:
+
+Explore
+Guides
+
+↓
+
+Assess
+Strategic Profile Assessment
+
+↓
+
+Receive Your Pathway
+RISE / SHINE / SIGNATURE where appropriate
+
+Make it clear that the pathway is recommended by AiVass after assessment.
+
+06 FOR BUSINESSES
+
+Technology-enabled transformation.
+
+Secondary CTA:
+Discuss a Partnership
+
+07 FOR ORGANIZATIONS
+
+Capability and intelligent transformation.
+
+Secondary CTA:
+Discuss a Partnership
+
+08 GUIDES FOR EXTRAORDINARY FUTURES
+
+KEEP the beautiful premium publishing-house visual direction from the current design.
+
+At launch show:
+
+Extraordinary Ability
+5 guides
+
+Then a restrained teaser:
+
+Career & Evidence
+Coming next
+
+No fake product titles.
+No fake pricing.
+
+CTA:
+Explore Guides
+
+09 INSIGHTS
+
+The Strategist / Field Notes
+
+Free editorial content.
+
+10 FOUNDER
+
+Sophisticated, concise, credible.
+
+11 FINAL CTA
+
+What future are you building?
+
+For myself
+For my business
+For my organization
+
+12 FOOTER
+
+Solutions
+Guides
+Insights
+About
+Contact
+Legal
+Privacy
+
+Add:
+Discuss a Partnership
+
+where appropriate.
+
+--------------------------------------------------
+LEGAL / POSITIONING BOUNDARY
+--------------------------------------------------
+
+For extraordinary-ability and immigration-related material:
+
+AiVass provides strategic, educational, organizational, coaching and project-management support.
+
+Do not portray AiVass as:
+- a law firm
+- legal counsel
+- legal representation
+- guaranteeing immigration eligibility
+- guaranteeing approval
+
+Preserve space for an appropriate non-legal-services disclosure on relevant pages.
+
+--------------------------------------------------
+PRICING RULE — CRITICAL
+--------------------------------------------------
+
+DO NOT DISPLAY PUBLIC PRICES for:
+
+Strategic Profile Assessment
+RISE
+SHINE
+SIGNATURE
+custom consulting
+partnerships
+licensing
+
+Pricing and eligibility are handled inside the appropriate booking / assessment / proposal process.
+
+Do not create:
+pricing tables
+starting-at prices
+package comparisons
+promotional discounts
+
+--------------------------------------------------
+DESIGN DIRECTION
+--------------------------------------------------
+
+Keep the current premium visual system.
+
+Do NOT start over.
+
+Maintain:
+- cream architectural environments
+- subtle horizon imagery
+- elegant editorial serif
+- contemporary functional sans
+- navy hierarchy
+- oxblood details
+- T1 Triad geometry
+- thin construction/orbital lines
+- sophisticated negative space
+- subtle motion indications
+- human warmth
+
+NO GOLD.
+
+Avoid visual clutter.
+
+The brand should feel broad enough to become a major technology-enabled transformation company, while the current offers remain focused and credible.
+
+--------------------------------------------------
+OUTPUT FOR THIS ROUND
+--------------------------------------------------
+
+Update ONLY the current approved design with:
+
+1. revised full desktop homepage
+2. revised mobile homepage
+3. detailed Individuals journey close-up
+4. revised Guides section close-up
+5. Strategic Profile Assessment CTA / entry-flow concept
+6. Business / Organization partnership CTA treatment
+
+Do not build code.
+Do not create full secondary pages yet.
+Do not modify existing checkout, booking, calendar or payment infrastructure.

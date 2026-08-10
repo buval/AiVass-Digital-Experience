@@ -1,0 +1,3 @@
+import "./_group.css";
+export function PartnershipCTA(){return <section className="af af-section af-business"><div className="wrap"><div className="eyebrow">For businesses · For organizations</div><h2>Build the capability<br/><span>behind the work.</span></h2><p className="af-lede">AiVass partners with teams ready to turn ambition into intelligent systems, stronger capability and a more coherent way of working.</p><a className="btn" style={{color:"var(--c)",borderColor:"var(--ol)",marginTop:30}} href="#partnership">Discuss a Partnership</a></div></section>}
+export default PartnershipCTA;
