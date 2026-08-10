@@ -509,7 +509,7 @@ export default function Home() {
         <img
           src={`${import.meta.env.BASE_URL}images/editorial-strip-home.jpg`}
           alt="A professional at the threshold of an extraordinary future"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-[center_15%]"
         />
         {/* Deep navy gradient anchors the quote at bottom */}
         <div className="absolute inset-0 pointer-events-none" style={{
