@@ -38,6 +38,16 @@ export default function Individuals() {
         </div>
       </section>
 
+      {/* EDITORIAL IMAGE */}
+      <div className="relative w-full h-[45vh] md:h-[58vh] overflow-hidden">
+        <img
+          src={`${import.meta.env.BASE_URL}images/editorial-individuals.jpg`}
+          alt="A professional in focused determination, building their extraordinary future"
+          className="w-full h-full object-cover object-[center_25%]"
+        />
+        <div className="absolute inset-0 bg-navy/10 pointer-events-none" />
+      </div>
+
       {/* SECTION B: THREE-STEP JOURNEY */}
       <section className="bg-paper py-[80px] border-t border-navy/10">
         <div className="wrap">

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
-import { TriadHero } from "@/components/brand/TriadHero";
 import { GUIDES } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
@@ -118,13 +117,23 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Art column — atmospheric panel */}
+          {/* Art column — editorial human portrait */}
           <div
             className="mt-7 md:mt-0 relative"
             data-reveal="fade"
             style={{ transitionDelay: "100ms" }}
           >
-            <TriadHero />
+            <div className="relative h-[55vh] md:h-[88vh] overflow-hidden">
+              <img
+                src={`${import.meta.env.BASE_URL}images/editorial-hero-human.jpg`}
+                alt="A professional in a moment of quiet authority and focused clarity"
+                className="w-full h-full object-cover object-[center_20%]"
+              />
+              {/* Fade left edge into text column, fade bottom to next section */}
+              <div className="absolute inset-0 pointer-events-none" style={{
+                background: "linear-gradient(to right, rgba(247,243,233,0.45) 0%, transparent 28%), linear-gradient(to bottom, transparent 72%, rgba(247,243,233,0.35) 100%)"
+              }} />
+            </div>
           </div>
         </div>
 
@@ -451,7 +460,7 @@ export default function Home() {
             workflows and technology-enabled transformation.
           </p>
           <div data-reveal style={{ transitionDelay: "240ms" }}>
-            <a href="mailto:contact@aivass.com" className="btn-outline-light mt-8">Discuss a Partnership</a>
+            <a href="mailto:connect@aivass.com" className="btn-outline-light mt-8">Discuss a Partnership</a>
           </div>
         </div>
       </section>
@@ -488,10 +497,31 @@ export default function Home() {
             intelligent operating systems, program architecture, GTM/revenue enablement.
           </p>
           <div data-reveal style={{ transitionDelay: "240ms" }}>
-            <a href="mailto:contact@aivass.com" className="btn mt-8">Discuss a Partnership</a>
+            <a href="mailto:connect@aivass.com" className="btn mt-8">Discuss a Partnership</a>
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          07B  EDITORIAL HUMAN STRIP — full-bleed cinematic break
+      ═══════════════════════════════════════════════════════ */}
+      <div className="relative w-full h-[52vh] md:h-[68vh] overflow-hidden" data-reveal="fade">
+        <img
+          src={`${import.meta.env.BASE_URL}images/editorial-strip-home.jpg`}
+          alt="A professional at the threshold of an extraordinary future"
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Deep navy gradient anchors the quote at bottom */}
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: "linear-gradient(to bottom, transparent 35%, rgba(18,35,63,0.75) 100%)"
+        }} />
+        <div className="absolute bottom-0 left-0 right-0 wrap pb-10 md:pb-14">
+          <p className="font-serif italic text-cream text-[22px] md:text-[34px] tracking-[-0.03em] max-w-[640px] leading-[1.2]">
+            "Extraordinary ability<br />
+            <span className="text-ox-light">is built, not declared."</span>
+          </p>
+        </div>
+      </div>
 
       {/* ═══════════════════════════════════════════════════════
           08  GUIDES FOR EXTRAORDINARY FUTURES — editorial cards

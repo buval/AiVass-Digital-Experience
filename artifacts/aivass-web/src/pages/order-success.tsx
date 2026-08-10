@@ -16,7 +16,7 @@ export default function OrderSuccess() {
           Explore More Guides →
         </Link>
         <p className="text-[12px] text-ox-light/70 tracking-[0.05em]">
-          Didn't receive an email? Contact <a href="mailto:contact@aivass.com" className="underline hover:text-cream">contact@aivass.com</a>
+          Didn't receive an email? Contact <a href="mailto:connect@aivass.com" className="underline hover:text-cream">connect@aivass.com</a>
         </p>
       </div>
     </div>

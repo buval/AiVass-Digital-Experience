@@ -40,7 +40,7 @@ export default function Contact() {
             <p className="text-[13px] text-grey mb-8 max-w-[300px]">
               For businesses and organizations requiring strategic enablement or system architecture.
             </p>
-            <a href="mailto:contact@aivass.com" className="btn-outline w-full md:w-auto" onClick={() => trackDiscussPartnership("contact-page")}>
+            <a href="mailto:connect@aivass.com" className="btn-outline w-full md:w-auto" onClick={() => trackDiscussPartnership("contact-page")}>
               Email Our Team
             </a>
             {/* // TODO: Update with real contact email or form link */}

@@ -30,6 +30,16 @@ export default function Businesses() {
         </div>
       </section>
 
+      {/* EDITORIAL IMAGE */}
+      <div className="relative w-full h-[45vh] md:h-[58vh] overflow-hidden">
+        <img
+          src={`${import.meta.env.BASE_URL}images/editorial-businesses.jpg`}
+          alt="A business leader in a moment of strategic clarity and authority"
+          className="w-full h-full object-cover object-[center_30%]"
+        />
+        <div className="absolute inset-0 bg-navy/20 pointer-events-none" />
+      </div>
+
       {/* CONTENT AREAS */}
       <section className="bg-cream py-[100px]">
         <div className="wrap grid grid-cols-1 md:grid-cols-2 gap-[60px] md:gap-[10vw]">
@@ -56,7 +66,7 @@ export default function Businesses() {
             <p className="text-[14px] text-navy-mid leading-[1.65] mb-10 max-w-[450px]">
               We work with visionary operators to transition out of manual scaling and into strategic architecture.
             </p>
-            <a href="mailto:contact@aivass.com" className="btn-fill w-max" onClick={() => trackDiscussPartnership("businesses-page")}>
+            <a href="mailto:connect@aivass.com" className="btn-fill w-max" onClick={() => trackDiscussPartnership("businesses-page")}>
               Discuss a Partnership
             </a>
             {/* // TODO: Connect to booking/contact flow */}

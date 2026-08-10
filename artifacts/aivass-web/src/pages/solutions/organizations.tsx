@@ -30,6 +30,16 @@ export default function Organizations() {
         </div>
       </section>
 
+      {/* EDITORIAL IMAGE */}
+      <div className="relative w-full h-[45vh] md:h-[58vh] overflow-hidden">
+        <img
+          src={`${import.meta.env.BASE_URL}images/editorial-organizations.jpg`}
+          alt="Accomplished professionals in a moment of collective purpose and excellence"
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-navy/15 pointer-events-none" />
+      </div>
+
       {/* CONTENT AREAS */}
       <section className="bg-cream py-[100px]">
         <div className="wrap grid grid-cols-1 md:grid-cols-2 gap-[60px] md:gap-[10vw]">
@@ -40,7 +50,7 @@ export default function Organizations() {
             <p className="text-[14px] text-navy-mid leading-[1.65] mb-10 max-w-[450px]">
               Technology alone is not transformation. We provide the educational architecture, operating systems and strategic alignment necessary for teams to adopt new capabilities at scale.
             </p>
-            <a href="mailto:contact@aivass.com" className="btn-fill w-max" onClick={() => trackDiscussPartnership("organizations-page")}>
+            <a href="mailto:connect@aivass.com" className="btn-fill w-max" onClick={() => trackDiscussPartnership("organizations-page")}>
               Discuss a Partnership
             </a>
             {/* // TODO: Connect to booking/contact flow */}
