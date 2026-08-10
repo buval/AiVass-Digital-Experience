@@ -114,7 +114,7 @@ export default function OrderSuccess() {
         {state.status === "done" && (
           <>
             <h1 className="text-[40px] md:text-[60px] font-serif leading-none tracking-[-0.05em] mb-6">
-              Your guide is ready.
+              {state.items.length > 1 ? "Your guides are ready." : "Your guide is ready."}
             </h1>
             <div className="space-y-3 mb-8 w-full text-left border border-cream/10 p-6">
               {state.items.map((item) => (
