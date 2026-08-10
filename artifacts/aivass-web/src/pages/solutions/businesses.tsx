@@ -35,7 +35,7 @@ export default function Businesses() {
         <img
           src={`${import.meta.env.BASE_URL}images/editorial-businesses.jpg`}
           alt="A business leader in a moment of strategic clarity and authority"
-          className="w-full h-full object-cover object-[center_30%]"
+          className="w-full h-full object-cover object-[center_12%]"
         />
         <div className="absolute inset-0 bg-navy/20 pointer-events-none" />
       </div>

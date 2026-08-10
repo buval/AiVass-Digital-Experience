@@ -1,4 +1,5 @@
 - [Hero image & design](hero-design.md) — arch/olive/Mediterranean image (`hero-arch-a.jpg`), panoramic gradient blend, no dark box
 - [Download fulfillment system](download-fulfillment.md) — Stripe product IDs → slugs, instant download on order-success page, 3-attempt tokens
 - [Object storage upload pattern](object-storage-upload.md) — must run from api-server dir with sidecar credentials, not root workspace
+- [Never crop faces](image-crop-rule.md) — editorial images with people must keep the full face visible at all viewport heights; user's permanent rule
 - [Guide fulfillment system](guide-fulfillment.md) — Stripe webhook→token→Resend email→PDF stream; Stripe Payment Link metadata must be set manually per-link in dashboard.
