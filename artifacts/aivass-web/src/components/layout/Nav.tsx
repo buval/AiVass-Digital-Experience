@@ -35,7 +35,7 @@ export function Nav() {
           <Link href="/guides" className="whitespace-nowrap hover:text-oxblood transition-colors" onClick={() => setIsOpen(false)}>Guides</Link>
           <Link href="/insights" className="whitespace-nowrap hover:text-oxblood transition-colors" onClick={() => setIsOpen(false)}>Insights</Link>
           <Link href="/about" className="whitespace-nowrap hover:text-oxblood transition-colors" onClick={() => setIsOpen(false)}>About</Link>
-          <Link href="/contact" className="whitespace-nowrap hover:text-oxblood transition-colors" onClick={() => setIsOpen(false)}>Contact</Link>
+          <Link href="/contact" className="whitespace-nowrap hover:text-oxblood transition-colors" onClick={() => setIsOpen(false)}>Connect</Link>
 
           <Link
             href="/contact"

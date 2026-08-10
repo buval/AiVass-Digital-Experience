@@ -49,7 +49,7 @@ export function Footer() {
           <Link href="/guides" className="hover:text-ox-light transition-colors">Guides</Link>
           <Link href="/insights" className="hover:text-ox-light transition-colors">Insights</Link>
           <Link href="/about" className="hover:text-ox-light transition-colors">About</Link>
-          <Link href="/contact" className="hover:text-ox-light transition-colors">Contact</Link>
+          <Link href="/contact" className="hover:text-ox-light transition-colors">Connect</Link>
           <Link href="/contact" className="hover:text-ox-light transition-colors">Discuss a Partnership</Link>
           <Link href="/legal" className="hover:text-ox-light transition-colors" onClick={() => window.scrollTo(0, 0)}>Legal</Link>
           <Link href="/privacy" className="hover:text-ox-light transition-colors" onClick={() => window.scrollTo(0, 0)}>Privacy</Link>
