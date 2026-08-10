@@ -85,15 +85,6 @@ export default function Guides() {
 
                 <div className="flex gap-3">
                   <a
-                    href={guideSampleUrl(guide.slug)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline flex-1 !px-2 text-center"
-                    onClick={() => trackGuideSampleClick(guide.slug)}
-                  >
-                    Free Sample ↗
-                  </a>
-                  <a
                     href={guideCheckoutUrl(guide.slug)}
                     target="_blank"
                     rel="noopener noreferrer"

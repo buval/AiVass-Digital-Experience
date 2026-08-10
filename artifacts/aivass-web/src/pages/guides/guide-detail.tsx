@@ -175,17 +175,7 @@ export default function GuideDetail() {
                 >
                   Purchase →
                 </a>
-                {guide.sampleSlug && (
-                  <a
-                    href={guideSampleUrl(guide.slug)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-outline !border-cream/40 !text-cream hover:!border-cream w-full text-center block"
-                    onClick={() => trackGuideSampleClick(guide.slug)}
-                  >
-                    View Free Sample ↗
-                  </a>
-                )}
+                {/* Free sample button restored once PDFs are in /public/samples/ and download system is live */}
               </div>
 
               <p className="text-[10px] text-cream/40 leading-[1.5] mt-6">
