@@ -395,14 +395,13 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
           05  FOR INDIVIDUALS — explore / assess / pathway
       ═══════════════════════════════════════════════════════ */}
-      <section className="py-[85px] md:py-[130px] relative overflow-hidden">
-        {/* Subtle warm bloom — top right */}
+      <section className="py-[60px] md:py-[85px] relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(217,163,155,0.07) 0%, transparent 50%)" }} />
+          style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(217,163,155,0.06) 0%, transparent 50%)" }} />
         <div className="wrap relative z-10">
-          <div className="eyebrow mb-5" data-reveal>05 · For individuals</div>
+          <div className="eyebrow mb-4" data-reveal>05 · For individuals</div>
           <h2
-            className="text-[40px] md:text-[clamp(40px,5vw,72px)] leading-[0.96] tracking-[-0.06em] mb-2"
+            className="text-[38px] md:text-[clamp(38px,5vw,68px)] leading-[0.96] tracking-[-0.06em] mb-[36px] md:mb-[44px]"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
@@ -410,75 +409,53 @@ export default function Home() {
             <span className="text-oxblood italic">Receive your pathway.</span>
           </h2>
 
-          {/* Three-step journey */}
-          <div className="relative mt-[52px] md:mt-[64px]">
-            {/* Connecting line — desktop only */}
-            <div
-              className="hidden md:block absolute pointer-events-none"
-              style={{
-                top: "18px",
-                left: "calc(16.7% + 12px)",
-                right: "calc(16.7% + 12px)",
-                height: "1px",
-                background: "linear-gradient(to right, rgba(126,48,51,0.35), rgba(126,48,51,0.18) 50%, rgba(126,48,51,0.35))",
-              }}
-            />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-[15px]">
-              {[
-                {
-                  step: "01", label: "EXPLORE",
-                  body: "Begin with paid self-directed Guides. Available now · 5 guides in Extraordinary Ability.",
-                  cta: <Link href="/guides" className="link-under text-oxblood inline-block">Explore Guides</Link>,
-                },
-                {
-                  step: "02", label: "ASSESS",
-                  body: "A private assessment of your current profile, evidence, readiness, gaps and potential pathway.",
-                  cta: <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block" onClick={() => trackAssessmentClick("home-assess-step")}>Assess Your Profile</a>,
-                },
-                {
-                  step: "03", label: "RECEIVE YOUR PATHWAY",
-                  body: "AiVass recommends the right pathway after assessment. You do not self-select.",
-                  cta: null,
-                },
-              ].map(({ step, label, body, cta }, i) => (
-                <div
-                  key={step}
-                  className="relative"
-                  data-reveal
-                  style={{ transitionDelay: `${i * 110}ms` }}
-                >
-                  {/* Step star-node */}
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="relative flex-shrink-0">
-                      <svg viewBox="0 0 36 36" className="w-[36px] h-[36px] text-oxblood" fill="currentColor">
-                        <path d="M18 2 L20.9 15.1 L34 18 L20.9 20.9 L18 34 L15.1 20.9 L2 18 L15.1 15.1Z" opacity="0.15"/>
-                        <path d="M18 6 L20.1 13.9 L28 16 L20.1 18.1 L18 26 L15.9 18.1 L8 16 L15.9 13.9Z" />
-                      </svg>
-                      <span
-                        className="absolute inset-0 flex items-center justify-center font-sans text-[9px] tracking-[0.05em] text-cream font-medium"
-                        style={{ lineHeight: 1 }}
-                      >{step}</span>
-                    </div>
-                    <span className="text-[10.5px] tracking-[0.14em] uppercase text-navy/60">{label}</span>
-                  </div>
-                  <div className="border-t border-navy/20 pt-[14px]">
-                    <p className="text-[13px] md:text-[14px] text-navy-mid leading-[1.65] mb-4">{body}</p>
-                    {cta}
-                  </div>
+          {/* Three-step roadmap — no connector line, clean milestone layout */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+            {[
+              {
+                step: "01", label: "EXPLORE",
+                body: "Begin with paid self-directed Guides. Available now · 5 guides in Extraordinary Ability.",
+                cta: <Link href="/guides" className="link-under text-oxblood inline-block text-[11px] tracking-[0.06em]">Explore Guides</Link>,
+              },
+              {
+                step: "02", label: "ASSESS",
+                body: "A private assessment of your current profile, evidence, readiness, gaps and potential pathway.",
+                cta: <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block text-[11px] tracking-[0.06em]" onClick={() => trackAssessmentClick("home-assess-step")}>Assess Your Profile</a>,
+              },
+              {
+                step: "03", label: "RECEIVE YOUR PATHWAY",
+                body: "AiVass recommends the right pathway after assessment. You do not self-select.",
+                cta: null,
+              },
+            ].map(({ step, label, body, cta }, i) => (
+              <div
+                key={step}
+                className={`pt-[18px] pb-[32px] md:pb-0 md:pr-[36px] ${i > 0 ? "border-t md:border-t-0 md:border-l border-navy/15 md:pl-[36px]" : ""}`}
+                data-reveal
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                {/* Step marker row */}
+                <div className="flex items-center gap-[10px] mb-[14px]">
+                  <svg viewBox="0 0 16 16" className="w-[14px] h-[14px] flex-shrink-0 text-oxblood" fill="currentColor">
+                    <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
+                  </svg>
+                  <span className="text-[9.5px] tracking-[0.16em] uppercase text-navy/55 font-medium">{step} · {label}</span>
                 </div>
-              ))}
-            </div>
+                {/* Content */}
+                <p className="text-[13px] md:text-[13.5px] text-navy-mid leading-[1.6] mb-[14px]">{body}</p>
+                {cta}
+              </div>
+            ))}
           </div>
 
           {/* Pathways — RISE / SHINE / SIGNATURE */}
-          <div className="mt-[60px] md:mt-[80px]">
-            {/* Eyebrow separator */}
-            <div className="flex items-center gap-4 mb-[40px]" data-reveal>
-              <div className="flex-1 h-[1px] bg-navy/12" />
-              <span className="eyebrow text-navy/40">Your pathway</span>
-              <div className="flex-1 h-[1px] bg-navy/12" />
+          <div className="mt-[40px] md:mt-[52px]">
+            <div className="flex items-center gap-4 mb-[28px]" data-reveal>
+              <div className="flex-1 h-px bg-navy/10" />
+              <span className="eyebrow text-navy/35 text-[9px]">Your pathway</span>
+              <div className="flex-1 h-px bg-navy/10" />
             </div>
-            <div className="flex flex-col md:flex-row flex-wrap gap-6 md:gap-0">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
               {[
                 ["AIVASS RISE", "An accelerated, intensive pathway for already-strong profiles ready to move quickly."],
                 ["AIVASS SHINE", "A structured premium pathway for extraordinary-ability candidates needing deeper evidence architecture, sequencing, coaching and accountability."],
@@ -486,21 +463,20 @@ export default function Home() {
               ].map(([title, desc], i) => (
                 <div
                   key={title}
-                  className={`flex-1 md:basis-[32%] pt-[22px] pb-[32px] ${i > 0 ? "md:pl-[40px] md:border-l border-navy/12" : ""}`}
+                  className={`pt-[18px] pb-[28px] md:pb-0 md:pr-[36px] ${i > 0 ? "border-t md:border-t-0 md:border-l border-navy/15 md:pl-[36px]" : ""}`}
                   data-reveal
-                  style={{ transitionDelay: `${i * 120}ms` }}
+                  style={{ transitionDelay: `${i * 110}ms` }}
                 >
-                  {/* Ox-light accent star */}
-                  <svg viewBox="0 0 14 14" className="w-[11px] h-[11px] mb-3 text-oxblood/50" fill="currentColor">
-                    <path d="M7 0 L8.4 5.6 L14 7 L8.4 8.4 L7 14 L5.6 8.4 L0 7 L5.6 5.6Z" />
+                  <svg viewBox="0 0 12 12" className="w-[10px] h-[10px] mb-[10px] text-oxblood/45" fill="currentColor">
+                    <path d="M6 0 L7.2 4.8 L12 6 L7.2 7.2 L6 12 L4.8 7.2 L0 6 L4.8 4.8Z" />
                   </svg>
-                  <b className="font-serif font-normal text-[22px] md:text-[28px] block mb-3 tracking-[-0.04em]">{title}</b>
-                  <p className="text-[12px] md:text-[13px] text-grey leading-[1.6] mb-4 h-auto md:min-h-[58px]">{desc}</p>
+                  <b className="font-serif font-normal text-[20px] md:text-[24px] block mb-[10px] tracking-[-0.03em]">{title}</b>
+                  <p className="text-[12px] md:text-[13px] text-grey leading-[1.6] mb-[12px]">{desc}</p>
                   <a
                     href={STRATEGIC_ASSESSMENT_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-under text-oxblood inline-block text-[11px] tracking-[0.06em]"
+                    className="link-under text-oxblood inline-block text-[10.5px] tracking-[0.08em]"
                     onClick={() => trackAssessmentClick(`home-pathway-${title?.toLowerCase().replace(/\s+/g, '-')}`)}
                   >
                     Start with an Assessment
