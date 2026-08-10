@@ -104,8 +104,8 @@ export default function About() {
               <div className="mt-6">
                 <p className="font-serif text-[18px] text-navy tracking-[-0.02em]">Maria Boukhval</p>
                 <p className="text-[11px] tracking-[0.18em] uppercase text-oxblood mt-1">Founder, AiVass</p>
-                <p className="font-serif italic text-navy/45 text-[13px] mt-3 leading-[1.5]">
-                  Energetic light that sparks<br />and guides the way.
+                <p className="font-serif italic text-navy/45 text-[13px] mt-3 leading-[1.55] max-w-[220px]">
+                  A clear mind. A warm heart.<br className="hidden md:block" /> A vision that builds what comes next.
                 </p>
               </div>
             </div>
