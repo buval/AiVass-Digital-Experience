@@ -1,7 +1,14 @@
 import { Link } from "wouter";
 import { ARTICLES } from "@/data/articles";
+import { useSeoMeta } from "@/lib/seo";
+import { trackInsightView } from "@/lib/analytics";
 
 export default function Insights() {
+  useSeoMeta({
+    title: "Insights — Ideas for Building What Comes Next",
+    description: "Free thought leadership from AiVass. Strategic frameworks, long-form articles, and field notes on transformation, capability architecture, and the intelligent future.",
+    canonical: "https://aivass.com/insights",
+  });
   return (
     <div className="bg-paper min-h-screen pt-[60px] pb-[100px]">
       <div className="wrap">
@@ -30,7 +37,7 @@ export default function Insights() {
             <p className="text-[13px] text-grey leading-[1.6] mb-5">
               Visual thought-leadership decks — strategic frameworks, architectural breakdowns and editorial perspectives for individuals and organizations navigating complex transformations.
             </p>
-            <span className="link-under text-oxblood inline-block cursor-pointer">Read Latest Issue</span>
+            <span className="link-under text-oxblood inline-block cursor-pointer" onClick={() => trackInsightView("the-strategist")}>Read Latest Issue</span>
             {/* // TODO: Connect to Strategist deck destination */}
           </article>
 
@@ -49,7 +56,7 @@ export default function Insights() {
             <p className="text-[13px] text-grey leading-[1.6] mb-5">
               Long-form, crawlable HTML editorial content — strategic analysis, capability frameworks and perspectives for organizations and individuals building extraordinary futures. Indexed for search and AI discovery.
             </p>
-            <Link href="/articles" className="link-under text-oxblood inline-block">Browse Articles</Link>
+            <Link href="/articles" className="link-under text-oxblood inline-block" onClick={() => trackInsightView("articles")}>Browse Articles</Link>
           </article>
 
           {/* FIELD NOTES */}
@@ -65,7 +72,7 @@ export default function Insights() {
             <p className="text-[13px] text-grey leading-[1.6] mb-5">
               Shorter observations, tactical lessons and emerging patterns from the edge of transformation — ideas worth capturing before they become conventional wisdom.
             </p>
-            <span className="link-under text-oxblood inline-block cursor-pointer">Explore Notes</span>
+            <span className="link-under text-oxblood inline-block cursor-pointer" onClick={() => trackInsightView("field-notes")}>Explore Notes</span>
             {/* // TODO: Connect to Field Notes destination */}
           </article>
         </div>

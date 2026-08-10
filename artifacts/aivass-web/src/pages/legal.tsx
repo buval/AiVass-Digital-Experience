@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useSeoMeta } from "@/lib/seo";
 
 const SECTIONS = [
   { id: "nature", num: "1", title: "Nature of AiVass Services" },
@@ -20,20 +20,12 @@ const SECTIONS = [
 ];
 
 export default function Legal() {
-  useEffect(() => {
-    // Canonical URL for production
-    let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = "canonical";
-      document.head.appendChild(link);
-    }
-    link.href = "https://aivass.com/legal";
-    document.title = "Legal, Terms of Use & Disclaimers — AiVass";
-    return () => {
-      document.title = "AiVass";
-    };
-  }, []);
+  useSeoMeta({
+    title: "Legal, Terms of Use & Disclaimers — AiVass",
+    description: "AiVass Terms of Use and Disclaimers. AiVass provides strategic, educational and coaching support — not legal advice or representation.",
+    canonical: "https://aivass.com/legal",
+    noIndex: true,
+  });
 
   return (
     <div className="bg-cream min-h-screen">

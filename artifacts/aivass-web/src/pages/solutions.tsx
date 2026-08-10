@@ -1,7 +1,13 @@
 import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
+import { useSeoMeta } from "@/lib/seo";
 
 export default function Solutions() {
+  useSeoMeta({
+    title: "Solutions — Individuals, Businesses & Organizations",
+    description: "One house, three transformation paths. AiVass works with individuals building extraordinary ability profiles, businesses scaling intelligently, and organizations deploying AI capability.",
+    canonical: "https://aivass.com/solutions",
+  });
   return (
     <div className="min-h-screen">
       {/* HEADER */}

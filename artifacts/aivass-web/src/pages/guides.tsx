@@ -1,7 +1,14 @@
 import { Link } from "wouter";
 import { GUIDES, guideCheckoutUrl, guideSampleUrl, BUNDLE, formatPrice } from "@/data/guides";
+import { useSeoMeta } from "@/lib/seo";
+import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics";
 
 export default function Guides() {
+  useSeoMeta({
+    title: "EB-1A Guides for Extraordinary Ability",
+    description: "Strategic guides for EB-1A extraordinary ability petitions. 6 field-specific guides plus a complete collection — written for self-petitioners, delivered instantly as PDF downloads.",
+    canonical: "https://aivass.com/guides",
+  });
   const individualGuides = GUIDES.filter(g => !g.isBundle);
 
   // Map slug to cover image based on prompt mapping
@@ -61,8 +68,8 @@ export default function Guides() {
                   <p className="text-[13px] text-navy-mid leading-[1.6] line-clamp-1">{guide.description}</p>
                 </div>
                 <div className="flex gap-3">
-                  <a href={guideSampleUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn-outline flex-1 !px-2">View Free Sample ↗</a>
-                  <a href={guideCheckoutUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn-fill flex-1 !px-2">Purchase →</a>
+                  <a href={guideSampleUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn-outline flex-1 !px-2" onClick={() => trackGuideSampleClick(guide.slug)}>View Free Sample ↗</a>
+                  <a href={guideCheckoutUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn-fill flex-1 !px-2" onClick={() => trackGuidePurchaseClick(guide.slug)}>Purchase →</a>
                   {/* // TODO: Migrate checkout to new build */}
                 </div>
               </article>
@@ -87,7 +94,7 @@ export default function Guides() {
           <div className="w-full md:w-auto bg-white/5 p-8 border border-white/10 flex flex-col items-center text-center shrink-0">
             <span className="text-[48px] font-serif leading-none mb-2">{formatPrice(BUNDLE.priceCents)}</span>
             <span className="text-[11px] tracking-[0.1em] text-ox-light uppercase mb-8">Save vs. buying individually</span>
-            <a href={guideCheckoutUrl(BUNDLE.slug)} target="_blank" rel="noopener noreferrer" className="btn-fill !bg-cream !text-navy hover:!bg-paper w-full">
+            <a href={guideCheckoutUrl(BUNDLE.slug)} target="_blank" rel="noopener noreferrer" className="btn-fill !bg-cream !text-navy hover:!bg-paper w-full" onClick={() => trackGuidePurchaseClick(BUNDLE.slug)}>
               Get the Complete Collection →
             </a>
             {/* // TODO: Migrate checkout to new build */}

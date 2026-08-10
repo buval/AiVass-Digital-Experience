@@ -1,24 +1,41 @@
 import { Link, useParams } from "wouter";
 import { useEffect } from "react";
 import { ARTICLES } from "@/data/articles";
+import { useSeoMeta } from "@/lib/seo";
 
 export default function ArticleDetail() {
   const params = useParams();
   const slug = params.slug;
   const article = ARTICLES.find((a) => a.slug === slug);
 
-  // Add JSON-LD Structured Data
+  // Per-article SEO meta
+  useSeoMeta(
+    article
+      ? {
+          title: `${article.title} — AiVass`,
+          description: article.metaDescription,
+          canonical: `https://aivass.com/articles/${article.slug}`,
+          ogType: "article",
+        }
+      : {
+          title: "Article not found — AiVass",
+          description: "The article you requested could not be found.",
+          canonical: "https://aivass.com/articles",
+        }
+  );
+
+  // Article + BreadcrumbList structured data
   useEffect(() => {
     if (!article) return;
-    
-    const structuredData = {
+
+    const articleLd = {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": article.title,
       "description": article.metaDescription,
       "author": {
         "@type": "Person",
-        "name": article.author
+        "name": article.author,
       },
       "datePublished": article.publishedAt,
       "dateModified": article.updatedAt,
@@ -27,18 +44,36 @@ export default function ArticleDetail() {
         "name": "AiVass",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://aivass.com/favicon.svg"
-        }
-      }
+          "url": "https://aivass.com/favicon.svg",
+        },
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://aivass.com/articles/${article.slug}`,
+      },
     };
 
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.text = JSON.stringify(structuredData);
-    document.head.appendChild(script);
+    const breadcrumbLd = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aivass.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://aivass.com/articles" },
+        { "@type": "ListItem", "position": 3, "name": article.title, "item": `https://aivass.com/articles/${article.slug}` },
+      ],
+    };
+
+    const scripts: HTMLScriptElement[] = [];
+    [articleLd, breadcrumbLd].forEach((ld) => {
+      const s = document.createElement("script");
+      s.type = "application/ld+json";
+      s.text = JSON.stringify(ld);
+      document.head.appendChild(s);
+      scripts.push(s);
+    });
 
     return () => {
-      document.head.removeChild(script);
+      scripts.forEach((s) => document.head.removeChild(s));
     };
   }, [article]);
 

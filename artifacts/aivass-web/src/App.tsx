@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -12,6 +12,9 @@ import {
 } from 'wouter';
 
 import { Shell } from '@/components/layout/Shell';
+import { ConsentBanner } from '@/components/consent/ConsentBanner';
+import { initGA, trackPageView } from '@/lib/analytics';
+
 import Home from '@/pages/home';
 import Solutions from '@/pages/solutions';
 import Individuals from '@/pages/solutions/individuals';
@@ -31,34 +34,44 @@ import { HowItWorksRedirect, OnboardingRedirect, ShopRedirect, BlogRedirect } fr
 
 const queryClient = new QueryClient();
 
+/** Tracks page_view on every Wouter route change. */
+function PageViewTracker() {
+  const [location] = useLocation();
+  useEffect(() => {
+    trackPageView(location);
+  }, [location]);
+  return null;
+}
+
 function Router() {
   return (
     <Shell>
+      <PageViewTracker />
       <RoutedErrorBoundary>
         <Switch>
           <Route path="/" component={Home} />
-          
+
           <Route path="/solutions" component={Solutions} />
           <Route path="/solutions/individuals" component={Individuals} />
           <Route path="/solutions/businesses" component={Businesses} />
           <Route path="/solutions/organizations" component={Organizations} />
-          
+
           <Route path="/guides" component={Guides} />
           <Route path="/insights" component={Insights} />
-          
+
           <Route path="/articles" component={Articles} />
           <Route path="/articles/:slug" component={ArticleDetail} />
           <Route path="/insights/articles" component={Articles} />
-          
+
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route path="/legal" component={Legal} />
           <Route path="/privacy" component={Privacy} />
-          
+
           <Route path="/order-success" component={OrderSuccess} />
           <Route path="/order-cancel" component={OrderCancel} />
-          
-          {/* Redirects */}
+
+          {/* Legacy redirects */}
           <Route path="/how-it-works" component={HowItWorksRedirect} />
           <Route path="/onboarding" component={OnboardingRedirect} />
           <Route path="/shop" component={ShopRedirect} />
@@ -77,6 +90,14 @@ function RoutedErrorBoundary({ children }: { children: ReactNode }) {
 }
 
 function App() {
+  // Initialize GA4 once on app mount.
+  // Consent defaults are already set by the inline script in index.html;
+  // the analytics module only loads the gtag.js script when
+  // VITE_GA_MEASUREMENT_ID is set to a valid G-XXXXXXXXXX value.
+  useEffect(() => {
+    initGA();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -84,6 +105,7 @@ function App() {
           <Router />
         </WouterRouter>
         <Toaster />
+        <ConsentBanner />
       </TooltipProvider>
     </QueryClientProvider>
   );

@@ -1,7 +1,13 @@
 import { Link } from "wouter";
 import { ARTICLES } from "@/data/articles";
+import { useSeoMeta } from "@/lib/seo";
 
 export default function Articles() {
+  useSeoMeta({
+    title: "Articles — Analysis & Strategy",
+    description: "Long-form strategic thinking on transformation, capability architecture, and the intelligent future. All AiVass articles are free and indexed for search and AI discovery.",
+    canonical: "https://aivass.com/articles",
+  });
   return (
     <div className="bg-cream min-h-screen pt-[60px] pb-[100px]">
       <div className="wrap">
@@ -15,7 +21,7 @@ export default function Articles() {
         <div className="eyebrow mb-6">Articles</div>
         <h1 className="text-[50px] md:text-[80px] font-serif leading-none tracking-[-0.05em] mb-6">
           Editorial analysis.<br />
-          <em className="text-oxblood italic">Written for search.</em>
+          <em className="text-oxblood italic">Long-form thinking.</em>
         </h1>
         <p className="text-[16px] text-navy-mid max-w-[550px] leading-[1.65] mb-[60px]">
           Long-form strategic thinking on transformation, capability architecture, and the intelligent future. All articles are free and indexed for search and AI discoverability.

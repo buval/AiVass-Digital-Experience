@@ -1,6 +1,13 @@
 import { Link } from "wouter";
+import { useSeoMeta } from "@/lib/seo";
+import { trackDiscussPartnership } from "@/lib/analytics";
 
 export default function Organizations() {
+  useSeoMeta({
+    title: "For Organizations — Capability Infrastructure for AI Transformation",
+    description: "AiVass builds AI capability programs, workforce enablement, intelligent operating systems, and enterprise transformation architecture for organizations.",
+    canonical: "https://aivass.com/solutions/organizations",
+  });
   return (
     <div className="min-h-screen">
       {/* SECTION A: HERO (Paper) */}
@@ -33,7 +40,7 @@ export default function Organizations() {
             <p className="text-[14px] text-navy-mid leading-[1.65] mb-10 max-w-[450px]">
               Technology alone is not transformation. We provide the educational architecture, operating systems and strategic alignment necessary for teams to adopt new capabilities at scale.
             </p>
-            <a href="mailto:contact@aivass.com" className="btn-fill w-max">
+            <a href="mailto:contact@aivass.com" className="btn-fill w-max" onClick={() => trackDiscussPartnership("organizations-page")}>
               Discuss a Partnership
             </a>
             {/* // TODO: Connect to booking/contact flow */}

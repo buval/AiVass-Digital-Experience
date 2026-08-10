@@ -1,17 +1,21 @@
-import { useEffect } from "react";
+import { useSeoMeta } from "@/lib/seo";
 
 /**
- * PRIVACY AUDIT — Verified August 9, 2026
+ * PRIVACY AUDIT — Updated August 10, 2026
  *
- * Analytics tools active:         None
+ * Analytics tools active:         Google Analytics 4 (GA4) — Consent Mode v2, deny-by-default.
+ *                                 GA4 only activates when VITE_GA_MEASUREMENT_ID is configured
+ *                                 with a valid G-XXXXXXXXXX measurement ID.
+ *                                 Consent is requested via on-site ConsentBanner before any
+ *                                 analytics data is collected.
  * Advertising pixels active:      None
- * Cookies set by this site:       None (sidebar component exists in codebase but is not used in any page)
+ * Cookies set by this site:       localStorage key "aivass_analytics_consent" — stores consent choice
  * Third-party embedded services:  None embedded; all external services require user action to reach
  * Third-party requests on load:   Google Fonts (fonts.googleapis.com, fonts.gstatic.com) — loaded
  *                                 on every page render to serve Playfair Display and DM Sans typefaces
  * Personal data before user action: The Google Fonts request transmits the visitor's IP address and
  *                                 browser information to Google's servers automatically on page load.
- *                                 No other personal data is transmitted before user action.
+ *                                 No other personal data is transmitted before user consent is granted.
  */
 
 const SECTIONS = [
@@ -35,19 +39,12 @@ const SECTIONS = [
 ];
 
 export default function Privacy() {
-  useEffect(() => {
-    let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!link) {
-      link = document.createElement("link");
-      link.rel = "canonical";
-      document.head.appendChild(link);
-    }
-    link.href = "https://aivass.com/privacy";
-    document.title = "Privacy Policy — AiVass";
-    return () => {
-      document.title = "AiVass";
-    };
-  }, []);
+  useSeoMeta({
+    title: "Privacy Policy — AiVass",
+    description: "AiVass Privacy Policy. How we collect, use and protect personal information in connection with aivass.com, Guide purchases, assessments and client engagements.",
+    canonical: "https://aivass.com/privacy",
+    noIndex: true,
+  });
 
   return (
     <div className="bg-cream min-h-screen">
@@ -60,7 +57,7 @@ export default function Privacy() {
             <em className="text-ox-light italic">Policy</em>
           </h1>
           <p className="text-ox-light text-[13px] tracking-[0.05em] mt-4">
-            Effective date: August 9, 2026 &nbsp;·&nbsp; AiVass LLC &nbsp;·&nbsp; California, United States
+            Effective date: August 10, 2026 &nbsp;·&nbsp; AiVass LLC &nbsp;·&nbsp; California, United States
           </p>
         </div>
       </div>
@@ -174,7 +171,13 @@ export default function Privacy() {
               .
             </p>
             <p className="mt-3">
-              No analytics tools, advertising pixels or tracking cookies are currently active on this website.
+              <strong className="font-medium text-navy">Analytics:</strong> When you consent via the on-site analytics banner,
+              AiVass activates Google Analytics 4 (GA4) under Google's Consent Mode v2. GA4 processes anonymized page-view
+              events, click interactions and basic session data. No analytics data is transmitted before you grant consent.
+              You may withdraw consent at any time; the preference is stored locally in your browser.
+            </p>
+            <p className="mt-3">
+              No advertising pixels or cross-site tracking technologies are active on this website.
             </p>
 
             <Subhead>Communications</Subhead>
@@ -247,6 +250,7 @@ export default function Privacy() {
             <ul className="mt-2 space-y-1">
               <li>Payment processing, such as Stripe</li>
               <li>Scheduling and meetings, such as Google Calendar and Google Meet</li>
+              <li>Website analytics, such as Google Analytics 4 (activated only with user consent)</li>
               <li>Website hosting and infrastructure</li>
               <li>Email and business communications</li>
               <li>Document or cloud-storage tools where applicable</li>
@@ -270,20 +274,44 @@ export default function Privacy() {
 
           <PSection id="cookies" num="7" title="Cookies and Analytics">
             <p>
-              <strong className="font-medium text-navy">Cookies:</strong> This website does not currently set any
-              cookies through its own code. No analytics, advertising or preference cookies are active.
+              <strong className="font-medium text-navy">Local storage:</strong> When you interact with the analytics
+              consent banner, AiVass stores your preference under the key{" "}
+              <code className="text-[12px] bg-paper px-1 py-0.5">aivass_analytics_consent</code> in your browser's
+              local storage. This value is used solely to remember your consent choice and does not itself transmit data
+              to any third party.
             </p>
             <p className="mt-4">
-              <strong className="font-medium text-navy">Analytics:</strong> No analytics tools are currently active on
-              this website.
+              <strong className="font-medium text-navy">Google Analytics 4 (GA4):</strong> When you grant consent,
+              AiVass activates Google Analytics 4 under Google's Consent Mode v2. GA4 sets its own first-party cookies
+              (typically <code className="text-[12px] bg-paper px-1 py-0.5">_ga</code> and{" "}
+              <code className="text-[12px] bg-paper px-1 py-0.5">_ga_*</code>) to support measurement of page views,
+              user sessions and interaction events. Analytics storage defaults to <em>denied</em> until you grant consent.
+              If you decline or withdraw consent, GA4 cookies are not set and no analytics data is transmitted.
             </p>
             <p className="mt-4">
-              <strong className="font-medium text-navy">Advertising:</strong> No advertising pixels or tracking
-              technologies are currently active on this website.
+              GA4 data is processed by Google LLC subject to Google's privacy practices:{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-under text-oxblood"
+              >
+                policies.google.com/privacy ↗
+              </a>
+              .
             </p>
             <p className="mt-4">
-              If analytics, advertising pixels or other technologies are activated in future, AiVass will implement
-              appropriate notice and consent controls where legally required and update this Policy accordingly.
+              <strong className="font-medium text-navy">Advertising:</strong> No advertising pixels or cross-site
+              tracking technologies are active on this website. GA4 ad storage is permanently denied.
+            </p>
+            <p className="mt-4">
+              <strong className="font-medium text-navy">Consent choices:</strong> You may accept or decline analytics
+              via the banner displayed on your first visit. To change your choice, clear your browser's local storage
+              for this domain or contact{" "}
+              <a href="mailto:connect@aivass.com" className="link-under text-oxblood">
+                connect@aivass.com
+              </a>
+              .
             </p>
           </PSection>
 

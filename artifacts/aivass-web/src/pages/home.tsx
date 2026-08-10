@@ -5,6 +5,8 @@ import { TriadHero } from "@/components/brand/TriadHero";
 import { GUIDES, guideCheckoutUrl } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
+import { useSeoMeta } from "@/lib/seo";
+import { trackAssessmentClick, trackGuidePurchaseClick } from "@/lib/analytics";
 
 /** Wire up scroll-reveal: any [data-reveal] element animates in when it enters the viewport. */
 function useScrollReveal() {
@@ -27,6 +29,11 @@ function useScrollReveal() {
 }
 
 export default function Home() {
+  useSeoMeta({
+    title: "AiVass — Building Extraordinary Futures",
+    description: "A boutique transformation studio where intelligent systems, human connection and strategic architecture come together. Automation with Soul.",
+    canonical: "https://aivass.com/",
+  });
   useScrollReveal();
 
   return (
@@ -347,7 +354,7 @@ export default function Home() {
               {
                 step: "02 · ASSESS",
                 body: "A private assessment of your current profile, evidence, readiness, gaps and potential pathway.",
-                cta: <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block">Assess Your Profile</a>,
+                cta: <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block" onClick={() => trackAssessmentClick("home-assess-step")}>Assess Your Profile</a>,
               },
               {
                 step: "03 · RECEIVE YOUR PATHWAY",
@@ -382,7 +389,7 @@ export default function Home() {
               >
                 <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">{title}</b>
                 <p className="text-[11px] md:text-[13px] text-grey leading-[1.5] mb-4 h-auto md:min-h-[60px]">{desc}</p>
-                <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block">
+                <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block" onClick={() => trackAssessmentClick(`home-pathway-${title?.toLowerCase().replace(/\s+/g, '-')}`)}>
                   Start with an Assessment
                 </a>
               </div>

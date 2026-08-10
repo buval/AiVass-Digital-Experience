@@ -1,7 +1,14 @@
 import { Triad } from "@/components/brand/Triad";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
+import { useSeoMeta } from "@/lib/seo";
+import { trackAssessmentClick, trackDiscussPartnership } from "@/lib/analytics";
 
 export default function Contact() {
+  useSeoMeta({
+    title: "Contact — Begin the Architecture",
+    description: "Start a conversation with AiVass. Book a Strategic Profile Assessment for individuals, or discuss a partnership for businesses and organizations.",
+    canonical: "https://aivass.com/contact",
+  });
   return (
     <div className="bg-cream min-h-screen flex items-center py-[100px]">
       <div className="wrap w-full grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-[10vw] items-center">
@@ -23,7 +30,7 @@ export default function Contact() {
             <p className="text-[13px] text-grey mb-8 max-w-[300px]">
               For individuals exploring pathways or inquiring about profile assessments.
             </p>
-            <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="btn-fill w-full md:w-auto">
+            <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="btn-fill w-full md:w-auto" onClick={() => trackAssessmentClick("contact-page")}>
               Book Assessment
             </a>
           </div>
@@ -33,7 +40,7 @@ export default function Contact() {
             <p className="text-[13px] text-grey mb-8 max-w-[300px]">
               For businesses and organizations requiring strategic enablement or system architecture.
             </p>
-            <a href="mailto:contact@aivass.com" className="btn-outline w-full md:w-auto">
+            <a href="mailto:contact@aivass.com" className="btn-outline w-full md:w-auto" onClick={() => trackDiscussPartnership("contact-page")}>
               Email Our Team
             </a>
             {/* // TODO: Update with real contact email or form link */}

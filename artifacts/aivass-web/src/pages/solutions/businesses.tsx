@@ -1,6 +1,13 @@
 import { Link } from "wouter";
+import { useSeoMeta } from "@/lib/seo";
+import { trackDiscussPartnership } from "@/lib/analytics";
 
 export default function Businesses() {
+  useSeoMeta({
+    title: "For Businesses — From Activity to Architecture",
+    description: "AiVass helps businesses turn ambition into intelligent systems, coherent workflows and technology-enabled transformation. AI capability, GTM, and operating architecture.",
+    canonical: "https://aivass.com/solutions/businesses",
+  });
   return (
     <div className="min-h-screen">
       {/* SECTION A: HERO (Navy) */}
@@ -49,7 +56,7 @@ export default function Businesses() {
             <p className="text-[14px] text-navy-mid leading-[1.65] mb-10 max-w-[450px]">
               We work with visionary operators to transition out of manual scaling and into strategic architecture.
             </p>
-            <a href="mailto:contact@aivass.com" className="btn-fill w-max">
+            <a href="mailto:contact@aivass.com" className="btn-fill w-max" onClick={() => trackDiscussPartnership("businesses-page")}>
               Discuss a Partnership
             </a>
             {/* // TODO: Connect to booking/contact flow */}

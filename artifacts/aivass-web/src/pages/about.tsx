@@ -1,7 +1,16 @@
+import { useSeoMeta } from "@/lib/seo";
+
 export default function About() {
+  useSeoMeta({
+    title: "About AiVass",
+    description: "AiVass is a boutique technology-enabled transformation studio working at the intersection of intelligent systems, strategy and human potential. Automation with Soul.",
+    canonical: "https://aivass.com/about",
+  });
+
   return (
     <div className="bg-cream min-h-screen pt-[60px] pb-[100px]">
       <div className="wrap max-w-[900px]">
+        <h1 className="sr-only">About AiVass — Transformation Studio</h1>
         <div className="eyebrow mb-6 text-center">About AiVass</div>
         <blockquote className="font-serif italic text-[36px] md:text-[54px] leading-[1.1] text-center text-navy mb-16 max-w-[800px] mx-auto">
           “Build the capability to meet the future with clarity.”

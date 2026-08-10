@@ -1,4 +1,22 @@
+# robots.txt — AiVass (aivass.com)
+# Last updated: 2026-08-10
+
+# ── Standard search engines ───────────────────────────────────────────────────
 User-agent: *
 Allow: /
 
+# ── OAI-SearchBot (ChatGPT web browsing / search citations) ──────────────────
+# AiVass content is eligible for discovery and citation in ChatGPT Search.
+User-agent: OAI-SearchBot
+Allow: /
+
+# ── GPTBot (OpenAI model training) ───────────────────────────────────────────
+# OWNER DECISION REQUIRED.
+# Current status: ALLOWED (no Disallow rule = allowed by default).
+# To block model training, add: Disallow: /
+# To explicitly allow, no action needed.
+User-agent: GPTBot
+Allow: /
+
+# ── Sitemap ───────────────────────────────────────────────────────────────────
 Sitemap: https://aivass.com/sitemap.xml
