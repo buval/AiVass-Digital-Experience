@@ -135,7 +135,11 @@ export default function OrderSuccess() {
             </div>
             <p className="text-[12px] text-cream/40 leading-[1.6] mb-8">
               Each link works for <strong className="text-cream/60">3 downloads</strong> and expires in 72 hours.
-              If you need another copy, contact{" "}
+              Need it again later?{" "}
+              <Link href="/my-downloads" className="underline hover:text-cream">
+                Visit My Downloads
+              </Link>{" "}
+              or contact{" "}
               <a href="mailto:connect@aivass.com" className="underline hover:text-cream">
                 connect@aivass.com
               </a>.

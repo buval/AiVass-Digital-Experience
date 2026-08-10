@@ -9,7 +9,11 @@ export default function OrderCancel() {
           Your payment was cancelled.
         </h2>
         <p className="text-[16px] text-navy-mid max-w-[500px] leading-[1.65] mb-12">
-          No charge has been made to your card.
+          No charge has been made to your card. If you've already purchased guides,{" "}
+          <Link href="/my-downloads" className="underline hover:opacity-70">
+            visit My Downloads
+          </Link>{" "}
+          to access them.
         </p>
         <div className="flex items-center gap-6">
           <Link href="/guides" className="link-under text-navy">
