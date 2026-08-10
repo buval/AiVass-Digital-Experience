@@ -119,22 +119,22 @@ export default function About() {
                   AiVass grew from my own experience of transformation.
                 </p>
                 <p>
-                  For more than 17 years, I worked across marketing, strategy, program management and technology, helping global organizations turn complex ambitions into systems that could actually work. At Adobe, Intuit and across different industries, I learned how to bring structure to ambiguity, connect people around a shared direction, and move ideas from possibility into execution.
+                  For more than 17 years, my career has spanned management, operations, marketing, strategy, program leadership, technology, and increasingly AI-enabled transformation across hospitality and real estate, commerce and e-commerce, SaaS, and education. Across global organizations, including Adobe and Intuit, I have worked at the point where complexity needs to become clarity — turning ambitious ideas into coherent systems, aligning people around a shared direction, and using technology and AI to move from possibility into meaningful execution.
                 </p>
                 <p>
                   But the most important transformation was personal.
                 </p>
                 <p>
-                  I rebuilt my career across countries and navigated my own extraordinary-ability journey — self-petitioning for EB-1A and building my case from the ground up, from positioning and evidence architecture to the story connecting it all. Moving through uncertainty, reinvention and major identity shifts taught me that meaningful transformation rarely begins with simply doing more. It begins with seeing differently — understanding who you are becoming, what matters, what demonstrates your value, and what architecture can carry that future forward.
+                  I rebuilt my career across countries and navigated my own extraordinary-ability journey — self-petitioning for EB-1A and building my case from the ground up, from positioning and evidence architecture to the story connecting it all. Moving through uncertainty, reinvention, and major identity shifts taught me that meaningful transformation rarely begins with simply doing more. It begins with seeing differently — understanding who you are becoming, what matters, what demonstrates your value, and what architecture can carry that future forward.
                 </p>
                 <p>
-                  Through all of it, one belief never left me: that no one is ordinary. Extraordinary capacity exists in every person — and human potential has no ceiling worth accepting. We should never give up on people.
+                  Through all of it, one belief never left me: that no one is ordinary. Extraordinary capacity exists in every person, and human potential has no ceiling worth accepting. We should never give up on people.
                 </p>
                 <p>
                   That realization became AiVass.
                 </p>
                 <p>
-                  Today, I am building the kind of company I wanted to find myself: one where <strong className="text-navy font-medium">intelligence and humanity belong together</strong>, where technology expands human potential rather than replacing it, and where transformation creates capability that remains after the intervention ends.
+                  Today, I am building the kind of company I wanted to find myself: one where <strong className="text-navy font-medium">AI, intelligence, and humanity belong together</strong>; where automation expands human potential rather than replacing it; where technology creates more space for creativity, judgment, connection, and meaningful work; and where transformation leaves behind capability that continues long after the intervention ends.
                 </p>
                 <p className="font-serif text-[17px] text-navy italic">
                   Building Extraordinary Futures is therefore more than a tagline.
