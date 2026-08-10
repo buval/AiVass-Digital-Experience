@@ -18,6 +18,9 @@ export default function GuideDetail() {
           description: guide.description,
           canonical: `https://aivass.com/guides/${guide.slug}`,
           ogType: "website",
+          ogImage: guide.heroImage
+            ? `https://aivass.com/images/${guide.heroImage}`
+            : undefined,
         }
       : {
           title: "Guide not found — AiVass",

@@ -1,0 +1,343 @@
+FINAL HOMEPAGE SYNC + ANALYTICS CONSENT + LAUNCH BLOCKERS PASS
+
+Work on the CURRENT approved AiVass build.
+
+DO NOT PUBLISH.
+DO NOT redesign the approved Architectural Transformation system.
+DO NOT change Stripe products/prices.
+DO NOT change the Strategic Profile Assessment booking URL.
+DO NOT rewrite Legal/Privacy beyond changes required to accurately describe actual technical behavior.
+
+====================================================
+1. SYNCHRONIZE GUIDE VISUALS ON THE HOMEPAGE
+====================================================
+
+The /guides page now has the approved Guide visual system.
+
+I like these Guide visuals.
+
+The HOMEPAGE / LANDING PAGE Guide section must use the SAME visual assets and same product-to-image mapping as /guides.
+
+Do not create another independent set of images.
+
+Use one shared source/configuration so that if a Guide image changes later, it updates everywhere.
+
+The six products are:
+
+1. EB-1A Master Guide
+2. EB-1A for Business Leaders
+3. EB-1A for Artists & Creators
+4. EB-1A for Athletes & Coaches
+5. EB-1A for Educators
+6. EB-1A for Scientists
+
+Homepage Guide cards should match /guides for:
+- image
+- title
+- subtitle where used
+- product identity
+- correct destination
+- purchase relationship
+
+Maintain the homepage editorial composition, but do not use old placeholders or alternative artwork.
+
+Verify desktop, tablet and mobile.
+
+====================================================
+2. FIX SOCIAL ICON / ANALYTICS CONSENT COUPLING
+====================================================
+
+Current behavior:
+The social icons become visible only after I click “Accept” on analytics consent.
+
+THIS IS WRONG.
+
+Social links are essential navigation/content and must render regardless of analytics consent.
+
+Restore permanent visibility of:
+- LinkedIn
+- Facebook
+- Instagram
+- X
+- YouTube
+
+They must:
+- display before consent
+- display after consent
+- work when analytics is declined
+- open in new tab
+- retain aria-label accessibility
+
+Analytics consent must NEVER control social icon rendering.
+
+====================================================
+3. MAKE ANALYTICS CONSENT FUTURE-READY AND TRUTHFUL
+====================================================
+
+We want the privacy/analytics consent system because GA4 will be used.
+
+However, analytics must only actually initialize when a real GA4 Measurement ID exists.
+
+Expected logic:
+
+IF VITE_GA_MEASUREMENT_ID is present:
+- show the analytics/privacy choice interface
+- Consent = Accept:
+  initialize GA4
+- Consent = Decline:
+  do not initialize GA4
+- store the choice appropriately
+- provide a way to revisit privacy/analytics choices
+
+IF VITE_GA_MEASUREMENT_ID is absent:
+- do NOT send analytics requests
+- do NOT create GA analytics cookies
+- application must still work normally
+- social icons and every other site feature remain fully functional
+
+Do not fake analytics activity.
+
+Do not send events before consent where consent is required.
+
+Keep the implementation ready for the owner to add the real GA4 Measurement ID later.
+
+====================================================
+4. HOMEPAGE GUIDE UX
+====================================================
+
+Audit the homepage Guide section.
+
+It should communicate that Guides are a real product collection, not decorative cards.
+
+Each card should have:
+- visual
+- correct title
+- concise descriptor
+- clear CTA
+
+Preferred CTA structure:
+VIEW GUIDE
+
+The Guide detail page should then contain:
+- full product explanation
+- sample
+- purchase CTA
+
+Do not put excessive commerce UI on the homepage.
+
+The Homepage → Guide → Stripe journey should feel:
+editorial → informed → transactional.
+
+====================================================
+5. COMPLETE GUIDE ROUTING
+====================================================
+
+Verify all six Guides have an internal detail page.
+
+Expected architecture:
+
+/guides
+/guides/[guide-slug]
+
+Homepage Guide card
+→ internal Guide detail page
+→ Purchase
+→ existing Stripe checkout
+
+Do not make homepage purchase buttons bypass useful product context unless intentionally already approved.
+
+Preserve the EXISTING Stripe implementation.
+
+Do NOT create a new Stripe integration.
+
+====================================================
+6. STRIPE FINAL AUDIT
+====================================================
+
+The agent previously listed “Guide Stripe payment links” as an owner blocker.
+
+Audit the EXISTING site/code and determine exactly what is missing.
+
+For EACH of the six Guides report:
+
+Guide:
+- internal detail URL
+- sample URL
+- purchase CTA exists YES/NO
+- existing Stripe destination found YES/NO
+- Stripe destination verified YES/NO
+- requires owner input YES/NO
+
+Do not invent payment links.
+
+If an existing valid Stripe destination can be recovered from the current/legacy AiVass implementation, reuse it safely.
+
+If it cannot be recovered, flag precisely which Guide requires its Stripe URL.
+
+====================================================
+7. ARTICLE MIGRATION STATUS
+====================================================
+
+Audit Insights again.
+
+No Article CTA should intentionally send users back to the old design once its content has been migrated.
+
+For every existing real Article report:
+
+- Article title
+- current new URL
+- full article content native to new site YES/NO
+- unique visual/hero YES/NO
+- old URL redirect configured YES/NO
+- canonical points to new page YES/NO
+
+Do not fabricate missing article content.
+
+Flag anything that still requires owner-provided source content.
+
+====================================================
+8. OPEN GRAPH / SOCIAL SHARE IMAGE
+====================================================
+
+The agent listed:
+
+public/opengraph.jpg
+
+as an owner blocker.
+
+Use the approved AiVass brand artwork already supplied to the project as the basis for the default social preview if technically available.
+
+The preferred brand direction is:
+- cream architectural space
+- hopeful horizon
+- AiVass identity
+- quiet luxury
+- Building Extraordinary Futures
+- Automation with Soul
+- navy / cream / oxblood
+
+Target social OG size:
+1200 × 630
+
+Do not stretch or distort existing artwork.
+
+If a production-quality 1200×630 file cannot be created from available assets without degrading quality, leave this as an explicit owner asset requirement rather than inserting a poor image.
+
+Also support page-specific OG images for Guides and Articles where available.
+
+====================================================
+9. ABOUT PAGE
+====================================================
+
+Do not revert the restored About page.
+
+Preserve:
+- architectural hero
+- hopeful/luxury/future imagery
+- Automation with Soul
+- Purpose · Proof · Permanence
+- architecture principles
+- editorial imagery
+- premium CTA
+
+Confirm that About visually matches the emotional quality of the AiVass banner rather than becoming a plain text page again.
+
+====================================================
+10. SEO + GEO / LLM READINESS AUDIT
+====================================================
+
+Do a final technical audit but DO NOT over-optimize or keyword-stuff.
+
+Verify:
+
+SEO
+- unique title tags
+- unique meta descriptions
+- one logical H1 per page
+- canonical URLs
+- sitemap
+- robots.txt
+- clean 404
+- redirects from replaced legacy routes
+- descriptive image alt text
+- internal linking
+- Article structured data
+- Breadcrumb structured data
+- Organization / WebSite structured data where appropriate
+- Product structured data ONLY where factually accurate
+
+GEO / AI DISCOVERY
+- important concepts are present as readable HTML, not only inside images
+- AiVass identity is clearly stated
+- services are clearly described
+- Guides have descriptive text
+- Articles contain complete crawlable content
+- author/date information is explicit
+- About page clearly describes what AiVass is
+- “AiVass is not a law firm” positioning remains explicit where appropriate
+- avoid hidden or manipulative AI-targeted text
+
+Do not add unsupported claims.
+
+====================================================
+11. DO NOT SHOW GUIDE PRICES IN SEARCH UNLESS INTENDED
+====================================================
+
+Do NOT automatically start the suggested task:
+“Add schema markup so Google shows guide prices in search results.”
+
+First inspect the actual commercial experience.
+
+We may use Product schema, but structured data must correspond exactly to visible, current product information and actual checkout.
+
+Do not expose information through schema that contradicts the public page.
+
+Report recommendation first.
+
+====================================================
+12. FINAL BLOCKER MATRIX
+====================================================
+
+Return a launch matrix:
+
+A. BRAND / UX
+Homepage Guide images synchronized: PASS/FAIL
+About visual experience: PASS/FAIL
+Social icons always visible: PASS/FAIL
+Responsive: PASS/FAIL
+
+B. COMMERCE
+6 Guide detail pages: PASS/FAIL
+Free samples: PASS/FAIL
+Stripe links: PASS/FAIL/BLOCKED
+Assessment booking: PASS/FAIL
+
+C. CONTENT
+Insights migration: PASS/FAIL
+Full Article content: PASS/FAIL/BLOCKED
+Guide visuals: PASS/FAIL
+
+D. ANALYTICS
+Consent architecture: PASS/FAIL
+GA4 implementation ready: PASS/FAIL
+Real Measurement ID supplied: YES/NO
+Tracking currently active: YES/NO
+
+E. SEO / GEO
+Metadata: PASS/FAIL
+Canonical: PASS/FAIL
+Sitemap: PASS/FAIL
+Robots: PASS/FAIL
+Structured data: PASS/FAIL
+OG: PASS/FAIL/BLOCKED
+
+F. LEGAL
+Terms page present: YES/NO
+Privacy page present: YES/NO
+Owner/legal review still recommended: YES/NO
+
+List ONLY genuine remaining owner actions.
+
+End with:
+
+READY FOR FINAL OWNER QA — DO NOT PUBLISH

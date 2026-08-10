@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
 import { TriadHero } from "@/components/brand/TriadHero";
-import { GUIDES, guideCheckoutUrl } from "@/data/guides";
+import { GUIDES } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
 import { useSeoMeta } from "@/lib/seo";
@@ -525,52 +525,33 @@ export default function Home() {
             EXTRAORDINARY ABILITY · Available now · 6 guides
           </div>
 
-          <div className="flex md:grid md:grid-cols-5 gap-5 md:gap-4 overflow-x-auto pb-6 md:pb-0 snap-x">
-            {GUIDES.slice(0, 5).map((guide, i) => {
-              const coverMap: Record<string, string> = {
-                "eb1a-master": "aivass-guide-ability.png",
-                "eb1a-business": "aivass-guide-ability_2.png",
-                "eb1a-arts": "aivass-guide-systems.png",
-                "eb1a-athletics": "aivass-guide-systems_2.png",
-                "eb1a-education": "aivass-guide-evidence.png",
-                "eb1a-science": "aivass-guide-evidence_2.png",
-              };
-              const coverImg = coverMap[guide.slug] || "aivass-guide-evidence.png";
-
-              return (
-                <article
-                  key={guide.id}
-                  className="min-w-[245px] md:min-w-0 border-t border-navy pt-[18px] snap-center card-lift"
-                  data-reveal
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <div className="h-[270px] md:h-[310px] bg-paper flex justify-center items-center overflow-hidden mb-4 border border-navy/5">
+          {/* Guide grid — editorial photography, shared source with /guides page */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-navy/10">
+            {GUIDES.map((guide, i) => (
+              <article
+                key={guide.id}
+                className="bg-cream"
+                data-reveal
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                <Link href={`/guides/${guide.slug}`} className="group block">
+                  <div className="aspect-[4/3] overflow-hidden">
                     <img
-                      src={`${import.meta.env.BASE_URL}images/${coverImg}`}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/aivass-guide-evidence.png`;
-                      }}
-                      alt={`${guide.name} cover`}
-                      className="w-[70%] h-[90%] object-cover shadow-sm border border-navy/10"
+                      src={`${import.meta.env.BASE_URL}images/${guide.heroImage}`}
+                      alt={guide.heroAlt}
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
                     />
                   </div>
-                  <div className="flex flex-col gap-3">
-                    <span className="font-serif text-[16px] leading-[1.2]">{guide.name}</span>
-                    <div className="flex justify-between items-center text-[10px] tracking-[0.1em] uppercase">
-                      <span className="text-grey">{guide.category}</span>
-                      <a
-                        href={guideCheckoutUrl(guide.slug)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn !py-2 !px-3"
-                      >
-                        Purchase →
-                      </a>
-                    </div>
+                  <div className="p-5 md:p-6 border-t border-navy/10">
+                    <h3 className="font-serif text-[15px] md:text-[18px] leading-tight mb-1 group-hover:text-oxblood transition-colors">{guide.name}</h3>
+                    <p className="font-serif italic text-[11px] md:text-[12px] text-oxblood mb-3">{guide.subtitle}</p>
+                    <span className="text-[9px] md:text-[10px] tracking-[0.12em] uppercase text-navy group-hover:text-oxblood transition-colors">
+                      View Guide →
+                    </span>
                   </div>
-                </article>
-              );
-            })}
+                </Link>
+              </article>
+            ))}
           </div>
 
           <div className="h-[1px] bg-navy/25 mt-10 md:mt-[70px] mb-[22px]" />
@@ -638,7 +619,7 @@ export default function Home() {
                 <ul className="flex flex-col gap-6">
                   {ARTICLES.slice(0, 2).map((a) => (
                     <li key={a.id}>
-                      <Link href={`/articles/${a.slug}`} className="group-hover/item text-navy">
+                      <Link href={`/insights/articles/${a.slug}`} className="group-hover/item text-navy">
                         <h4 className="font-serif text-[18px] leading-[1.2] mb-1 group-hover:text-oxblood transition-colors">{a.title}</h4>
                         <span className="text-[11px] text-grey">
                           {a.author} · {new Date(a.publishedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
@@ -648,7 +629,7 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
-              <Link href="/articles" className="link-under text-oxblood inline-block w-max mt-6">Read All Articles →</Link>
+              <Link href="/insights/articles" className="link-under text-oxblood inline-block w-max mt-6">Read All Articles →</Link>
             </article>
 
             {/* FIELD NOTES */}

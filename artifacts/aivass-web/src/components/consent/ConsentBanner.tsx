@@ -1,12 +1,14 @@
 /**
  * ConsentBanner — Analytics consent notice for Google Analytics 4 / Consent Mode v2.
  *
- * Shown once per visitor when no preference has been stored.
- * Accepts or declines analytics_storage consent.
- * Preference persisted to localStorage under CONSENT_KEY.
+ * Only reveals itself when VITE_GA_MEASUREMENT_ID is present (analyticsActive).
+ * When no Measurement ID is configured, visible stays false permanently — the
+ * banner never mounts, no cookies are set, and no GA requests are made.
  *
- * Matches AiVass brand: navy background, cream text, oxblood accent.
- * Respects prefers-reduced-motion.
+ * Adds body padding-bottom while visible so the fixed banner never
+ * obscures the footer or any other bottom-anchored content.
+ *
+ * All hooks are called unconditionally (Rules of Hooks compliant).
  */
 
 import { useEffect, useState } from "react";
@@ -14,18 +16,30 @@ import {
   grantAnalyticsConsent,
   denyAnalyticsConsent,
   getStoredConsent,
+  analyticsActive,
 } from "@/lib/analytics";
+
+const BANNER_HEIGHT_PX = "84px";
 
 export function ConsentBanner() {
   const [visible, setVisible] = useState(false);
 
+  // Only activate when GA is configured AND no prior consent stored
   useEffect(() => {
-    // Small delay so banner doesn't flash before hydration
+    if (!analyticsActive) return; // no-op; visible stays false
     const t = setTimeout(() => {
       if (getStoredConsent() === null) setVisible(true);
     }, 800);
     return () => clearTimeout(t);
   }, []);
+
+  // Pad body so footer is never hidden behind the fixed banner
+  useEffect(() => {
+    document.body.style.paddingBottom = visible ? BANNER_HEIGHT_PX : "";
+    return () => {
+      document.body.style.paddingBottom = "";
+    };
+  }, [visible]);
 
   if (!visible) return null;
 

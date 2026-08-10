@@ -34,6 +34,9 @@ export default function ArticleDetail() {
           description: article.metaDescription,
           canonical: `https://aivass.com/insights/articles/${article.slug}`,
           ogType: "article",
+          ogImage: article.heroImage
+            ? `https://aivass.com/images/${article.heroImage}`
+            : undefined,
         }
       : {
           title: "Article not found — AiVass",
