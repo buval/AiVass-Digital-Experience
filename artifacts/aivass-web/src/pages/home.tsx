@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
+import { MagicConstellation } from "@/components/brand/MagicConstellation";
 import { GUIDES } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
@@ -723,77 +724,127 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          11  FINAL CTA — navy, atmospheric glow, floating Triad
+          11  FINAL CTA — deep navy, magical constellation, starfield
       ═══════════════════════════════════════════════════════ */}
-      <section className="relative bg-navy text-cream py-[85px] md:py-[125px] text-center px-[23px] md:px-[6vw] overflow-hidden">
-        {/* Atmospheric warm radial behind Triad — ox-light bloom */}
+      <section
+        className="relative text-cream text-center overflow-hidden"
+        style={{
+          background: "radial-gradient(ellipse at 50% 60%, #1a2e4a 0%, #0d1b2e 45%, #080f1c 100%)",
+          padding: "clamp(90px, 14vw, 160px) clamp(20px, 6vw, 80px)",
+        }}
+      >
+        {/* Deep space starfield — static scattered dots */}
+        {[
+          [8,12],[19,72],[34,5],[47,88],[61,22],[72,55],[83,8],[91,78],[14,45],
+          [26,33],[55,67],[78,18],[88,50],[5,60],[40,95],[65,38],[96,30],[30,80],
+        ].map(([x, y], i) => (
+          <div
+            key={i}
+            className="absolute pointer-events-none rounded-full"
+            style={{
+              left: `${x}%`,
+              top: `${y}%`,
+              width: i % 3 === 0 ? "2px" : "1px",
+              height: i % 3 === 0 ? "2px" : "1px",
+              background: "rgba(217,163,155,0.4)",
+              opacity: 0.25 + (i % 5) * 0.12,
+            }}
+          />
+        ))}
+
+        {/* Large ambient bloom — centered, deep */}
         <div
-          className="absolute pointer-events-none animate-bloom-pulse"
+          className="absolute pointer-events-none"
           style={{
-            top: "30%",
+            top: "50%",
             left: "50%",
-            width: "520px",
-            height: "340px",
-            transform: "translateX(-50%)",
+            transform: "translate(-50%, -50%)",
+            width: "min(700px, 90vw)",
+            height: "min(700px, 90vw)",
             background:
-              "radial-gradient(ellipse at 50% 50%, rgba(217,163,155,0.10) 0%, transparent 65%)",
-          }}
-        />
-        {/* Architectural horizon lines — future-facing perspective */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: "28%",
-            left: 0,
-            right: 0,
-            height: "1px",
-            background:
-              "linear-gradient(to right, transparent 10%, rgba(217,163,155,0.14) 35%, rgba(217,163,155,0.14) 65%, transparent 90%)",
-          }}
-        />
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            bottom: "28%",
-            left: 0,
-            right: 0,
-            height: "1px",
-            background:
-              "linear-gradient(to right, transparent 10%, rgba(217,163,155,0.09) 35%, rgba(217,163,155,0.09) 65%, transparent 90%)",
+              "radial-gradient(ellipse at 50% 48%, rgba(217,163,155,0.07) 0%, rgba(126,48,51,0.04) 38%, transparent 68%)",
+            borderRadius: "50%",
           }}
         />
 
-        <div className="relative z-10">
-          <div className="eyebrow text-ox-light mb-4" data-reveal>11 · Begin here</div>
+        {/* Horizon line — top */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: "18%",
+            left: 0,
+            right: 0,
+            height: "1px",
+            background:
+              "linear-gradient(to right, transparent 5%, rgba(217,163,155,0.12) 30%, rgba(217,163,155,0.12) 70%, transparent 95%)",
+          }}
+        />
+        {/* Horizon line — bottom */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            bottom: "16%",
+            left: 0,
+            right: 0,
+            height: "1px",
+            background:
+              "linear-gradient(to right, transparent 5%, rgba(217,163,155,0.07) 30%, rgba(217,163,155,0.07) 70%, transparent 95%)",
+          }}
+        />
+
+        <div className="relative z-10 flex flex-col items-center">
+          <div className="eyebrow text-ox-light mb-5 tracking-[0.2em]" data-reveal>
+            11 · Begin here
+          </div>
+
           <h2
-            className="font-serif text-[50px] md:text-[clamp(50px,7vw,88px)] leading-[0.98] tracking-[-0.06em] mt-[15px] mb-[45px]"
+            className="font-serif leading-[0.95] tracking-[-0.06em] text-cream mb-4"
+            style={{ fontSize: "clamp(48px, 9vw, 108px)", transitionDelay: "80ms" }}
             data-reveal
-            style={{ transitionDelay: "80ms" }}
           >
             What future<br />
-            are you building?
+            <em className="text-ox-light not-italic">are you building?</em>
           </h2>
 
-          {/* Floating Triad — gentle ambient drift, no heavy repetition */}
-          <div
-            className="flex justify-center mb-[45px]"
-            data-reveal="fade"
-            style={{ transitionDelay: "200ms" }}
+          <p
+            className="text-[13px] md:text-[14px] tracking-[0.08em] text-cream/50 mb-[52px] max-w-[360px]"
+            data-reveal
+            style={{ transitionDelay: "140ms" }}
           >
-            <Triad
-              className="w-[88%] max-w-[220px] text-ox-light animate-float"
-            />
+            Every extraordinary outcome begins with a single, deliberate choice.
+          </p>
+
+          {/* Magic constellation — animated, drawing in */}
+          <div
+            data-reveal="fade"
+            style={{ transitionDelay: "220ms" }}
+            className="mb-[48px]"
+          >
+            <MagicConstellation className="w-[min(260px,70vw)] h-auto" />
           </div>
 
+          {/* Path links */}
           <div
-            className="flex flex-col md:flex-row justify-center gap-6 md:gap-[35px] text-ox-light text-[11px] tracking-[0.13em] uppercase"
+            className="flex flex-col md:flex-row justify-center gap-5 md:gap-[42px] text-[10.5px] tracking-[0.18em] uppercase mb-[52px]"
             data-reveal
-            style={{ transitionDelay: "300ms" }}
+            style={{ transitionDelay: "320ms" }}
           >
-            <Link href="/solutions/individuals" className="hover:text-cream transition-colors">For myself</Link>
-            <Link href="/solutions/businesses" className="hover:text-cream transition-colors">For my business</Link>
-            <Link href="/solutions/organizations" className="hover:text-cream transition-colors">For my organization</Link>
+            <Link href="/solutions/individuals" className="text-ox-light hover:text-cream transition-colors duration-300">For myself</Link>
+            <span className="hidden md:block text-cream/20 self-center">·</span>
+            <Link href="/solutions/businesses" className="text-ox-light hover:text-cream transition-colors duration-300">For my business</Link>
+            <span className="hidden md:block text-cream/20 self-center">·</span>
+            <Link href="/solutions/organizations" className="text-ox-light hover:text-cream transition-colors duration-300">For my organization</Link>
           </div>
+
+          {/* Primary CTA */}
+          <Link
+            href="/contact"
+            data-reveal
+            style={{ transitionDelay: "400ms" }}
+            className="inline-block px-8 py-4 border border-ox-light/60 text-ox-light text-[11px] tracking-[0.16em] uppercase hover:bg-ox-light/10 hover:border-ox-light transition-all duration-300"
+          >
+            Start a Conversation
+          </Link>
         </div>
       </section>
     </div>
