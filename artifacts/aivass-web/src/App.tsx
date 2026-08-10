@@ -23,6 +23,8 @@ import Articles from '@/pages/articles';
 import ArticleDetail from '@/pages/article-detail';
 import About from '@/pages/about';
 import Contact from '@/pages/contact';
+import Legal from '@/pages/legal';
+import Privacy from '@/pages/privacy';
 import OrderSuccess from '@/pages/order-success';
 import OrderCancel from '@/pages/order-cancel';
 import { HowItWorksRedirect, OnboardingRedirect, ShopRedirect, BlogRedirect } from '@/pages/redirects';
@@ -50,6 +52,8 @@ function Router() {
           
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
+          <Route path="/legal" component={Legal} />
+          <Route path="/privacy" component={Privacy} />
           
           <Route path="/order-success" component={OrderSuccess} />
           <Route path="/order-cancel" component={OrderCancel} />

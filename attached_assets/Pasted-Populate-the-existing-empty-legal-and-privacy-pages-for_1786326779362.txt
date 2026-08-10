@@ -1,0 +1,700 @@
+Populate the existing empty /legal and /privacy pages for AiVass.
+
+DO NOT publish yet.
+DO NOT modify the visual brand system.
+Use the current Architectural Transformation page style:
+cream / navy / oxblood, editorial typography, generous spacing,
+clean section navigation and strong readability.
+
+Effective date:
+August 9, 2026
+
+Legal entity:
+AiVass LLC
+
+Public brand:
+AiVass
+
+Contact:
+connect@aivass.com
+
+Jurisdiction:
+California, United States
+
+==================================================
+PAGE 1 — /legal
+TITLE:
+Legal, Terms of Use & Disclaimers
+==================================================
+
+Use the following substantive content.
+
+INTRODUCTION
+
+These Terms of Use and Disclaimers govern use of aivass.com and the
+services, digital products, assessments, programs and materials offered
+by AiVass LLC (“AiVass,” “we,” “us,” or “our”).
+
+By accessing the website, purchasing a digital product, booking an
+assessment, submitting information, or engaging AiVass for services,
+you agree to these terms and to any additional written agreement that
+applies to the specific product or engagement.
+
+If a separately signed services agreement conflicts with these website
+terms, the signed agreement controls for that engagement.
+
+--------------------------------------------------
+1. NATURE OF AIVASS SERVICES
+--------------------------------------------------
+
+AiVass is a technology-enabled transformation studio providing
+strategic, educational, organizational, coaching, project-management,
+business-transformation, capability-development and related
+non-legal services.
+
+AiVass may provide frameworks, systems, templates, educational
+materials, evidence-organization methods, strategic assessments,
+workflow support, coaching and project-management guidance.
+
+AiVass is not a law firm.
+
+AiVass does not provide:
+- legal advice
+- legal representation
+- attorney services
+- legal opinions
+- immigration representation
+- guarantees regarding eligibility, filings, petitions, visas,
+  immigration status or government decisions
+
+Nothing on this website creates an attorney-client relationship.
+
+Individuals should consult a qualified licensed attorney regarding
+legal questions, filing strategy, legal interpretation or legal rights.
+
+--------------------------------------------------
+2. EXTRAORDINARY-ABILITY / GLOBAL-MOBILITY CONTENT
+--------------------------------------------------
+
+AiVass materials relating to EB-1A, extraordinary ability, evidence,
+professional profiles or future global-mobility pathways are provided
+for strategic, educational, organizational and project-management
+purposes.
+
+AiVass may help users:
+- understand evidence categories
+- organize professional information
+- identify potential evidence gaps
+- strengthen professional positioning
+- structure projects and documentation
+- develop narratives from a strategic or communication perspective
+- build systems for managing evidence and progress
+
+AiVass does not determine legal eligibility and does not guarantee that
+any government agency will accept an interpretation, document,
+petition, argument or filing.
+
+Government rules, policies and interpretations may change.
+
+Users remain responsible for obtaining appropriate legal advice and
+for all legal filing decisions.
+
+--------------------------------------------------
+3. STRATEGIC PROFILE ASSESSMENT
+--------------------------------------------------
+
+The AiVass Strategic Profile Assessment is a paid strategic and
+educational assessment.
+
+The assessment may consider information such as:
+- résumé or CV
+- LinkedIn profile
+- professional history
+- evidence
+- goals
+- readiness
+- gaps
+- potential development paths
+
+The assessment does not guarantee:
+- acceptance into an AiVass premium program
+- immigration eligibility
+- petition approval
+- any legal outcome
+- any professional or financial result
+
+Following an assessment, AiVass may recommend:
+- additional self-directed preparation
+- Guides
+- RISE
+- SHINE
+- SIGNATURE
+- another solution
+- or no further AiVass engagement
+
+AiVass retains discretion regarding whether a prospective client is an
+appropriate fit for a premium engagement.
+
+--------------------------------------------------
+4. RISE, SHINE AND SIGNATURE
+--------------------------------------------------
+
+RISE, SHINE and SIGNATURE are selective premium AiVass engagements.
+
+Website descriptions are informational summaries only.
+
+Specific:
+- scope
+- duration
+- fees
+- session cadence
+- deliverables
+- responsibilities
+- payment terms
+- intellectual-property rights
+- cancellation and termination provisions
+
+are governed by the applicable written client agreement.
+
+No website description constitutes an offer or guarantee of admission.
+
+--------------------------------------------------
+5. DIGITAL GUIDES AND PRODUCTS
+--------------------------------------------------
+
+AiVass sells digital Guides, templates, frameworks and other digital
+materials.
+
+Unless otherwise stated at the time of purchase:
+
+- products are licensed for the purchaser’s personal use
+- products may not be reproduced, resold, distributed, sublicensed,
+  uploaded to shared libraries or commercially exploited
+- copyright and intellectual-property ownership remain with AiVass LLC
+
+Purchase terms displayed on the applicable product or checkout page
+form part of these Terms.
+
+Digital products are educational resources and are not legal advice.
+
+--------------------------------------------------
+6. INTELLECTUAL PROPERTY
+--------------------------------------------------
+
+The AiVass name, AiVass branding, T1 Triad, visual systems,
+Automation with Soul, Building Extraordinary Futures, methodologies,
+frameworks, program materials, written content, designs, templates,
+Guides, workflows and other proprietary materials are owned by or
+licensed to AiVass LLC unless otherwise stated.
+
+No rights are transferred except the limited rights expressly granted
+for the relevant product or engagement.
+
+Commercial use, training use, professional-practice use, sublicensing
+or methodology licensing requires separate written authorization from
+AiVass LLC.
+
+--------------------------------------------------
+7. PARTNERSHIPS AND LICENSING
+--------------------------------------------------
+
+References to partnerships, methodology licensing, professional
+practice implementations or organizational collaborations are
+invitations to discuss a potential business relationship only.
+
+No license, partnership, agency, franchise, joint venture or other
+legal relationship exists unless established by a separate written
+agreement executed by authorized parties.
+
+--------------------------------------------------
+8. PAYMENTS AND THIRD-PARTY SERVICES
+--------------------------------------------------
+
+AiVass may use third-party providers including Stripe, Google Calendar,
+Google Meet and other service providers to facilitate payments,
+scheduling and service delivery.
+
+Transactions may also be governed by the applicable third party's
+terms and privacy practices.
+
+AiVass does not control third-party service availability.
+
+Assessment cancellation/refund terms displayed in the booking flow
+apply to the relevant appointment.
+
+Digital-product refund or download terms displayed at checkout apply
+to the relevant purchase.
+
+--------------------------------------------------
+9. NO GUARANTEE OF RESULTS
+--------------------------------------------------
+
+AiVass does not guarantee:
+
+- immigration outcomes
+- government approvals
+- professional recognition
+- awards
+- publications
+- employment
+- promotions
+- revenue
+- business performance
+- investment returns
+- specific transformation outcomes
+
+Examples, case studies, testimonials and illustrations describe
+individual experiences and are not promises of future results.
+
+Transformation depends on numerous factors outside AiVass’s control.
+
+--------------------------------------------------
+10. USER RESPONSIBILITIES
+--------------------------------------------------
+
+Users agree to provide information that is accurate to the best of
+their knowledge and to use AiVass materials lawfully.
+
+Users remain responsible for:
+- reviewing their own documents
+- confirming factual accuracy
+- obtaining legal, tax, financial or other regulated professional
+  advice when appropriate
+- protecting confidential credentials
+- complying with applicable laws and third-party terms
+
+--------------------------------------------------
+11. WEBSITE AVAILABILITY AND ACCURACY
+--------------------------------------------------
+
+AiVass seeks to keep website information accurate and current but
+cannot guarantee that every page is complete, error-free or continuously
+available.
+
+Information may be updated, corrected, removed or changed without
+notice.
+
+External links are provided for convenience and do not constitute
+endorsement unless expressly stated.
+
+--------------------------------------------------
+12. LIMITATION OF LIABILITY
+--------------------------------------------------
+
+To the maximum extent permitted by applicable law, AiVass LLC and its
+owners, contractors and representatives will not be liable for
+indirect, incidental, special, consequential or punitive damages
+arising from use of the website, digital products or third-party
+services.
+
+Nothing in these Terms excludes liability that cannot lawfully be
+excluded or limited.
+
+For paid services, any additional limitation-of-liability terms in the
+applicable signed agreement control.
+
+--------------------------------------------------
+13. INDEMNIFICATION
+--------------------------------------------------
+
+To the extent permitted by law, users agree to be responsible for
+claims or losses arising from their unlawful misuse of the website,
+AiVass intellectual property or materials, or violation of these Terms.
+
+--------------------------------------------------
+14. GOVERNING LAW
+--------------------------------------------------
+
+These website Terms are governed by the laws of the State of
+California, without regard to conflict-of-law principles, except where
+applicable law requires otherwise.
+
+Any specific dispute-resolution terms contained in a signed client
+agreement control for that engagement.
+
+--------------------------------------------------
+15. CHANGES TO THESE TERMS
+--------------------------------------------------
+
+AiVass may update these Terms as the website, services and business
+model evolve.
+
+The current version and effective date will be posted on this page.
+
+Continued use of the website after an update constitutes acceptance of
+the revised website terms to the extent permitted by law.
+
+--------------------------------------------------
+16. CONTACT
+--------------------------------------------------
+
+Questions regarding these Terms may be sent to:
+
+AiVass LLC
+Email: connect@aivass.com
+
+==================================================
+PAGE 2 — /privacy
+TITLE:
+Privacy Policy
+==================================================
+
+Use the following substantive content.
+
+INTRODUCTION
+
+AiVass LLC (“AiVass,” “we,” “us,” or “our”) respects the privacy of
+visitors, customers, prospective clients and business contacts.
+
+This Privacy Policy explains how information may be collected, used,
+disclosed and protected when people use aivass.com, purchase Guides,
+book assessments, submit information or interact with AiVass.
+
+--------------------------------------------------
+1. INFORMATION WE MAY COLLECT
+--------------------------------------------------
+
+Depending on how a person interacts with AiVass, we may collect:
+
+IDENTITY AND CONTACT INFORMATION
+- name
+- email address
+- telephone number
+- organization/company
+- professional contact information
+
+PROFESSIONAL INFORMATION
+- résumé or CV
+- résumé/CV link
+- LinkedIn profile
+- career history
+- professional achievements
+- evidence information
+- goals and assessment responses
+
+TRANSACTION INFORMATION
+- product purchased
+- transaction status
+- receipt or purchase reference
+- appointment/payment status
+
+Payment-card information is processed through payment providers such
+as Stripe. AiVass does not need to receive or store full payment-card
+numbers when Stripe processes the transaction.
+
+BOOKING INFORMATION
+- appointment date/time
+- assessment responses
+- booking details
+- meeting information
+
+Google Calendar and related Google services may process booking and
+meeting information.
+
+WEBSITE AND TECHNICAL INFORMATION
+Depending on the technologies enabled on the site, this may include:
+- IP address
+- browser/device type
+- pages viewed
+- referring page
+- interaction data
+- cookies or similar technologies
+- general analytics information
+
+COMMUNICATIONS
+Information provided when contacting AiVass, requesting support,
+discussing a partnership or corresponding by email.
+
+--------------------------------------------------
+2. HOW INFORMATION IS COLLECTED
+--------------------------------------------------
+
+Information may be collected:
+
+- directly from the individual
+- through website forms
+- through Google Calendar booking forms
+- through Guide purchases
+- through Stripe checkout
+- through email communications
+- through submitted résumé/CV or LinkedIn links
+- through website analytics or similar technologies if enabled
+- from publicly available professional sources when relevant to an
+  assessment or engagement
+
+--------------------------------------------------
+3. HOW WE USE INFORMATION
+--------------------------------------------------
+
+AiVass may use information to:
+
+- provide requested products or services
+- conduct Strategic Profile Assessments
+- evaluate potential fit for AiVass programs
+- deliver RISE, SHINE, SIGNATURE or other engagements
+- process and administer Guide purchases
+- schedule meetings
+- communicate with customers and prospective clients
+- provide customer support
+- develop and improve AiVass services
+- maintain security
+- prevent fraud or misuse
+- comply with legal obligations
+- maintain business and accounting records
+- understand website performance
+- communicate relevant AiVass information where permitted
+
+--------------------------------------------------
+4. PROFESSIONAL PROFILE INFORMATION
+--------------------------------------------------
+
+Résumés, CVs, professional evidence and assessment information may
+contain sensitive or personally significant information.
+
+AiVass uses this information for the purpose for which it was
+submitted, such as evaluating a professional profile, preparing an
+assessment or delivering an engagement.
+
+Users should avoid submitting information that is not reasonably
+necessary for the requested service.
+
+Do not submit passwords, Social Security numbers, banking credentials
+or other unnecessary sensitive authentication information through
+general website forms.
+
+--------------------------------------------------
+5. SERVICE PROVIDERS
+--------------------------------------------------
+
+AiVass may use service providers that process information on its behalf
+or in connection with requested services, including providers for:
+
+- payment processing, such as Stripe
+- scheduling and meetings, such as Google Calendar and Google Meet
+- website hosting/infrastructure
+- email and business communications
+- analytics, if enabled
+- document or cloud-storage tools where applicable
+
+These providers process information subject to their own terms,
+contracts and privacy obligations.
+
+--------------------------------------------------
+6. SALE AND SHARING OF PERSONAL INFORMATION
+--------------------------------------------------
+
+AiVass does not sell personal information for monetary consideration.
+
+AiVass does not intentionally disclose personal information to
+unrelated third parties for their independent direct marketing.
+
+If future advertising, analytics or technology practices create
+additional rights or disclosures under applicable privacy law, AiVass
+will update this Policy and provide any legally required choices.
+
+--------------------------------------------------
+7. COOKIES AND ANALYTICS
+--------------------------------------------------
+
+The website may use cookies or similar technologies necessary for
+website operation, security, preferences or analytics.
+
+If analytics, advertising pixels or other non-essential tracking
+technologies are activated, AiVass should implement appropriate notice
+and consent controls where legally required.
+
+Do not claim specific analytics or advertising tools are active unless
+they are actually configured in the production site.
+
+--------------------------------------------------
+8. DATA RETENTION
+--------------------------------------------------
+
+AiVass retains personal information for as long as reasonably necessary
+for the purpose for which it was collected, including service delivery,
+business administration, transaction records, dispute resolution,
+security and legal obligations.
+
+Retention periods may vary depending on the type of information and
+the relevant relationship.
+
+Information may be deleted, anonymized or securely archived when it is
+no longer reasonably required.
+
+--------------------------------------------------
+9. DATA SECURITY
+--------------------------------------------------
+
+AiVass uses reasonable administrative, technical and organizational
+measures intended to protect information.
+
+No internet transmission or storage system can be guaranteed to be
+completely secure.
+
+Users are responsible for maintaining appropriate permissions on
+documents shared through external links such as Google Drive,
+Dropbox or OneDrive.
+
+--------------------------------------------------
+10. PRIVACY CHOICES AND REQUESTS
+--------------------------------------------------
+
+Depending on applicable law and circumstances, individuals may request
+to:
+- access certain personal information
+- correct information
+- request deletion
+- obtain information about how information is used
+- withdraw consent where processing depends on consent
+- opt out of certain communications
+
+Requests may be sent to:
+
+connect@aivass.com
+
+AiVass may need to verify identity before responding to a privacy
+request.
+
+Some information may need to be retained where permitted or required
+for legal, security, contractual or recordkeeping reasons.
+
+--------------------------------------------------
+11. CALIFORNIA PRIVACY
+--------------------------------------------------
+
+AiVass operates in California.
+
+California law may provide additional privacy rights depending on the
+law and whether its applicability requirements are met.
+
+AiVass will honor rights required by applicable California law.
+
+Where required, California residents may request information regarding
+collection, use, disclosure, correction or deletion of personal
+information and may exercise applicable opt-out rights.
+
+AiVass does not discriminate against individuals for exercising
+privacy rights protected by applicable law.
+
+Requests:
+connect@aivass.com
+
+Do NOT state that AiVass is currently subject to the CCPA/CPRA unless
+that applicability has been legally confirmed.
+
+Use the phrase:
+“Where applicable under California law.”
+
+--------------------------------------------------
+12. DO NOT TRACK / PRIVACY SIGNALS
+--------------------------------------------------
+
+Browser and device privacy signals continue to evolve.
+
+State how the production website actually responds to browser
+Do-Not-Track or legally recognized opt-out signals once tracking
+technologies have been finalized.
+
+Until verified, do not invent technical behavior.
+
+For launch, include:
+
+“Because there is not yet a uniform industry standard for all browser
+Do Not Track signals, the website may not respond to every such signal.
+Where applicable law requires recognition of a legally valid opt-out
+preference signal, AiVass will implement the required response.”
+
+--------------------------------------------------
+13. CHILDREN
+--------------------------------------------------
+
+AiVass services are not directed to children under 13.
+
+AiVass does not knowingly seek to collect personal information from
+children under 13 through this website.
+
+If such information is believed to have been submitted, contact
+connect@aivass.com.
+
+--------------------------------------------------
+14. INTERNATIONAL USERS
+--------------------------------------------------
+
+AiVass is based in the United States.
+
+Individuals accessing the website from outside the United States
+understand that information may be processed in the United States and
+in other locations where relevant service providers operate, subject
+to applicable law.
+
+--------------------------------------------------
+15. EXTERNAL LINKS AND SOCIAL MEDIA
+--------------------------------------------------
+
+The website may link to third-party websites and social platforms,
+including LinkedIn, Facebook, Instagram, X and YouTube.
+
+AiVass is not responsible for the privacy practices of third-party
+websites or platforms.
+
+Users should review the applicable third-party privacy policies.
+
+--------------------------------------------------
+16. CHANGES TO THIS POLICY
+--------------------------------------------------
+
+AiVass may update this Privacy Policy as services, technologies or
+legal requirements evolve.
+
+The effective date will be updated when material revisions are made.
+
+--------------------------------------------------
+17. CONTACT
+--------------------------------------------------
+
+Privacy questions and requests may be sent to:
+
+AiVass LLC
+Email: connect@aivass.com
+
+==================================================
+DESIGN / TECHNICAL REQUIREMENTS
+==================================================
+
+For both pages:
+
+- use readable HTML text, not images
+- preserve crawlability
+- use proper H1/H2 hierarchy
+- include Effective date: August 9, 2026
+- add canonical URLs:
+  https://aivass.com/legal
+  https://aivass.com/privacy
+- include both links in the footer
+- ensure links work from every page
+- include both URLs in sitemap.xml
+- noindex must NOT be used
+- mobile responsive
+- accessible typography
+- no decorative Triad repetition required; use restrained star/rule details only
+
+For the Privacy page specifically:
+
+Before finalizing, audit the actual production code and report:
+1. analytics tools currently active
+2. advertising pixels currently active
+3. cookies set by the AiVass website itself
+4. third-party embedded services
+5. whether any personal data is transmitted to third parties before
+   user action
+
+Do NOT add claims about tools that are not actually present.
+
+At completion report:
+- /legal working yes/no
+- /privacy working yes/no
+- sitemap inclusion
+- footer links
+- any privacy-policy language that needs owner/legal review
+
+Do not publish.

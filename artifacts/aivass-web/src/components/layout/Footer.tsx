@@ -22,8 +22,8 @@ export function Footer() {
           <Link href="/about" className="hover:text-ox-light transition-colors">About</Link>
           <Link href="/contact" className="hover:text-ox-light transition-colors">Contact</Link>
           <Link href="/contact" className="hover:text-ox-light transition-colors">Discuss a Partnership</Link>
-          <a href="#legal" className="hover:text-ox-light transition-colors">Legal</a>
-          <a href="#privacy" className="hover:text-ox-light transition-colors">Privacy</a>
+          <Link href="/legal" className="hover:text-ox-light transition-colors" onClick={() => window.scrollTo(0,0)}>Legal</Link>
+          <Link href="/privacy" className="hover:text-ox-light transition-colors" onClick={() => window.scrollTo(0,0)}>Privacy</Link>
         </nav>
       </div>
 
