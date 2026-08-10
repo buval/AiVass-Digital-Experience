@@ -30,7 +30,18 @@ const PRODUCT_ID_TO_SLUG: Record<string, string> = {
   "prod_UuudKN57E7YBxm": "eb1a-athletics",
   "prod_Uuuecov9ZMnSbo": "eb1a-education",
   "prod_Uuuf4bMQ91y7V0": "eb1a-science",
-  "prod_UuufVso7YgP9cq": "eb1a-complete",
+};
+
+// Bundle products expand to multiple individual guide slugs
+const BUNDLE_PRODUCT_SLUGS: Record<string, string[]> = {
+  "prod_UuufVso7YgP9cq": [
+    "eb1a-master",
+    "eb1a-business",
+    "eb1a-arts",
+    "eb1a-athletics",
+    "eb1a-education",
+    "eb1a-science",
+  ],
 };
 
 // Raw body parser — Stripe signature verification requires the raw buffer
@@ -77,50 +88,57 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const buyerEmail = full.customer_details?.email ?? "unknown";
   const lineItems = full.line_items?.data ?? [];
 
+  // Idempotent: load all existing tokens for this session once
+  const existing = await db
+    .select()
+    .from(downloadTokensTable)
+    .where(eq(downloadTokensTable.stripeSessionId, session.id))
+    .limit(20);
+
   for (const item of lineItems) {
     const product = item.price?.product as Stripe.Product | null;
     if (!product?.id) continue;
 
-    const guideSlug = PRODUCT_ID_TO_SLUG[product.id];
-    if (!guideSlug) {
+    // Resolve to a list of slugs — bundles expand to multiple individual guides
+    const bundleSlugs = BUNDLE_PRODUCT_SLUGS[product.id];
+    const singleSlug = PRODUCT_ID_TO_SLUG[product.id];
+    const slugs: string[] = bundleSlugs ?? (singleSlug ? [singleSlug] : []);
+
+    if (slugs.length === 0) {
       logger.warn({ productId: product.id }, "Unknown product ID in webhook");
       continue;
     }
 
-    // Idempotent — skip if a token already exists for this session+slug
-    const existing = await db
-      .select()
-      .from(downloadTokensTable)
-      .where(eq(downloadTokensTable.stripeSessionId, session.id))
-      .limit(10);
+    for (const guideSlug of slugs) {
+      // Idempotent — skip if a token already exists for this session+slug
+      if (existing.some((r) => r.guideSlug === guideSlug)) {
+        logger.info({ guideSlug, sessionId: session.id }, "Token already exists — skipping");
+        continue;
+      }
 
-    if (existing.some((r) => r.guideSlug === guideSlug)) {
-      logger.info({ guideSlug, sessionId: session.id }, "Token already exists — skipping");
-      continue;
-    }
+      const token = randomUUID();
+      const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000);
 
-    const token = randomUUID();
-    const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000);
+      await db.insert(downloadTokensTable).values({
+        token,
+        guideSlug,
+        buyerEmail,
+        attemptsRemaining: 3,
+        expiresAt,
+        stripeSessionId: session.id,
+      });
 
-    await db.insert(downloadTokensTable).values({
-      token,
-      guideSlug,
-      buyerEmail,
-      attemptsRemaining: 3,
-      expiresAt,
-      stripeSessionId: session.id,
-    });
+      logger.info({ token, guideSlug, buyerEmail }, "Webhook: download token created");
 
-    logger.info({ token, guideSlug, buyerEmail }, "Webhook: download token created");
-
-    // Send download email — non-fatal if it fails
-    const guideName = GUIDE_NAMES[guideSlug] ?? guideSlug;
-    const downloadUrl = `https://aivass.com/download/${token}`;
-    try {
-      await sendDownloadEmail({ to: buyerEmail, guideName, downloadUrl });
-      logger.info({ token, guideSlug, buyerEmail }, "Webhook: download email sent");
-    } catch (err) {
-      logger.error({ err, token, guideSlug }, "Webhook: failed to send download email (token still valid)");
+      // Send download email — non-fatal if it fails
+      const guideName = GUIDE_NAMES[guideSlug] ?? guideSlug;
+      const downloadUrl = `https://aivass.com/download/${token}`;
+      try {
+        await sendDownloadEmail({ to: buyerEmail, guideName, downloadUrl });
+        logger.info({ token, guideSlug, buyerEmail }, "Webhook: download email sent");
+      } catch (err) {
+        logger.error({ err, token, guideSlug }, "Webhook: failed to send download email (token still valid)");
+      }
     }
   }
 }

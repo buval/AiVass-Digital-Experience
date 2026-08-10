@@ -17,7 +17,18 @@ const PRODUCT_ID_TO_SLUG: Record<string, string> = {
   "prod_UuudKN57E7YBxm": "eb1a-athletics",
   "prod_Uuuecov9ZMnSbo": "eb1a-education",
   "prod_Uuuf4bMQ91y7V0": "eb1a-science",
-  "prod_UuufVso7YgP9cq": "eb1a-complete",
+};
+
+// Bundle products expand to multiple individual guide slugs
+const BUNDLE_PRODUCT_SLUGS: Record<string, string[]> = {
+  "prod_UuufVso7YgP9cq": [
+    "eb1a-master",
+    "eb1a-business",
+    "eb1a-arts",
+    "eb1a-athletics",
+    "eb1a-education",
+    "eb1a-science",
+  ],
 };
 
 export const GUIDE_NAMES: Record<string, string> = {
@@ -71,53 +82,59 @@ router.get("/order-complete", async (req, res): Promise<void> => {
   const lineItems = session.line_items?.data ?? [];
   const downloads: DownloadReady[] = [];
 
+  // Idempotent: load all existing tokens for this session once
+  const existing = await db
+    .select()
+    .from(downloadTokensTable)
+    .where(eq(downloadTokensTable.stripeSessionId, sessionId))
+    .limit(20);
+
   for (const item of lineItems) {
     const product = item.price?.product as Stripe.Product | null;
     if (!product?.id) continue;
 
-    const guideSlug = PRODUCT_ID_TO_SLUG[product.id];
-    if (!guideSlug) {
+    // Resolve to a list of slugs — bundles expand to multiple individual guides
+    const bundleSlugs = BUNDLE_PRODUCT_SLUGS[product.id];
+    const singleSlug = PRODUCT_ID_TO_SLUG[product.id];
+    const slugs: string[] = bundleSlugs ?? (singleSlug ? [singleSlug] : []);
+
+    if (slugs.length === 0) {
       logger.warn({ productId: product.id }, "Unknown product — no guide slug mapped");
       continue;
     }
 
-    // Idempotent: reuse existing token for this session + slug
-    const existing = await db
-      .select()
-      .from(downloadTokensTable)
-      .where(eq(downloadTokensTable.stripeSessionId, sessionId))
-      .limit(10);
+    for (const guideSlug of slugs) {
+      const match = existing.find((r) => r.guideSlug === guideSlug);
 
-    const match = existing.find((r) => r.guideSlug === guideSlug);
+      if (match) {
+        downloads.push({
+          token: match.token,
+          guideSlug: match.guideSlug,
+          guideName: GUIDE_NAMES[match.guideSlug] ?? guideSlug,
+          attemptsRemaining: match.attemptsRemaining,
+        });
+      } else {
+        const token = randomUUID();
+        const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000); // 72 h
 
-    if (match) {
-      downloads.push({
-        token: match.token,
-        guideSlug: match.guideSlug,
-        guideName: GUIDE_NAMES[match.guideSlug] ?? guideSlug,
-        attemptsRemaining: match.attemptsRemaining,
-      });
-    } else {
-      const token = randomUUID();
-      const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000); // 72 h
+        await db.insert(downloadTokensTable).values({
+          token,
+          guideSlug,
+          buyerEmail: session.customer_details?.email ?? "unknown",
+          attemptsRemaining: 3,
+          expiresAt,
+          stripeSessionId: sessionId,
+        });
 
-      await db.insert(downloadTokensTable).values({
-        token,
-        guideSlug,
-        buyerEmail: session.customer_details?.email ?? "unknown",
-        attemptsRemaining: 3,
-        expiresAt,
-        stripeSessionId: sessionId,
-      });
+        logger.info({ token, guideSlug, sessionId }, "Download token created");
 
-      logger.info({ token, guideSlug, sessionId }, "Download token created");
-
-      downloads.push({
-        token,
-        guideSlug,
-        guideName: GUIDE_NAMES[guideSlug] ?? guideSlug,
-        attemptsRemaining: 3,
-      });
+        downloads.push({
+          token,
+          guideSlug,
+          guideName: GUIDE_NAMES[guideSlug] ?? guideSlug,
+          attemptsRemaining: 3,
+        });
+      }
     }
   }
 
