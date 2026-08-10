@@ -4,6 +4,7 @@ import { randomUUID } from "crypto";
 import { db, downloadTokensTable } from "@workspace/db";
 import { logger } from "../lib/logger.js";
 import { GUIDE_NAMES } from "./order.js";
+import { sendDownloadEmail } from "../lib/email.js";
 
 const router = Router();
 
@@ -163,10 +164,20 @@ router.post("/refresh", async (req, res): Promise<void> => {
 
   logger.info({ token, guideSlug, email }, "Download token refreshed for buyer");
 
+  // Send a fresh download email — non-fatal if it fails
+  const guideName = GUIDE_NAMES[guideSlug] ?? guideSlug;
+  const downloadUrl = `https://aivass.com/download/${token}`;
+  try {
+    await sendDownloadEmail({ to: email, guideName, downloadUrl });
+    logger.info({ token, guideSlug, email }, "Refresh: download email sent");
+  } catch (err) {
+    logger.error({ err, token, guideSlug }, "Refresh: failed to send download email (token still valid)");
+  }
+
   res.json({
     token,
     guideSlug,
-    guideName: GUIDE_NAMES[guideSlug] ?? guideSlug,
+    guideName,
     attemptsRemaining: 3,
     expiresAt: expiresAt.toISOString(),
   });
