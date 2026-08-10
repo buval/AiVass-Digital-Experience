@@ -31,6 +31,7 @@ import Legal from '@/pages/legal';
 import Privacy from '@/pages/privacy';
 import OrderSuccess from '@/pages/order-success';
 import OrderCancel from '@/pages/order-cancel';
+import DownloadPage from '@/pages/download';
 import {
   HowItWorksRedirect,
   OnboardingRedirect,
@@ -86,6 +87,9 @@ function Router() {
 
           <Route path="/order-success" component={OrderSuccess} />
           <Route path="/order-cancel" component={OrderCancel} />
+
+          {/* Guide download — secure link with 3-attempt limit */}
+          <Route path="/download/:token" component={DownloadPage} />
 
           {/* Legacy redirects */}
           <Route path="/how-it-works" component={HowItWorksRedirect} />
