@@ -218,7 +218,7 @@ export function guideCheckoutUrl(slug: string): string {
 }
 
 export function guideSampleUrl(slug: string): string {
-  return `https://aivass.com/samples/${slug}-sample.pdf`;
+  return `/samples/${slug}-sample.pdf`;
 }
 
 export function formatPrice(cents: number): string {
