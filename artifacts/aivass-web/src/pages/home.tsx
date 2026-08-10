@@ -210,36 +210,60 @@ export default function Home() {
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-full max-w-[420px]"
               >
-                {/* Three stars: top-center, bottom-left, bottom-right */}
-                {/* Curved arcs connecting them — no straight edges */}
+                <defs>
+                  {/* Travelling light pulse along the triangle edges */}
+                  <style>{`
+                    @keyframes dash-travel {
+                      0%   { stroke-dashoffset: 900; opacity: 0.18; }
+                      15%  { opacity: 0.55; }
+                      85%  { opacity: 0.55; }
+                      100% { stroke-dashoffset: 0;   opacity: 0.18; }
+                    }
+                    @keyframes star-pulse {
+                      0%, 100% { opacity: 0.9; transform: scale(1); }
+                      50%      { opacity: 1;   transform: scale(1.18); }
+                    }
+                    .tri-edge {
+                      stroke-dasharray: 6 420;
+                      stroke-dashoffset: 900;
+                      animation: dash-travel 4.8s ease-in-out infinite;
+                    }
+                    .tri-edge-b { animation-delay: 1.6s; }
+                    .tri-edge-c { animation-delay: 3.2s; }
+                    .star-node  {
+                      transform-origin: center;
+                      animation: star-pulse 3.5s ease-in-out infinite;
+                    }
+                    .star-node-b { animation-delay: 1.17s; }
+                    .star-node-c { animation-delay: 2.33s; }
+                  `}</style>
+                </defs>
 
-                {/* Arc: Individuals → Businesses (top to bottom-left, curving outward left) */}
-                <path
-                  d="M 240 68 C 180 140, 110 190, 68 282"
-                  stroke="#D9A39B" strokeWidth="0.75" opacity="0.45" strokeLinecap="round"
-                />
-                {/* Arc: Individuals → Organizations (top to bottom-right, curving outward right) */}
-                <path
-                  d="M 240 68 C 300 140, 370 190, 412 282"
-                  stroke="#D9A39B" strokeWidth="0.75" opacity="0.45" strokeLinecap="round"
-                />
-                {/* Arc: Businesses → Organizations (bottom, curving gently downward) */}
-                <path
-                  d="M 68 290 C 160 330, 320 330, 412 290"
-                  stroke="#D9A39B" strokeWidth="0.75" opacity="0.45" strokeLinecap="round"
-                />
+                {/* Base lines — static, faint */}
+                <line x1="240" y1="60" x2="60" y2="290" stroke="#D9A39B" strokeWidth="0.7" opacity="0.28" />
+                <line x1="240" y1="60" x2="420" y2="290" stroke="#D9A39B" strokeWidth="0.7" opacity="0.28" />
+                <line x1="60"  y1="290" x2="420" y2="290" stroke="#D9A39B" strokeWidth="0.7" opacity="0.28" />
 
-                {/* Star — Individuals (top) */}
-                <path d="M240 52 L243.5 62.5 L254 66 L243.5 69.5 L240 80 L236.5 69.5 L226 66 L236.5 62.5Z" fill="#D9A39B" />
-                <text x="240" y="46" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.85" fontWeight="400">INDIVIDUALS</text>
+                {/* Animated travelling pulse — one per edge, staggered */}
+                <line className="tri-edge"   x1="240" y1="60"  x2="60"  y2="290" stroke="#D9A39B" strokeWidth="2.5" strokeLinecap="round" />
+                <line className="tri-edge tri-edge-b" x1="60"  y1="290" x2="420" y2="290" stroke="#D9A39B" strokeWidth="2.5" strokeLinecap="round" />
+                <line className="tri-edge tri-edge-c" x1="420" y1="290" x2="240" y2="60"  stroke="#D9A39B" strokeWidth="2.5" strokeLinecap="round" />
 
-                {/* Star — Businesses (bottom-left) */}
-                <path d="M68 276 L71.5 286.5 L82 290 L71.5 293.5 L68 304 L64.5 293.5 L54 290 L64.5 286.5Z" fill="#D9A39B" />
-                <text x="68" y="318" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.85" fontWeight="400">BUSINESSES</text>
+                {/* Stars — subtly pulse in sync with the pulse passing through */}
+                <g className="star-node">
+                  <path d="M240 46 L243.5 56.5 L254 60 L243.5 63.5 L240 74 L236.5 63.5 L226 60 L236.5 56.5Z" fill="#D9A39B" />
+                </g>
+                <text x="240" y="42" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.9" fontWeight="400">INDIVIDUALS</text>
 
-                {/* Star — Organizations (bottom-right) */}
-                <path d="M412 276 L415.5 286.5 L426 290 L415.5 293.5 L412 304 L408.5 293.5 L398 290 L408.5 286.5Z" fill="#D9A39B" />
-                <text x="412" y="318" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.85" fontWeight="400">ORGANIZATIONS</text>
+                <g className="star-node star-node-b">
+                  <path d="M60 276 L63.5 286.5 L74 290 L63.5 293.5 L60 304 L56.5 293.5 L46 290 L56.5 286.5Z" fill="#D9A39B" />
+                </g>
+                <text x="60" y="320" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.9" fontWeight="400">BUSINESSES</text>
+
+                <g className="star-node star-node-c">
+                  <path d="M420 276 L423.5 286.5 L434 290 L423.5 293.5 L420 304 L416.5 293.5 L406 290 L416.5 286.5Z" fill="#D9A39B" />
+                </g>
+                <text x="420" y="320" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.9" fontWeight="400">ORGANIZATIONS</text>
               </svg>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-[10px] w-full mt-6 md:mt-3">
