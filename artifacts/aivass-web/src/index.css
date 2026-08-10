@@ -258,6 +258,16 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 
+  /* ── Custom star cursor (desktop / fine pointers only) ── */
+  @media (pointer: fine) {
+    body {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><path d="M11 1 L13 9 L21 11 L13 13 L11 21 L9 13 L1 11 L9 9 Z" fill="%237E3033"/></svg>') 11 11, auto;
+    }
+    a, button, [role="button"], .cursor-pointer, input, select, textarea, label {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 1 L14.3 9.7 L23 12 L14.3 14.3 L12 23 L9.7 14.3 L1 12 L9.7 9.7 Z" fill="%23D9A39B" stroke="%237E3033" stroke-width="1"/></svg>') 12 12, pointer;
+    }
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif font-normal;
   }

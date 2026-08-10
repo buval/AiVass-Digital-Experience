@@ -236,6 +236,10 @@ export default function Home() {
                     }
                     .star-node-b { animation-delay: 1.17s; }
                     .star-node-c { animation-delay: 2.33s; }
+                    @media (prefers-reduced-motion: reduce) {
+                      .tri-edge  { animation: none; opacity: 0; }
+                      .star-node { animation: none; }
+                    }
                   `}</style>
                 </defs>
 

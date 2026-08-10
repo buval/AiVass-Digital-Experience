@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { CriteriaConstellation } from "@/components/CriteriaConstellation";
 import { GUIDES, guideCheckoutUrl, guideSampleUrl, BUNDLE, formatPrice } from "@/data/guides";
 import { useSeoMeta } from "@/lib/seo";
 import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics";
@@ -157,6 +158,11 @@ export default function Guides() {
             <span className="text-navy">CAREER &amp; EVIDENCE — COMING NEXT</span>
           </p>
         </div>
+      </div>
+
+      {/* Interactive EB-1A criteria constellation */}
+      <div className="mt-[90px] -mb-[100px]">
+        <CriteriaConstellation />
       </div>
     </div>
   );
