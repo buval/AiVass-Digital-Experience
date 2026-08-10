@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
 import { MagicConstellation } from "@/components/brand/MagicConstellation";
 import { TransformationEvolution } from "@/components/brand/TransformationEvolution";
+import { LighthouseHero } from "@/components/brand/LighthouseHero";
 import { GUIDES } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
@@ -119,22 +120,14 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Art column — lighthouse beacon */}
+          {/* Art column — lighthouse beacon, animated 360° sweep */}
           <div
             className="mt-7 md:mt-0 relative"
             data-reveal="fade"
             style={{ transitionDelay: "100ms" }}
           >
             <div className="relative h-[55vh] md:h-[88vh] overflow-hidden">
-              <img
-                src={`${import.meta.env.BASE_URL}images/hero-lighthouse.jpg`}
-                alt="A lighthouse beacon cutting through the dark — a symbol of hope, guidance and clarity"
-                className="w-full h-full object-cover object-[center_40%]"
-              />
-              {/* Fade left edge into cream text column, soft bottom fade */}
-              <div className="absolute inset-0 pointer-events-none" style={{
-                background: "linear-gradient(to right, rgba(247,243,233,0.55) 0%, rgba(247,243,233,0.1) 22%, transparent 40%), linear-gradient(to bottom, transparent 65%, rgba(247,243,233,0.45) 100%)"
-              }} />
+              <LighthouseHero className="absolute inset-0" />
             </div>
           </div>
         </div>
