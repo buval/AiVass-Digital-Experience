@@ -91,7 +91,7 @@ export default function About() {
             <div className="relative">
               <div className="relative overflow-hidden" style={{ aspectRatio: "4/5" }}>
                 <img
-                  src={`${import.meta.env.BASE_URL}images/editorial-hero-human-oxlight.jpg`}
+                  src={`${import.meta.env.BASE_URL}images/editorial-hero-human-oxblood.jpg`}
                   alt="Maria Boukhval, Founder of AiVass"
                   className="w-full h-full object-cover object-[center_18%]"
                 />
