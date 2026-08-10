@@ -40,6 +40,12 @@ export default function Guides() {
           <span>275+ pages total</span>
         </div>
 
+      </div>
+
+      {/* Interactive EB-1A criteria constellation — the framework behind every guide */}
+      <CriteriaConstellation />
+
+      <div className="wrap pt-[90px]">
         <div className="eyebrow mb-[18px]">EXTRAORDINARY ABILITY · Available now · 6 guides</div>
 
         {/* Guide grid */}
@@ -158,11 +164,6 @@ export default function Guides() {
             <span className="text-navy">CAREER &amp; EVIDENCE — COMING NEXT</span>
           </p>
         </div>
-      </div>
-
-      {/* Interactive EB-1A criteria constellation */}
-      <div className="mt-[90px] -mb-[100px]">
-        <CriteriaConstellation />
       </div>
     </div>
   );
