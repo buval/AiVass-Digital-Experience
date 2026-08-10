@@ -369,33 +369,6 @@
   box-shadow: 0 12px 32px -8px rgba(18,35,63,0.13);
 }
 
-/* ─── Lighthouse hero animations ───────────────────────── */
-
-/* Slow 360° orbital sweep — image pans left→right→left continuously */
-@keyframes lighthouse-sweep {
-  0%   { transform: scale(1.28) translateX(-8%) translateY(0%); }
-  25%  { transform: scale(1.26) translateX(-2%) translateY(-1%); }
-  50%  { transform: scale(1.28) translateX( 6%) translateY( 0%); }
-  75%  { transform: scale(1.26) translateX( 1%) translateY( 1%); }
-  100% { transform: scale(1.28) translateX(-8%) translateY(0%); }
-}
-
-/* Rotating beacon ray conic-gradient */
-@keyframes lighthouse-beacon-ray {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.lighthouse-sweep img {
-  transform: none !important; /* override inline, animation handles it */
-  animation: lighthouse-sweep 28s ease-in-out infinite;
-  will-change: transform;
-}
-
-.lighthouse-beacon-ray {
-  animation: lighthouse-beacon-ray 12s linear infinite;
-  transform-origin: 55% 35%;
-}
 
 /* ─── Reduced motion ────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -410,8 +383,5 @@
     transform: none;
     transition: none;
   }
-  .lighthouse-sweep img,
-  .lighthouse-beacon-ray {
-    animation-play-state: paused;
-  }
+
 }
