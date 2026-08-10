@@ -3,14 +3,12 @@ import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
 import { MagicConstellation } from "@/components/brand/MagicConstellation";
 import { TransformationEvolution } from "@/components/brand/TransformationEvolution";
-import { LighthouseHero } from "@/components/brand/LighthouseHero";
 import { GUIDES } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
 import { useSeoMeta } from "@/lib/seo";
 import { trackAssessmentClick, trackGuidePurchaseClick } from "@/lib/analytics";
 
-/** Wire up scroll-reveal: any [data-reveal] element animates in when it enters the viewport. */
 function useScrollReveal() {
   useEffect(() => {
     const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
@@ -23,7 +21,7 @@ function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -44px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -32px 0px" }
     );
     targets.forEach((t) => io.observe(t));
     return () => io.disconnect();
@@ -42,126 +40,149 @@ export default function Home() {
     <div className="bg-cream">
 
       {/* ═══════════════════════════════════════════════════════
-          01  HERO — architectural threshold, dawn light
+          HERO — panoramic, one unified scene
       ═══════════════════════════════════════════════════════ */}
-      <section
-        className="relative min-h-[100svh] flex items-center overflow-hidden"
-        style={{ paddingTop: 64 }}
-      >
-        {/* Atmospheric warm bloom — right-biased, behind the art column */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            right: 0,
-            top: "10%",
-            width: "55%",
-            height: "85%",
-            background:
-              "radial-gradient(ellipse at 60% 40%, rgba(217,163,155,0.14) 0%, rgba(247,243,233,0) 68%)",
-          }}
-        />
-        {/* Very faint architectural grid — depth, not noise */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(90deg, rgba(18,35,63,0.025) 0px, transparent 1px, transparent 120px, rgba(18,35,63,0.025) 121px)",
-            backgroundSize: "120px 100%",
-          }}
-        />
+      <section className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-paper">
 
-        <div className="wrap w-full grid grid-cols-1 md:grid-cols-2 items-center gap-[4vw] py-[80px] md:py-0">
-          {/* Text column */}
-          <div>
-            <div
-              className="eyebrow mb-5"
-              data-reveal
-              style={{ transitionDelay: "0ms" }}
-            >
-              01 · Transformation studio
-            </div>
-            <h1
-              className="text-[60px] md:text-[clamp(60px,7vw,100px)] leading-[0.9] tracking-[-0.07em] font-serif mb-[22px]"
-              data-reveal
-              style={{ transitionDelay: "80ms" }}
-            >
-              Building<br />
-              <em className="text-oxblood italic">extraordinary</em><br />
-              futures.
-            </h1>
-            <div
-              className="w-[80px] h-[1px] bg-navy/25 mb-[22px]"
-              data-reveal="fade"
-              style={{ transitionDelay: "200ms" }}
+        {/* Portrait — right side, full bleed, gradient-faded into background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-y-0 right-0 w-[62%] md:w-[58%]">
+            <img
+              src={`${import.meta.env.BASE_URL}images/hero-arch-a.jpg`}
+              alt=""
+              className="w-full h-full object-cover"
+              style={{ objectPosition: "center 15%" }}
+              loading="eager"
             />
-            <p
-              className="text-[14px] md:text-[16px] text-navy-mid max-w-[485px] leading-[1.65]"
-              data-reveal
-              style={{ transitionDelay: "260ms" }}
-            >
-              A boutique transformation studio where intelligent systems, human
-              connection and strategic architecture come together to build what
-              comes next.
-            </p>
+            {/* Seamless left fade — arch stone wall is already cream, so this is very gentle */}
             <div
-              className="flex flex-row flex-wrap gap-6 mt-[30px]"
-              data-reveal
-              style={{ transitionDelay: "340ms" }}
-            >
-              <Link href="/solutions" className="btn-fill">Explore AiVass</Link>
-              <a href="#three-paths" className="link-under">Find Your Path ↗</a>
-            </div>
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to right, #FDFBF6 0%, rgba(253,251,246,0.88) 8%, rgba(253,251,246,0.4) 24%, rgba(253,251,246,0.08) 45%, transparent 62%)",
+              }}
+            />
+            {/* Top edge */}
             <div
-              className="font-serif italic text-[20px] text-grey mt-[36px] md:mt-[60px]"
-              data-reveal="fade"
-              style={{ transitionDelay: "480ms" }}
-            >
-              Automation <b className="text-oxblood font-normal">with</b> Soul.
-            </div>
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(253,251,246,0.65) 0%, transparent 18%)",
+              }}
+            />
+            {/* Bottom edge */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(253,251,246,0.55) 0%, transparent 20%)",
+              }}
+            />
           </div>
 
-          {/* Art column — lighthouse beacon, animated 360° sweep */}
+          {/* Subtle warm bloom in the merge zone */}
           <div
-            className="mt-7 md:mt-0 relative"
-            data-reveal="fade"
-            style={{ transitionDelay: "100ms" }}
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 48% 55%, rgba(200,160,100,0.04) 0%, transparent 55%)",
+            }}
+          />
+        </div>
+
+        {/* Content */}
+        <div
+          className="relative z-10 wrap w-full"
+          style={{ paddingTop: "clamp(80px, 12vh, 120px)", paddingBottom: "clamp(60px, 8vh, 100px)" }}
+        >
+          {/* Eyebrow */}
+          <div
+            className="eyebrow mb-6 md:mb-8"
+            data-reveal
+            style={{ transitionDelay: "0ms" }}
           >
-            <div className="relative h-[55vh] md:h-[88vh] overflow-hidden">
-              <LighthouseHero className="absolute inset-0" />
+            Boutique transformation studio
+          </div>
+
+          {/* Headline */}
+          <h1
+            className="font-serif leading-[0.88] tracking-[-0.065em] mb-8 md:mb-10 max-w-[70vw] md:max-w-[55vw]"
+            style={{ fontSize: "clamp(76px, 10.5vw, 144px)" }}
+            data-reveal
+            // @ts-ignore data attribute
+            data-delay="80"
+          >
+            Building<br />
+            <em className="text-oxblood italic">extraordinary</em><br />
+            futures.
+          </h1>
+
+          {/* Description + CTA + tagline */}
+          <div
+            className="flex flex-col md:flex-row md:items-end gap-8 md:gap-[5vw]"
+            data-reveal
+            style={{ transitionDelay: "220ms" }}
+          >
+            <div>
+              <p className="text-[15px] md:text-[16px] text-navy-mid max-w-[380px] leading-[1.68] mb-7">
+                Where intelligent systems, human connection and strategic
+                architecture come together to build what comes next.
+              </p>
+              <div className="flex flex-wrap gap-5 items-center">
+                <Link href="/solutions" className="btn-fill">Explore AiVass</Link>
+                <a href="#three-paths" className="link-under">Find Your Path ↗</a>
+              </div>
+            </div>
+
+            {/* Tagline — desktop pull quote */}
+            <div className="hidden md:block pb-[2px]">
+              <p
+                className="font-serif italic leading-[1.05] text-navy/25"
+                style={{ fontSize: "clamp(22px, 2.4vw, 34px)" }}
+              >
+                Automation{" "}
+                <span className="not-italic font-normal text-navy/18">with</span>{" "}
+                <span className="text-oxblood/40">Soul.</span>
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Soft fade-to-next transition */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-          style={{
-            background: "linear-gradient(to bottom, transparent, rgba(247,243,233,0.7))",
-          }}
-        />
+        {/* Scroll cue */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+          <div
+            className="w-px bg-navy/40"
+            style={{
+              height: "36px",
+              animation: "ambient-float 2.4s ease-in-out infinite",
+            }}
+          />
+        </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          02  THREE TRANSFORMATION PATHS — navy, one Triad moment
+          THREE TRANSFORMATION PATHS
       ═══════════════════════════════════════════════════════ */}
       <section
         id="three-paths"
-        className="bg-navy text-cream pt-[65px] pb-[60px] md:py-[95px] scroll-mt-20 relative overflow-hidden"
+        className="bg-navy text-cream pt-[55px] pb-[55px] md:py-[80px] scroll-mt-20 relative overflow-hidden"
       >
-        {/* Subtle warm horizon accent — top edge */}
         <div
           className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
-          style={{ background: "linear-gradient(to right, transparent, rgba(217,163,155,0.25) 40%, rgba(217,163,155,0.25) 60%, transparent)" }}
+          style={{
+            background:
+              "linear-gradient(to right, transparent, rgba(217,163,155,0.22) 40%, rgba(217,163,155,0.22) 60%, transparent)",
+          }}
         />
 
         <div className="wrap">
-          <div className="eyebrow text-ox-light mb-8" data-reveal>
-            02 · Three transformation paths
+          <div className="eyebrow text-ox-light mb-7" data-reveal>
+            Three transformation paths
           </div>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-10 md:gap-[8vw] items-center">
             <div>
               <h2
-                className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-4"
+                className="text-[38px] md:text-[clamp(38px,5vw,66px)] leading-[0.96] tracking-[-0.06em] mb-4"
                 data-reveal
                 style={{ transitionDelay: "80ms" }}
               >
@@ -169,7 +190,7 @@ export default function Home() {
                 <span className="text-ox-light italic">Three paths.</span>
               </h2>
               <p
-                className="text-ox-light text-[14px] md:text-[16px] leading-[1.65] max-w-[400px]"
+                className="text-ox-light text-[14px] md:text-[15px] leading-[1.65] max-w-[380px]"
                 data-reveal
                 style={{ transitionDelay: "160ms" }}
               >
@@ -178,13 +199,16 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Single shared architecture — one Triad, three labeled nodes */}
-            <div className="flex flex-col items-center" data-reveal style={{ transitionDelay: "120ms" }}>
+            <div
+              className="flex flex-col items-center"
+              data-reveal
+              style={{ transitionDelay: "120ms" }}
+            >
               <svg
                 viewBox="0 0 480 360"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-full max-w-[480px]"
+                className="w-full max-w-[400px]"
               >
                 <line x1="240" y1="60" x2="60" y2="290" stroke="#D9A39B" strokeWidth="0.8" opacity="0.5" />
                 <line x1="240" y1="60" x2="420" y2="290" stroke="#D9A39B" strokeWidth="0.8" opacity="0.5" />
@@ -197,7 +221,7 @@ export default function Home() {
                 <text x="420" y="320" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.9" fontWeight="400">ORGANIZATIONS</text>
               </svg>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-[10px] w-full mt-8 md:mt-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-[10px] w-full mt-6 md:mt-3">
                 {[
                   ["INDIVIDUALS", "Build, articulate and demonstrate extraordinary ability.", "/solutions/individuals"],
                   ["BUSINESSES", "Turn ambition into intelligent, scalable systems.", "/solutions/businesses"],
@@ -206,12 +230,12 @@ export default function Home() {
                   <Link
                     href={path}
                     key={title}
-                    className={`group block border-t border-cream/20 pt-[12px] hover:bg-white/5 transition-colors ${
-                      i > 0 ? "md:border-l md:border-t-0 md:pl-[14px] border-t pt-[12px] md:pt-0" : ""
+                    className={`group block border-t border-cream/20 pt-[10px] hover:bg-white/5 transition-colors ${
+                      i > 0 ? "md:border-l md:border-t-0 md:pl-[14px] border-t pt-[10px] md:pt-0" : ""
                     }`}
                   >
-                    <h3 className="font-serif text-[16px] md:text-[18px] mb-1 group-hover:text-ox-light transition-colors">{title}</h3>
-                    <p className="text-ox-light text-[11px] md:text-[12px] leading-[1.5] opacity-80 group-hover:opacity-100 transition-opacity">{desc}</p>
+                    <h3 className="font-serif text-[15px] md:text-[17px] mb-1 group-hover:text-ox-light transition-colors">{title}</h3>
+                    <p className="text-ox-light text-[11px] leading-[1.5] opacity-75 group-hover:opacity-100 transition-opacity">{desc}</p>
                   </Link>
                 ))}
               </div>
@@ -221,136 +245,38 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          03  AUTOMATION WITH SOUL — manifesto, arch echo
+          PURPOSE · PROOF · PERMANENCE
       ═══════════════════════════════════════════════════════ */}
-      <section className="relative py-[100px] md:py-[155px] min-h-[460px] md:min-h-[580px] flex items-center text-center overflow-hidden">
-        {/* Deep warm radial — richer atmosphere */}
+      <section className="bg-paper py-[70px] md:py-[100px] relative overflow-hidden">
+        <div
+          className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to right, transparent, rgba(217,163,155,0.3) 30%, rgba(217,163,155,0.3) 70%, transparent)",
+          }}
+        />
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 55%, rgba(217,163,155,0.16) 0%, rgba(247,243,233,0) 60%)",
+              "radial-gradient(ellipse at 20% 60%, rgba(217,163,155,0.05) 0%, transparent 55%)",
           }}
         />
-        {/* Arch — outer halo glow ring */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            left: "50%",
-            top: "6%",
-            width: "500px",
-            height: "92%",
-            transform: "translateX(-50%)",
-            border: "1px solid rgba(217,163,155,0.22)",
-            borderBottom: "none",
-            borderRadius: "250px 250px 0 0",
-            boxShadow: "0 0 40px 0 rgba(217,163,155,0.08) inset",
-          }}
-        />
-        {/* Arch — inner fine line */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            left: "50%",
-            top: "8%",
-            width: "420px",
-            height: "88%",
-            transform: "translateX(-50%)",
-            border: "1px solid rgba(18,35,63,0.09)",
-            borderBottom: "none",
-            borderRadius: "210px 210px 0 0",
-          }}
-        />
-        {/* Arch apex star */}
-        <div className="absolute pointer-events-none" style={{ left: "50%", top: "6%", transform: "translate(-50%, -50%)" }}>
-          <svg viewBox="0 0 22 22" className="w-[18px] h-[18px] text-oxblood/50" fill="currentColor">
-            <path d="M11 1 L13.2 8.8 L21 11 L13.2 13.2 L11 21 L8.8 13.2 L1 11 L8.8 8.8Z" />
-          </svg>
-        </div>
-        {/* Bottom-left arch star */}
-        <div className="absolute pointer-events-none" style={{ left: "calc(50% - 210px)", bottom: "0%", transform: "translate(-50%, 50%)" }}>
-          <svg viewBox="0 0 16 16" className="w-[12px] h-[12px] text-oxblood/35" fill="currentColor">
-            <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
-          </svg>
-        </div>
-        {/* Bottom-right arch star */}
-        <div className="absolute pointer-events-none" style={{ right: "calc(50% - 210px)", bottom: "0%", transform: "translate(50%, 50%)" }}>
-          <svg viewBox="0 0 16 16" className="w-[12px] h-[12px] text-oxblood/35" fill="currentColor">
-            <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
-          </svg>
-        </div>
-
-        <div className="wrap w-full relative z-10">
-          <div className="eyebrow mb-6" data-reveal>03 · Operating philosophy</div>
-
-          {/* Ruled lines — editorial accent above heading */}
-          <div
-            className="flex flex-col items-center gap-[5px] mb-10"
-            data-reveal="fade"
-            style={{ transitionDelay: "60ms" }}
-          >
-            <div className="w-[70px] h-[1px] bg-navy/20" />
-            <div className="w-[45px] h-[1px] bg-oxblood/40" />
-            <div className="w-[25px] h-[1px] bg-oxblood/20" />
-          </div>
-
-          <h2
-            className="text-[52px] md:text-[clamp(54px,8vw,108px)] font-serif leading-none tracking-[-0.05em] mb-[26px]"
-            data-reveal
-            style={{ transitionDelay: "120ms" }}
-          >
-            Automation <span className="text-oxblood italic">with Soul.</span>
-          </h2>
-          <p
-            className="font-serif italic text-[18px] md:text-[23px] max-w-[560px] mx-auto leading-[1.45] text-navy-mid"
-            data-reveal
-            style={{ transitionDelay: "220ms" }}
-          >
-            The future should become more intelligent without becoming less human.
-          </p>
-
-          {/* Ruled lines — below */}
-          <div
-            className="flex flex-col items-center gap-[5px] mt-10"
-            data-reveal="fade"
-            style={{ transitionDelay: "320ms" }}
-          >
-            <div className="w-[25px] h-[1px] bg-oxblood/20" />
-            <div className="w-[45px] h-[1px] bg-oxblood/40" />
-            <div className="w-[70px] h-[1px] bg-navy/20" />
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          04  PURPOSE · PROOF · PERMANENCE — staggered reveal
-      ═══════════════════════════════════════════════════════ */}
-      <section className="bg-paper py-[85px] md:py-[130px] relative overflow-hidden">
-        {/* Ox-light top accent */}
-        <div
-          className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
-          style={{
-            background: "linear-gradient(to right, transparent, rgba(217,163,155,0.35) 30%, rgba(217,163,155,0.35) 70%, transparent)",
-          }}
-        />
-        {/* Warm ambient radial — left of center */}
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 20% 60%, rgba(217,163,155,0.06) 0%, transparent 55%)" }} />
 
         <div className="wrap">
-          <div className="eyebrow mb-5" data-reveal>04 · Strategic framework</div>
+          <div className="eyebrow mb-5" data-reveal>Strategic framework</div>
           <h2
-            className="text-[40px] md:text-[clamp(40px,5vw,72px)] leading-[0.96] tracking-[-0.06em] mb-[60px] md:mb-[80px]"
+            className="text-[38px] md:text-[clamp(38px,5vw,68px)] leading-[0.96] tracking-[-0.06em] mb-[52px] md:mb-[72px]"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
             Purpose{" "}
-            <span className="text-ox-light inline-flex items-baseline gap-0">
-              <svg viewBox="0 0 10 10" className="w-[8px] h-[8px] inline-block relative top-[-2px]" fill="#D9A39B"><path d="M5 0 L6 4 L10 5 L6 6 L5 10 L4 6 L0 5 L4 4Z"/></svg>
+            <span className="text-ox-light inline-flex items-baseline">
+              <svg viewBox="0 0 10 10" className="w-[7px] h-[7px] inline-block relative top-[-2px]" fill="#D9A39B"><path d="M5 0 L6 4 L10 5 L6 6 L5 10 L4 6 L0 5 L4 4Z"/></svg>
             </span>{" "}
             Proof{" "}
-            <span className="text-ox-light inline-flex items-baseline gap-0">
-              <svg viewBox="0 0 10 10" className="w-[8px] h-[8px] inline-block relative top-[-2px]" fill="#D9A39B"><path d="M5 0 L6 4 L10 5 L6 6 L5 10 L4 6 L0 5 L4 4Z"/></svg>
+            <span className="text-ox-light inline-flex items-baseline">
+              <svg viewBox="0 0 10 10" className="w-[7px] h-[7px] inline-block relative top-[-2px]" fill="#D9A39B"><path d="M5 0 L6 4 L10 5 L6 6 L5 10 L4 6 L0 5 L4 4Z"/></svg>
             </span>
             <br />
             <span className="text-oxblood italic">Permanence</span>
@@ -363,38 +289,38 @@ export default function Home() {
             ].map(({ label, body }, i) => (
               <div
                 key={label}
-                className={`relative pt-[28px] pb-[48px] md:pb-0 md:pr-[48px] ${
-                  i > 0 ? "md:pl-[48px] md:border-l border-navy/12 border-t md:border-t-0 md:pt-[28px]" : ""
+                className={`relative pt-[24px] pb-[40px] md:pb-0 md:pr-[44px] ${
+                  i > 0 ? "md:pl-[44px] md:border-l border-navy/10 border-t md:border-t-0" : ""
                 }`}
                 data-reveal
-                style={{ transitionDelay: `${i * 130}ms` }}
+                style={{ transitionDelay: `${i * 120}ms` }}
               >
-                {/* Star icon — larger, prominent */}
-                <svg viewBox="0 0 28 28" className="w-[26px] h-[26px] mb-5 text-oxblood" fill="currentColor">
+                <svg viewBox="0 0 28 28" className="w-[22px] h-[22px] mb-4 text-oxblood" fill="currentColor">
                   <path d="M14 1 L16.8 11.2 L27 14 L16.8 16.8 L14 27 L11.2 16.8 L1 14 L11.2 11.2Z" />
                 </svg>
-                <b className="font-serif font-normal text-[26px] md:text-[32px] block mb-4 tracking-[-0.04em]">{label}</b>
-                <p className="text-[13px] md:text-[14px] text-grey leading-[1.7]">{body}</p>
+                <b className="font-serif font-normal text-[24px] md:text-[30px] block mb-3 tracking-[-0.04em]">{label}</b>
+                <p className="text-[13px] md:text-[13.5px] text-grey leading-[1.7]">{body}</p>
               </div>
             ))}
           </div>
-
-          {/* Connecting base rule */}
-          <div className="hidden md:block mt-[60px] h-[1px] w-full"
-            style={{ background: "linear-gradient(to right, rgba(217,163,155,0.25), rgba(217,163,155,0.10) 50%, rgba(217,163,155,0.25))" }} />
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          05  FOR INDIVIDUALS — explore / assess / pathway
+          FOR INDIVIDUALS
       ═══════════════════════════════════════════════════════ */}
-      <section className="py-[60px] md:py-[85px] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(217,163,155,0.06) 0%, transparent 50%)" }} />
+      <section className="py-[55px] md:py-[80px] relative overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at 80% 20%, rgba(217,163,155,0.05) 0%, transparent 50%)",
+          }}
+        />
         <div className="wrap relative z-10">
-          <div className="eyebrow mb-4" data-reveal>05 · For individuals</div>
+          <div className="eyebrow mb-4" data-reveal>For individuals</div>
           <h2
-            className="text-[38px] md:text-[clamp(38px,5vw,68px)] leading-[0.96] tracking-[-0.06em] mb-[36px] md:mb-[44px]"
+            className="text-[36px] md:text-[clamp(36px,5vw,64px)] leading-[0.96] tracking-[-0.06em] mb-[32px] md:mb-[44px]"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
@@ -402,12 +328,11 @@ export default function Home() {
             <span className="text-oxblood italic">Receive your pathway.</span>
           </h2>
 
-          {/* Three-step roadmap — no connector line, clean milestone layout */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
             {[
               {
                 step: "01", label: "EXPLORE",
-                body: "Begin with paid self-directed Guides. Available now · 5 guides in Extraordinary Ability.",
+                body: "Begin with paid self-directed Guides. Available now · 6 guides in Extraordinary Ability.",
                 cta: <Link href="/guides" className="link-under text-oxblood inline-block text-[11px] tracking-[0.06em]">Explore Guides</Link>,
               },
               {
@@ -423,30 +348,27 @@ export default function Home() {
             ].map(({ step, label, body, cta }, i) => (
               <div
                 key={step}
-                className={`pt-[18px] pb-[32px] md:pb-0 md:pr-[36px] ${i > 0 ? "border-t md:border-t-0 md:border-l border-navy/15 md:pl-[36px]" : ""}`}
+                className={`pt-[16px] pb-[28px] md:pb-0 md:pr-[32px] ${i > 0 ? "border-t md:border-t-0 md:border-l border-navy/12 md:pl-[32px]" : ""}`}
                 data-reveal
-                style={{ transitionDelay: `${i * 100}ms` }}
+                style={{ transitionDelay: `${i * 90}ms` }}
               >
-                {/* Step marker row */}
-                <div className="flex items-center gap-[10px] mb-[14px]">
-                  <svg viewBox="0 0 16 16" className="w-[14px] h-[14px] flex-shrink-0 text-oxblood" fill="currentColor">
+                <div className="flex items-center gap-[10px] mb-[12px]">
+                  <svg viewBox="0 0 16 16" className="w-[12px] h-[12px] flex-shrink-0 text-oxblood" fill="currentColor">
                     <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
                   </svg>
-                  <span className="text-[9.5px] tracking-[0.16em] uppercase text-navy/55 font-medium">{step} · {label}</span>
+                  <span className="text-[9px] tracking-[0.16em] uppercase text-navy/50 font-medium">{step} · {label}</span>
                 </div>
-                {/* Content */}
-                <p className="text-[13px] md:text-[13.5px] text-navy-mid leading-[1.6] mb-[14px]">{body}</p>
+                <p className="text-[13px] text-navy-mid leading-[1.6] mb-[12px]">{body}</p>
                 {cta}
               </div>
             ))}
           </div>
 
-          {/* Pathways — RISE / SHINE / SIGNATURE */}
-          <div className="mt-[40px] md:mt-[52px]">
-            <div className="flex items-center gap-4 mb-[28px]" data-reveal>
-              <div className="flex-1 h-px bg-navy/10" />
-              <span className="eyebrow text-navy/35 text-[9px]">Your pathway</span>
-              <div className="flex-1 h-px bg-navy/10" />
+          <div className="mt-[36px] md:mt-[48px]">
+            <div className="flex items-center gap-4 mb-[24px]" data-reveal>
+              <div className="flex-1 h-px bg-navy/8" />
+              <span className="eyebrow text-navy/30 text-[9px]">Your pathway</span>
+              <div className="flex-1 h-px bg-navy/8" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
               {[
@@ -456,15 +378,15 @@ export default function Home() {
               ].map(([title, desc], i) => (
                 <div
                   key={title}
-                  className={`pt-[18px] pb-[28px] md:pb-0 md:pr-[36px] ${i > 0 ? "border-t md:border-t-0 md:border-l border-navy/15 md:pl-[36px]" : ""}`}
+                  className={`pt-[16px] pb-[24px] md:pb-0 md:pr-[32px] ${i > 0 ? "border-t md:border-t-0 md:border-l border-navy/12 md:pl-[32px]" : ""}`}
                   data-reveal
-                  style={{ transitionDelay: `${i * 110}ms` }}
+                  style={{ transitionDelay: `${i * 100}ms` }}
                 >
-                  <svg viewBox="0 0 12 12" className="w-[10px] h-[10px] mb-[10px] text-oxblood/45" fill="currentColor">
+                  <svg viewBox="0 0 12 12" className="w-[9px] h-[9px] mb-[10px] text-oxblood/40" fill="currentColor">
                     <path d="M6 0 L7.2 4.8 L12 6 L7.2 7.2 L6 12 L4.8 7.2 L0 6 L4.8 4.8Z" />
                   </svg>
-                  <b className="font-serif font-normal text-[20px] md:text-[24px] block mb-[10px] tracking-[-0.03em]">{title}</b>
-                  <p className="text-[12px] md:text-[13px] text-grey leading-[1.6] mb-[12px]">{desc}</p>
+                  <b className="font-serif font-normal text-[18px] md:text-[22px] block mb-[8px] tracking-[-0.03em]">{title}</b>
+                  <p className="text-[12px] md:text-[12.5px] text-grey leading-[1.6] mb-[10px]">{desc}</p>
                   <a
                     href={STRATEGIC_ASSESSMENT_URL}
                     target="_blank"
@@ -482,10 +404,9 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          06  FOR BUSINESSES — navy, richer atmospheric depth
+          FOR BUSINESSES
       ═══════════════════════════════════════════════════════ */}
-      <section className="relative bg-navy text-cream py-[75px] md:py-[115px] overflow-hidden">
-        {/* Directional warm bloom — light entering from the right horizon */}
+      <section className="relative bg-navy text-cream py-[65px] md:py-[95px] overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -493,32 +414,18 @@ export default function Home() {
               "radial-gradient(ellipse at 85% 50%, rgba(44,64,93,0.8) 0%, rgba(18,35,63,0) 55%)",
           }}
         />
-        {/* Architectural horizon lines — two ruled horizons */}
         <div
           className="absolute pointer-events-none"
           style={{
-            top: "38%",
-            left: 0,
-            right: 0,
-            height: "1px",
-            background: "linear-gradient(to right, transparent 5%, rgba(217,163,155,0.12) 30%, rgba(217,163,155,0.12) 70%, transparent 95%)",
+            top: "40%", left: 0, right: 0, height: "1px",
+            background:
+              "linear-gradient(to right, transparent 5%, rgba(217,163,155,0.1) 30%, rgba(217,163,155,0.1) 70%, transparent 95%)",
           }}
         />
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: "42%",
-            left: 0,
-            right: 0,
-            height: "1px",
-            background: "linear-gradient(to right, transparent 10%, rgba(217,163,155,0.07) 35%, rgba(217,163,155,0.07) 65%, transparent 90%)",
-          }}
-        />
-
         <div className="wrap relative z-10">
-          <div className="eyebrow text-ox-light mb-4" data-reveal>06 · For businesses</div>
+          <div className="eyebrow text-ox-light mb-4" data-reveal>For businesses</div>
           <h2
-            className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-4"
+            className="text-[38px] md:text-[clamp(38px,5vw,66px)] leading-[0.98] tracking-[-0.06em] mb-4"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
@@ -526,7 +433,7 @@ export default function Home() {
             <span className="text-ox-light italic">to architecture.</span>
           </h2>
           <p
-            className="text-ox-light text-[14px] md:text-[16px] leading-[1.65] max-w-[500px]"
+            className="text-ox-light text-[14px] md:text-[15px] leading-[1.65] max-w-[480px]"
             data-reveal
             style={{ transitionDelay: "160ms" }}
           >
@@ -540,22 +447,21 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          07  FOR ORGANIZATIONS — paper, atmospheric
+          FOR ORGANIZATIONS
       ═══════════════════════════════════════════════════════ */}
-      <section className="relative bg-paper py-[75px] md:py-[115px] overflow-hidden">
-        {/* Faint vertical rule accent — right side */}
+      <section className="relative bg-paper py-[65px] md:py-[95px] overflow-hidden">
         <div
           className="absolute top-[10%] bottom-[10%] pointer-events-none"
           style={{
-            right: "8%",
-            width: "1px",
-            background: "linear-gradient(to bottom, transparent, rgba(18,35,63,0.08) 30%, rgba(18,35,63,0.08) 70%, transparent)",
+            right: "8%", width: "1px",
+            background:
+              "linear-gradient(to bottom, transparent, rgba(18,35,63,0.06) 30%, rgba(18,35,63,0.06) 70%, transparent)",
           }}
         />
         <div className="wrap relative z-10">
-          <div className="eyebrow mb-4" data-reveal>07 · For organizations</div>
+          <div className="eyebrow mb-4" data-reveal>For organizations</div>
           <h2
-            className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-4"
+            className="text-[38px] md:text-[clamp(38px,5vw,66px)] leading-[0.98] tracking-[-0.06em] mb-4"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
@@ -563,7 +469,7 @@ export default function Home() {
             <span className="text-oxblood italic">behind transformation.</span>
           </h2>
           <p
-            className="text-[14px] md:text-[16px] text-navy-mid leading-[1.65] max-w-[600px]"
+            className="text-[14px] md:text-[15px] text-navy-mid leading-[1.65] max-w-[580px]"
             data-reveal
             style={{ transitionDelay: "160ms" }}
           >
@@ -577,20 +483,23 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          07B  EDITORIAL HUMAN STRIP — full-bleed cinematic break
+          EDITORIAL STRIP — cinematic full-bleed
       ═══════════════════════════════════════════════════════ */}
-      <div className="relative w-full h-[52vh] md:h-[68vh] overflow-hidden" data-reveal="fade">
+      <div className="relative w-full h-[50vh] md:h-[62vh] overflow-hidden" data-reveal="fade">
         <img
           src={`${import.meta.env.BASE_URL}images/editorial-strip-founder.jpg`}
           alt="A woman in a stone-arched hallway, pausing with quiet clarity"
           className="w-full h-full object-cover object-[center_20%]"
         />
-        {/* Deep navy gradient anchors the quote at bottom */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          background: "linear-gradient(to bottom, transparent 35%, rgba(18,35,63,0.75) 100%)"
-        }} />
-        <div className="absolute bottom-0 left-0 right-0 wrap pb-10 md:pb-14">
-          <p className="font-serif italic text-cream text-[22px] md:text-[34px] tracking-[-0.03em] max-w-[640px] leading-[1.2]">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 30%, rgba(18,35,63,0.72) 100%)",
+          }}
+        />
+        <div className="absolute bottom-0 left-0 right-0 wrap pb-9 md:pb-12">
+          <p className="font-serif italic text-cream text-[20px] md:text-[32px] tracking-[-0.03em] max-w-[580px] leading-[1.2]">
             "Extraordinary ability<br />
             <span className="text-ox-light">is built, not declared."</span>
           </p>
@@ -598,15 +507,15 @@ export default function Home() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════
-          08  GUIDES FOR EXTRAORDINARY FUTURES — editorial cards
+          GUIDES
       ═══════════════════════════════════════════════════════ */}
-      <section className="py-[75px] md:py-[115px]">
+      <section className="py-[65px] md:py-[100px]">
         <div className="wrap">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-[45px]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-7 md:mb-[40px]">
             <div>
-              <div className="eyebrow mb-4" data-reveal>08 · Guides</div>
+              <div className="eyebrow mb-4" data-reveal>Guides</div>
               <h2
-                className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-4"
+                className="text-[38px] md:text-[clamp(38px,5vw,66px)] leading-[0.98] tracking-[-0.06em] mb-4"
                 data-reveal
                 style={{ transitionDelay: "80ms" }}
               >
@@ -614,7 +523,7 @@ export default function Home() {
                 <span className="text-oxblood italic">Extraordinary Futures</span>
               </h2>
               <p
-                className="text-[14px] md:text-[16px] text-navy-mid leading-[1.65] max-w-[500px]"
+                className="text-[14px] md:text-[15px] text-navy-mid leading-[1.65] max-w-[480px]"
                 data-reveal
                 style={{ transitionDelay: "160ms" }}
               >
@@ -625,18 +534,17 @@ export default function Home() {
             <Link href="/guides" className="btn mt-5 md:mt-0">Explore Guides →</Link>
           </div>
 
-          <div className="eyebrow mb-[18px]" data-reveal>
+          <div className="eyebrow mb-[16px]" data-reveal>
             EXTRAORDINARY ABILITY · Available now · 6 guides
           </div>
 
-          {/* Guide grid — editorial photography, shared source with /guides page */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-navy/10">
             {GUIDES.map((guide, i) => (
               <article
                 key={guide.id}
                 className="bg-cream"
                 data-reveal
-                style={{ transitionDelay: `${i * 60}ms` }}
+                style={{ transitionDelay: `${i * 55}ms` }}
               >
                 <Link href={`/guides/${guide.slug}`} className="group block">
                   <div className="aspect-[4/3] overflow-hidden">
@@ -646,9 +554,9 @@ export default function Home() {
                       className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
                     />
                   </div>
-                  <div className="p-5 md:p-6 border-t border-navy/10">
-                    <h3 className="font-serif text-[15px] md:text-[18px] leading-tight mb-1 group-hover:text-oxblood transition-colors">{guide.name}</h3>
-                    <p className="font-serif italic text-[11px] md:text-[12px] text-oxblood mb-3">{guide.subtitle}</p>
+                  <div className="p-4 md:p-5 border-t border-navy/10">
+                    <h3 className="font-serif text-[14px] md:text-[17px] leading-tight mb-1 group-hover:text-oxblood transition-colors">{guide.name}</h3>
+                    <p className="font-serif italic text-[11px] text-oxblood mb-2">{guide.subtitle}</p>
                     <span className="text-[9px] md:text-[10px] tracking-[0.12em] uppercase text-navy group-hover:text-oxblood transition-colors">
                       View Guide →
                     </span>
@@ -658,33 +566,30 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="h-[1px] bg-navy/25 mt-10 md:mt-[70px] mb-[22px]" />
-          <p className="font-serif text-[23px] flex items-center gap-3">
+          <div className="h-[1px] bg-navy/20 mt-9 md:mt-[60px] mb-[20px]" />
+          <p className="font-serif text-[21px] flex items-center gap-3">
             CAREER & EVIDENCE
-            <small className="font-sans text-[10px] tracking-[0.15em] text-oxblood uppercase block mt-1">COMING NEXT</small>
+            <small className="font-sans text-[10px] tracking-[0.15em] text-oxblood uppercase">COMING NEXT</small>
           </p>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          09  INSIGHTS — editorial three-stream
+          INSIGHTS
       ═══════════════════════════════════════════════════════ */}
-      <section className="bg-paper py-[85px] md:py-[130px] relative overflow-hidden">
-        {/* Ox-light top accent */}
+      <section className="bg-paper py-[65px] md:py-[100px] relative overflow-hidden">
         <div
           className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
           style={{
-            background: "linear-gradient(to right, transparent, rgba(217,163,155,0.40) 40%, rgba(217,163,155,0.40) 60%, transparent)",
+            background:
+              "linear-gradient(to right, transparent, rgba(217,163,155,0.35) 40%, rgba(217,163,155,0.35) 60%, transparent)",
           }}
         />
-        {/* Warm radial right */}
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at 90% 30%, rgba(217,163,155,0.06) 0%, transparent 50%)" }} />
 
         <div className="wrap relative z-10">
-          <div className="eyebrow mb-5" data-reveal>09 · Free insights</div>
+          <div className="eyebrow mb-5" data-reveal>Free insights</div>
           <h2
-            className="text-[40px] md:text-[clamp(40px,5vw,72px)] leading-[0.96] tracking-[-0.06em] mb-[52px] md:mb-[64px]"
+            className="text-[38px] md:text-[clamp(38px,5vw,68px)] leading-[0.96] tracking-[-0.06em] mb-[44px] md:mb-[56px]"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
@@ -692,41 +597,43 @@ export default function Home() {
             <span className="text-oxblood italic">what comes next.</span>
           </h2>
 
-          <div className="flex flex-col md:flex-row gap-6 md:gap-[20px]">
-            {/* THE STRATEGIST — navy card with TransformationEvolution visual */}
+          <div className="flex flex-col md:flex-row gap-5 md:gap-[18px]">
+            {/* THE STRATEGIST */}
             <article
-              className="flex-1 bg-navy text-ox-light p-7 md:p-9 flex flex-col justify-between min-h-[360px] border border-navy shadow-sm group card-lift relative overflow-hidden"
+              className="flex-1 bg-navy text-ox-light p-7 md:p-8 flex flex-col justify-between min-h-[320px] border border-navy shadow-sm group card-lift relative overflow-hidden"
               data-reveal
               style={{ transitionDelay: "0ms" }}
             >
-              {/* Ambient bloom in card */}
-              <div className="absolute inset-0 pointer-events-none"
-                style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(217,163,155,0.06) 0%, transparent 55%)" }} />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 80% 20%, rgba(217,163,155,0.06) 0%, transparent 55%)",
+                }}
+              />
               <div className="relative z-10">
-                <small className="text-[9.5px] tracking-[0.12em] uppercase text-oxblood block mb-5">The Strategist · Visual Thought-Leadership</small>
-                {/* Transformation evolution visual */}
+                <small className="text-[9px] tracking-[0.12em] uppercase text-oxblood block mb-5">The Strategist · Visual Thought-Leadership</small>
                 <div className="mb-5 -mx-2">
-                  <TransformationEvolution className="w-full h-[140px]" />
+                  <TransformationEvolution className="w-full h-[130px]" />
                 </div>
-                <h3 className="font-serif text-[22px] mb-3 text-cream leading-[1.1]">Transformation<br />with Soul</h3>
-                <p className="text-[12.5px] leading-[1.6] text-ox-light/75 max-w-[240px]">
-                  Strategic frameworks, architectural breakdowns and editorial perspectives on building extraordinary futures.
+                <h3 className="font-serif text-[20px] mb-2 text-cream leading-[1.1]">Transformation<br />with Soul</h3>
+                <p className="text-[12px] leading-[1.6] text-ox-light/70 max-w-[220px]">
+                  Strategic frameworks and editorial perspectives on building extraordinary futures.
                 </p>
               </div>
-              <Link href="/insights" className="link-under text-ox-light inline-block w-max border-ox-light hover:text-cream hover:border-cream mt-6 relative z-10 text-[11px] tracking-[0.06em]">
+              <Link href="/insights" className="link-under text-ox-light inline-block w-max border-ox-light hover:text-cream hover:border-cream mt-5 relative z-10 text-[11px] tracking-[0.06em]">
                 Explore →
               </Link>
             </article>
 
-            {/* ARTICLES — cream/paper card */}
+            {/* ARTICLES */}
             <article
-              className="flex-1 bg-paper p-7 md:p-9 flex flex-col justify-between min-h-[360px] border border-navy/10 group card-lift relative overflow-hidden"
+              className="flex-1 bg-paper p-7 md:p-8 flex flex-col justify-between min-h-[320px] border border-navy/10 group card-lift relative overflow-hidden"
               data-reveal
-              style={{ transitionDelay: "110ms" }}
+              style={{ transitionDelay: "100ms" }}
             >
-              {/* Mini constellation accent — top right */}
-              <div className="absolute top-6 right-6 pointer-events-none opacity-30 group-hover:opacity-45 transition-opacity">
-                <svg viewBox="0 0 48 42" className="w-[38px] h-[33px]" fill="none">
+              <div className="absolute top-5 right-5 pointer-events-none opacity-25 group-hover:opacity-40 transition-opacity">
+                <svg viewBox="0 0 48 42" className="w-[36px]" fill="none">
                   <path d="M24 2 L10 38 L38 38 Z" stroke="#7E3033" strokeWidth="0.8" opacity="0.5" strokeLinejoin="round"/>
                   <path d="M24 0 L25.5 4 L29 5.5 L25.5 7 L24 11 L22.5 7 L19 5.5 L22.5 4Z" fill="#7E3033" />
                   <path d="M10 33 L11.5 37 L15 38.5 L11.5 40 L10 44 L8.5 40 L5 38.5 L8.5 37Z" fill="#7E3033" />
@@ -734,12 +641,12 @@ export default function Home() {
                 </svg>
               </div>
               <div>
-                <small className="text-[9.5px] tracking-[0.12em] uppercase text-oxblood block mb-5">Articles · Analysis & Strategy</small>
-                <ul className="flex flex-col gap-6">
+                <small className="text-[9px] tracking-[0.12em] uppercase text-oxblood block mb-5">Articles · Analysis & Strategy</small>
+                <ul className="flex flex-col gap-5">
                   {ARTICLES.slice(0, 2).map((a) => (
                     <li key={a.id}>
                       <Link href={`/insights/articles/${a.slug}`} className="text-navy">
-                        <h4 className="font-serif text-[18px] leading-[1.2] mb-1 hover:text-oxblood transition-colors">{a.title}</h4>
+                        <h4 className="font-serif text-[17px] leading-[1.2] mb-1 hover:text-oxblood transition-colors">{a.title}</h4>
                         <span className="text-[11px] text-grey">
                           {a.author} · {new Date(a.publishedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
                         </span>
@@ -748,94 +655,53 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
-              <Link href="/insights/articles" className="link-under text-oxblood inline-block w-max mt-6 text-[11px] tracking-[0.06em]">Read All Articles →</Link>
+              <Link href="/insights/articles" className="link-under text-oxblood inline-block w-max mt-5 text-[11px] tracking-[0.06em]">Read All Articles →</Link>
             </article>
 
-            {/* FIELD NOTES — warm cream card with subtle star field */}
+            {/* FIELD NOTES */}
             <article
-              className="flex-1 bg-cream p-7 md:p-9 flex flex-col justify-between min-h-[360px] border border-navy/10 relative overflow-hidden group card-lift"
+              className="flex-1 bg-cream p-7 md:p-8 flex flex-col justify-between min-h-[320px] border border-navy/10 relative overflow-hidden group card-lift"
               data-reveal
-              style={{ transitionDelay: "220ms" }}
+              style={{ transitionDelay: "200ms" }}
             >
-              {/* Subtle star field texture */}
               {[
                 [15,12],[72,8],[88,28],[8,55],[92,62],[30,78],[60,85],[45,40],
               ].map(([x, y], i) => (
                 <div key={i} className="absolute pointer-events-none rounded-full"
                   style={{ left: `${x}%`, top: `${y}%`, width: "2px", height: "2px",
-                    background: "rgba(126,48,51,0.25)", opacity: 0.3 + (i % 3) * 0.15 }} />
+                    background: "rgba(126,48,51,0.22)", opacity: 0.3 + (i % 3) * 0.14 }} />
               ))}
-              {/* Faint ruled lines */}
-              <div className="absolute inset-0 pointer-events-none opacity-[0.025]
-                bg-[linear-gradient(transparent_95%,_#12233f_95%)] bg-[length:100%_22px]" />
+              <div
+                className="absolute inset-0 pointer-events-none opacity-[0.022]"
+                style={{ backgroundImage: "linear-gradient(transparent 95%, #12233f 95%)", backgroundSize: "100% 22px" }}
+              />
               <div className="relative z-10">
-                <small className="text-[9.5px] tracking-[0.12em] uppercase text-oxblood block mb-5">Field Notes · Short Observations</small>
-                {/* Mini 4-pointed star */}
-                <svg viewBox="0 0 16 16" className="w-[13px] h-[13px] mb-4 text-oxblood/40" fill="currentColor">
+                <small className="text-[9px] tracking-[0.12em] uppercase text-oxblood block mb-5">Field Notes · Short Observations</small>
+                <svg viewBox="0 0 16 16" className="w-[12px] h-[12px] mb-4 text-oxblood/35" fill="currentColor">
                   <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
                 </svg>
                 <div className="mb-4">
-                  <h3 className="font-serif text-[22px] mb-3 leading-[1.15]">{ARTICLES[0].title}</h3>
-                  <p className="text-[13px] text-navy-mid leading-[1.6] italic">"{ARTICLES[0].excerpt}"</p>
+                  <h3 className="font-serif text-[20px] mb-3 leading-[1.15]">{ARTICLES[0].title}</h3>
+                  <p className="text-[12.5px] text-navy-mid leading-[1.6] italic">"{ARTICLES[0].excerpt}"</p>
                 </div>
               </div>
-              <Link href="/insights" className="link-under text-oxblood inline-block w-max relative z-10 mt-6 text-[11px] tracking-[0.06em]">Explore Notes →</Link>
+              <Link href="/insights" className="link-under text-oxblood inline-block w-max relative z-10 mt-5 text-[11px] tracking-[0.06em]">Explore Notes →</Link>
             </article>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          10  FOUNDER — elevated quote treatment
-      ═══════════════════════════════════════════════════════ */}
-      <section className="relative py-[75px] md:py-[115px] overflow-hidden">
-        {/* Faint warm bloom centered left */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse at 15% 50%, rgba(217,163,155,0.08) 0%, transparent 55%)",
-          }}
-        />
-        <div className="wrap grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[6vw] items-center relative z-10">
-          <div data-reveal>
-            <div className="eyebrow mb-4">10 · Founder</div>
-            {/* Decorative rule above quote */}
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-6 h-[1px] bg-oxblood/40" />
-              <svg viewBox="0 0 12 12" className="w-[10px] h-[10px] text-oxblood" fill="currentColor">
-                <path d="M6 0 L7 5 L12 6 L7 7 L6 12 L5 7 L0 6 L5 5Z" />
-              </svg>
-              <div className="w-6 h-[1px] bg-oxblood/40" />
-            </div>
-            <blockquote className="font-serif italic text-[29px] md:text-[34px] leading-[1.15]">
-              "Build the capability to meet the future with clarity."
-            </blockquote>
-          </div>
-          <div data-reveal style={{ transitionDelay: "100ms" }}>
-            <p className="leading-[1.7] text-navy-mid md:text-grey max-w-[550px] text-[16px] mb-6">
-              AiVass is a boutique technology-enabled transformation studio working at
-              the intersection of intelligent systems, strategy and human potential.
-            </p>
-            <p className="text-[11px] text-grey leading-[1.5] max-w-[400px]">
-              AiVass provides strategic, educational, organizational, coaching and
-              project-management support. Not legal advice or representation.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          11  FINAL CTA — deep navy, magical constellation, starfield
+          FINAL CTA — deep navy, constellation
       ═══════════════════════════════════════════════════════ */}
       <section
         className="relative text-cream text-center overflow-hidden"
         style={{
-          background: "radial-gradient(ellipse at 50% 60%, #1a2e4a 0%, #0d1b2e 45%, #080f1c 100%)",
-          padding: "clamp(90px, 14vw, 160px) clamp(20px, 6vw, 80px)",
+          background:
+            "radial-gradient(ellipse at 50% 60%, #1a2e4a 0%, #0d1b2e 45%, #080f1c 100%)",
+          padding: "clamp(80px, 12vw, 140px) clamp(20px, 6vw, 80px)",
         }}
       >
-        {/* Deep space starfield — static scattered dots */}
         {[
           [8,12],[19,72],[34,5],[47,88],[61,22],[72,55],[83,8],[91,78],[14,45],
           [26,33],[55,67],[78,18],[88,50],[5,60],[40,95],[65,38],[96,30],[30,80],
@@ -844,8 +710,7 @@ export default function Home() {
             key={i}
             className="absolute pointer-events-none rounded-full"
             style={{
-              left: `${x}%`,
-              top: `${y}%`,
+              left: `${x}%`, top: `${y}%`,
               width: i % 3 === 0 ? "2px" : "1px",
               height: i % 3 === 0 ? "2px" : "1px",
               background: "rgba(217,163,155,0.4)",
@@ -854,54 +719,26 @@ export default function Home() {
           />
         ))}
 
-        {/* Large ambient bloom — centered, deep */}
         <div
           className="absolute pointer-events-none"
           style={{
-            top: "50%",
-            left: "50%",
+            top: "50%", left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "min(700px, 90vw)",
-            height: "min(700px, 90vw)",
+            width: "min(650px, 90vw)", height: "min(650px, 90vw)",
             background:
               "radial-gradient(ellipse at 50% 48%, rgba(217,163,155,0.07) 0%, rgba(126,48,51,0.04) 38%, transparent 68%)",
             borderRadius: "50%",
           }}
         />
 
-        {/* Horizon line — top */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: "18%",
-            left: 0,
-            right: 0,
-            height: "1px",
-            background:
-              "linear-gradient(to right, transparent 5%, rgba(217,163,155,0.12) 30%, rgba(217,163,155,0.12) 70%, transparent 95%)",
-          }}
-        />
-        {/* Horizon line — bottom */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            bottom: "16%",
-            left: 0,
-            right: 0,
-            height: "1px",
-            background:
-              "linear-gradient(to right, transparent 5%, rgba(217,163,155,0.07) 30%, rgba(217,163,155,0.07) 70%, transparent 95%)",
-          }}
-        />
-
         <div className="relative z-10 flex flex-col items-center">
-          <div className="eyebrow text-ox-light mb-5 tracking-[0.2em]" data-reveal>
-            11 · Begin here
+          <div className="eyebrow text-ox-light mb-5 tracking-[0.18em]" data-reveal>
+            Begin here
           </div>
 
           <h2
             className="font-serif leading-[0.95] tracking-[-0.06em] text-cream mb-4"
-            style={{ fontSize: "clamp(48px, 9vw, 108px)", transitionDelay: "80ms" }}
+            style={{ fontSize: "clamp(46px, 9vw, 104px)" }}
             data-reveal
           >
             What future<br />
@@ -909,41 +746,34 @@ export default function Home() {
           </h2>
 
           <p
-            className="text-[13px] md:text-[14px] tracking-[0.08em] text-cream/50 mb-[52px] max-w-[360px]"
+            className="text-[13px] tracking-[0.07em] text-cream/45 mb-[44px] max-w-[340px]"
             data-reveal
-            style={{ transitionDelay: "140ms" }}
+            style={{ transitionDelay: "120ms" }}
           >
             Every extraordinary outcome begins with a single, deliberate choice.
           </p>
 
-          {/* Magic constellation — animated, drawing in */}
-          <div
-            data-reveal="fade"
-            style={{ transitionDelay: "220ms" }}
-            className="mb-[48px]"
-          >
-            <MagicConstellation className="w-[min(260px,70vw)] h-auto" />
+          <div data-reveal="fade" style={{ transitionDelay: "200ms" }} className="mb-[44px]">
+            <MagicConstellation className="w-[min(240px,70vw)] h-auto" />
           </div>
 
-          {/* Path links */}
           <div
-            className="flex flex-col md:flex-row justify-center gap-5 md:gap-[42px] text-[10.5px] tracking-[0.18em] uppercase mb-[52px]"
+            className="flex flex-col md:flex-row justify-center gap-5 md:gap-[38px] text-[10px] tracking-[0.18em] uppercase mb-[44px]"
             data-reveal
-            style={{ transitionDelay: "320ms" }}
+            style={{ transitionDelay: "300ms" }}
           >
-            <Link href="/solutions/individuals" className="text-ox-light hover:text-cream transition-colors duration-300">For myself</Link>
-            <span className="hidden md:block text-cream/20 self-center">·</span>
-            <Link href="/solutions/businesses" className="text-ox-light hover:text-cream transition-colors duration-300">For my business</Link>
-            <span className="hidden md:block text-cream/20 self-center">·</span>
-            <Link href="/solutions/organizations" className="text-ox-light hover:text-cream transition-colors duration-300">For my organization</Link>
+            <Link href="/solutions/individuals" className="text-ox-light hover:text-cream transition-colors">For myself</Link>
+            <span className="hidden md:block text-cream/18 self-center">·</span>
+            <Link href="/solutions/businesses" className="text-ox-light hover:text-cream transition-colors">For my business</Link>
+            <span className="hidden md:block text-cream/18 self-center">·</span>
+            <Link href="/solutions/organizations" className="text-ox-light hover:text-cream transition-colors">For my organization</Link>
           </div>
 
-          {/* Primary CTA */}
           <Link
             href="/contact"
             data-reveal
-            style={{ transitionDelay: "400ms" }}
-            className="inline-block px-8 py-4 border border-ox-light/60 text-ox-light text-[11px] tracking-[0.16em] uppercase hover:bg-ox-light/10 hover:border-ox-light transition-all duration-300"
+            style={{ transitionDelay: "380ms" }}
+            className="inline-block px-8 py-4 border border-ox-light/55 text-ox-light text-[10.5px] tracking-[0.16em] uppercase hover:bg-ox-light/10 hover:border-ox-light transition-all duration-300"
           >
             Start a Conversation
           </Link>

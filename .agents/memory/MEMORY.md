@@ -1,0 +1,3 @@
+- [Hero image & design](hero-design.md) — arch/olive/Mediterranean image (`hero-arch-a.jpg`), panoramic gradient blend, no dark box
+- [Download fulfillment system](download-fulfillment.md) — Stripe product IDs → slugs, instant download on order-success page, 3-attempt tokens
+- [Object storage upload pattern](object-storage-upload.md) — must run from api-server dir with sidecar credentials, not root workspace
