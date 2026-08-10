@@ -1,0 +1,147 @@
+Connect the VERIFIED AiVass Strategic Profile Assessment booking flow to the current website.
+
+DO NOT redesign anything.
+DO NOT publish yet.
+DO NOT create a new Stripe integration.
+
+The verified booking URL is:
+
+https://calendar.app.google/SG2UBbBPHU9tzM9c9
+
+The underlying Google Calendar schedule is:
+
+https://calendar.google.com/calendar/appointments/schedules/AcZssZ23ryRIwLYWhw9nvO9bhPKvl8xHawPhjvmp4cVeqf0LnV4PAUE2TalssdihAfFhnkhUdiTFseZj?gv=true
+
+The short calendar.app.google URL should be used as the customer-facing destination.
+
+IMPORTANT:
+This Google Calendar appointment schedule ALREADY includes:
+- the AiVass Strategic Profile Assessment booking form
+- required résumé/CV link
+- LinkedIn profile
+- assessment questions
+- required $250 Stripe payment inside Google Calendar
+- Google Meet creation
+- calendar invitation
+- email reminder
+
+Therefore:
+
+DO NOT create a separate Stripe checkout for the Strategic Profile Assessment.
+DO NOT expose the assessment price on aivass.com.
+DO NOT recreate the booking form on the website.
+DO NOT embed Google's default booking button.
+Use the existing AiVass branded website buttons and link them directly to the verified booking URL.
+
+--------------------------------------------------
+CREATE ONE CENTRAL CONFIGURATION
+--------------------------------------------------
+
+Do not hard-code the booking URL independently in many components.
+
+Create one reusable configuration value such as:
+
+STRATEGIC_ASSESSMENT_URL =
+"https://calendar.app.google/SG2UBbBPHU9tzM9c9"
+
+All assessment-related CTAs should reference this central value.
+
+This will make future updates safe and easy.
+
+--------------------------------------------------
+CONNECT THESE CTAS
+--------------------------------------------------
+
+Connect ALL of the following assessment CTAs to the verified URL:
+
+ASSESS YOUR PROFILE
+
+BOOK A STRATEGIC ASSESSMENT
+
+START WITH AN ASSESSMENT
+
+AIVASS RISE
+→ START WITH AN ASSESSMENT
+
+AIVASS SHINE
+→ START WITH AN ASSESSMENT
+
+AIVASS SIGNATURE
+→ START WITH AN ASSESSMENT
+
+Any equivalent assessment CTA on:
+/solutions/individuals
+homepage Individuals section
+Strategic Profile Assessment section
+
+must use the same verified booking URL.
+
+--------------------------------------------------
+DO NOT CONNECT THESE TO THE ASSESSMENT
+--------------------------------------------------
+
+Do NOT send these to the assessment URL:
+
+FIND YOUR PATH
+→ should continue to the Three Paths / Solutions selection
+
+DISCUSS A PARTNERSHIP
+→ remains a separate Business / Organization inquiry pathway
+
+EXPLORE GUIDES
+→ /guides
+
+THE STRATEGIST / ARTICLES / FIELD NOTES
+→ Insights destinations
+
+START A CONVERSATION in the global navigation
+→ leave unchanged for now unless it currently has no valid destination.
+If unresolved, report it rather than routing every visitor to the assessment.
+
+--------------------------------------------------
+UX BEHAVIOR
+--------------------------------------------------
+
+For assessment buttons:
+
+- preserve the current AiVass button styling
+- clear accessible label
+- no visible price
+- no “free consultation” wording
+- no “discovery call” wording
+
+Preferred language remains:
+
+Assess Your Profile
+
+or
+
+Start with an Assessment
+
+The visitor should understand that this begins the qualification process for RISE, SHINE or SIGNATURE.
+
+--------------------------------------------------
+VERIFY
+--------------------------------------------------
+
+After wiring the links, test each assessment CTA.
+
+Confirm that clicking it reaches:
+
+AiVass Strategic Profile Assessment
+
+and shows the Google booking flow.
+
+Do NOT complete a real payment.
+
+Report:
+
+1. every CTA updated
+2. files/components modified
+3. confirmation that all CTAs use the single central URL
+4. confirmation that no assessment price appears publicly on aivass.com
+5. confirmation that no duplicate Stripe implementation was created
+6. any remaining href="#" assessment links
+7. any unresolved global “Start a Conversation” destination
+
+Do not publish.

@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
+import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
 
 export default function Individuals() {
   return (
@@ -46,8 +47,7 @@ export default function Individuals() {
               <p className="text-[14px] text-navy-mid leading-[1.6] mb-6 min-h-[60px]">
                 A private, paid Strategic Profile Assessment. AiVass evaluates your current profile, evidence quality, readiness and gaps.
               </p>
-              <a href="#" className="btn-fill">Book Assessment</a>
-              {/* // TODO: ASSESSMENT URL — NEEDS OWNER INPUT */}
+              <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="btn-fill">Book Assessment</a>
             </div>
             <div className="md:border-l border-navy/15 md:pl-[40px]">
               <b className="font-serif font-normal text-[24px] block mb-3 text-oxblood">03 · RECEIVE YOUR PATHWAY</b>
@@ -72,8 +72,7 @@ export default function Individuals() {
               <p className="text-[14px] text-navy-mid leading-[1.6] flex-grow mb-8">
                 Accelerated, intensive pathway for already-strong profiles ready to move quickly.
               </p>
-              <a href="#" className="link-under w-max">Start with an Assessment</a>
-              {/* // TODO: ASSESSMENT URL — NEEDS OWNER INPUT */}
+              <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under w-max">Start with an Assessment</a>
             </div>
             
             {/* SHINE */}
@@ -83,8 +82,7 @@ export default function Individuals() {
               <p className="text-[14px] text-navy-mid leading-[1.6] flex-grow mb-8">
                 Structured premium pathway for extraordinary-ability candidates needing deeper evidence architecture, sequencing, coaching and accountability.
               </p>
-              <a href="#" className="link-under w-max">Start with an Assessment</a>
-              {/* // TODO: ASSESSMENT URL — NEEDS OWNER INPUT */}
+              <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under w-max">Start with an Assessment</a>
             </div>
 
             {/* SIGNATURE */}
@@ -94,8 +92,7 @@ export default function Individuals() {
               <p className="text-[14px] text-navy-mid leading-[1.6] flex-grow mb-8">
                 Bespoke, long-horizon engagement for complex, highly individualised profiles requiring custom transformation architecture.
               </p>
-              <a href="#" className="link-under w-max">Start with an Assessment</a>
-              {/* // TODO: ASSESSMENT URL — NEEDS OWNER INPUT */}
+              <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under w-max">Start with an Assessment</a>
             </div>
           </div>
         </div>

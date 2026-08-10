@@ -3,6 +3,7 @@ import { Triad } from "@/components/brand/Triad";
 import { TriadHero } from "@/components/brand/TriadHero";
 import { GUIDES, guideCheckoutUrl } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
+import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
 
 export default function Home() {
   return (
@@ -155,8 +156,7 @@ export default function Home() {
             <div className="border-t border-navy pt-[15px]">
               <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">02 · ASSESS</b>
               <p className="text-[11px] md:text-[13px] text-navy-mid leading-[1.5] mb-4">A private assessment of your current profile, evidence, readiness, gaps and potential pathway.</p>
-              <a href="#" className="link-under text-oxblood inline-block">Assess Your Profile</a>
-              {/* // TODO: Connect to booking/contact flow */}
+              <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block">Assess Your Profile</a>
             </div>
             <div className="border-t border-navy pt-[15px]">
               <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">03 · RECEIVE YOUR PATHWAY</b>
@@ -173,8 +173,7 @@ export default function Home() {
               <div key={title} className="flex-1 md:basis-[29%] border-t border-navy pt-[15px]">
                 <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">{title}</b>
                 <p className="text-[11px] md:text-[13px] text-grey leading-[1.5] mb-4 h-auto md:min-h-[60px]">{desc}</p>
-                <a href="#" className="link-under text-oxblood inline-block">Start with an Assessment</a>
-                {/* // TODO: Connect to booking/contact flow */}
+                <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block">Start with an Assessment</a>
               </div>
             ))}
           </div>

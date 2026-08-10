@@ -1,4 +1,5 @@
 import { Triad } from "@/components/brand/Triad";
+import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
 
 export default function Contact() {
   return (
@@ -22,10 +23,9 @@ export default function Contact() {
             <p className="text-[13px] text-grey mb-8 max-w-[300px]">
               For individuals exploring pathways or inquiring about profile assessments.
             </p>
-            <a href="#booking" className="btn-fill w-full md:w-auto">
+            <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="btn-fill w-full md:w-auto">
               Book Assessment
             </a>
-            {/* // TODO: Connect to booking/contact flow */}
           </div>
 
           <div className="bg-paper border border-navy/10 p-8 md:p-10 hover:border-navy/30 transition-colors">
