@@ -16,6 +16,7 @@ import Home from '@/pages/home';
 import Solutions from '@/pages/solutions';
 import Guides from '@/pages/guides';
 import Insights from '@/pages/insights';
+import Articles from '@/pages/articles';
 import About from '@/pages/about';
 import Contact from '@/pages/contact';
 
@@ -30,6 +31,8 @@ function Router() {
           <Route path="/solutions" component={Solutions} />
           <Route path="/guides" component={Guides} />
           <Route path="/insights" component={Insights} />
+          <Route path="/articles" component={Articles} />
+          <Route path="/insights/articles" component={Articles} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />

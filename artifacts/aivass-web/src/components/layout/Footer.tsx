@@ -33,11 +33,11 @@ export function Footer() {
         </p>
         
         <div className="flex items-center gap-4 text-sm">
-          <a href="#" aria-label="LinkedIn" className="hover:text-cream transition-colors"><Linkedin size={16} /></a>
-          <a href="#" aria-label="Instagram" className="hover:text-cream transition-colors"><Instagram size={16} /></a>
-          <a href="#" aria-label="Facebook" className="hover:text-cream transition-colors"><Facebook size={16} /></a>
-          <a href="#" aria-label="X / Twitter" className="hover:text-cream transition-colors"><Twitter size={16} /></a>
-          <a href="#" aria-label="YouTube" className="hover:text-cream transition-colors"><Youtube size={16} /></a>
+          <a href="https://www.linkedin.com/company/aivass" target="_blank" rel="noopener noreferrer" aria-label="AiVass on LinkedIn" className="hover:text-cream transition-colors"><Linkedin size={16} /></a>
+          <a href="https://www.instagram.com/aiva.ss/" target="_blank" rel="noopener noreferrer" aria-label="AiVass on Instagram" className="hover:text-cream transition-colors"><Instagram size={16} /></a>
+          <a href="https://www.facebook.com/AiVass" target="_blank" rel="noopener noreferrer" aria-label="AiVass on Facebook" className="hover:text-cream transition-colors"><Facebook size={16} /></a>
+          <a href="https://x.com/AiVass_com" target="_blank" rel="noopener noreferrer" aria-label="AiVass on X" className="hover:text-cream transition-colors"><Twitter size={16} /></a>
+          <a href="https://www.youtube.com/@AiVa_ss" target="_blank" rel="noopener noreferrer" aria-label="AiVass on YouTube" className="hover:text-cream transition-colors"><Youtube size={16} /></a>
         </div>
       </div>
     </footer>

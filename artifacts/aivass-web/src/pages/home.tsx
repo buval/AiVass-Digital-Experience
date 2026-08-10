@@ -35,7 +35,7 @@ export default function Home() {
       <section className="bg-navy text-cream pt-[65px] pb-[60px] md:py-[95px]">
         <div className="wrap">
           <div className="eyebrow text-ox-light mb-8">02 · Three transformation paths</div>
-          <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.5fr] gap-10 md:gap-[8vw] items-center">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-10 md:gap-[8vw] items-center">
             <div>
               <h2 className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-4">
                 One house.<br />
@@ -45,25 +45,41 @@ export default function Home() {
                 A connected architecture for people, businesses and organizations moving toward what comes next.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 md:border-l border-cream/20 mt-10 md:mt-0">
-              {[
-                ["INDIVIDUALS", "Build, articulate and demonstrate extraordinary ability."],
-                ["BUSINESSES", "Turn ambition into intelligent, scalable systems."],
-                ["ORGANIZATIONS", "Transform capability, operations and how people work with AI."]
-              ].map(([title, desc], i) => (
-                <div key={title} className={`px-[10px] md:px-[25px] pb-8 md:pb-0 md:border-r border-cream/20 md:min-h-[240px] ${i > 0 ? "pt-8 md:pt-0 border-t border-cream/20 md:border-t-0" : ""}`}>
-                  <svg viewBox="0 0 150 130" className="w-full h-[80px] md:h-[130px] mb-4">
-                    <path d="M75 18L25 95M75 18L125 95M25 95L125 95" stroke="currentColor" className="text-ox-light" strokeWidth="0.8" fill="none" opacity="0.6"/>
-                    <g transform="translate(75 18)" className="text-ox-light">
-                      <path d="M0-10L3-3 10 0 3 3 0 10-3 3-10 0-3-3Z" fill="currentColor"/><circle r="2" fill="currentColor"/>
-                    </g>
-                    <circle cx="25" cy="95" r="5" fill="currentColor" className="text-ox-light"/>
-                    <circle cx="125" cy="95" r="5" fill="currentColor" className="text-ox-light"/>
-                  </svg>
-                  <h3 className="font-serif text-[19px] md:text-[27px] mb-2">{title}</h3>
-                  <p className="text-ox-light text-[11px] md:text-[13px] leading-[1.5]">{desc}</p>
-                </div>
-              ))}
+
+            {/* Single shared architecture — one Triad, three labeled nodes */}
+            <div className="flex flex-col items-center">
+              <svg viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[480px]">
+                {/* connecting lines */}
+                <line x1="240" y1="60" x2="60" y2="290" stroke="#D9A39B" strokeWidth="0.8" opacity="0.5"/>
+                <line x1="240" y1="60" x2="420" y2="290" stroke="#D9A39B" strokeWidth="0.8" opacity="0.5"/>
+                <line x1="60" y1="290" x2="420" y2="290" stroke="#D9A39B" strokeWidth="0.8" opacity="0.5"/>
+
+                {/* top node — INDIVIDUALS */}
+                <path d="M240 46 L243.5 56.5 L254 60 L243.5 63.5 L240 74 L236.5 63.5 L226 60 L236.5 56.5Z" fill="#D9A39B"/>
+                <text x="240" y="42" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.9" fontWeight="400">INDIVIDUALS</text>
+
+                {/* bottom-left node — BUSINESSES */}
+                <path d="M60 276 L63.5 286.5 L74 290 L63.5 293.5 L60 304 L56.5 293.5 L46 290 L56.5 286.5Z" fill="#D9A39B"/>
+                <text x="60" y="320" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.9" fontWeight="400">BUSINESSES</text>
+
+                {/* bottom-right node — ORGANIZATIONS */}
+                <path d="M420 276 L423.5 286.5 L434 290 L423.5 293.5 L420 304 L416.5 293.5 L406 290 L416.5 286.5Z" fill="#D9A39B"/>
+                <text x="420" y="320" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="9" letterSpacing="2" fill="#D9A39B" opacity="0.9" fontWeight="400">ORGANIZATIONS</text>
+              </svg>
+
+              {/* three path descriptions below the shared diagram */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-[10px] w-full mt-8 md:mt-4">
+                {[
+                  ["INDIVIDUALS", "Build, articulate and demonstrate extraordinary ability."],
+                  ["BUSINESSES", "Turn ambition into intelligent, scalable systems."],
+                  ["ORGANIZATIONS", "Transform capability, operations and how people work with AI."]
+                ].map(([title, desc], i) => (
+                  <div key={title} className={`border-t border-cream/20 pt-[12px] ${i > 0 ? "md:border-l md:border-t-0 md:pl-[14px] border-t pt-[12px] md:pt-0" : ""}`}>
+                    <h3 className="font-serif text-[16px] md:text-[18px] mb-1">{title}</h3>
+                    <p className="text-ox-light text-[11px] md:text-[12px] leading-[1.5]">{desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -84,24 +100,35 @@ export default function Home() {
 
       {/* 04 PURPOSE · PROOF · PERMANENCE */}
       <section className="bg-paper py-[75px] md:py-[115px]">
-        <div className="wrap grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[6vw] items-center">
-          <div>
-            <div className="eyebrow mb-4">04 · Strategic framework</div>
-            <h2 className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-4">
-              Purpose · Proof ·<br />
-              <span className="text-oxblood italic">Permanence</span>
-            </h2>
-            <Triad className="w-[88%] max-w-[500px] text-navy-mid mt-8" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-[15px] mt-10 md:mt-0">
+        <div className="wrap">
+          <div className="eyebrow mb-4">04 · Strategic framework</div>
+          <h2 className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-[50px] md:mb-[70px]">
+            Purpose · Proof ·<br />
+            <span className="text-oxblood italic">Permanence</span>
+          </h2>
+          {/* Editorial three-part architecture — star nodes + fine rules */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
             {[
-              ["PURPOSE", "Why are we transforming? What future are we building?"],
-              ["PROOF", "How do we know the transformation is real? What evidence demonstrates progress and value?"],
-              ["PERMANENCE", "Designing transformation so capability, knowledge and value remain after the intervention ends."]
-            ].map(([title, desc]) => (
-              <div key={title} className="border-t border-navy pt-[15px]">
-                <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">{title}</b>
-                <p className="text-[11px] md:text-[13px] text-grey leading-[1.5]">{desc}</p>
+              {
+                label: "PURPOSE",
+                body: "Why are we transforming? What future are we building?",
+              },
+              {
+                label: "PROOF",
+                body: "How do we know the transformation is real? What evidence demonstrates progress and value?",
+              },
+              {
+                label: "PERMANENCE",
+                body: "Designing transformation so capability, knowledge and value remain after the intervention ends.",
+              },
+            ].map(({ label, body }, i) => (
+              <div key={label} className={`pt-[20px] pb-[40px] md:pb-0 md:pr-[40px] ${i > 0 ? "md:pl-[40px] md:border-l border-navy/15 border-t md:border-t-0 pt-[28px] md:pt-[20px]" : ""}`}>
+                {/* Star node */}
+                <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] mb-4 text-oxblood" fill="currentColor">
+                  <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5Z"/>
+                </svg>
+                <b className="font-serif font-normal text-[24px] md:text-[30px] block mb-3 tracking-[-0.03em]">{label}</b>
+                <p className="text-[13px] md:text-[14px] text-grey leading-[1.6]">{body}</p>
               </div>
             ))}
           </div>
@@ -157,7 +184,7 @@ export default function Home() {
           <div className="eyebrow text-ox-light mb-4">06 · For businesses</div>
           <h2 className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-4">
             From activity<br />
-            <span className="text-oxblood italic">to architecture.</span>
+            <span className="text-ox-light italic">to architecture.</span>
           </h2>
           <p className="text-ox-light text-[14px] md:text-[16px] leading-[1.65] max-w-[500px]">
             AiVass helps businesses turn ambition into intelligent systems, coherent workflows and technology-enabled transformation.

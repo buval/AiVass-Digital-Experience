@@ -1,0 +1,436 @@
+Refine and integrate the CURRENT AiVass website build.
+
+IMPORTANT:
+Do NOT redesign the website from scratch.
+Preserve the approved Architectural Transformation visual direction.
+
+This task has FIVE objectives:
+
+1. refine the homepage visual system
+2. restore Articles / Blog correctly under Insights
+3. connect official social profiles and social metadata
+4. audit and preserve existing payment / booking / guide infrastructure
+5. prepare verified CTAs and URL mappings without breaking existing live functionality
+
+--------------------------------------------------
+1. REDUCE TRIAD REPETITION
+--------------------------------------------------
+
+The AiVass T1 Triad is the MASTER BRAND SYMBOL.
+
+It is currently repeated too many times on the homepage.
+
+Keep TWO major Triad moments:
+
+A. HERO
+- animated upright Triad
+- three nodes converge
+- lines draw in
+- resolves upright
+- then settles into stillness
+
+B. FINAL CTA
+- upright Triad
+- What future are you building?
+
+REDUCE TRIAD REPETITION ELSEWHERE.
+
+THREE PATHS SECTION:
+Do NOT show three separate triangle logos.
+
+Instead use ONE shared connected architecture.
+
+Preferred:
+one abstract shared Triad / three connected star nodes with:
+- Individuals
+- Businesses
+- Organizations
+
+associated with its three points.
+
+It should communicate one house with three paths.
+
+PURPOSE / PROOF / PERMANENCE:
+Remove the large duplicate Triad.
+
+Use an editorial three-part architecture instead:
+- three star nodes
+- fine rules
+- architectural alignment
+OR
+- elegant three-column framework
+
+Keep:
+Purpose
+Proof
+Permanence
+
+Definitions:
+
+PURPOSE
+Why are we transforming?
+What future are we building?
+
+PROOF
+How do we know the transformation is real?
+What evidence demonstrates progress and value?
+
+PERMANENCE
+Designing transformation so capability, knowledge and value remain after the intervention ends.
+
+Permanence is a design principle, NOT a guarantee of permanent outcomes.
+
+--------------------------------------------------
+2. COLOR CORRECTION — SECTION 06
+--------------------------------------------------
+
+There is currently a brand-rule violation in the navy Business section.
+
+BRAND RULE:
+
+Oxblood #7E3033
+ONLY on light surfaces.
+
+Ox-light #D9A39B
+ONLY on navy/dark surfaces.
+
+On Section 06 / Businesses:
+
+Change any deep oxblood text, eyebrow text, button accents or rules on navy to:
+
+#D9A39B
+
+Keep cream/white typography where appropriate.
+
+Audit ALL navy sections for this rule.
+
+Never place #7E3033 directly on #12233F.
+
+NO GOLD.
+
+--------------------------------------------------
+3. INSIGHTS + ARTICLES / BLOG
+--------------------------------------------------
+
+AiVass previously had a Blog with existing articles.
+
+Do NOT remove that searchable content.
+
+The new information architecture is:
+
+INSIGHTS
+├── The Strategist
+├── Articles
+└── Field Notes
+
+Definitions:
+
+THE STRATEGIST
+Visual thought-leadership decks / carousels.
+
+ARTICLES
+Long-form, crawlable HTML editorial content supporting SEO and AI-search/GEO discoverability.
+
+FIELD NOTES
+Shorter observations and ideas.
+
+The homepage Insights section should visually represent all three.
+
+Headline remains:
+
+Ideas for building what comes next.
+
+Do NOT add “Blog” as a new top-level navigation item.
+
+Use:
+Insights → Articles
+
+AUDIT THE CURRENT LIVE AIVASS.COM SITE FIRST.
+
+Identify:
+- existing article/blog URLs
+- article titles
+- current slugs
+- metadata if available
+
+Preserve those articles.
+
+If URLs change:
+create a migration/redirect map so existing indexed URLs are not broken.
+
+Prefer preserving existing URLs when clean and appropriate.
+
+Do NOT delete existing article content.
+
+Create an Articles architecture capable of supporting:
+- title
+- author
+- publication date
+- updated date
+- excerpt
+- main HTML article
+- related Strategist Deck
+- related Guides
+- related articles
+- social share image
+- canonical URL
+
+Prepare Article structured data.
+
+Prepare sitemap inclusion.
+
+Create clean metadata for SEO and social sharing.
+
+IMPORTANT CONTENT STRATEGY:
+
+Strategist Decks remain AiVass’s preferred creative format.
+
+The architecture should allow a Strategist Deck to have a crawlable HTML companion page containing:
+- deck title
+- introduction
+- summary
+- key ideas
+- slide/deck media
+- related article or expanded written analysis
+- author/date
+- related content
+
+Do NOT make the website dependent on image-only carousels for searchable content.
+
+--------------------------------------------------
+4. OFFICIAL SOCIAL MEDIA INTEGRATION
+--------------------------------------------------
+
+Connect these EXACT AiVass profiles:
+
+LinkedIn:
+https://www.linkedin.com/company/aivass
+
+Facebook:
+https://www.facebook.com/AiVass
+
+Instagram:
+https://www.instagram.com/aiva.ss/
+
+X:
+https://x.com/AiVass_com
+
+YouTube:
+https://www.youtube.com/@AiVa_ss
+
+Requirements:
+
+- footer icons must link to these exact profiles
+- open external social links safely in a new tab
+- use accessible labels
+- do not depend on fragile/unverified icon imports
+- if using an icon package, verify the imports actually exist
+- inline SVG is acceptable if safer
+
+Add the five social profiles to AiVass Organization structured data using sameAs.
+
+Prepare proper Open Graph / social sharing metadata for:
+- homepage
+- Guides
+- Articles
+- Strategist pages
+- other public content pages
+
+Each important article/deck should eventually support its own branded social preview image.
+
+Do not rely on Facebook to resolve the Instagram URL.
+Use the direct Instagram URL supplied above.
+
+--------------------------------------------------
+5. PAYMENT / BOOKING / COMMERCE — NON-DESTRUCTIVE AUDIT
+--------------------------------------------------
+
+CRITICAL:
+
+The new build currently contains placeholder links.
+
+DO NOT publish with placeholders.
+
+AiVass already has working payment and booking infrastructure on the existing business.
+
+I have previously invested in configuring this.
+
+DO NOT create a new Stripe architecture simply because the new build is missing URLs.
+
+DO NOT replace working booking/calendar/payment flows unless explicitly approved.
+
+FIRST AUDIT:
+
+A. current live aivass.com
+B. current project files
+C. existing links referenced by the existing website
+
+Identify and document:
+
+- current /shop functionality
+- current Guide purchase paths
+- Stripe payment / checkout links that are actually being used
+- paid Strategic Assessment booking flow
+- Google Calendar / booking destination
+- any payment-to-calendar sequence
+- digital guide delivery behavior if visible
+- existing Contact flow
+- existing legal/privacy URLs
+- existing Blog / Article URLs
+
+DO NOT expose private credentials, secrets, API keys or webhook secrets.
+
+Only map publicly usable URLs and existing application configuration.
+
+--------------------------------------------------
+GUIDES
+--------------------------------------------------
+
+The new customer-facing destination is:
+
+/guides
+
+But existing /shop traffic must not break.
+
+Plan either:
+
+/shop → /guides
+
+with an appropriate redirect,
+
+OR preserve /shop if needed by existing checkout functionality.
+
+Do not redirect blindly until the current behavior is understood.
+
+At launch:
+
+Extraordinary Ability
+AVAILABLE NOW
+5 real Guides
+
+Career & Evidence
+COMING NEXT
+
+Do not invent Guide products, titles or prices.
+
+The current generated covers remain PLACEHOLDERS until real assets are supplied.
+
+Wire Guide buttons only after exact existing product/checkout destinations have been verified.
+
+--------------------------------------------------
+STRATEGIC PROFILE ASSESSMENT
+--------------------------------------------------
+
+This is a PAID assessment.
+
+DO NOT display its price publicly.
+
+DO NOT create a free discovery call.
+
+The intended flow is:
+
+1. submit/upload résumé or CV
+2. short profile questionnaire
+3. continue through the existing paid booking/payment flow
+4. select calendar time
+
+The website CTA language may use:
+
+Assess Your Profile
+
+or
+
+Book a Strategic Assessment
+
+Do not create a replacement payment/calendar architecture until the existing workflow has been audited.
+
+--------------------------------------------------
+RISE / SHINE / SIGNATURE
+--------------------------------------------------
+
+Do not show prices.
+
+Do not create direct Buy Now / Enroll buttons.
+
+All three use:
+
+Start with an Assessment
+
+The prospect does not self-select the program.
+
+AiVass determines the recommended pathway after assessment.
+
+--------------------------------------------------
+BUSINESSES / ORGANIZATIONS
+--------------------------------------------------
+
+CTA:
+
+Discuss a Partnership
+
+This should eventually support:
+- consulting
+- transformation
+- education / training
+- professional-practice collaboration
+- methodology licensing
+- custom partnerships
+
+Do not display public licensing pricing.
+
+If there is currently no verified destination for this CTA, create a clearly marked configuration placeholder and report it to me rather than inventing a URL.
+
+--------------------------------------------------
+SEO / GEO / ENTITY FOUNDATION
+--------------------------------------------------
+
+Prepare the site for strong discoverability.
+
+Implement or prepare:
+
+- semantic HTML
+- crawlable text
+- clean heading hierarchy
+- descriptive page titles
+- meta descriptions
+- canonical URLs
+- sitemap
+- robots configuration
+- Organization structured data
+- Article structured data
+- social sameAs identities
+- Open Graph metadata
+- social sharing images/placeholders
+- internal links between Guides, Articles, Strategist and relevant Solutions
+
+Do not keyword-stuff.
+
+Keep content written primarily for humans.
+
+--------------------------------------------------
+IMPORTANT — DO NOT PUBLISH YET
+--------------------------------------------------
+
+This is still a verification stage.
+
+Do NOT publish the production domain yet.
+
+At completion, give me a clear report with:
+
+1. VISUAL CHANGES MADE
+2. ARTICLE/BLOG CONTENT FOUND
+   - title
+   - current URL
+   - proposed new URL if different
+   - redirect required yes/no
+3. PAYMENT / STRIPE LINKS FOUND
+4. BOOKING / CALENDAR FLOW FOUND
+5. GUIDE PURCHASE LINKS FOUND
+6. SOCIAL LINKS CONNECTED
+7. PLACEHOLDERS STILL REMAINING
+8. ITEMS THAT REQUIRE INPUT FROM ME
+9. ANYTHING THAT COULD BREAK IF WE SWITCH aivass.com TO THIS BUILD
+
+Do not hide unresolved items.
+
+If you cannot verify an existing payment or booking URL, leave the current production system untouched and tell me exactly what information is missing.

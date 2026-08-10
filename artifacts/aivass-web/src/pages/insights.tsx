@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+
 export default function Insights() {
   return (
     <div className="bg-paper min-h-screen pt-[60px] pb-[100px]">
@@ -11,34 +13,95 @@ export default function Insights() {
           Free thought leadership for people making meaningful change.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[6vw]">
-          <article className="border-t border-navy pt-[20px] group cursor-pointer">
-            <div className="aspect-[4/3] w-full bg-cream mb-6 border border-navy/10 flex items-center justify-center overflow-hidden">
-              <div className="font-serif italic text-navy/20 text-xl group-hover:scale-105 transition-transform duration-700">
-                The Strategist
-              </div>
+        {/* Three content streams */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mb-[80px]">
+
+          {/* THE STRATEGIST */}
+          <article className="md:pr-[35px] pb-10 md:pb-0 border-b md:border-b-0 md:border-r border-navy/15">
+            <div className="eyebrow mb-4">The Strategist</div>
+            <div className="aspect-[4/3] w-full bg-cream mb-6 border border-navy/10 overflow-hidden">
+              <img
+                src={`${import.meta.env.BASE_URL}images/aivass-insight-cover.png`}
+                alt="The Strategist"
+                className="w-full h-full object-cover"
+              />
             </div>
-            <small className="text-[11px] tracking-[0.1em] uppercase text-oxblood block mb-3">THE STRATEGIST · FREE</small>
-            <h3 className="font-serif text-[32px] mb-4">The Strategist</h3>
-            <p className="text-[14px] text-grey leading-[1.6] max-w-[400px] mb-6">
-              Long-form essays, architectural breakdowns, and strategic frameworks for individuals and organizations navigating complex transformations.
+            <p className="text-[13px] text-grey leading-[1.6] mb-5">
+              Visual thought-leadership decks — strategic frameworks, architectural breakdowns and editorial perspectives for individuals and organizations navigating complex transformations.
             </p>
-            <span className="link-under text-oxblood inline-block">Read Latest Issue</span>
+            <span className="link-under text-oxblood inline-block cursor-pointer">Read Latest Issue</span>
+            {/* // TODO: Connect to Strategist deck destination */}
           </article>
 
-          <article className="border-t border-navy pt-[20px] group cursor-pointer">
-            <div className="aspect-[4/3] w-full bg-cream mb-6 border border-navy/10 flex items-center justify-center overflow-hidden">
-              <div className="font-serif italic text-navy/20 text-xl group-hover:scale-105 transition-transform duration-700">
-                Field Notes
-              </div>
+          {/* ARTICLES */}
+          <article className="md:px-[35px] py-10 md:py-0 border-b md:border-b-0 md:border-r border-navy/15">
+            <div className="eyebrow mb-4">Articles</div>
+            <div className="aspect-[4/3] w-full bg-navy/5 mb-6 border border-navy/10 flex items-center justify-center">
+              <svg viewBox="0 0 120 90" fill="none" className="w-[60px] text-navy/20">
+                <rect x="10" y="10" width="100" height="70" rx="2" stroke="currentColor" strokeWidth="1"/>
+                <line x1="20" y1="28" x2="100" y2="28" stroke="currentColor" strokeWidth="0.8"/>
+                <line x1="20" y1="40" x2="100" y2="40" stroke="currentColor" strokeWidth="0.8"/>
+                <line x1="20" y1="52" x2="80" y2="52" stroke="currentColor" strokeWidth="0.8"/>
+                <line x1="20" y1="64" x2="90" y2="64" stroke="currentColor" strokeWidth="0.8"/>
+              </svg>
             </div>
-            <small className="text-[11px] tracking-[0.1em] uppercase text-oxblood block mb-3">FIELD NOTES · FREE</small>
-            <h3 className="font-serif text-[32px] mb-4">Field Notes</h3>
-            <p className="text-[14px] text-grey leading-[1.6] max-w-[400px] mb-6">
-              Shorter observations, tactical lessons, and emerging patterns from our work architecting technology-enabled futures.
+            <p className="text-[13px] text-grey leading-[1.6] mb-5">
+              Long-form, crawlable HTML editorial content — strategic analysis, capability frameworks and perspectives for organizations and individuals building extraordinary futures. Indexed for search and AI discovery.
             </p>
-            <span className="link-under text-oxblood inline-block">Explore Notes</span>
+            <Link href="/articles" className="link-under text-oxblood inline-block">Browse Articles</Link>
           </article>
+
+          {/* FIELD NOTES */}
+          <article className="md:pl-[35px] pt-10 md:pt-0">
+            <div className="eyebrow mb-4">Field Notes</div>
+            <div className="aspect-[4/3] w-full bg-cream mb-6 border border-navy/10 overflow-hidden">
+              <img
+                src={`${import.meta.env.BASE_URL}images/aivass-insight-cover_2.png`}
+                alt="Field Notes"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <p className="text-[13px] text-grey leading-[1.6] mb-5">
+              Shorter observations, tactical lessons and emerging patterns from the edge of transformation — ideas worth capturing before they become conventional wisdom.
+            </p>
+            <span className="link-under text-oxblood inline-block cursor-pointer">Explore Notes</span>
+            {/* // TODO: Connect to Field Notes destination */}
+          </article>
+        </div>
+
+        {/* Articles preview section */}
+        <div className="border-t border-navy/20 pt-[50px]">
+          <div className="flex items-end justify-between mb-8">
+            <h2 className="font-serif text-[36px] md:text-[48px] tracking-[-0.04em] leading-none">Articles</h2>
+            <Link href="/articles" className="link-under text-oxblood inline-block text-[10px] tracking-[0.13em]">View All</Link>
+          </div>
+          <p className="text-[14px] text-grey max-w-[500px] leading-[1.65] mb-10">
+            Editorial analysis and strategic frameworks — written for search, readable by humans. All articles are free and indexed for discoverability.
+          </p>
+          {/* Article placeholders — will be populated from article data */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-navy/10">
+            {[
+              {
+                title: "Building Extraordinary Ability: What the Evidence Actually Requires",
+                category: "Extraordinary Ability",
+                date: "Coming soon",
+                excerpt: "A strategic breakdown of what strong evidence actually looks like — and why most professionals underestimate how much architecture it requires."
+              },
+              {
+                title: "Automation with Soul: Why AI Transformation Must Remain Human",
+                category: "Transformation",
+                date: "Coming soon",
+                excerpt: "The future should become more intelligent without becoming less human. What that principle means in practice for organizations deploying AI capability."
+              }
+            ].map((article) => (
+              <div key={article.title} className="bg-paper p-8 md:p-10 hover:bg-cream/50 transition-colors">
+                <div className="eyebrow mb-4">{article.category}</div>
+                <h3 className="font-serif text-[22px] md:text-[26px] leading-[1.2] tracking-[-0.03em] mb-3">{article.title}</h3>
+                <p className="text-[13px] text-grey leading-[1.6] mb-6">{article.excerpt}</p>
+                <span className="text-[10px] tracking-[0.12em] uppercase text-oxblood">{article.date}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
