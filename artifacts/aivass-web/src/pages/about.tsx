@@ -82,6 +82,74 @@ export default function About() {
         </div>
       </div>
 
+      {/* ── FOUNDER STORY ── */}
+      <div className="bg-paper py-[80px] md:py-[120px] border-t border-navy/8">
+        <div className="wrap">
+          <div className="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-[60px] md:gap-[100px] items-start">
+
+            {/* Portrait column */}
+            <div className="relative">
+              <div className="relative overflow-hidden" style={{ aspectRatio: "4/5" }}>
+                <img
+                  src={`${import.meta.env.BASE_URL}images/editorial-hero-human.jpg`}
+                  alt="Maria Boukhval, Founder of AiVass"
+                  className="w-full h-full object-cover object-[center_18%]"
+                />
+                {/* Subtle warm vignette to blend into paper */}
+                <div className="absolute inset-0 pointer-events-none"
+                  style={{ background: "linear-gradient(to bottom, transparent 65%, rgba(253,251,246,0.55) 100%)" }}
+                />
+              </div>
+              {/* Name card below portrait */}
+              <div className="mt-6">
+                <p className="font-serif text-[18px] text-navy tracking-[-0.02em]">Maria Boukhval</p>
+                <p className="text-[11px] tracking-[0.18em] uppercase text-oxblood mt-1">Founder, AiVass</p>
+              </div>
+            </div>
+
+            {/* Story column */}
+            <div className="md:pt-4">
+              <div className="eyebrow mb-5">Founder</div>
+              <h2 className="font-serif text-[32px] md:text-[46px] leading-[1.1] tracking-[-0.04em] text-navy mb-8">
+                Built from transformation,<br />
+                <em className="italic text-oxblood">not theory.</em>
+              </h2>
+
+              <div className="space-y-5 text-[15px] md:text-[16px] text-navy-mid leading-[1.85] max-w-[560px]">
+                <p>
+                  AiVass grew from my own experience of transformation.
+                </p>
+                <p>
+                  For more than 17 years, I worked across marketing, strategy, program management and technology, helping global organizations turn complex ambitions into systems that could actually work. At Adobe, Intuit and across different industries, I learned how to bring structure to ambiguity, connect people around a shared direction, and move ideas from possibility into execution.
+                </p>
+                <p>
+                  But the most important transformation was personal.
+                </p>
+                <p>
+                  I rebuilt my career across countries, navigated my own extraordinary-ability journey, moved through uncertainty, reinvention and identity shifts, and learned that meaningful change rarely begins with doing more. It begins with seeing differently — understanding who you are becoming, what matters, what proves your value, and what architecture can carry that future forward.
+                </p>
+                <p>
+                  That realization became AiVass.
+                </p>
+                <p>
+                  Today, I am building the kind of company I wanted to find myself: one where <strong className="text-navy font-medium">intelligence and humanity belong together</strong>, where technology expands human potential rather than replacing it, and where transformation creates capability that remains after the intervention ends.
+                </p>
+                <p className="font-serif text-[17px] text-navy italic">
+                  Building Extraordinary Futures is therefore more than a tagline.
+                  <br />It is the work.
+                </p>
+              </div>
+
+              {/* Signature */}
+              <div className="mt-10 pt-8 border-t border-navy/12">
+                <p className="font-serif italic text-navy/60 text-[15px]">— Maria Boukhval, Founder of AiVass</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       {/* ── AUTOMATION WITH SOUL ── */}
       <div className="bg-navy text-cream py-[80px] md:py-[110px]">
         <div className="wrap">
