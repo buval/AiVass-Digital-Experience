@@ -1,0 +1,85 @@
+BRAND / UX FIX PASS — DO NOT PUBLISH
+
+Work on the CURRENT AiVass build.
+
+Do NOT publish.
+Do NOT change Stripe.
+Do NOT change booking flow.
+Do NOT change Legal/Privacy content.
+
+We need to fix 3 things:
+
+1) RESTORE SOCIAL MEDIA ICONS
+- The social icons disappeared from the site/footer.
+- Restore and verify all 5 social links:
+  - LinkedIn: https://www.linkedin.com/company/aivass
+  - Facebook: https://www.facebook.com/AiVass
+  - Instagram: https://www.instagram.com/aiva.ss
+  - X: https://x.com/AiVass_com
+  - YouTube: https://www.youtube.com/@AiVa_ss
+- Icons must be visible, elegant, on-brand, and consistent with the approved AiVass visual system.
+- Open in new tab.
+- Add accessible labels / aria-labels.
+
+2) RESTORE A TRANSFORMATIONAL ABOUT PAGE
+Current issue:
+The About page is too plain and has lost the emotional, premium, transformational feel.
+
+Goal:
+Make the About page feel like “transformational architecture” again.
+
+Requirements:
+- Add a strong hero section near the top of the About page
+- Use a large premium visual similar in feeling to the provided AiVass banner:
+  calm, elegant, aspirational, joyful, peaceful, luxury, hopeful future
+- The page should feel:
+  editorial
+  human
+  architectural
+  premium
+  emotionally resonant
+  future-facing
+
+The About page should include:
+- a hero image or hero composition
+- refined headline and subheadline
+- clear brand message
+- visual breathing room
+- continuation of cream / navy / oxblood brand palette
+- subtle motion only if tasteful and performant
+
+Important:
+Do NOT make it look generic or corporate.
+Do NOT make it sterile.
+Do NOT remove the approved typography system.
+
+3) MAKE THE ABOUT PAGE VISUALLY RICHER BELOW THE HERO
+Below the hero, build a more engaging structure using some combination of:
+- brand philosophy section
+- “Purpose • Proof • Permanence”
+- transformation principles
+- editorial image blocks
+- elegant content sections with stronger hierarchy
+- a section about “Automation with Soul”
+- CTA at the end
+
+If possible, include one or two additional visual moments so the About page does not feel text-heavy.
+
+DESIGN DIRECTION
+The About page should feel closer to:
+- a boutique transformation studio
+- elevated editorial landing page
+- calm luxury
+- architectural beauty
+- hope and future possibility
+
+FINAL REPORT
+Report back:
+1. social icons restored YES/NO
+2. each social URL verified YES/NO
+3. About hero added YES/NO
+4. About page visual richness improved YES/NO
+5. any owner decisions still needed
+
+End with:
+READY FOR OWNER REVIEW — DO NOT PUBLISH
