@@ -1,3 +1,12 @@
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="180" height="180" rx="36" fill="#FF3C00"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" fill="none">
+  <!-- Navy background with rounded corners -->
+  <rect width="180" height="180" rx="36" fill="#0D1B2A"/>
+  <!-- Triangle lines connecting the three stars -->
+  <path d="M90 38 L46 131 L134 131 Z" fill="none" stroke="#C49A94" stroke-width="2.2" opacity="0.55" stroke-linejoin="round"/>
+  <!-- Star — top (Individuals) -->
+  <path d="M90 26 L93.8 36.2 L104 40 L93.8 43.8 L90 54 L86.2 43.8 L76 40 L86.2 36.2 Z" fill="#C49A94"/>
+  <!-- Star — bottom-left (Businesses) -->
+  <path d="M46 119 L49.8 129.2 L60 133 L49.8 136.8 L46 147 L42.2 136.8 L32 133 L42.2 129.2 Z" fill="#C49A94"/>
+  <!-- Star — bottom-right (Organizations) -->
+  <path d="M134 119 L137.8 129.2 L148 133 L137.8 136.8 L134 147 L130.2 136.8 L120 133 L130.2 129.2 Z" fill="#C49A94"/>
 </svg>
