@@ -1,5 +1,5 @@
 kind = "web"
-previewPath = "/aivass-web/"
+previewPath = "/"
 title = "AiVass Website"
 description = "The AiVass boutique transformation studio website — a premium editorial marketing site with a responsive homepage, multi-page navigation (Solutions, Guides, Insights, About, Contact), and the approved architectural cream/navy/oxblood brand system."
 version = "1.0.0"
@@ -8,7 +8,7 @@ router = "path"
 
 [[services]]
 name = "web"
-paths = [ "/aivass-web/" ]
+paths = [ "/" ]
 localPort = 21114
 
 [services.development]
@@ -25,4 +25,4 @@ to = "/index.html"
 
 [services.env]
 PORT = "21114"
-BASE_PATH = "/aivass-web/"
+BASE_PATH = "/"
