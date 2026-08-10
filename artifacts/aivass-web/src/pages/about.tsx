@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useSeoMeta } from "@/lib/seo";
+import { SolarSystem } from "@/components/brand/SolarSystem";
 
 const PRINCIPLES = [
   {
@@ -100,45 +101,9 @@ export default function About() {
               </p>
             </div>
 
-            {/* Visual side — architectural diagram */}
+            {/* Visual side — animated solar system */}
             <div className="flex items-center justify-center">
-              <div className="relative w-full max-w-[380px] aspect-square">
-                {/* Outer ring */}
-                <div className="absolute inset-0 rounded-full border border-cream/10" />
-                <div className="absolute inset-[14%] rounded-full border border-cream/15" />
-                <div className="absolute inset-[28%] rounded-full border border-cream/20" />
-
-                {/* Center node */}
-                <div className="absolute inset-[40%] rounded-full bg-oxblood/80 flex items-center justify-center">
-                  {/* Star node */}
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-[18px] h-[18px] text-cream">
-                    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5Z" />
-                  </svg>
-                </div>
-
-                {/* Orbit labels */}
-                {[
-                  { label: "Intelligence", deg: 0 },
-                  { label: "Strategy", deg: 72 },
-                  { label: "Evidence", deg: 144 },
-                  { label: "Human", deg: 216 },
-                  { label: "Permanence", deg: 288 },
-                ].map(({ label, deg }) => {
-                  const angle = (deg * Math.PI) / 180;
-                  const r = 46; // % from center
-                  const x = 50 + r * Math.sin(angle);
-                  const y = 50 - r * Math.cos(angle);
-                  return (
-                    <div
-                      key={label}
-                      className="absolute text-[9px] tracking-[0.15em] uppercase text-cream/50 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap"
-                      style={{ left: `${x}%`, top: `${y}%` }}
-                    >
-                      {label}
-                    </div>
-                  );
-                })}
-              </div>
+              <SolarSystem />
             </div>
           </div>
         </div>
