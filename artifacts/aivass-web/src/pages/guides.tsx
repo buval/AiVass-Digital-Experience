@@ -1,60 +1,103 @@
 import { Link } from "wouter";
+import { GUIDES, guideCheckoutUrl, guideSampleUrl, BUNDLE, formatPrice } from "@/data/guides";
 
 export default function Guides() {
-  const guides = [
-    { title: "Ability", category: "Extraordinary Ability", image: "/images/aivass-guide-ability.png" },
-    { title: "Ability 2", category: "Extraordinary Ability", image: "/images/aivass-guide-ability_2.png" },
-    { title: "Systems", category: "Extraordinary Ability", image: "/images/aivass-guide-systems.png" },
-    { title: "Systems 2", category: "Extraordinary Ability", image: "/images/aivass-guide-systems_2.png" },
-    { title: "Evidence", category: "Extraordinary Ability", image: "/images/aivass-guide-evidence.png" }
-  ];
+  const individualGuides = GUIDES.filter(g => !g.isBundle);
+
+  // Map slug to cover image based on prompt mapping
+  const coverMap: Record<string, string> = {
+    "eb1a-master": "aivass-guide-ability.png",
+    "eb1a-business": "aivass-guide-ability_2.png",
+    "eb1a-arts": "aivass-guide-systems.png",
+    "eb1a-athletics": "aivass-guide-systems_2.png",
+    "eb1a-education": "aivass-guide-evidence.png",
+    "eb1a-science": "aivass-guide-evidence_2.png"
+  };
 
   return (
     <div className="bg-cream min-h-screen pt-[60px] pb-[100px]">
       <div className="wrap">
-        <div className="grid md:grid-cols-[1fr_auto] items-end mb-16 gap-8">
+        <div className="grid md:grid-cols-[1fr_auto] items-end mb-12 gap-8">
           <div>
             <div className="eyebrow mb-6">Storefront</div>
             <h1 className="text-[50px] md:text-[80px] font-serif leading-none tracking-[-0.05em] mb-6">
               Guides for<br />
-              <em className="text-oxblood italic">Extraordinary Futures</em>
+              <em className="text-oxblood italic">Extraordinary Futures.</em>
             </h1>
-            <p className="text-[16px] text-navy-mid max-w-[500px] leading-[1.65]">
-              Practical frameworks, templates and resources designed to turn complex journeys into clear next steps.
+            <p className="text-[16px] text-navy-mid max-w-[600px] leading-[1.65]">
+              Every guide you need to document, position and defend extraordinary ability. Written for self-petitioners, delivered instantly as PDF downloads.
             </p>
           </div>
         </div>
 
-        <div className="eyebrow mb-[18px]">EXTRAORDINARY ABILITY · Available now · 5 guides</div>
+        <div className="text-[11px] tracking-[0.1em] text-navy mb-[60px] flex items-center gap-4 uppercase font-medium">
+          <span>Instant download</span>
+          <span className="w-1 h-1 bg-oxblood rounded-full" />
+          <span>Secure checkout</span>
+          <span className="w-1 h-1 bg-oxblood rounded-full" />
+          <span>275+ pages total</span>
+        </div>
+
+        <div className="eyebrow mb-[18px]">EXTRAORDINARY ABILITY · Available now · 6 guides</div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
-          {guides.map((guide, i) => (
-            <article key={i} className="border-t border-navy pt-[18px]">
-              <div className="h-[350px] md:h-[400px] bg-paper flex justify-center items-center overflow-hidden mb-5 border border-navy/5">
-                <div className="w-[70%] h-[90%] bg-cream border border-navy/10 relative shadow-sm flex items-center justify-center font-serif text-navy/20 italic text-center p-4">
-                  Guide Document
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-[60px] mb-[100px]">
+          {individualGuides.map((guide, i) => {
+            const coverImg = coverMap[guide.slug] || "aivass-guide-evidence.png";
+            
+            return (
+              <article key={guide.id} className="border-t border-navy pt-[18px]">
+                <div className="h-[350px] md:h-[420px] bg-paper flex justify-center items-center overflow-hidden mb-5 border border-navy/5 group relative">
+                  <img
+                    src={`${import.meta.env.BASE_URL}images/${coverImg}`}
+                    onError={(e) => { (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/aivass-guide-evidence.png`; }}
+                    alt={`${guide.name} cover`}
+                    className="w-[75%] h-[90%] object-cover shadow-md border border-navy/10 group-hover:scale-[1.02] transition-transform duration-500"
+                  />
                 </div>
-              </div>
-              <div className="flex justify-between items-center text-[10px] tracking-[0.1em] uppercase">
-                <span>{guide.category}</span>
-                <a href="#" className="btn !py-2 !px-3 hover:bg-navy hover:text-cream">View Guide</a>
-                {/* // TODO: REPLACE WITH STRIPE/BOOKING URL */}
-              </div>
-            </article>
-          ))}
+                <div className="mb-6">
+                  <h2 className="font-serif text-[24px] text-navy leading-tight mb-1">{guide.name}</h2>
+                  <p className="font-serif italic text-[14px] text-oxblood mb-3">{guide.subtitle}</p>
+                  <div className="text-[11px] tracking-[0.1em] uppercase text-grey mb-3">{guide.pageCount} pages</div>
+                  <p className="text-[13px] text-navy-mid leading-[1.6] line-clamp-1">{guide.description}</p>
+                </div>
+                <div className="flex gap-3">
+                  <a href={guideSampleUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn-outline flex-1 !px-2">View Free Sample ↗</a>
+                  <a href={guideCheckoutUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn-fill flex-1 !px-2">Purchase →</a>
+                  {/* // TODO: Migrate checkout to new build */}
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* BUNDLE CARD */}
+        <div className="bg-navy text-cream p-[40px] md:p-[60px] flex flex-col md:flex-row items-center gap-10 md:gap-16">
+          <div className="flex-1">
+            <div className="eyebrow text-ox-light mb-4">The Bundle</div>
+            <h2 className="font-serif text-[36px] md:text-[48px] leading-tight mb-4">
+              {BUNDLE.name}
+            </h2>
+            <p className="text-[16px] text-ox-light mb-6">
+              All 6 guides · 275 pages
+            </p>
+            <p className="text-[14px] text-cream/70 leading-[1.6] max-w-[500px]">
+              {BUNDLE.description}
+            </p>
+          </div>
+          <div className="w-full md:w-auto bg-white/5 p-8 border border-white/10 flex flex-col items-center text-center shrink-0">
+            <span className="text-[48px] font-serif leading-none mb-2">{formatPrice(BUNDLE.priceCents)}</span>
+            <span className="text-[11px] tracking-[0.1em] text-ox-light uppercase mb-8">Save vs. buying individually</span>
+            <a href={guideCheckoutUrl(BUNDLE.slug)} target="_blank" rel="noopener noreferrer" className="btn-fill !bg-cream !text-navy hover:!bg-paper w-full">
+              Get the Complete Collection →
+            </a>
+            {/* // TODO: Migrate checkout to new build */}
+          </div>
         </div>
 
         <div className="mt-20 border-t border-navy/20 pt-16 text-center">
-          <p className="font-serif text-[28px] flex flex-col items-center gap-3">
-            <span className="text-navy">CAREER & EVIDENCE</span>
-            <small className="font-sans text-[11px] tracking-[0.15em] text-oxblood uppercase block">COMING NEXT</small>
+          <p className="font-serif italic text-[28px] flex flex-col items-center gap-3">
+            <span className="text-navy">CAREER & EVIDENCE — COMING NEXT</span>
           </p>
-          <p className="text-[13px] text-grey mt-4 max-w-[300px] mx-auto mb-8">
-            New guides added regularly. Subscribe to be notified when the next collection drops.
-          </p>
-          <div className="flex justify-center">
-            <a href="#subscribe" className="btn-outline">Subscribe</a>
-          </div>
         </div>
       </div>
     </div>

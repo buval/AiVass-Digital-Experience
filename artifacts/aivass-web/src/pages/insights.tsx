@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { ARTICLES } from "@/data/articles";
 
 export default function Insights() {
   return (
@@ -80,25 +81,22 @@ export default function Insights() {
           </p>
           {/* Article placeholders — will be populated from article data */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-navy/10">
-            {[
-              {
-                title: "Building Extraordinary Ability: What the Evidence Actually Requires",
-                category: "Extraordinary Ability",
-                date: "Coming soon",
-                excerpt: "A strategic breakdown of what strong evidence actually looks like — and why most professionals underestimate how much architecture it requires."
-              },
-              {
-                title: "Automation with Soul: Why AI Transformation Must Remain Human",
-                category: "Transformation",
-                date: "Coming soon",
-                excerpt: "The future should become more intelligent without becoming less human. What that principle means in practice for organizations deploying AI capability."
-              }
-            ].map((article) => (
+            {ARTICLES.slice(0, 2).map((article) => (
               <div key={article.title} className="bg-paper p-8 md:p-10 hover:bg-cream/50 transition-colors">
-                <div className="eyebrow mb-4">{article.category}</div>
-                <h3 className="font-serif text-[22px] md:text-[26px] leading-[1.2] tracking-[-0.03em] mb-3">{article.title}</h3>
+                <div className="eyebrow mb-4">{article.categoryLabel}</div>
+                <Link href={`/articles/${article.slug}`}>
+                  <h3 className="font-serif text-[22px] md:text-[26px] leading-[1.2] tracking-[-0.03em] mb-3 hover:text-oxblood transition-colors cursor-pointer">
+                    {article.title}
+                  </h3>
+                </Link>
                 <p className="text-[13px] text-grey leading-[1.6] mb-6">{article.excerpt}</p>
-                <span className="text-[10px] tracking-[0.12em] uppercase text-oxblood">{article.date}</span>
+                <span className="text-[10px] tracking-[0.12em] uppercase text-oxblood">
+                  {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+                </span>
               </div>
             ))}
           </div>

@@ -1,6 +1,8 @@
 import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
 import { TriadHero } from "@/components/brand/TriadHero";
+import { GUIDES, guideCheckoutUrl } from "@/data/guides";
+import { ARTICLES } from "@/data/articles";
 
 export default function Home() {
   return (
@@ -20,7 +22,7 @@ export default function Home() {
           </p>
           <div className="flex flex-row flex-wrap gap-6 mt-[30px]">
             <Link href="/solutions" className="btn-fill">Explore AiVass</Link>
-            <Link href="/solutions" className="link-under">Find Your Path ↗</Link>
+            <a href="#three-paths" className="link-under">Find Your Path ↗</a>
           </div>
           <div className="font-serif italic text-[20px] text-grey mt-[36px] md:mt-[60px]">
             Automation <b className="text-oxblood font-normal">with</b> Soul.
@@ -32,7 +34,7 @@ export default function Home() {
       </section>
 
       {/* 02 THREE TRANSFORMATION PATHS */}
-      <section className="bg-navy text-cream pt-[65px] pb-[60px] md:py-[95px]">
+      <section id="three-paths" className="bg-navy text-cream pt-[65px] pb-[60px] md:py-[95px] scroll-mt-20">
         <div className="wrap">
           <div className="eyebrow text-ox-light mb-8">02 · Three transformation paths</div>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] gap-10 md:gap-[8vw] items-center">
@@ -70,14 +72,14 @@ export default function Home() {
               {/* three path descriptions below the shared diagram */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-[10px] w-full mt-8 md:mt-4">
                 {[
-                  ["INDIVIDUALS", "Build, articulate and demonstrate extraordinary ability."],
-                  ["BUSINESSES", "Turn ambition into intelligent, scalable systems."],
-                  ["ORGANIZATIONS", "Transform capability, operations and how people work with AI."]
-                ].map(([title, desc], i) => (
-                  <div key={title} className={`border-t border-cream/20 pt-[12px] ${i > 0 ? "md:border-l md:border-t-0 md:pl-[14px] border-t pt-[12px] md:pt-0" : ""}`}>
-                    <h3 className="font-serif text-[16px] md:text-[18px] mb-1">{title}</h3>
-                    <p className="text-ox-light text-[11px] md:text-[12px] leading-[1.5]">{desc}</p>
-                  </div>
+                  ["INDIVIDUALS", "Build, articulate and demonstrate extraordinary ability.", "/solutions/individuals"],
+                  ["BUSINESSES", "Turn ambition into intelligent, scalable systems.", "/solutions/businesses"],
+                  ["ORGANIZATIONS", "Transform capability, operations and how people work with AI.", "/solutions/organizations"]
+                ].map(([title, desc, path], i) => (
+                  <Link href={path} key={title} className={`group block border-t border-cream/20 pt-[12px] hover:bg-white/5 transition-colors ${i > 0 ? "md:border-l md:border-t-0 md:pl-[14px] border-t pt-[12px] md:pt-0" : ""}`}>
+                    <h3 className="font-serif text-[16px] md:text-[18px] mb-1 group-hover:text-ox-light transition-colors">{title}</h3>
+                    <p className="text-ox-light text-[11px] md:text-[12px] leading-[1.5] opacity-80 group-hover:opacity-100 transition-opacity">{desc}</p>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -153,7 +155,7 @@ export default function Home() {
             <div className="border-t border-navy pt-[15px]">
               <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">02 · ASSESS</b>
               <p className="text-[11px] md:text-[13px] text-navy-mid leading-[1.5] mb-4">A private assessment of your current profile, evidence, readiness, gaps and potential pathway.</p>
-              <a href="#assessment" className="link-under text-oxblood inline-block">Assess Your Profile</a>
+              <a href="#" className="link-under text-oxblood inline-block">Assess Your Profile</a>
               {/* // TODO: Connect to booking/contact flow */}
             </div>
             <div className="border-t border-navy pt-[15px]">
@@ -166,12 +168,13 @@ export default function Home() {
             {[
               ["AIVASS RISE", "An accelerated, intensive pathway for already-strong profiles ready to move quickly."],
               ["AIVASS SHINE", "A structured premium pathway for extraordinary-ability candidates needing deeper evidence architecture, sequencing, coaching and accountability."],
-              ["AIVASS SIGNATURE", "A bespoke, long-horizon engagement for complex, highly individualized profiles requiring custom transformation architecture."]
+              ["AIVASS SIGNATURE", "A bespoke, long-horizon engagement for complex, highly individualized profiles requiring custom architecture."]
             ].map(([title, desc]) => (
               <div key={title} className="flex-1 md:basis-[29%] border-t border-navy pt-[15px]">
                 <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">{title}</b>
                 <p className="text-[11px] md:text-[13px] text-grey leading-[1.5] mb-4 h-auto md:min-h-[60px]">{desc}</p>
-                <a href="#assessment" className="link-under text-oxblood inline-block">Start with an Assessment</a>
+                <a href="#" className="link-under text-oxblood inline-block">Start with an Assessment</a>
+                {/* // TODO: Connect to booking/contact flow */}
               </div>
             ))}
           </div>
@@ -189,7 +192,7 @@ export default function Home() {
           <p className="text-ox-light text-[14px] md:text-[16px] leading-[1.65] max-w-[500px]">
             AiVass helps businesses turn ambition into intelligent systems, coherent workflows and technology-enabled transformation.
           </p>
-          <a href="#partnership" className="btn-outline-light mt-8">Discuss a Partnership</a>
+          <a href="mailto:contact@aivass.com" className="btn-outline-light mt-8">Discuss a Partnership</a>
         </div>
       </section>
 
@@ -204,7 +207,7 @@ export default function Home() {
           <p className="text-[14px] md:text-[16px] text-navy-mid leading-[1.65] max-w-[600px]">
             Enterprise-ready warmth. AI capability, workforce enablement, education, intelligent operating systems, program architecture, GTM/revenue enablement.
           </p>
-          <a href="#partnership" className="btn mt-8">Discuss a Partnership</a>
+          <a href="mailto:contact@aivass.com" className="btn mt-8">Discuss a Partnership</a>
         </div>
       </section>
 
@@ -225,32 +228,45 @@ export default function Home() {
             <Link href="/guides" className="btn mt-5 md:mt-0">Explore Guides →</Link>
           </div>
           
-          <div className="eyebrow mb-[18px]">EXTRAORDINARY ABILITY · Available now · 5 guides</div>
+          <div className="eyebrow mb-[18px]">EXTRAORDINARY ABILITY · Available now · 6 guides</div>
           
           <div className="flex md:grid md:grid-cols-5 gap-5 md:gap-4 overflow-x-auto pb-6 md:pb-0 snap-x">
-            {[
-              "aivass-guide-ability.png",
-              "aivass-guide-ability_2.png",
-              "aivass-guide-systems.png",
-              "aivass-guide-systems_2.png",
-              "aivass-guide-evidence.png"
-            ].map((img, i) => (
-              <article key={i} className="min-w-[245px] md:min-w-0 border-t border-navy pt-[18px] snap-center">
-                <div className="h-[270px] md:h-[310px] bg-paper flex justify-center items-center overflow-hidden mb-4 border border-navy/5">
-                  <img
-                    src={`${import.meta.env.BASE_URL}images/${img}`}
-                    alt="Extraordinary Ability guide cover"
-                    className="w-[70%] h-full object-cover"
-                    data-testid={`img-guide-cover-${i}`}
-                  />
-                </div>
-                <div className="flex justify-between items-center text-[10px] tracking-[0.1em] uppercase">
-                  <span>Extraordinary Ability</span>
-                  <a href="#" className="btn !py-2 !px-3">View Guide</a>
-                  {/* // TODO: REPLACE WITH STRIPE/BOOKING URL */}
-                </div>
-              </article>
-            ))}
+            {GUIDES.slice(0, 5).map((guide, i) => {
+              // Map slug to cover image based on prompt mapping
+              const coverMap: Record<string, string> = {
+                "eb1a-master": "aivass-guide-ability.png",
+                "eb1a-business": "aivass-guide-ability_2.png",
+                "eb1a-arts": "aivass-guide-systems.png",
+                "eb1a-athletics": "aivass-guide-systems_2.png",
+                "eb1a-education": "aivass-guide-evidence.png",
+                "eb1a-science": "aivass-guide-evidence_2.png"
+              };
+              
+              // Fallback to evidence_2 or evidence if missing
+              const coverImg = coverMap[guide.slug] || "aivass-guide-evidence.png";
+
+              return (
+                <article key={guide.id} className="min-w-[245px] md:min-w-0 border-t border-navy pt-[18px] snap-center">
+                  <div className="h-[270px] md:h-[310px] bg-paper flex justify-center items-center overflow-hidden mb-4 border border-navy/5">
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/${coverImg}`}
+                      onError={(e) => { (e.target as HTMLImageElement).src = `${import.meta.env.BASE_URL}images/aivass-guide-evidence.png`; }}
+                      alt={`${guide.name} cover`}
+                      className="w-[70%] h-[90%] object-cover shadow-sm border border-navy/10"
+                      data-testid={`img-guide-cover-${i}`}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    <span className="font-serif text-[16px] leading-[1.2]">{guide.name}</span>
+                    <div className="flex justify-between items-center text-[10px] tracking-[0.1em] uppercase">
+                      <span className="text-grey">{guide.category}</span>
+                      <a href={guideCheckoutUrl(guide.slug)} target="_blank" rel="noopener noreferrer" className="btn !py-2 !px-3">Purchase →</a>
+                      {/* // TODO: Migrate checkout to new build */}
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
           <div className="h-[1px] bg-navy/25 mt-10 md:mt-[70px] mb-[22px]" />
@@ -271,34 +287,57 @@ export default function Home() {
           </h2>
           
           <div className="flex flex-col md:flex-row gap-8 md:gap-[25px]">
-            <article className="flex-1 border-t border-navy pt-[15px] group">
-              <div className="float-left w-[140px] h-[190px] mr-5 bg-cream border border-navy/10 overflow-hidden">
-                <img
-                  src={`${import.meta.env.BASE_URL}images/aivass-insight-cover.png`}
-                  alt="The Strategist cover"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+            {/* THE STRATEGIST */}
+            <article className="flex-1 bg-navy text-ox-light p-6 md:p-8 flex flex-col justify-between min-h-[300px] border border-navy shadow-sm group">
+              <div>
+                <div className="flex flex-col gap-1 mb-6 opacity-30 group-hover:opacity-50 transition-opacity">
+                  <div className="w-full h-[1px] bg-ox-light" />
+                  <div className="w-full h-[1px] bg-ox-light" />
+                  <div className="w-full h-[1px] bg-ox-light" />
+                </div>
+                <small className="text-[10px] tracking-[0.1em] uppercase text-oxblood block mb-2">THE STRATEGIST · VISUAL THOUGHT-LEADERSHIP</small>
+                <h3 className="font-serif text-[24px] mb-4 text-cream">The Strategist</h3>
+                <p className="text-[13px] leading-[1.5] max-w-[250px]">
+                  Strategic frameworks, architectural breakdowns and editorial perspectives.
+                </p>
               </div>
-              <small className="text-[10px] tracking-[0.1em] uppercase text-oxblood block mb-2">THE STRATEGIST · FREE</small>
-              <h3 className="font-serif text-[24px] mb-2">The Strategist</h3>
-              <p className="text-[12px] text-grey leading-[1.4] max-w-[200px]">Thought leadership for people making meaningful change.</p>
+              <Link href="/insights" className="link-under text-ox-light inline-block w-max border-ox-light hover:text-cream hover:border-cream mt-6">Explore →</Link>
+            </article>
+
+            {/* ARTICLES */}
+            <article className="flex-1 bg-paper p-6 md:p-8 flex flex-col justify-between min-h-[300px] border border-navy/10 group">
+              <div>
+                <small className="text-[10px] tracking-[0.1em] uppercase text-oxblood block mb-6">ARTICLES · ANALYSIS & STRATEGY</small>
+                <ul className="flex flex-col gap-6">
+                  {ARTICLES.slice(0, 2).map((a) => (
+                    <li key={a.id}>
+                      <Link href={`/articles/${a.slug}`} className="group-hover/item text-navy">
+                        <h4 className="font-serif text-[18px] leading-[1.2] mb-1 group-hover/item:text-oxblood transition-colors">{a.title}</h4>
+                        <span className="text-[11px] text-grey">{a.author} · {new Date(a.publishedAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric'})}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Link href="/articles" className="link-under text-oxblood inline-block w-max mt-6">Read All Articles →</Link>
             </article>
             
-            <article className="flex-1 border-t border-navy pt-[15px] group">
-              <div className="float-left w-[140px] h-[190px] mr-5 bg-cream border border-navy/10 overflow-hidden">
-                <img
-                  src={`${import.meta.env.BASE_URL}images/aivass-insight-cover_2.png`}
-                  alt="Field Notes cover"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+            {/* FIELD NOTES */}
+            <article className="flex-1 bg-cream p-6 md:p-8 flex flex-col justify-between min-h-[300px] border border-navy/10 relative overflow-hidden group">
+              <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(transparent_95%,_#12233f_95%)] bg-[length:100%_20px]" />
+              <div className="relative z-10">
+                <small className="text-[10px] tracking-[0.1em] uppercase text-oxblood block mb-6">FIELD NOTES · SHORT OBSERVATIONS</small>
+                <div className="mb-4">
+                  <h3 className="font-serif text-[24px] mb-2">{ARTICLES[0].title}</h3>
+                  <p className="text-[13px] text-navy-mid leading-[1.5] italic">
+                    "{ARTICLES[0].excerpt}"
+                  </p>
+                </div>
               </div>
-              <small className="text-[10px] tracking-[0.1em] uppercase text-oxblood block mb-2">FIELD NOTES · FREE</small>
-              <h3 className="font-serif text-[24px] mb-2">Field Notes</h3>
-              <p className="text-[12px] text-grey leading-[1.4] max-w-[200px]">Observations from the edge of transformation.</p>
+              <Link href="/insights" className="link-under text-oxblood inline-block w-max relative z-10 mt-6">Explore Notes →</Link>
             </article>
           </div>
           
-          <Link href="/insights" className="btn mt-10 md:mt-[35px]">Explore Insights</Link>
         </div>
       </section>
 
@@ -333,9 +372,9 @@ export default function Home() {
           <Triad className="w-[88%] max-w-[260px] text-ox-light" />
         </div>
         <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-[35px] text-ox-light text-[11px] tracking-[0.13em] uppercase">
-          <Link href="/solutions" className="hover:text-cream transition-colors">For myself</Link>
-          <Link href="/solutions" className="hover:text-cream transition-colors">For my business</Link>
-          <Link href="/solutions" className="hover:text-cream transition-colors">For my organization</Link>
+          <Link href="/solutions/individuals" className="hover:text-cream transition-colors">For myself</Link>
+          <Link href="/solutions/businesses" className="hover:text-cream transition-colors">For my business</Link>
+          <Link href="/solutions/organizations" className="hover:text-cream transition-colors">For my organization</Link>
         </div>
       </section>
     </div>

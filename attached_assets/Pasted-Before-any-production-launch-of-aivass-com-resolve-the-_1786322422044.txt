@@ -1,0 +1,312 @@
+Before any production launch of aivass.com, resolve the FOUR launch risks identified in the audit.
+
+Do NOT redesign the website.
+Do NOT publish.
+Do NOT change working Stripe, booking or calendar infrastructure unless the existing configuration has first been verified.
+
+This is a migration-safety and integration task.
+
+==================================================
+1. PRESERVE /how-it-works AND /onboarding
+==================================================
+
+The existing aivass.com site has:
+
+/how-it-works
+/onboarding
+
+The new build currently does not.
+
+FIRST inspect the existing content and purpose of each URL.
+
+Determine the most semantically appropriate destination in the new architecture.
+
+Do NOT guess blindly.
+
+Likely destinations may include:
+- /solutions/individuals
+- Strategic Profile Assessment / onboarding flow
+- another preserved compatibility page
+
+For each URL choose ONE of:
+
+A. preserve the route with updated content
+OR
+B. create a permanent redirect to the correct replacement
+
+Use production-safe permanent redirects where appropriate.
+
+Also ensure:
+
+- old URL does not return 404
+- redirect does not create a loop
+- canonical points to the final destination
+- old URL is removed from the new sitemap if redirected
+- final replacement URL is included in sitemap
+- query parameters are preserved when relevant
+
+Report:
+
+OLD URL
+CURRENT PURPOSE
+NEW DESTINATION
+PRESERVE OR REDIRECT
+REDIRECT STATUS
+TEST RESULT
+
+==================================================
+2. SAFELY MIGRATE /shop → /guides
+==================================================
+
+The new customer-facing destination is:
+
+/guides
+
+The old site may use:
+
+/shop
+
+CRITICAL:
+Before redirecting /shop, audit whether Stripe or the current purchase flow uses any aivass.com/shop URL as:
+
+- checkout return URL
+- success URL
+- cancel URL
+- product destination
+- digital delivery page
+- customer receipt flow
+- post-purchase redirect
+
+Also inspect any subroutes such as:
+
+/shop/[product]
+/shop/success
+/shop/cancel
+
+if they exist.
+
+DO NOT remove or redirect a route that is required by a working checkout.
+
+If /shop is NOT required by payment infrastructure:
+
+create a permanent redirect:
+
+/shop → /guides
+
+If old product URLs exist, create product-level mappings where possible rather than sending every old product URL generically to /guides.
+
+Example:
+
+old product URL
+→ corresponding new Guide page
+
+Preserve SEO value and customer bookmarks.
+
+If Stripe relies on an old /shop success/cancel URL:
+
+PRESERVE that technical route even if the visible storefront moves to /guides.
+
+Report:
+
+- all /shop routes found
+- Stripe dependency yes/no
+- success URL dependency
+- cancel URL dependency
+- redirect map
+- routes intentionally preserved
+- routes safe to redirect
+- test result for each
+
+==================================================
+3. VERIFY THE EXISTING PAID ASSESSMENT / BOOKING FLOW
+==================================================
+
+This is a LAUNCH BLOCKER.
+
+Do NOT switch aivass.com to this build until the real Strategic Profile Assessment flow is identified and tested.
+
+Audit:
+
+- existing aivass.com links
+- current project configuration
+- public booking URLs
+- Stripe payment links used for assessment
+- Google Calendar / Google booking destination
+- existing CTA destinations
+- any payment → scheduling sequence
+
+The intended AiVass flow is:
+
+1. visitor selects Strategic Profile Assessment
+2. résumé/CV submission if currently supported
+3. short questionnaire if currently supported
+4. existing paid booking/payment flow
+5. calendar scheduling
+
+IMPORTANT:
+
+AiVass does NOT offer a free discovery call.
+
+Do not replace this flow with:
+- generic contact form
+- free calendar link
+- newly created Stripe product
+- newly created booking workflow
+
+Reuse the existing working system.
+
+If you can verify the exact real URL:
+
+connect ALL of these CTAs to it:
+
+ASSESS YOUR PROFILE
+BOOK A STRATEGIC ASSESSMENT
+START WITH AN ASSESSMENT
+RISE → START WITH AN ASSESSMENT
+SHINE → START WITH AN ASSESSMENT
+SIGNATURE → START WITH AN ASSESSMENT
+
+Do not show pricing publicly.
+
+If you CANNOT verify the existing source URL:
+
+DO NOT invent one.
+
+Leave production unchanged and report:
+
+ASSESSMENT URL — NEEDS OWNER INPUT
+
+Tell me exactly what URL or configuration is missing.
+
+==================================================
+4. REPLACE THE OLD SOCIAL / OPEN GRAPH IMAGE
+==================================================
+
+The current Open Graph/social preview still references an old Replit image.
+
+Replace it with an approved AiVass branded social-sharing asset.
+
+Preferred characteristics:
+
+- current AiVass architecture
+- cream / navy / oxblood
+- upright T1 Triad
+- AiVass
+- Building Extraordinary Futures
+- no gold
+- premium Architectural Transformation direction
+
+Create or use:
+
+/public/opengraph.jpg
+
+Recommended social preview canvas:
+1200 × 630
+
+Then configure:
+
+Homepage:
+og:title
+og:description
+og:image
+og:url
+twitter:card
+twitter:title
+twitter:description
+twitter:image
+
+Use the final production URL structure rather than a Replit preview URL.
+
+Also ensure individual future:
+- Articles
+- Strategist Decks
+- Guides
+
+can override the default image with their own page-specific sharing image.
+
+Verify the image loads publicly in preview.
+
+==================================================
+SOCIAL ENTITY LINKS
+==================================================
+
+While verifying the metadata, confirm the existing footer and structured-data links remain EXACTLY:
+
+LinkedIn
+https://www.linkedin.com/company/aivass
+
+Facebook
+https://www.facebook.com/AiVass
+
+Instagram
+https://www.instagram.com/aiva.ss/
+
+X
+https://x.com/AiVass_com
+
+YouTube
+https://www.youtube.com/@AiVa_ss
+
+Keep these in Organization sameAs structured data.
+
+==================================================
+LAUNCH TEST
+==================================================
+
+After implementing what can safely be implemented, test:
+
+/ 
+/solutions
+/solutions/individuals
+/solutions/businesses
+/solutions/organizations
+/guides
+/insights
+/how-it-works
+/onboarding
+/shop
+
+For every URL report:
+
+HTTP/route status
+final destination
+redirect if applicable
+page loads yes/no
+
+Also test:
+
+- Assess Your Profile
+- Start with an Assessment
+- Discuss a Partnership
+- Guide purchase buttons
+- social footer links
+
+Do NOT complete a real charge during testing unless explicitly required.
+
+==================================================
+FINAL RESPONSE REQUIRED
+==================================================
+
+Return a launch checklist:
+
+[PASS / BLOCKED] /how-it-works
+[PASS / BLOCKED] /onboarding
+[PASS / BLOCKED] /shop migration
+[PASS / BLOCKED] five Guide checkout flows
+[PASS / BLOCKED] Strategic Profile Assessment flow
+[PASS / BLOCKED] Google Calendar / booking flow
+[PASS / BLOCKED] Open Graph image
+[PASS / BLOCKED] social links
+[PASS / BLOCKED] sitemap / canonical / redirects
+
+Then give one final status:
+
+SAFE TO SWITCH aivass.com
+OR
+DO NOT SWITCH aivass.com
+
+If anything involving payment or booking cannot be verified, the final status MUST be:
+
+DO NOT SWITCH aivass.com
+
+Do not publish during this task.

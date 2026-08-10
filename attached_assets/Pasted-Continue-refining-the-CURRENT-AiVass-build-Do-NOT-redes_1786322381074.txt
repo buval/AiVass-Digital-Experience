@@ -1,0 +1,454 @@
+Continue refining the CURRENT AiVass build.
+
+Do NOT redesign the approved Architectural Transformation visual system.
+Do NOT publish.
+
+This task has THREE priorities:
+
+1. make Insights visually varied and migrate the real existing article content
+2. replace Guide placeholders with the CURRENT real AiVass Guide assets and reconnect their existing Stripe purchase flows
+3. make Solutions / Find Your Path functional and route correctly to Individuals, Businesses and Organizations
+
+==================================================
+1. INSIGHTS — ADD VISUAL VARIETY
+==================================================
+
+The current /insights page architecture is correct:
+
+THE STRATEGIST
+ARTICLES
+FIELD NOTES
+
+However, the visual placeholders are too repetitive:
+- The Strategist and Field Notes currently use essentially the same visual.
+- Articles currently has a blank generic placeholder.
+
+Create THREE clearly differentiated editorial visual languages while keeping them inside the same AiVass brand system.
+
+THE STRATEGIST
+Purpose:
+visual thought-leadership decks / carousels.
+
+Visual direction:
+- editorial deck-cover presentation
+- architectural / horizon / transformation imagery
+- elegant AiVass publication feel
+- should clearly look like a visual publication or carousel
+
+Use real Strategist Deck imagery if it already exists in the project.
+If not, use a branded placeholder clearly labeled as temporary.
+
+Do NOT invent published deck titles if real titles are unavailable.
+
+ARTICLES
+Purpose:
+long-form crawlable HTML content supporting search visibility and AI discovery.
+
+Visual direction:
+- editorial article cover
+- sophisticated typography
+- paper / manuscript / architectural editorial language
+- clearly different from The Strategist
+- no blank grey box
+
+AUDIT THE EXISTING LIVE AIVASS.COM SITE.
+
+Find the TWO existing articles/blog posts.
+
+For each existing article:
+- preserve the real title
+- preserve the real written content
+- preserve author/date if available
+- preserve or map the current URL
+- create redirect if the URL changes
+- migrate it into:
+  /insights/articles/[slug]
+
+Do NOT invent replacement article content.
+
+FIELD NOTES
+Purpose:
+short observations, emerging ideas and concise strategic notes.
+
+Visual direction:
+- notebook / marginalia / field-observation concept
+- refined and minimal
+- not literally a notebook stock image
+- visually distinct from both Articles and Strategist
+
+Use a branded placeholder until real Field Notes content is added.
+
+Homepage Insights teaser should also show:
+The Strategist
+Articles
+Field Notes
+
+with three distinct visual treatments.
+
+==================================================
+2. GUIDES — USE THE REAL CURRENT PRODUCTS
+==================================================
+
+The /guides page currently has generic “Guide Document” placeholders.
+
+Replace those with the ACTUAL existing AiVass Guide products and existing cover images from the CURRENT live AiVass site/project.
+
+IMPORTANT:
+
+The current Guides were created using the previous AiVass visual identity.
+
+THAT IS OK FOR NOW.
+
+Do NOT redesign the actual Guide covers during this task.
+
+Use the existing covers as-is so customers can recognize the real products.
+
+They will be rebranded separately later.
+
+At launch:
+
+CATEGORY:
+EXTRAORDINARY ABILITY
+
+AVAILABLE NOW:
+5 REAL GUIDES
+
+Use:
+- exact current product title
+- exact current cover image
+- short existing description if available
+- existing product destination / Stripe checkout link
+
+Do NOT invent:
+- guide names
+- prices
+- products
+- Stripe URLs
+
+==================================================
+STRIPE / CHECKOUT CONNECTION
+==================================================
+
+AUDIT the CURRENT live AiVass implementation and existing project files.
+
+For EACH of the five Guides identify:
+
+1. product title
+2. current cover asset
+3. existing product/shop page URL
+4. existing Stripe payment/checkout URL or existing purchase mechanism
+5. post-purchase/download behavior if identifiable
+
+Then reconnect the new Guide cards to the SAME working checkout destinations.
+
+Do NOT create a new Stripe account.
+Do NOT create new Stripe products.
+Do NOT create new Payment Links unless explicitly approved.
+
+Use the existing working commercial setup.
+
+If an exact existing Stripe or checkout destination cannot be verified:
+
+DO NOT guess.
+
+Leave that individual Guide button disabled or configuration-driven and report:
+
+“MISSING VERIFIED CHECKOUT URL”
+
+so I can supply it.
+
+Do not break the existing live shop while doing this.
+
+==================================================
+SHOP → GUIDES MIGRATION
+==================================================
+
+The public branded destination is now:
+
+/guides
+
+But the existing site has Shop / digital asset functionality.
+
+Audit whether:
+/shop
+or other shop/product URLs
+are used externally or by Stripe return flows.
+
+Do NOT delete /shop blindly.
+
+If safe:
+create a redirect from /shop → /guides.
+
+If /shop is required by a payment success/cancel/download process:
+preserve it and explain why.
+
+Report this clearly.
+
+==================================================
+CAREER & EVIDENCE
+==================================================
+
+Keep:
+
+CAREER & EVIDENCE
+COMING NEXT
+
+Do not create fake products yet.
+
+Future topics may include:
+- finding direction / passion
+- career identity
+- strengths and differentiation
+- evidence of impact
+- professional positioning
+- reinvention / next chapter
+
+But no products should be shown as available until supplied.
+
+==================================================
+3. SOLUTIONS — MAKE THE PATHS FUNCTIONAL
+==================================================
+
+The current navigation contains SOLUTIONS but it needs a real destination and routing structure.
+
+Create:
+
+/solutions
+
+with THREE clear audience paths:
+
+FOR INDIVIDUALS
+FOR BUSINESSES
+FOR ORGANIZATIONS
+
+Do not introduce additional top-level audiences.
+
+--------------------------------------------------
+HERO — FIND YOUR PATH
+--------------------------------------------------
+
+The homepage hero CTA:
+
+FIND YOUR PATH
+
+should NOT immediately open a booking form.
+
+It should smoothly scroll or route to:
+
+ONE HOUSE. THREE PATHS
+
+where the visitor selects:
+
+Individuals
+Businesses
+Organizations
+
+--------------------------------------------------
+THREE PATHS
+--------------------------------------------------
+
+Make each audience clickable.
+
+INDIVIDUALS
+→ /solutions/individuals
+
+BUSINESSES
+→ /solutions/businesses
+
+ORGANIZATIONS
+→ /solutions/organizations
+
+Keep the shared connected visual architecture already approved.
+
+Do not bring back three separate decorative Triad logos.
+
+--------------------------------------------------
+FOR INDIVIDUALS PAGE
+--------------------------------------------------
+
+Create /solutions/individuals as the main pathway page.
+
+Headline direction:
+
+BUILD THE PROFILE.
+UNDERSTAND THE EVIDENCE.
+CHOOSE THE RIGHT PATHWAY.
+
+Explain the journey:
+
+01 EXPLORE
+Paid Guides
+
+02 ASSESS
+Strategic Profile Assessment
+
+03 RECEIVE YOUR PATHWAY
+AiVass recommends the appropriate next path.
+
+Show:
+
+AIVASS RISE
+Accelerated intensive pathway for already-strong profiles.
+
+AIVASS SHINE
+Structured premium extraordinary-ability pathway requiring deeper evidence architecture, sequencing, coaching and accountability.
+
+AIVASS SIGNATURE
+Bespoke long-horizon engagement for complex, individualized profiles.
+
+CRITICAL:
+
+Do NOT display:
+- program prices
+- duration
+- session frequency
+- comparison pricing
+- Buy Now buttons
+
+The user does NOT self-select RISE / SHINE / SIGNATURE.
+
+All premium-program CTAs should use:
+
+START WITH AN ASSESSMENT
+
+and route to the existing Strategic Profile Assessment flow once that URL has been verified.
+
+--------------------------------------------------
+STRATEGIC PROFILE ASSESSMENT
+--------------------------------------------------
+
+The assessment is PAID.
+
+Do NOT show its price publicly.
+
+Do NOT call it:
+Free Discovery Call
+Free Consultation
+
+Use:
+
+STRATEGIC PROFILE ASSESSMENT
+ASSESS YOUR PROFILE
+
+Preserve / reconnect the existing booking/payment/calendar flow.
+
+The intended public journey is:
+
+1. upload résumé/CV
+2. short profile questionnaire
+3. continue through existing private paid booking/payment flow
+4. calendar scheduling
+
+If the current exact URL cannot be verified:
+do NOT invent one.
+Report the missing URL.
+
+--------------------------------------------------
+FOR BUSINESSES PAGE
+--------------------------------------------------
+
+Create /solutions/businesses.
+
+Keep concise.
+
+Position around:
+- intelligent business systems
+- automation
+- positioning / GTM
+- operating architecture
+- technology-enabled transformation
+- future professional-practice collaboration
+
+Primary CTA:
+
+DISCUSS A PARTNERSHIP
+
+Do not expose pricing.
+
+--------------------------------------------------
+FOR ORGANIZATIONS PAGE
+--------------------------------------------------
+
+Create /solutions/organizations.
+
+Position around:
+- AI capability
+- workforce enablement
+- education / training
+- intelligent operating systems
+- program architecture
+- enterprise transformation
+- future methodology licensing / institutional partnerships
+
+Primary CTA:
+
+DISCUSS A PARTNERSHIP
+
+Do not expose pricing.
+
+--------------------------------------------------
+NAVIGATION BEHAVIOR
+--------------------------------------------------
+
+SOLUTIONS should either:
+
+A. open an elegant dropdown containing:
+Individuals
+Businesses
+Organizations
+
+and link to /solutions
+
+OR
+
+B. navigate to /solutions with the three paths immediately visible.
+
+Choose whichever produces the cleanest accessible desktop/mobile UX.
+
+Do not overload navigation.
+
+==================================================
+SEO / CONTENT CONNECTIONS
+==================================================
+
+Create meaningful internal linking:
+
+Guides
+↔ Individuals
+
+Articles
+↔ Guides where relevant
+
+Articles
+↔ Strategist Decks where relevant
+
+Strategist
+↔ related Articles
+
+Solutions / Individuals
+↔ Strategic Assessment
+
+Solutions / Businesses and Organizations
+↔ Discuss a Partnership
+
+Preserve crawlable HTML copy.
+
+==================================================
+DO NOT PUBLISH YET
+==================================================
+
+At completion report:
+
+1. EXACT five Guide titles found
+2. Guide cover assets found
+3. Stripe / checkout destination for each Guide
+4. whether /shop can safely redirect to /guides
+5. the two existing Article titles and URLs
+6. redirects required
+7. Strategic Assessment booking/payment URL found or not found
+8. Solutions routes created
+9. buttons that are now functional
+10. any remaining placeholder or missing integration
+
+Do not hide missing information.
+Do not invent URLs or products.
