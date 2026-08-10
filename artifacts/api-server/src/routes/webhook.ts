@@ -2,36 +2,27 @@ import { Router } from "express";
 import express from "express";
 import Stripe from "stripe";
 import { randomUUID } from "crypto";
+import { eq } from "drizzle-orm";
 import { db, downloadTokensTable } from "@workspace/db";
-import { sendDownloadEmail } from "../lib/email.js";
 import { logger } from "../lib/logger.js";
+import { GUIDE_NAMES } from "./order.js";
 
 const router = Router();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2025-05-28.basil" });
 
-// Map Stripe product names → guide slugs (must match names in your Stripe dashboard)
-const PRODUCT_NAME_TO_SLUG: Record<string, string> = {
-  "EB-1A Master Guide": "eb1a-master",
-  "EB-1A for Business Leaders": "eb1a-business",
-  "EB-1A for Artists & Creators": "eb1a-arts",
-  "EB-1A for Athletes & Coaches": "eb1a-athletics",
-  "EB-1A for Educators": "eb1a-education",
-  "EB-1A for Scientists": "eb1a-science",
-  "The Complete EB-1A Collection": "eb1a-complete",
+// Stripe product ID → guide slug (matches Stripe live dashboard)
+const PRODUCT_ID_TO_SLUG: Record<string, string> = {
+  "prod_UuuNVJM174nKvQ": "eb1a-master",
+  "prod_UuubGa79bq84fn": "eb1a-business",
+  "prod_UuucU0qjBiiFYp": "eb1a-arts",
+  "prod_UuudKN57E7YBxm": "eb1a-athletics",
+  "prod_Uuuecov9ZMnSbo": "eb1a-education",
+  "prod_Uuuf4bMQ91y7V0": "eb1a-science",
+  "prod_UuufVso7YgP9cq": "eb1a-complete",
 };
 
-const GUIDE_NAMES: Record<string, string> = {
-  "eb1a-master": "EB-1A Master Guide",
-  "eb1a-business": "EB-1A for Business Leaders",
-  "eb1a-arts": "EB-1A for Artists & Creators",
-  "eb1a-athletics": "EB-1A for Athletes & Coaches",
-  "eb1a-education": "EB-1A for Educators",
-  "eb1a-science": "EB-1A for Scientists",
-  "eb1a-complete": "The Complete EB-1A Collection",
-};
-
-// Raw body parser — MUST be mounted before express.json() in app.ts
+// Raw body parser — must run before express.json() (see app.ts)
 router.post(
   "/stripe",
   express.raw({ type: "*/*" }),
@@ -40,8 +31,8 @@ router.post(
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
     if (!webhookSecret) {
-      logger.error("STRIPE_WEBHOOK_SECRET not set");
-      res.status(500).json({ error: "Webhook secret not configured" });
+      logger.warn("STRIPE_WEBHOOK_SECRET not set — skipping webhook verification");
+      res.json({ received: true });
       return;
     }
 
@@ -60,7 +51,6 @@ router.post(
         await handleCheckoutCompleted(event.data.object as Stripe.Checkout.Session);
       } catch (err) {
         logger.error({ err }, "Error processing checkout.session.completed");
-        // Still return 200 so Stripe doesn't retry endlessly
       }
     }
 
@@ -69,32 +59,37 @@ router.post(
 );
 
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
-  // Retrieve full session with expanded line items + products
   const full = await stripe.checkout.sessions.retrieve(session.id, {
     expand: ["line_items.data.price.product"],
   });
 
-  const buyerEmail = full.customer_details?.email;
-  if (!buyerEmail) {
-    logger.warn({ sessionId: session.id }, "No buyer email on session — cannot deliver guide");
-    return;
-  }
-
+  const buyerEmail = full.customer_details?.email ?? "unknown";
   const lineItems = full.line_items?.data ?? [];
 
   for (const item of lineItems) {
-    const product = item.price?.product as Stripe.Product | undefined;
-    const productName = product?.name;
-    if (!productName) continue;
+    const product = item.price?.product as Stripe.Product | null;
+    if (!product?.id) continue;
 
-    const guideSlug = PRODUCT_NAME_TO_SLUG[productName];
+    const guideSlug = PRODUCT_ID_TO_SLUG[product.id];
     if (!guideSlug) {
-      logger.warn({ productName, sessionId: session.id }, "Unrecognised product name — no guide slug mapped");
+      logger.warn({ productId: product.id }, "Unknown product ID in webhook");
+      continue;
+    }
+
+    // Idempotent — skip if a token already exists for this session+slug
+    const existing = await db
+      .select()
+      .from(downloadTokensTable)
+      .where(eq(downloadTokensTable.stripeSessionId, session.id))
+      .limit(10);
+
+    if (existing.some((r) => r.guideSlug === guideSlug)) {
+      logger.info({ guideSlug, sessionId: session.id }, "Token already exists — skipping");
       continue;
     }
 
     const token = randomUUID();
-    const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000); // 72 hours
+    const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000);
 
     await db.insert(downloadTokensTable).values({
       token,
@@ -105,12 +100,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       stripeSessionId: session.id,
     });
 
-    const downloadUrl = `https://aivass.com/download/${token}`;
-    const guideName = GUIDE_NAMES[guideSlug] ?? productName;
-
-    logger.info({ token, guideSlug, buyerEmail }, "Download token created");
-
-    await sendDownloadEmail({ to: buyerEmail, guideName, downloadUrl });
+    logger.info({ token, guideSlug, buyerEmail }, "Webhook: download token created");
   }
 }
 

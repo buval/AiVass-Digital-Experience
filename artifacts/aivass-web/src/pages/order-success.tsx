@@ -1,23 +1,170 @@
-import { Link } from "wouter";
+import { useEffect, useState } from "react";
+import { Link, useSearch } from "wouter";
 import { Triad } from "@/components/brand/Triad";
+import { useSeoMeta } from "@/lib/seo";
+
+interface DownloadItem {
+  token: string;
+  guideSlug: string;
+  guideName: string;
+  attemptsRemaining: number;
+}
+
+type State =
+  | { status: "loading" }
+  | { status: "downloading"; items: DownloadItem[] }
+  | { status: "done"; items: DownloadItem[] }
+  | { status: "error"; message: string };
+
+async function triggerDownload(token: string, filename: string) {
+  const res = await fetch(`/api/download/${token}`);
+  if (!res.ok) throw new Error(`Download failed: ${res.status}`);
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 export default function OrderSuccess() {
+  useSeoMeta({ title: "Purchase Confirmed", noIndex: true });
+
+  const search = useSearch();
+  const params = new URLSearchParams(search);
+  const sessionId = params.get("session_id");
+
+  const [state, setState] = useState<State>({ status: "loading" });
+
+  useEffect(() => {
+    if (!sessionId) {
+      setState({ status: "error", message: "No session found. If you completed a purchase, check your email or contact connect@aivass.com." });
+      return;
+    }
+
+    fetch(`/api/order-complete?session_id=${encodeURIComponent(sessionId)}`)
+      .then(async (res) => {
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}));
+          throw new Error(body.error ?? `Error ${res.status}`);
+        }
+        return res.json() as Promise<{ downloads: DownloadItem[] }>;
+      })
+      .then(async ({ downloads }) => {
+        setState({ status: "downloading", items: downloads });
+
+        // Download all guides (usually 1, or 6 for the complete collection)
+        for (const item of downloads) {
+          const filename = `${item.guideName}.pdf`;
+          try {
+            await triggerDownload(item.token, filename);
+            // Small delay between multiple downloads so browser doesn't block them
+            await new Promise((r) => setTimeout(r, 800));
+          } catch {
+            // Continue even if one fails — user can retry via /download/:token
+          }
+        }
+
+        setState({ status: "done", items: downloads });
+      })
+      .catch((err: Error) => {
+        setState({ status: "error", message: err.message });
+      });
+  }, [sessionId]);
+
   return (
-    <div className="bg-navy text-cream min-h-screen pt-[120px] pb-[100px] flex flex-col items-center text-center">
-      <div className="wrap flex flex-col items-center">
+    <div className="bg-navy text-cream min-h-screen pt-[120px] pb-[100px] flex flex-col items-center text-center px-6">
+      <div className="wrap flex flex-col items-center max-w-[560px] w-full">
         <Triad className="w-[60px] text-ox-light mb-8" />
-        <h1 className="text-[40px] md:text-[60px] font-serif leading-none tracking-[-0.05em] mb-6">
-          Your purchase is confirmed.
-        </h1>
-        <p className="text-[16px] text-ox-light max-w-[500px] leading-[1.65] mb-12">
-          Your guides are being prepared. You will receive an email with your secure download link shortly.
-        </p>
-        <Link href="/guides" className="btn-outline-light mb-16">
-          Explore More Guides →
-        </Link>
-        <p className="text-[12px] text-ox-light/70 tracking-[0.05em]">
-          Didn't receive an email? Contact <a href="mailto:connect@aivass.com" className="underline hover:text-cream">connect@aivass.com</a>
-        </p>
+
+        {state.status === "loading" && (
+          <>
+            <h1 className="text-[40px] md:text-[60px] font-serif leading-none tracking-[-0.05em] mb-6">
+              Purchase confirmed.
+            </h1>
+            <p className="text-[15px] text-ox-light leading-[1.65] mb-8">
+              Preparing your download…
+            </p>
+            <div className="w-8 h-8 border-2 border-ox-light/30 border-t-ox-light rounded-full animate-spin" />
+          </>
+        )}
+
+        {state.status === "downloading" && (
+          <>
+            <h1 className="text-[40px] md:text-[60px] font-serif leading-none tracking-[-0.05em] mb-6">
+              Downloading now.
+            </h1>
+            <div className="space-y-2 mb-8 w-full">
+              {state.items.map((item) => (
+                <p key={item.token} className="text-[15px] text-ox-light leading-[1.65]">
+                  {item.guideName}
+                </p>
+              ))}
+            </div>
+            <div className="w-8 h-8 border-2 border-ox-light/30 border-t-ox-light rounded-full animate-spin mb-8" />
+            <p className="text-[12px] text-cream/40 leading-[1.6]">
+              Your download should start automatically. Check your downloads folder.
+            </p>
+          </>
+        )}
+
+        {state.status === "done" && (
+          <>
+            <h1 className="text-[40px] md:text-[60px] font-serif leading-none tracking-[-0.05em] mb-6">
+              Your guide is ready.
+            </h1>
+            <div className="space-y-3 mb-8 w-full text-left border border-cream/10 p-6">
+              {state.items.map((item) => (
+                <div key={item.token} className="flex items-center justify-between gap-4">
+                  <p className="text-[14px] text-ox-light">{item.guideName}</p>
+                  <a
+                    href={`/api/download/${item.token}`}
+                    className="text-[11px] tracking-[0.08em] uppercase text-cream/60 hover:text-cream transition-colors whitespace-nowrap"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      triggerDownload(item.token, `${item.guideName}.pdf`).catch(() => null);
+                    }}
+                  >
+                    Download again →
+                  </a>
+                </div>
+              ))}
+            </div>
+            <p className="text-[12px] text-cream/40 leading-[1.6] mb-8">
+              Each link works for <strong className="text-cream/60">3 downloads</strong> and expires in 72 hours.
+              If you need another copy, contact{" "}
+              <a href="mailto:connect@aivass.com" className="underline hover:text-cream">
+                connect@aivass.com
+              </a>.
+            </p>
+            <Link href="/guides" className="btn-outline-light">
+              Explore More Guides →
+            </Link>
+          </>
+        )}
+
+        {state.status === "error" && (
+          <>
+            <h1 className="text-[36px] font-serif leading-tight mb-6">
+              Something went wrong.
+            </h1>
+            <p className="text-[15px] text-ox-light leading-[1.65] mb-8">
+              {state.message}
+            </p>
+            <a
+              href={`mailto:connect@aivass.com?subject=Download issue&body=Session: ${sessionId ?? "unknown"}`}
+              className="btn-outline-light mb-6"
+            >
+              Contact Support
+            </a>
+            <Link href="/guides" className="text-[12px] text-cream/50 hover:text-cream">
+              Back to Guides
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
