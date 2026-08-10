@@ -91,13 +91,9 @@ export default function About() {
             <div className="relative">
               <div className="relative overflow-hidden" style={{ aspectRatio: "4/5" }}>
                 <img
-                  src={`${import.meta.env.BASE_URL}images/editorial-hero-human.jpg`}
+                  src={`${import.meta.env.BASE_URL}images/editorial-hero-human-paper.jpg`}
                   alt="Maria Boukhval, Founder of AiVass"
                   className="w-full h-full object-cover object-[center_18%]"
-                />
-                {/* Subtle warm vignette to blend into paper */}
-                <div className="absolute inset-0 pointer-events-none"
-                  style={{ background: "linear-gradient(to bottom, transparent 65%, rgba(253,251,246,0.55) 100%)" }}
                 />
               </div>
               {/* Name card below portrait */}
