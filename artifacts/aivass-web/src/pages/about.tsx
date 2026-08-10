@@ -104,6 +104,9 @@ export default function About() {
               <div className="mt-6">
                 <p className="font-serif text-[18px] text-navy tracking-[-0.02em]">Maria Boukhval</p>
                 <p className="text-[11px] tracking-[0.18em] uppercase text-oxblood mt-1">Founder, AiVass</p>
+                <p className="font-serif italic text-navy/45 text-[13px] mt-3 leading-[1.5]">
+                  Energetic light that sparks<br />and guides the way.
+                </p>
               </div>
             </div>
 
@@ -127,6 +130,9 @@ export default function About() {
                 </p>
                 <p>
                   I rebuilt my career across countries, navigated my own extraordinary-ability journey, moved through uncertainty, reinvention and identity shifts, and learned that meaningful change rarely begins with doing more. It begins with seeing differently — understanding who you are becoming, what matters, what proves your value, and what architecture can carry that future forward.
+                </p>
+                <p>
+                  Through all of it, one belief never left me: that no one is ordinary. Extraordinary capacity exists in every person — and human potential has no ceiling worth accepting. We should never give up on people.
                 </p>
                 <p>
                   That realization became AiVass.
