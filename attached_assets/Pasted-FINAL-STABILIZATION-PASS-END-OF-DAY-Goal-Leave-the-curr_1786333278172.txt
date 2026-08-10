@@ -1,0 +1,217 @@
+FINAL STABILIZATION PASS — END-OF-DAY
+
+Goal:
+Leave the current AiVass build stable, reviewable and ready for the remaining owner inputs.
+
+DO NOT redesign anything.
+DO NOT publish.
+DO NOT change approved branding.
+DO NOT create a new Stripe implementation.
+DO NOT create a new backend unless absolutely required.
+
+====================================================
+1. FIX “BACKEND NOT CONFIGURED” ON GUIDE DETAIL PAGES
+====================================================
+
+Current example:
+/guides/eb1a-master
+
+The page displays:
+“Backend Not Configured”
+
+This is unacceptable.
+
+The Guide storefront and Guide detail pages should work as a FRONTEND-FIRST static product catalogue.
+
+Use the existing Guide configuration/data already in the project.
+
+Each guide detail page must render without requiring a backend/database.
+
+Required structure:
+
+/guides/eb1a-master
+/guides/eb1a-business-leaders
+/guides/eb1a-artists-creators
+/guides/eb1a-athletes-coaches
+/guides/eb1a-educators
+/guides/eb1a-scientists
+
+Each page should render:
+- approved guide artwork
+- guide title
+- subtitle
+- description
+- page count where available
+- who it is for
+- what it helps with
+- View Free Sample if a sample exists
+- Purchase CTA
+
+Purchase CTA may use the existing external Stripe destination.
+
+NO backend should be required merely to display the page.
+
+If a Stripe link is not yet supplied:
+- still render the complete Guide page
+- do not crash
+- clearly isolate the missing URL in configuration
+- do not display technical errors to users
+
+====================================================
+2. CREATE ONE CENTRAL GUIDE CONFIG
+====================================================
+
+All Guide information should come from one shared configuration/data source.
+
+Include fields such as:
+
+slug
+title
+subtitle
+description
+category
+image
+pageCount
+sampleUrl
+purchaseUrl
+
+Homepage, /guides and individual Guide pages must reuse this source.
+
+Do not maintain duplicate Guide metadata in multiple components.
+
+====================================================
+3. OG IMAGE — FINISH NOW
+====================================================
+
+There is already approved/generated AiVass brand imagery in the project.
+
+Create a production-safe default:
+public/opengraph.jpg
+
+Target:
+1200 × 630
+
+Use the existing premium AiVass architectural/future visual direction.
+
+Do not distort the image.
+
+Ensure:
+- homepage has default OG
+- guide pages may use their guide artwork where appropriate
+- article pages may use article-specific images where available
+
+Verify Open Graph + Twitter/X metadata.
+
+====================================================
+4. GA4 — DO NOT MAKE IT A LAUNCH BLOCKER
+====================================================
+
+VITE_GA_MEASUREMENT_ID has not yet been supplied.
+
+Leave GA4 integration READY but inactive.
+
+The site must:
+- work normally without the variable
+- create no GA cookies when GA4 is inactive
+- show no errors
+- never hide social links or content because GA4 is absent
+
+Mark:
+
+GA4 READY — OWNER ID REQUIRED
+
+Do not block the rest of the build.
+
+====================================================
+5. STRIPE — DO NOT INVENT LINKS
+====================================================
+
+Do not create replacement Stripe products.
+
+For each Guide:
+
+- if an existing verified Stripe URL is already present in the project or recoverable from the existing AiVass implementation, reuse it
+- otherwise leave purchaseUrl empty in configuration and report exactly which links are missing
+
+The page itself must still render.
+
+Do not show developer/backend errors.
+
+====================================================
+6. LEGAL
+====================================================
+
+Terms and Privacy pages already exist.
+
+Do not rewrite them tonight.
+
+Keep:
+Owner/legal review recommended before production launch.
+
+This is a review recommendation, not a reason for the application to break.
+
+====================================================
+7. GPTBOT / AI CRAWLER
+====================================================
+
+Do not change the current robots.txt policy tonight.
+
+Report the current setting only.
+
+We will make the owner policy decision separately.
+
+====================================================
+8. FINAL SMOKE TEST
+====================================================
+
+Test:
+
+HOME
+SOLUTIONS
+GUIDES
+all six GUIDE DETAIL pages
+INSIGHTS
+existing ARTICLE pages
+ABOUT
+CONTACT
+LEGAL
+PRIVACY
+
+Verify:
+- no “Backend Not Configured”
+- no blank pages
+- no visible runtime errors
+- navigation works
+- mobile menu works
+- social icons visible with or without analytics consent
+- assessment booking opens correctly
+- Guide pages render
+- external links open appropriately
+- 404 works
+- footer works
+
+====================================================
+9. FINAL REPORT — KEEP IT SHORT
+====================================================
+
+Return ONLY:
+
+TECHNICAL
+Guide pages render: PASS/FAIL
+Backend dependency removed: PASS/FAIL
+No runtime errors: PASS/FAIL
+
+BRAND
+Guide imagery consistent: PASS/FAIL
+OG image: PASS/FAIL
+Social icons: PASS/FAIL
+
+OWNER INPUTS STILL REQUIRED
+1. GA4 Measurement ID — YES/NO
+2. Missing Stripe Guide URLs — list only missing ones
+3. Legal review recommended — YES/NO
+4. GPTBot policy decision — YES/NO
+
+Then:
+
+READY TO STOP FOR TODAY — DO NOT PUBLISH
