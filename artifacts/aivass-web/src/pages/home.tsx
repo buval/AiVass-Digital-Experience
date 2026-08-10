@@ -581,7 +581,7 @@ export default function Home() {
       ═══════════════════════════════════════════════════════ */}
       <div className="relative w-full h-[52vh] md:h-[68vh] overflow-hidden" data-reveal="fade">
         <img
-          src={`${import.meta.env.BASE_URL}images/editorial-strip-home.jpg`}
+          src={`${import.meta.env.BASE_URL}images/editorial-strip-founder.jpg`}
           alt="A woman in a stone-arched hallway, pausing with quiet clarity"
           className="w-full h-full object-cover object-[center_20%]"
         />
