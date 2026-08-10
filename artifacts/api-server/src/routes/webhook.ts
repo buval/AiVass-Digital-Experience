@@ -1,17 +1,28 @@
-import { Router } from "express";
-import express from "express";
+/**
+ * POST /api/webhooks/stripe
+ *
+ * Verifies the Stripe signature, handles checkout.session.completed,
+ * creates download tokens (idempotent per session+slug), and sends
+ * the buyer a download email via Resend.
+ *
+ * Mounted at /webhooks in routes/index.ts → full path: /api/webhooks/stripe
+ */
+
+import express, { Router } from "express";
 import Stripe from "stripe";
 import { randomUUID } from "crypto";
 import { eq } from "drizzle-orm";
-import { db, downloadTokensTable } from "@workspace/db";
+import { db } from "@workspace/db";
+import { downloadTokensTable } from "@workspace/db/schema";
 import { logger } from "../lib/logger.js";
 import { GUIDE_NAMES } from "./order.js";
+import { sendDownloadEmail } from "../lib/email.js";
 
 const router = Router();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2025-05-28.basil" });
 
-// Stripe product ID → guide slug (matches Stripe live dashboard)
+// Stripe product ID → guide slug (matches live Stripe dashboard)
 const PRODUCT_ID_TO_SLUG: Record<string, string> = {
   "prod_UuuNVJM174nKvQ": "eb1a-master",
   "prod_UuubGa79bq84fn": "eb1a-business",
@@ -22,7 +33,7 @@ const PRODUCT_ID_TO_SLUG: Record<string, string> = {
   "prod_UuufVso7YgP9cq": "eb1a-complete",
 };
 
-// Raw body parser — must run before express.json() (see app.ts)
+// Raw body parser — Stripe signature verification requires the raw buffer
 router.post(
   "/stripe",
   express.raw({ type: "*/*" }),
@@ -101,6 +112,16 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     });
 
     logger.info({ token, guideSlug, buyerEmail }, "Webhook: download token created");
+
+    // Send download email — non-fatal if it fails
+    const guideName = GUIDE_NAMES[guideSlug] ?? guideSlug;
+    const downloadUrl = `https://aivass.com/download/${token}`;
+    try {
+      await sendDownloadEmail({ to: buyerEmail, guideName, downloadUrl });
+      logger.info({ token, guideSlug, buyerEmail }, "Webhook: download email sent");
+    } catch (err) {
+      logger.error({ err, token, guideSlug }, "Webhook: failed to send download email (token still valid)");
+    }
   }
 }
 

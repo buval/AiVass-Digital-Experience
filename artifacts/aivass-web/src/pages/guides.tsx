@@ -104,6 +104,17 @@ export default function Guides() {
                   >
                     Purchase →
                   </a>
+                  {guide.sampleSlug && (
+                    <a
+                      href={guideSampleUrl(guide.sampleSlug)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-outline !px-3 text-[11px] shrink-0"
+                      onClick={() => trackGuideSampleClick(guide.slug)}
+                    >
+                      Free Sample
+                    </a>
+                  )}
                 </div>
 
                 <div className="mt-3 text-center">

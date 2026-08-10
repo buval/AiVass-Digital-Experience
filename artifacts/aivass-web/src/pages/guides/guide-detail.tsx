@@ -177,7 +177,7 @@ export default function GuideDetail() {
                 </a>
                 {guide.sampleSlug && (
                   <a
-                    href={guideSampleUrl(guide.slug)}
+                    href={guideSampleUrl(guide.sampleSlug)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-outline !border-cream/40 !text-cream hover:!border-cream w-full text-center block"
