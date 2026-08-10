@@ -582,8 +582,8 @@ export default function Home() {
       <div className="relative w-full h-[52vh] md:h-[68vh] overflow-hidden" data-reveal="fade">
         <img
           src={`${import.meta.env.BASE_URL}images/editorial-strip-home.jpg`}
-          alt="A professional at the threshold of an extraordinary future"
-          className="w-full h-full object-cover object-[center_15%]"
+          alt="A woman in a stone-arched hallway, pausing with quiet clarity"
+          className="w-full h-full object-cover object-[center_20%]"
         />
         {/* Deep navy gradient anchors the quote at bottom */}
         <div className="absolute inset-0 pointer-events-none" style={{
