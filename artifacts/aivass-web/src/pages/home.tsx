@@ -364,10 +364,10 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
             {[
-              { label: "PURPOSE", body: "Why are we transforming? What future are we building?", num: "01" },
-              { label: "PROOF", body: "How do we know the transformation is real? What evidence demonstrates progress and value?", num: "02" },
-              { label: "PERMANENCE", body: "Designing transformation so capability, knowledge and value remain after the intervention ends.", num: "03" },
-            ].map(({ label, body, num }, i) => (
+              { label: "PURPOSE", body: "Why are we transforming? What future are we building?" },
+              { label: "PROOF", body: "How do we know the transformation is real? What evidence demonstrates progress and value?" },
+              { label: "PERMANENCE", body: "Designing transformation so capability, knowledge and value remain after the intervention ends." },
+            ].map(({ label, body }, i) => (
               <div
                 key={label}
                 className={`relative pt-[28px] pb-[48px] md:pb-0 md:pr-[48px] ${
@@ -376,20 +376,6 @@ export default function Home() {
                 data-reveal
                 style={{ transitionDelay: `${i * 130}ms` }}
               >
-                {/* Ghost number */}
-                <span
-                  className="absolute pointer-events-none font-serif select-none"
-                  style={{
-                    right: i === 2 ? "0" : undefined,
-                    left: i === 2 ? undefined : "0",
-                    top: "-8px",
-                    fontSize: "clamp(64px, 8vw, 96px)",
-                    lineHeight: 1,
-                    color: "rgba(18,35,63,0.04)",
-                    letterSpacing: "-0.06em",
-                  }}
-                >{num}</span>
-
                 {/* Star icon — larger, prominent */}
                 <svg viewBox="0 0 28 28" className="w-[26px] h-[26px] mb-5 text-oxblood" fill="currentColor">
                   <path d="M14 1 L16.8 11.2 L27 14 L16.8 16.8 L14 27 L11.2 16.8 L1 14 L11.2 11.2Z" />
