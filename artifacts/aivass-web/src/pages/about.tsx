@@ -129,7 +129,7 @@ export default function About() {
                   But the most important transformation was personal.
                 </p>
                 <p>
-                  I rebuilt my career across countries, navigated my own extraordinary-ability journey, moved through uncertainty, reinvention and identity shifts, and learned that meaningful change rarely begins with doing more. It begins with seeing differently — understanding who you are becoming, what matters, what proves your value, and what architecture can carry that future forward.
+                  I rebuilt my career across countries and navigated my own extraordinary-ability journey — self-petitioning for EB-1A and building my case from the ground up, from positioning and evidence architecture to the story connecting it all. Moving through uncertainty, reinvention and major identity shifts taught me that meaningful transformation rarely begins with simply doing more. It begins with seeing differently — understanding who you are becoming, what matters, what demonstrates your value, and what architecture can carry that future forward.
                 </p>
                 <p>
                   Through all of it, one belief never left me: that no one is ordinary. Extraordinary capacity exists in every person — and human potential has no ceiling worth accepting. We should never give up on people.
