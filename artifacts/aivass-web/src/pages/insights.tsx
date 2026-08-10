@@ -23,18 +23,63 @@ export default function Insights() {
           Free thought leadership for people making meaningful change.
         </p>
 
+        {/* Triptych banner — Past · Present · Future */}
+        <div className="mb-4 flex items-center gap-3">
+          <div className="h-px flex-1 bg-navy/10" />
+          <span className="text-[9px] tracking-[0.22em] uppercase text-navy/35">
+            Past · Present · Future
+          </span>
+          <div className="h-px flex-1 bg-navy/10" />
+        </div>
+
+        {/* Three triptych images — continuous panoramic strip */}
+        <div className="grid grid-cols-3 gap-0 mb-3 overflow-hidden">
+          {[
+            { file: "insight-triptych-past.jpg",    pos: "object-[center_30%]", label: "Past"    },
+            { file: "insight-triptych-present.jpg", pos: "object-center",       label: "Present" },
+            { file: "insight-triptych-future.jpg",  pos: "object-[center_25%]", label: "Future"  },
+          ].map(({ file, pos, label }, i) => (
+            <div key={label} className={`relative aspect-[3/4] overflow-hidden ${i === 1 ? "border-x border-paper/40" : ""}`}>
+              <img
+                src={`${import.meta.env.BASE_URL}images/${file}`}
+                alt={`${label} — AiVass editorial triptych`}
+                className={`w-full h-full object-cover ${pos} transition-transform duration-700 hover:scale-[1.03]`}
+              />
+              {/* Gradient overlay — darkens edges for continuity */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    i === 0
+                      ? "linear-gradient(to right, rgba(13,27,46,0.18) 0%, transparent 45%)"
+                      : i === 2
+                      ? "linear-gradient(to left, rgba(13,27,46,0.18) 0%, transparent 45%)"
+                      : "none",
+                }}
+              />
+              {/* Era label — bottom left */}
+              <div className="absolute bottom-0 left-0 right-0 p-3"
+                style={{ background: "linear-gradient(to top, rgba(13,27,46,0.55) 0%, transparent 100%)" }}>
+                <span className="text-[9px] tracking-[0.20em] uppercase text-cream/70">{label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Ox-light rule below images */}
+        <div className="mb-[60px] h-px w-full"
+          style={{ background: "linear-gradient(to right, transparent, rgba(217,163,155,0.30) 30%, rgba(217,163,155,0.30) 70%, transparent)" }} />
+
         {/* Three content streams */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mb-[80px]">
 
           {/* THE STRATEGIST */}
           <article className="md:pr-[35px] pb-10 md:pb-0 border-b md:border-b-0 md:border-r border-navy/15">
-            <div className="eyebrow mb-4">The Strategist</div>
-            <div className="aspect-[4/3] w-full bg-cream mb-6 border border-navy/10 overflow-hidden">
-              <img
-                src={`${import.meta.env.BASE_URL}images/aivass-insight-cover.png`}
-                alt="The Strategist — AiVass visual thought-leadership decks"
-                className="w-full h-full object-cover"
-              />
+            <div className="flex items-center gap-2 mb-4">
+              <svg viewBox="0 0 12 12" className="w-[9px] h-[9px] text-oxblood/60" fill="currentColor">
+                <path d="M6 0 L7.2 4.8 L12 6 L7.2 7.2 L6 12 L4.8 7.2 L0 6 L4.8 4.8Z" />
+              </svg>
+              <div className="eyebrow">The Strategist</div>
             </div>
             <p className="text-[13px] text-grey leading-[1.6] mb-5">
               Visual thought-leadership decks — strategic frameworks, architectural breakdowns and
@@ -46,20 +91,15 @@ export default function Insights() {
             >
               Read Latest Issue
             </span>
-            {/* // TODO: Connect to Strategist deck destination */}
           </article>
 
           {/* ARTICLES */}
           <article className="md:px-[35px] py-10 md:py-0 border-b md:border-b-0 md:border-r border-navy/15">
-            <div className="eyebrow mb-4">Articles</div>
-            <div className="aspect-[4/3] w-full bg-navy/5 mb-6 border border-navy/10 flex items-center justify-center">
-              <svg viewBox="0 0 120 90" fill="none" className="w-[60px] text-navy/20">
-                <rect x="10" y="10" width="100" height="70" rx="2" stroke="currentColor" strokeWidth="1" />
-                <line x1="20" y1="28" x2="100" y2="28" stroke="currentColor" strokeWidth="0.8" />
-                <line x1="20" y1="40" x2="100" y2="40" stroke="currentColor" strokeWidth="0.8" />
-                <line x1="20" y1="52" x2="80" y2="52" stroke="currentColor" strokeWidth="0.8" />
-                <line x1="20" y1="64" x2="90" y2="64" stroke="currentColor" strokeWidth="0.8" />
+            <div className="flex items-center gap-2 mb-4">
+              <svg viewBox="0 0 12 12" className="w-[9px] h-[9px] text-oxblood/60" fill="currentColor">
+                <path d="M6 0 L7.2 4.8 L12 6 L7.2 7.2 L6 12 L4.8 7.2 L0 6 L4.8 4.8Z" />
               </svg>
+              <div className="eyebrow">Articles</div>
             </div>
             <p className="text-[13px] text-grey leading-[1.6] mb-5">
               Long-form, crawlable HTML editorial content — strategic analysis, capability frameworks and
@@ -76,13 +116,11 @@ export default function Insights() {
 
           {/* FIELD NOTES */}
           <article className="md:pl-[35px] pt-10 md:pt-0">
-            <div className="eyebrow mb-4">Field Notes</div>
-            <div className="aspect-[4/3] w-full bg-cream mb-6 border border-navy/10 overflow-hidden">
-              <img
-                src={`${import.meta.env.BASE_URL}images/aivass-insight-cover_2.png`}
-                alt="Field Notes — shorter observations from the edge of transformation"
-                className="w-full h-full object-cover"
-              />
+            <div className="flex items-center gap-2 mb-4">
+              <svg viewBox="0 0 12 12" className="w-[9px] h-[9px] text-oxblood/60" fill="currentColor">
+                <path d="M6 0 L7.2 4.8 L12 6 L7.2 7.2 L6 12 L4.8 7.2 L0 6 L4.8 4.8Z" />
+              </svg>
+              <div className="eyebrow">Field Notes</div>
             </div>
             <p className="text-[13px] text-grey leading-[1.6] mb-5">
               Shorter observations, tactical lessons and emerging patterns from the edge of
@@ -94,7 +132,6 @@ export default function Insights() {
             >
               Explore Notes
             </span>
-            {/* // TODO: Connect to Field Notes destination */}
           </article>
         </div>
 
