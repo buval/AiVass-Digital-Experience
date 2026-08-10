@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+
 /**
  * Full article body — "EB-1A Criterion 8: Leading or Critical Role — The Complete Evidence Guide"
  * Author: AiVass Editorial | Published: 2026-02-27
@@ -407,12 +409,12 @@ export default function Eb1aCriterion8Body() {
           the highest levels.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <a href="/guides/eb1a-master" className="btn-fill !bg-cream !text-navy hover:!bg-paper">
+          <Link href="/guides/eb1a-master" className="btn-fill !bg-cream !text-navy hover:!bg-paper">
             View the EB-1A Master Guide
-          </a>
-          <a href="/guides" className="btn-outline !border-cream/40 !text-cream hover:!border-cream">
+          </Link>
+          <Link href="/guides" className="btn-outline !border-cream/40 !text-cream hover:!border-cream">
             Browse All Guides
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -37,6 +37,7 @@ import {
   ShopRedirect,
   BlogRedirect,
   ArticleRedirect,
+  ArticlesRedirect,
 } from '@/pages/redirects';
 
 const queryClient = new QueryClient();
@@ -75,7 +76,7 @@ function Router() {
           <Route path="/insights/articles/:slug" component={ArticleDetail} />
 
           {/* Legacy /articles — redirects to canonical /insights/articles paths */}
-          <Route path="/articles" component={Articles} />
+          <Route path="/articles" component={ArticlesRedirect} />
           <Route path="/articles/:slug" component={ArticleRedirect} />
 
           <Route path="/about" component={About} />

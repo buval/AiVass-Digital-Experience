@@ -25,6 +25,13 @@ export function ShopRedirect() {
   return <Redirecting />;
 }
 
+/** /articles → /insights/articles (canonical URL migration) */
+export function ArticlesRedirect() {
+  const [, navigate] = useLocation();
+  useEffect(() => { navigate("/insights/articles", { replace: true }); }, [navigate]);
+  return <Redirecting />;
+}
+
 /** /blog/:slug → /insights/articles/:slug */
 export function BlogRedirect() {
   const params = useParams();

@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+
 /**
  * Full article body — "From Surviving to Thriving"
  * Author: Maria Boukhval | Published: 2026-08-05
@@ -218,12 +220,12 @@ export default function FromSurvivingToThrivingBody() {
           tighten.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <a href="/guides" className="btn-fill !bg-cream !text-navy hover:!bg-paper">
+          <Link href="/guides" className="btn-fill !bg-cream !text-navy hover:!bg-paper">
             Explore Our Guides
-          </a>
-          <a href="/solutions/individuals" className="btn-outline !border-cream/40 !text-cream hover:!border-cream">
+          </Link>
+          <Link href="/solutions/individuals" className="btn-outline !border-cream/40 !text-cream hover:!border-cream">
             Learn About AiVass Rise &amp; Shine
-          </a>
+          </Link>
         </div>
         <p className="text-[10px] tracking-[0.1em] text-cream/40 mt-6 uppercase">
           A Field Note from AiVass — No. 01

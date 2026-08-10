@@ -110,7 +110,7 @@ export default function Individuals() {
         <div className="wrap">
           <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-12 text-[12px] tracking-[0.1em] uppercase">
             <Link href="/guides" className="link-under">Start with our Guides →</Link>
-            <Link href="/articles" className="link-under">Read our Articles →</Link>
+            <Link href="/insights/articles" className="link-under">Read our Articles →</Link>
           </div>
           <p className="text-[11px] text-grey mt-12 max-w-[400px] mx-auto leading-[1.5]">
             AiVass provides strategic, educational and coaching support. Not legal advice or representation.
