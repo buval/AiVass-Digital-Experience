@@ -295,23 +295,91 @@
   }
 }
 
-/* Animations */
+/* ─── Animations ─────────────────────────────────────────── */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
 
 @keyframes draw-line {
   from { stroke-dashoffset: 1000; }
-  to { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 0; }
 }
 
-.animate-spin-slow {
-  animation: spin-slow 30s linear infinite;
+/* Gentle vertical float — hero art, final CTA triad */
+@keyframes ambient-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
 }
 
+/* Soft radial bloom pulse — warm light behind arch */
+@keyframes bloom-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%       { opacity: 0.85; transform: scale(1.06); }
+}
+
+/* Section entrance — fade + lift */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Section entrance — fade only */
+@keyframes reveal-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slow shimmer drift for atmospheric overlays */
+@keyframes shimmer-drift {
+  0%, 100% { opacity: 0.12; }
+  50%       { opacity: 0.22; }
+}
+
+/* ─── Animation classes ────────────────────────────────── */
+.animate-spin-slow    { animation: spin-slow    36s linear      infinite; }
+.animate-float        { animation: ambient-float 9s ease-in-out infinite; }
+.animate-bloom-pulse  { animation: bloom-pulse   7s ease-in-out infinite; }
+.animate-shimmer      { animation: shimmer-drift 5s ease-in-out infinite; }
+
+/* ─── Scroll-reveal system ──────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity  0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal="fade"] {
+  transform: none;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Hover micro-interactions ─────────────────────────── */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px rgba(18,35,63,0.13);
+}
+
+/* ─── Reduced motion ────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .animate-spin-slow {
+  .animate-spin-slow,
+  .animate-float,
+  .animate-bloom-pulse,
+  .animate-shimmer {
     animation-play-state: paused;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
