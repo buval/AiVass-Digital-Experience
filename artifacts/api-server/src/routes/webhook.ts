@@ -16,7 +16,7 @@ import { db } from "@workspace/db";
 import { downloadTokensTable } from "@workspace/db/schema";
 import { logger } from "../lib/logger.js";
 import { GUIDE_NAMES } from "./order.js";
-import { sendDownloadEmail } from "../lib/email.js";
+import { sendDownloadEmail, sendAdminAlertEmail } from "../lib/email.js";
 
 const router = Router();
 
@@ -69,10 +69,26 @@ router.post(
     }
 
     if (event.type === "checkout.session.completed") {
+      const session = event.data.object as Stripe.Checkout.Session;
       try {
-        await handleCheckoutCompleted(event.data.object as Stripe.Checkout.Session);
+        await handleCheckoutCompleted(session);
       } catch (err) {
         logger.error({ err }, "Error processing checkout.session.completed");
+        const msg = err instanceof Error ? err.message : String(err);
+        await sendAdminAlertEmail({
+          subject: "Checkout fulfillment failed",
+          body: [
+            `A checkout.session.completed event could not be processed.`,
+            ``,
+            `Session ID : ${session.id}`,
+            `Buyer email: ${(session as Stripe.Checkout.Session).customer_details?.email ?? "unknown"}`,
+            ``,
+            `Error: ${msg}`,
+            ``,
+            `Action required: manually verify whether download tokens were created`,
+            `for this session and resend the download email if needed.`,
+          ].join("\n"),
+        });
       }
     }
 
@@ -119,14 +135,35 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       const token = randomUUID();
       const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000);
 
-      await db.insert(downloadTokensTable).values({
-        token,
-        guideSlug,
-        buyerEmail,
-        attemptsRemaining: 3,
-        expiresAt,
-        stripeSessionId: session.id,
-      });
+      try {
+        await db.insert(downloadTokensTable).values({
+          token,
+          guideSlug,
+          buyerEmail,
+          attemptsRemaining: 3,
+          expiresAt,
+          stripeSessionId: session.id,
+        });
+      } catch (err) {
+        logger.error({ err, guideSlug, sessionId: session.id }, "Webhook: failed to insert download token");
+        const msg = err instanceof Error ? err.message : String(err);
+        await sendAdminAlertEmail({
+          subject: `Token creation failed — ${guideSlug}`,
+          body: [
+            `A download token could not be inserted into the database.`,
+            `The buyer has NOT received a download link for this guide.`,
+            ``,
+            `Session ID : ${session.id}`,
+            `Buyer email: ${buyerEmail}`,
+            `Guide      : ${guideSlug}`,
+            ``,
+            `Error: ${msg}`,
+            ``,
+            `Action required: manually create a token and send the buyer their download link.`,
+          ].join("\n"),
+        });
+        continue;
+      }
 
       logger.info({ token, guideSlug, buyerEmail }, "Webhook: download token created");
 
@@ -138,6 +175,23 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         logger.info({ token, guideSlug, buyerEmail }, "Webhook: download email sent");
       } catch (err) {
         logger.error({ err, token, guideSlug }, "Webhook: failed to send download email (token still valid)");
+        const msg = err instanceof Error ? err.message : String(err);
+        await sendAdminAlertEmail({
+          subject: `Download email failed — ${guideSlug}`,
+          body: [
+            `A download token was created successfully, but the buyer's email could not be sent.`,
+            `The token is valid — the buyer can still use the order confirmation page to download.`,
+            ``,
+            `Session ID   : ${session.id}`,
+            `Buyer email  : ${buyerEmail}`,
+            `Guide        : ${guideSlug} (${guideName})`,
+            `Download URL : ${downloadUrl}`,
+            ``,
+            `Error: ${msg}`,
+            ``,
+            `Action required: manually forward the download link to the buyer if they contact support.`,
+          ].join("\n"),
+        });
       }
     }
   }

@@ -99,3 +99,56 @@ export async function sendDownloadEmail({
 
   logger.info({ to, guideName }, "Download email sent");
 }
+
+const ADMIN_EMAIL = "connect@aivass.com";
+
+/**
+ * Sends an internal alert to the site admin when fulfillment fails.
+ * Failures here are swallowed so they never replace or interfere with
+ * primary error handling.
+ */
+export async function sendAdminAlertEmail({
+  subject,
+  body,
+}: {
+  subject: string;
+  body: string;
+}): Promise<void> {
+  if (!resend) {
+    logger.warn("RESEND_API_KEY not set — skipping admin alert email");
+    return;
+  }
+
+  try {
+    const { error } = await resend.emails.send({
+      from: "AiVass Alerts <guides@aivass.com>",
+      to: ADMIN_EMAIL,
+      subject: `[AiVass Alert] ${subject}`,
+      html: `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" /></head>
+<body style="margin:0;padding:32px;background:#FDFBF6;font-family:'DM Sans',Arial,sans-serif;color:#12233F;">
+  <p style="margin:0 0 8px 0;font-family:Georgia,serif;font-size:18px;color:#7E3033;">
+    AiVass — Fulfillment Alert
+  </p>
+  <hr style="border:none;border-top:1px solid #DDD;margin:16px 0;" />
+  <pre style="white-space:pre-wrap;font-size:13px;line-height:1.7;color:#333;">${body}</pre>
+  <hr style="border:none;border-top:1px solid #DDD;margin:16px 0;" />
+  <p style="margin:0;font-size:11px;color:#999;">
+    This is an automated alert from the AiVass fulfillment system.
+  </p>
+</body>
+</html>
+      `.trim(),
+    });
+
+    if (error) {
+      logger.error({ error }, "Failed to send admin alert email");
+    } else {
+      logger.info({ subject }, "Admin alert email sent");
+    }
+  } catch (err) {
+    logger.error({ err }, "Exception while sending admin alert email");
+  }
+}
