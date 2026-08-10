@@ -6,17 +6,34 @@ User-agent: *
 Allow: /
 
 # ── OAI-SearchBot (ChatGPT web browsing / search citations) ──────────────────
-# AiVass content is eligible for discovery and citation in ChatGPT Search.
+# Eligible for discovery and citation in ChatGPT Search — allowed.
 User-agent: OAI-SearchBot
 Allow: /
 
-# ── GPTBot (OpenAI model training) ───────────────────────────────────────────
-# OWNER DECISION REQUIRED.
-# Current status: ALLOWED (no Disallow rule = allowed by default).
-# To block model training, add: Disallow: /
-# To explicitly allow, no action needed.
+# ── AI model-training crawlers — BLOCKED ─────────────────────────────────────
+# AiVass methodology and frameworks are proprietary IP.
+# Blocking training crawlers; search/citation access remains open above.
+
 User-agent: GPTBot
-Allow: /
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
 
 # ── Sitemap ───────────────────────────────────────────────────────────────────
 Sitemap: https://aivass.com/sitemap.xml
