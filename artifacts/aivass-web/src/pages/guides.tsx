@@ -93,13 +93,13 @@ export default function Guides() {
                 <div className="flex gap-3">
                   {guide.sampleSlug && (
                     <a
-                      href={guideSampleUrl(guide.slug)}
+                      href={guideSampleUrl(guide.sampleSlug)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-outline flex-1 !px-2 text-center"
                       onClick={() => trackGuideSampleClick(guide.slug)}
                     >
-                      Free Sample ↗
+                      Free Sample
                     </a>
                   )}
                   <a
@@ -111,17 +111,6 @@ export default function Guides() {
                   >
                     Purchase →
                   </a>
-                  {guide.sampleSlug && (
-                    <a
-                      href={guideSampleUrl(guide.sampleSlug)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-outline !px-3 text-[11px] shrink-0"
-                      onClick={() => trackGuideSampleClick(guide.slug)}
-                    >
-                      Free Sample
-                    </a>
-                  )}
                 </div>
 
                 <div className="mt-3 text-center">
