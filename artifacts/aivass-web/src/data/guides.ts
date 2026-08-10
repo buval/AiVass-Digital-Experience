@@ -195,6 +195,7 @@ export const BUNDLE: Guide = {
 
 // Checkout: direct Stripe payment links — all 7 guides wired.
 // Sourced from live aivass.com checkout sessions (2026-08-10).
+// eb1a-arts verified 2026-08-10: checkout page loads with correct product name, price ($79), and merchant.
 const STRIPE_CHECKOUT_URLS: Record<string, string> = {
   "eb1a-master":
     "https://checkout.stripe.com/c/pay/cs_live_a1J6igGyP4dI2oWFB2TmI3TAnjExUVDXZj2BTWvWyjjNX4dVjhLTumnDEz#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRXPWlfazUydG1gcUtTZ39BTV88VHddX0A2XFRmRnYwV09gfF9RU2dxdHxuUVBWUVM9aT1McU1Bc0tzTEc1aWxcR3B1M2tiXzRhdDBGNnBpPW02Zm5cVnY1NXFDb2F%2FNW9UJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJjQ3NzY2YycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
