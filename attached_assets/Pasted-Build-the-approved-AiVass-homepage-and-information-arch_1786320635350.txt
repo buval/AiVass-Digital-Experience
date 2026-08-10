@@ -1,0 +1,172 @@
+Build the approved AiVass homepage and information architecture as a real working website.
+
+IMPORTANT: This is a NON-DESTRUCTIVE BUILD.
+
+The approved visual direction, layout hierarchy and brand system must be preserved.
+
+--------------------------------------------------
+CRITICAL BUILD RULES
+--------------------------------------------------
+
+1. DO NOT replace or break any existing business-critical infrastructure.
+
+Preserve and reconnect the existing:
+- Stripe payment / checkout links
+- paid booking flow
+- Google Calendar booking connection
+- existing shop / guide purchase flow
+- any current live payment logic already configured
+
+If an existing payment or booking flow already works, reuse it rather than rebuilding it from scratch.
+
+2. DO NOT expose public prices on the site for:
+- Strategic Profile Assessment
+- RISE
+- SHINE
+- SIGNATURE
+- premium consulting
+- partnerships
+- licensing
+
+3. DO NOT create a free discovery-call flow.
+AiVass uses a paid Strategic Profile Assessment entry point.
+
+4. DO NOT portray AiVass as a law firm or legal representative.
+Preserve the strategic / educational / coaching / project-management framing.
+
+--------------------------------------------------
+BUILD SCOPE
+--------------------------------------------------
+
+Build:
+- responsive homepage
+- responsive navigation
+- hero section
+- One House / Three Paths section
+- Automation with Soul section
+- Purpose / Proof / Permanence section
+- Individuals journey section
+- Strategic Profile Assessment section
+- Businesses section
+- Organizations / Partnership CTA section
+- Guides section
+- Insights teaser section
+- founder/about teaser
+- final CTA
+- footer
+
+Create clean anchor-based or page-based routing structure for:
+- Solutions
+- Guides
+- Insights
+- About
+- Contact
+
+You may scaffold secondary pages lightly if needed, but the priority is a polished homepage and working navigation.
+
+--------------------------------------------------
+MOTION DIRECTION
+--------------------------------------------------
+
+Use subtle premium motion.
+
+The AiVass T1 Triad should feel dynamic, but elegant and restrained.
+
+Hero motion behavior:
+- on page load, the construction/orbital geometry fades in softly
+- three points appear
+- connecting lines draw in
+- the triad resolves upright
+- motion settles into stillness
+
+Optional subtle ambient motion:
+- very gentle parallax
+- soft point glow
+- minimal hover response
+
+Avoid:
+- spinning
+- bouncing
+- flashy effects
+- constant movement
+- anything noisy or gimmicky
+
+Respect prefers-reduced-motion:
+- reduce or disable non-essential animation for accessibility
+
+--------------------------------------------------
+BRAND RULES
+--------------------------------------------------
+
+Use the approved brand system:
+- Navy: #12233F
+- Navy-mid: #2C405D
+- Oxblood: #7E3033 (light surfaces only)
+- Ox-light: #D9A39B (navy only)
+- Cream: #F7F3E9
+- Paper: #FDFBF6
+- Grey: #5F6673
+
+No gold.
+
+The AiVass T1 Triad must remain UPRIGHT in key brand moments.
+
+Maintain:
+- architectural editorial elegance
+- premium negative space
+- subtle horizon / architectural atmosphere
+- serif + functional sans typography balance
+- cream / navy / oxblood restraint
+
+--------------------------------------------------
+FUNCTIONAL REQUIREMENTS
+--------------------------------------------------
+
+GUIDES
+- create a Guides section / page structure that can connect to the existing paid guide flow
+- preserve the concept of paid digital guides
+- at launch, Extraordinary Ability is available now
+- Career & Evidence may appear as coming next
+- use placeholders where assets or product data are not yet connected
+
+STRATEGIC PROFILE ASSESSMENT
+- CTA should lead into the existing paid booking / assessment flow
+- do not show public pricing on the page
+- flow concept:
+  1. submit/upload CV or resume
+  2. short questionnaire
+  3. continue through private booking flow
+  4. select calendar time
+- reuse existing infrastructure wherever possible
+
+PREMIUM PATHWAYS
+- RISE
+- SHINE
+- SIGNATURE
+These are informational sections only.
+No public price tables.
+No direct enrollment checkout.
+Entry is via Strategic Profile Assessment.
+
+PARTNERSHIPS
+- businesses / organizations should have a Discuss a Partnership pathway
+- no public licensing prices
+
+--------------------------------------------------
+TECHNICAL EXPECTATIONS
+--------------------------------------------------
+
+Build with clean, maintainable components.
+Ensure:
+- responsive desktop / tablet / mobile behavior
+- clean typography scaling
+- accessible contrast
+- fast loading
+- polished interactions
+- working buttons / links / nav states
+
+Before finalizing, provide a summary of:
+1. what was built
+2. what existing links / integrations were preserved
+3. what still needs manual connection or confirmation
+4. where Stripe / booking links should be verified
