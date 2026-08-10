@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
 import { MagicConstellation } from "@/components/brand/MagicConstellation";
+import { TransformationEvolution } from "@/components/brand/TransformationEvolution";
 import { GUIDES } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
@@ -229,16 +230,31 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
           03  AUTOMATION WITH SOUL — manifesto, arch echo
       ═══════════════════════════════════════════════════════ */}
-      <section className="relative py-[85px] md:py-[130px] min-h-[400px] md:min-h-[540px] flex items-center text-center overflow-hidden">
-        {/* Warm atmospheric background — slightly warmer than base cream */}
+      <section className="relative py-[100px] md:py-[155px] min-h-[460px] md:min-h-[580px] flex items-center text-center overflow-hidden">
+        {/* Deep warm radial — richer atmosphere */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 60%, rgba(217,163,155,0.10) 0%, transparent 65%)",
+              "radial-gradient(ellipse at 50% 55%, rgba(217,163,155,0.16) 0%, rgba(247,243,233,0) 60%)",
           }}
         />
-        {/* Arch echo — a ghost portal behind the manifesto text */}
+        {/* Arch — outer halo glow ring */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            left: "50%",
+            top: "6%",
+            width: "500px",
+            height: "92%",
+            transform: "translateX(-50%)",
+            border: "1px solid rgba(217,163,155,0.22)",
+            borderBottom: "none",
+            borderRadius: "250px 250px 0 0",
+            boxShadow: "0 0 40px 0 rgba(217,163,155,0.08) inset",
+          }}
+        />
+        {/* Arch — inner fine line */}
         <div
           className="absolute pointer-events-none"
           style={{
@@ -247,34 +263,53 @@ export default function Home() {
             width: "420px",
             height: "88%",
             transform: "translateX(-50%)",
-            border: "1px solid rgba(18,35,63,0.07)",
+            border: "1px solid rgba(18,35,63,0.09)",
             borderBottom: "none",
             borderRadius: "210px 210px 0 0",
           }}
         />
+        {/* Arch apex star */}
+        <div className="absolute pointer-events-none" style={{ left: "50%", top: "6%", transform: "translate(-50%, -50%)" }}>
+          <svg viewBox="0 0 22 22" className="w-[18px] h-[18px] text-oxblood/50" fill="currentColor">
+            <path d="M11 1 L13.2 8.8 L21 11 L13.2 13.2 L11 21 L8.8 13.2 L1 11 L8.8 8.8Z" />
+          </svg>
+        </div>
+        {/* Bottom-left arch star */}
+        <div className="absolute pointer-events-none" style={{ left: "calc(50% - 210px)", bottom: "0%", transform: "translate(-50%, 50%)" }}>
+          <svg viewBox="0 0 16 16" className="w-[12px] h-[12px] text-oxblood/35" fill="currentColor">
+            <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
+          </svg>
+        </div>
+        {/* Bottom-right arch star */}
+        <div className="absolute pointer-events-none" style={{ right: "calc(50% - 210px)", bottom: "0%", transform: "translate(50%, 50%)" }}>
+          <svg viewBox="0 0 16 16" className="w-[12px] h-[12px] text-oxblood/35" fill="currentColor">
+            <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
+          </svg>
+        </div>
 
         <div className="wrap w-full relative z-10">
-          <div className="eyebrow mb-5" data-reveal>03 · Operating philosophy</div>
+          <div className="eyebrow mb-6" data-reveal>03 · Operating philosophy</div>
 
           {/* Ruled lines — editorial accent above heading */}
           <div
-            className="flex flex-col items-center gap-[5px] mb-8"
+            className="flex flex-col items-center gap-[5px] mb-10"
             data-reveal="fade"
             style={{ transitionDelay: "60ms" }}
           >
-            <div className="w-[60px] h-[1px] bg-navy/20" />
-            <div className="w-[40px] h-[1px] bg-oxblood/30" />
+            <div className="w-[70px] h-[1px] bg-navy/20" />
+            <div className="w-[45px] h-[1px] bg-oxblood/40" />
+            <div className="w-[25px] h-[1px] bg-oxblood/20" />
           </div>
 
           <h2
-            className="text-[52px] md:text-[clamp(54px,8vw,108px)] font-serif leading-none tracking-[-0.05em] mb-[22px]"
+            className="text-[52px] md:text-[clamp(54px,8vw,108px)] font-serif leading-none tracking-[-0.05em] mb-[26px]"
             data-reveal
             style={{ transitionDelay: "120ms" }}
           >
             Automation <span className="text-oxblood italic">with Soul.</span>
           </h2>
           <p
-            className="font-serif italic text-[18px] md:text-[22px] max-w-[590px] mx-auto leading-[1.4] text-navy-mid"
+            className="font-serif italic text-[18px] md:text-[23px] max-w-[560px] mx-auto leading-[1.45] text-navy-mid"
             data-reveal
             style={{ transitionDelay: "220ms" }}
           >
@@ -283,12 +318,13 @@ export default function Home() {
 
           {/* Ruled lines — below */}
           <div
-            className="flex flex-col items-center gap-[5px] mt-8"
+            className="flex flex-col items-center gap-[5px] mt-10"
             data-reveal="fade"
             style={{ transitionDelay: "320ms" }}
           >
-            <div className="w-[40px] h-[1px] bg-oxblood/30" />
-            <div className="w-[60px] h-[1px] bg-navy/20" />
+            <div className="w-[25px] h-[1px] bg-oxblood/20" />
+            <div className="w-[45px] h-[1px] bg-oxblood/40" />
+            <div className="w-[70px] h-[1px] bg-navy/20" />
           </div>
         </div>
       </section>
@@ -296,57 +332,91 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
           04  PURPOSE · PROOF · PERMANENCE — staggered reveal
       ═══════════════════════════════════════════════════════ */}
-      <section className="bg-paper py-[75px] md:py-[115px] relative overflow-hidden">
-        {/* Faint horizon accent at top */}
+      <section className="bg-paper py-[85px] md:py-[130px] relative overflow-hidden">
+        {/* Ox-light top accent */}
         <div
-          className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
+          className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
           style={{
-            background: "linear-gradient(to right, transparent, rgba(18,35,63,0.10) 30%, rgba(18,35,63,0.10) 70%, transparent)",
+            background: "linear-gradient(to right, transparent, rgba(217,163,155,0.35) 30%, rgba(217,163,155,0.35) 70%, transparent)",
           }}
         />
+        {/* Warm ambient radial — left of center */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 20% 60%, rgba(217,163,155,0.06) 0%, transparent 55%)" }} />
+
         <div className="wrap">
-          <div className="eyebrow mb-4" data-reveal>04 · Strategic framework</div>
+          <div className="eyebrow mb-5" data-reveal>04 · Strategic framework</div>
           <h2
-            className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-[50px] md:mb-[70px]"
+            className="text-[40px] md:text-[clamp(40px,5vw,72px)] leading-[0.96] tracking-[-0.06em] mb-[60px] md:mb-[80px]"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
-            Purpose · Proof ·<br />
+            Purpose{" "}
+            <span className="text-ox-light inline-flex items-baseline gap-0">
+              <svg viewBox="0 0 10 10" className="w-[8px] h-[8px] inline-block relative top-[-2px]" fill="#D9A39B"><path d="M5 0 L6 4 L10 5 L6 6 L5 10 L4 6 L0 5 L4 4Z"/></svg>
+            </span>{" "}
+            Proof{" "}
+            <span className="text-ox-light inline-flex items-baseline gap-0">
+              <svg viewBox="0 0 10 10" className="w-[8px] h-[8px] inline-block relative top-[-2px]" fill="#D9A39B"><path d="M5 0 L6 4 L10 5 L6 6 L5 10 L4 6 L0 5 L4 4Z"/></svg>
+            </span>
+            <br />
             <span className="text-oxblood italic">Permanence</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
             {[
-              { label: "PURPOSE", body: "Why are we transforming? What future are we building?" },
-              { label: "PROOF", body: "How do we know the transformation is real? What evidence demonstrates progress and value?" },
-              { label: "PERMANENCE", body: "Designing transformation so capability, knowledge and value remain after the intervention ends." },
-            ].map(({ label, body }, i) => (
+              { label: "PURPOSE", body: "Why are we transforming? What future are we building?", num: "01" },
+              { label: "PROOF", body: "How do we know the transformation is real? What evidence demonstrates progress and value?", num: "02" },
+              { label: "PERMANENCE", body: "Designing transformation so capability, knowledge and value remain after the intervention ends.", num: "03" },
+            ].map(({ label, body, num }, i) => (
               <div
                 key={label}
-                className={`pt-[20px] pb-[40px] md:pb-0 md:pr-[40px] ${
-                  i > 0 ? "md:pl-[40px] md:border-l border-navy/15 border-t md:border-t-0 pt-[28px] md:pt-[20px]" : ""
+                className={`relative pt-[28px] pb-[48px] md:pb-0 md:pr-[48px] ${
+                  i > 0 ? "md:pl-[48px] md:border-l border-navy/12 border-t md:border-t-0 md:pt-[28px]" : ""
                 }`}
                 data-reveal
-                style={{ transitionDelay: `${i * 120}ms` }}
+                style={{ transitionDelay: `${i * 130}ms` }}
               >
-                <svg viewBox="0 0 24 24" className="w-[18px] h-[18px] mb-4 text-oxblood" fill="currentColor">
-                  <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5Z" />
+                {/* Ghost number */}
+                <span
+                  className="absolute pointer-events-none font-serif select-none"
+                  style={{
+                    right: i === 2 ? "0" : undefined,
+                    left: i === 2 ? undefined : "0",
+                    top: "-8px",
+                    fontSize: "clamp(64px, 8vw, 96px)",
+                    lineHeight: 1,
+                    color: "rgba(18,35,63,0.04)",
+                    letterSpacing: "-0.06em",
+                  }}
+                >{num}</span>
+
+                {/* Star icon — larger, prominent */}
+                <svg viewBox="0 0 28 28" className="w-[26px] h-[26px] mb-5 text-oxblood" fill="currentColor">
+                  <path d="M14 1 L16.8 11.2 L27 14 L16.8 16.8 L14 27 L11.2 16.8 L1 14 L11.2 11.2Z" />
                 </svg>
-                <b className="font-serif font-normal text-[24px] md:text-[30px] block mb-3 tracking-[-0.03em]">{label}</b>
-                <p className="text-[13px] md:text-[14px] text-grey leading-[1.6]">{body}</p>
+                <b className="font-serif font-normal text-[26px] md:text-[32px] block mb-4 tracking-[-0.04em]">{label}</b>
+                <p className="text-[13px] md:text-[14px] text-grey leading-[1.7]">{body}</p>
               </div>
             ))}
           </div>
+
+          {/* Connecting base rule */}
+          <div className="hidden md:block mt-[60px] h-[1px] w-full"
+            style={{ background: "linear-gradient(to right, rgba(217,163,155,0.25), rgba(217,163,155,0.10) 50%, rgba(217,163,155,0.25))" }} />
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════
           05  FOR INDIVIDUALS — explore / assess / pathway
       ═══════════════════════════════════════════════════════ */}
-      <section className="py-[75px] md:py-[115px]">
-        <div className="wrap">
-          <div className="eyebrow mb-4" data-reveal>05 · For individuals</div>
+      <section className="py-[85px] md:py-[130px] relative overflow-hidden">
+        {/* Subtle warm bloom — top right */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(217,163,155,0.07) 0%, transparent 50%)" }} />
+        <div className="wrap relative z-10">
+          <div className="eyebrow mb-5" data-reveal>05 · For individuals</div>
           <h2
-            className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-4"
+            className="text-[40px] md:text-[clamp(40px,5vw,72px)] leading-[0.96] tracking-[-0.06em] mb-2"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
@@ -354,56 +424,104 @@ export default function Home() {
             <span className="text-oxblood italic">Receive your pathway.</span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-[15px] mt-10 md:mt-[50px]">
-            {[
-              {
-                step: "01 · EXPLORE",
-                body: "Begin with paid self-directed Guides. Available now · 5 guides in Extraordinary Ability.",
-                cta: <Link href="/guides" className="link-under text-oxblood inline-block">Explore Guides</Link>,
-              },
-              {
-                step: "02 · ASSESS",
-                body: "A private assessment of your current profile, evidence, readiness, gaps and potential pathway.",
-                cta: <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block" onClick={() => trackAssessmentClick("home-assess-step")}>Assess Your Profile</a>,
-              },
-              {
-                step: "03 · RECEIVE YOUR PATHWAY",
-                body: "AiVass recommends the right pathway after assessment. You do not self-select.",
-                cta: null,
-              },
-            ].map(({ step, body, cta }, i) => (
-              <div
-                key={step}
-                className="border-t border-navy pt-[15px]"
-                data-reveal
-                style={{ transitionDelay: `${i * 100}ms` }}
-              >
-                <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">{step}</b>
-                <p className="text-[11px] md:text-[13px] text-navy-mid leading-[1.5] mb-4">{body}</p>
-                {cta}
-              </div>
-            ))}
+          {/* Three-step journey */}
+          <div className="relative mt-[52px] md:mt-[64px]">
+            {/* Connecting line — desktop only */}
+            <div
+              className="hidden md:block absolute pointer-events-none"
+              style={{
+                top: "18px",
+                left: "calc(16.7% + 12px)",
+                right: "calc(16.7% + 12px)",
+                height: "1px",
+                background: "linear-gradient(to right, rgba(126,48,51,0.35), rgba(126,48,51,0.18) 50%, rgba(126,48,51,0.35))",
+              }}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-[15px]">
+              {[
+                {
+                  step: "01", label: "EXPLORE",
+                  body: "Begin with paid self-directed Guides. Available now · 5 guides in Extraordinary Ability.",
+                  cta: <Link href="/guides" className="link-under text-oxblood inline-block">Explore Guides</Link>,
+                },
+                {
+                  step: "02", label: "ASSESS",
+                  body: "A private assessment of your current profile, evidence, readiness, gaps and potential pathway.",
+                  cta: <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block" onClick={() => trackAssessmentClick("home-assess-step")}>Assess Your Profile</a>,
+                },
+                {
+                  step: "03", label: "RECEIVE YOUR PATHWAY",
+                  body: "AiVass recommends the right pathway after assessment. You do not self-select.",
+                  cta: null,
+                },
+              ].map(({ step, label, body, cta }, i) => (
+                <div
+                  key={step}
+                  className="relative"
+                  data-reveal
+                  style={{ transitionDelay: `${i * 110}ms` }}
+                >
+                  {/* Step star-node */}
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="relative flex-shrink-0">
+                      <svg viewBox="0 0 36 36" className="w-[36px] h-[36px] text-oxblood" fill="currentColor">
+                        <path d="M18 2 L20.9 15.1 L34 18 L20.9 20.9 L18 34 L15.1 20.9 L2 18 L15.1 15.1Z" opacity="0.15"/>
+                        <path d="M18 6 L20.1 13.9 L28 16 L20.1 18.1 L18 26 L15.9 18.1 L8 16 L15.9 13.9Z" />
+                      </svg>
+                      <span
+                        className="absolute inset-0 flex items-center justify-center font-sans text-[9px] tracking-[0.05em] text-cream font-medium"
+                        style={{ lineHeight: 1 }}
+                      >{step}</span>
+                    </div>
+                    <span className="text-[10.5px] tracking-[0.14em] uppercase text-navy/60">{label}</span>
+                  </div>
+                  <div className="border-t border-navy/20 pt-[14px]">
+                    <p className="text-[13px] md:text-[14px] text-navy-mid leading-[1.65] mb-4">{body}</p>
+                    {cta}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-col md:flex-row flex-wrap gap-8 md:gap-4 mt-12 md:mt-[55px]">
-            {[
-              ["AIVASS RISE", "An accelerated, intensive pathway for already-strong profiles ready to move quickly."],
-              ["AIVASS SHINE", "A structured premium pathway for extraordinary-ability candidates needing deeper evidence architecture, sequencing, coaching and accountability."],
-              ["AIVASS SIGNATURE", "A bespoke, long-horizon engagement for complex, highly individualized profiles requiring custom architecture."],
-            ].map(([title, desc], i) => (
-              <div
-                key={title}
-                className="flex-1 md:basis-[29%] border-t border-navy pt-[15px]"
-                data-reveal
-                style={{ transitionDelay: `${i * 110}ms` }}
-              >
-                <b className="font-serif font-normal text-[21px] md:text-[27px] block mb-2">{title}</b>
-                <p className="text-[11px] md:text-[13px] text-grey leading-[1.5] mb-4 h-auto md:min-h-[60px]">{desc}</p>
-                <a href={STRATEGIC_ASSESSMENT_URL} target="_blank" rel="noopener noreferrer" className="link-under text-oxblood inline-block" onClick={() => trackAssessmentClick(`home-pathway-${title?.toLowerCase().replace(/\s+/g, '-')}`)}>
-                  Start with an Assessment
-                </a>
-              </div>
-            ))}
+          {/* Pathways — RISE / SHINE / SIGNATURE */}
+          <div className="mt-[60px] md:mt-[80px]">
+            {/* Eyebrow separator */}
+            <div className="flex items-center gap-4 mb-[40px]" data-reveal>
+              <div className="flex-1 h-[1px] bg-navy/12" />
+              <span className="eyebrow text-navy/40">Your pathway</span>
+              <div className="flex-1 h-[1px] bg-navy/12" />
+            </div>
+            <div className="flex flex-col md:flex-row flex-wrap gap-6 md:gap-0">
+              {[
+                ["AIVASS RISE", "An accelerated, intensive pathway for already-strong profiles ready to move quickly."],
+                ["AIVASS SHINE", "A structured premium pathway for extraordinary-ability candidates needing deeper evidence architecture, sequencing, coaching and accountability."],
+                ["AIVASS SIGNATURE", "A bespoke, long-horizon engagement for complex, highly individualized profiles requiring custom architecture."],
+              ].map(([title, desc], i) => (
+                <div
+                  key={title}
+                  className={`flex-1 md:basis-[32%] pt-[22px] pb-[32px] ${i > 0 ? "md:pl-[40px] md:border-l border-navy/12" : ""}`}
+                  data-reveal
+                  style={{ transitionDelay: `${i * 120}ms` }}
+                >
+                  {/* Ox-light accent star */}
+                  <svg viewBox="0 0 14 14" className="w-[11px] h-[11px] mb-3 text-oxblood/50" fill="currentColor">
+                    <path d="M7 0 L8.4 5.6 L14 7 L8.4 8.4 L7 14 L5.6 8.4 L0 7 L5.6 5.6Z" />
+                  </svg>
+                  <b className="font-serif font-normal text-[22px] md:text-[28px] block mb-3 tracking-[-0.04em]">{title}</b>
+                  <p className="text-[12px] md:text-[13px] text-grey leading-[1.6] mb-4 h-auto md:min-h-[58px]">{desc}</p>
+                  <a
+                    href={STRATEGIC_ASSESSMENT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-under text-oxblood inline-block text-[11px] tracking-[0.06em]"
+                    onClick={() => trackAssessmentClick(`home-pathway-${title?.toLowerCase().replace(/\s+/g, '-')}`)}
+                  >
+                    Start with an Assessment
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -596,18 +714,22 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
           09  INSIGHTS — editorial three-stream
       ═══════════════════════════════════════════════════════ */}
-      <section className="bg-paper py-[75px] md:py-[115px] relative overflow-hidden">
-        {/* Warm top accent */}
+      <section className="bg-paper py-[85px] md:py-[130px] relative overflow-hidden">
+        {/* Ox-light top accent */}
         <div
-          className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
+          className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
           style={{
-            background: "linear-gradient(to right, transparent, rgba(126,48,51,0.15) 40%, rgba(126,48,51,0.15) 60%, transparent)",
+            background: "linear-gradient(to right, transparent, rgba(217,163,155,0.40) 40%, rgba(217,163,155,0.40) 60%, transparent)",
           }}
         />
+        {/* Warm radial right */}
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at 90% 30%, rgba(217,163,155,0.06) 0%, transparent 50%)" }} />
+
         <div className="wrap relative z-10">
-          <div className="eyebrow mb-4" data-reveal>09 · Free insights</div>
+          <div className="eyebrow mb-5" data-reveal>09 · Free insights</div>
           <h2
-            className="text-[40px] md:text-[clamp(40px,5vw,70px)] leading-[0.98] tracking-[-0.06em] mb-12"
+            className="text-[40px] md:text-[clamp(40px,5vw,72px)] leading-[0.96] tracking-[-0.06em] mb-[52px] md:mb-[64px]"
             data-reveal
             style={{ transitionDelay: "80ms" }}
           >
@@ -615,43 +737,54 @@ export default function Home() {
             <span className="text-oxblood italic">what comes next.</span>
           </h2>
 
-          <div className="flex flex-col md:flex-row gap-8 md:gap-[25px]">
-            {/* THE STRATEGIST */}
+          <div className="flex flex-col md:flex-row gap-6 md:gap-[20px]">
+            {/* THE STRATEGIST — navy card with TransformationEvolution visual */}
             <article
-              className="flex-1 bg-navy text-ox-light p-6 md:p-8 flex flex-col justify-between min-h-[300px] border border-navy shadow-sm group card-lift"
+              className="flex-1 bg-navy text-ox-light p-7 md:p-9 flex flex-col justify-between min-h-[360px] border border-navy shadow-sm group card-lift relative overflow-hidden"
               data-reveal
               style={{ transitionDelay: "0ms" }}
             >
-              <div>
-                <div className="flex flex-col gap-1 mb-6 opacity-30 group-hover:opacity-50 transition-opacity">
-                  <div className="w-full h-[1px] bg-ox-light" />
-                  <div className="w-full h-[1px] bg-ox-light" />
-                  <div className="w-full h-[1px] bg-ox-light" />
+              {/* Ambient bloom in card */}
+              <div className="absolute inset-0 pointer-events-none"
+                style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(217,163,155,0.06) 0%, transparent 55%)" }} />
+              <div className="relative z-10">
+                <small className="text-[9.5px] tracking-[0.12em] uppercase text-oxblood block mb-5">The Strategist · Visual Thought-Leadership</small>
+                {/* Transformation evolution visual */}
+                <div className="mb-5 -mx-2">
+                  <TransformationEvolution className="w-full h-[140px]" />
                 </div>
-                <small className="text-[10px] tracking-[0.1em] uppercase text-oxblood block mb-2">THE STRATEGIST · VISUAL THOUGHT-LEADERSHIP</small>
-                <h3 className="font-serif text-[24px] mb-4 text-cream">The Strategist</h3>
-                <p className="text-[13px] leading-[1.5] max-w-[250px]">
-                  Strategic frameworks, architectural breakdowns and editorial perspectives.
+                <h3 className="font-serif text-[22px] mb-3 text-cream leading-[1.1]">Transformation<br />with Soul</h3>
+                <p className="text-[12.5px] leading-[1.6] text-ox-light/75 max-w-[240px]">
+                  Strategic frameworks, architectural breakdowns and editorial perspectives on building extraordinary futures.
                 </p>
               </div>
-              <Link href="/insights" className="link-under text-ox-light inline-block w-max border-ox-light hover:text-cream hover:border-cream mt-6">
+              <Link href="/insights" className="link-under text-ox-light inline-block w-max border-ox-light hover:text-cream hover:border-cream mt-6 relative z-10 text-[11px] tracking-[0.06em]">
                 Explore →
               </Link>
             </article>
 
-            {/* ARTICLES */}
+            {/* ARTICLES — cream/paper card */}
             <article
-              className="flex-1 bg-paper p-6 md:p-8 flex flex-col justify-between min-h-[300px] border border-navy/10 group card-lift"
+              className="flex-1 bg-paper p-7 md:p-9 flex flex-col justify-between min-h-[360px] border border-navy/10 group card-lift relative overflow-hidden"
               data-reveal
-              style={{ transitionDelay: "100ms" }}
+              style={{ transitionDelay: "110ms" }}
             >
+              {/* Mini constellation accent — top right */}
+              <div className="absolute top-6 right-6 pointer-events-none opacity-30 group-hover:opacity-45 transition-opacity">
+                <svg viewBox="0 0 48 42" className="w-[38px] h-[33px]" fill="none">
+                  <path d="M24 2 L10 38 L38 38 Z" stroke="#7E3033" strokeWidth="0.8" opacity="0.5" strokeLinejoin="round"/>
+                  <path d="M24 0 L25.5 4 L29 5.5 L25.5 7 L24 11 L22.5 7 L19 5.5 L22.5 4Z" fill="#7E3033" />
+                  <path d="M10 33 L11.5 37 L15 38.5 L11.5 40 L10 44 L8.5 40 L5 38.5 L8.5 37Z" fill="#7E3033" />
+                  <path d="M38 33 L39.5 37 L43 38.5 L39.5 40 L38 44 L36.5 40 L33 38.5 L36.5 37Z" fill="#7E3033" />
+                </svg>
+              </div>
               <div>
-                <small className="text-[10px] tracking-[0.1em] uppercase text-oxblood block mb-6">ARTICLES · ANALYSIS & STRATEGY</small>
+                <small className="text-[9.5px] tracking-[0.12em] uppercase text-oxblood block mb-5">Articles · Analysis & Strategy</small>
                 <ul className="flex flex-col gap-6">
                   {ARTICLES.slice(0, 2).map((a) => (
                     <li key={a.id}>
-                      <Link href={`/insights/articles/${a.slug}`} className="group-hover/item text-navy">
-                        <h4 className="font-serif text-[18px] leading-[1.2] mb-1 group-hover:text-oxblood transition-colors">{a.title}</h4>
+                      <Link href={`/insights/articles/${a.slug}`} className="text-navy">
+                        <h4 className="font-serif text-[18px] leading-[1.2] mb-1 hover:text-oxblood transition-colors">{a.title}</h4>
                         <span className="text-[11px] text-grey">
                           {a.author} · {new Date(a.publishedAt).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
                         </span>
@@ -660,24 +793,38 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
-              <Link href="/insights/articles" className="link-under text-oxblood inline-block w-max mt-6">Read All Articles →</Link>
+              <Link href="/insights/articles" className="link-under text-oxblood inline-block w-max mt-6 text-[11px] tracking-[0.06em]">Read All Articles →</Link>
             </article>
 
-            {/* FIELD NOTES */}
+            {/* FIELD NOTES — warm cream card with subtle star field */}
             <article
-              className="flex-1 bg-cream p-6 md:p-8 flex flex-col justify-between min-h-[300px] border border-navy/10 relative overflow-hidden group card-lift"
+              className="flex-1 bg-cream p-7 md:p-9 flex flex-col justify-between min-h-[360px] border border-navy/10 relative overflow-hidden group card-lift"
               data-reveal
-              style={{ transitionDelay: "200ms" }}
+              style={{ transitionDelay: "220ms" }}
             >
-              <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(transparent_95%,_#12233f_95%)] bg-[length:100%_20px]" />
+              {/* Subtle star field texture */}
+              {[
+                [15,12],[72,8],[88,28],[8,55],[92,62],[30,78],[60,85],[45,40],
+              ].map(([x, y], i) => (
+                <div key={i} className="absolute pointer-events-none rounded-full"
+                  style={{ left: `${x}%`, top: `${y}%`, width: "2px", height: "2px",
+                    background: "rgba(126,48,51,0.25)", opacity: 0.3 + (i % 3) * 0.15 }} />
+              ))}
+              {/* Faint ruled lines */}
+              <div className="absolute inset-0 pointer-events-none opacity-[0.025]
+                bg-[linear-gradient(transparent_95%,_#12233f_95%)] bg-[length:100%_22px]" />
               <div className="relative z-10">
-                <small className="text-[10px] tracking-[0.1em] uppercase text-oxblood block mb-6">FIELD NOTES · SHORT OBSERVATIONS</small>
+                <small className="text-[9.5px] tracking-[0.12em] uppercase text-oxblood block mb-5">Field Notes · Short Observations</small>
+                {/* Mini 4-pointed star */}
+                <svg viewBox="0 0 16 16" className="w-[13px] h-[13px] mb-4 text-oxblood/40" fill="currentColor">
+                  <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
+                </svg>
                 <div className="mb-4">
-                  <h3 className="font-serif text-[24px] mb-2">{ARTICLES[0].title}</h3>
-                  <p className="text-[13px] text-navy-mid leading-[1.5] italic">"{ARTICLES[0].excerpt}"</p>
+                  <h3 className="font-serif text-[22px] mb-3 leading-[1.15]">{ARTICLES[0].title}</h3>
+                  <p className="text-[13px] text-navy-mid leading-[1.6] italic">"{ARTICLES[0].excerpt}"</p>
                 </div>
               </div>
-              <Link href="/insights" className="link-under text-oxblood inline-block w-max relative z-10 mt-6">Explore Notes →</Link>
+              <Link href="/insights" className="link-under text-oxblood inline-block w-max relative z-10 mt-6 text-[11px] tracking-[0.06em]">Explore Notes →</Link>
             </article>
           </div>
         </div>
