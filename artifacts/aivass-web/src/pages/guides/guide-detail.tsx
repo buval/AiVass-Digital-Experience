@@ -91,7 +91,8 @@ export default function GuideDetail() {
         <img
           src={`${import.meta.env.BASE_URL}images/${guide.heroImage}`}
           alt={guide.heroAlt}
-          className="w-full h-full object-cover object-[center_18%]"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: guide.heroPosition ?? "center 18%" }}
         />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-navy/75 via-navy/20 to-transparent" />

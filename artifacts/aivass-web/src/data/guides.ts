@@ -19,6 +19,7 @@ export interface Guide {
   heroImage: string;              // filename from public/images/
   heroAlt: string;                // descriptive alt text
   heroTagline?: string;           // one-sentence purchase-driving line shown in the hero
+  heroPosition?: string;          // CSS object-position for the hero crop (default "center 18%")
   audience: string;               // who this guide is for
   learningPoints: string[];       // what the reader will learn
   relatedGuides: string[];        // slugs of related guides (shown at bottom of detail page)
@@ -136,6 +137,7 @@ export const GUIDES: Guide[] = [
     category: "Extraordinary Ability",
     sampleSlug: "eb1a-education",
     heroImage: "guide-hero-eb1a-educators.jpg",
+    heroPosition: "center 42%",
     heroAlt: "Professor in a university library surrounded by reference volumes — representing scholarly authority and educational impact",
     audience: "Educators, professors, curriculum leaders, and academic administrators.",
     learningPoints: [
