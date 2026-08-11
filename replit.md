@@ -38,7 +38,7 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- **AI-generated images and the "cr" badge** — browsers show a Content Credentials pin on images that carry embedded XMP/EXIF metadata. `artifacts/aivass-web/scripts/strip-image-metadata.sh` strips all metadata automatically as a `predev`/`prebuild` step. If you add a new image to `artifacts/aivass-web/public/images/` and want to strip it immediately without restarting the dev server, run `pnpm --filter @workspace/aivass-web run strip-images`.
 
 ## Pointers
 
