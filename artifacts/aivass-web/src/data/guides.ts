@@ -18,6 +18,7 @@ export interface Guide {
   sampleSlug?: string;            // /samples/${sampleSlug}-sample.pdf
   heroImage: string;              // filename from public/images/
   heroAlt: string;                // descriptive alt text
+  heroTagline?: string;           // one-sentence purchase-driving line shown in the hero
   audience: string;               // who this guide is for
   learningPoints: string[];       // what the reader will learn
   relatedGuides: string[];        // slugs of related guides (shown at bottom of detail page)
@@ -111,6 +112,7 @@ export const GUIDES: Guide[] = [
     sampleSlug: "eb1a-athletics",
     heroImage: "guide-hero-eb1a-athletes.jpg",
     heroAlt: "Elite athlete in a moment of focused preparation on court — representing performance excellence and extraordinary ability",
+    heroTagline: "Turn your rankings, titles and headlines into a U.S. green card — while you're still at the top of your game.",
     audience: "Professional and elite athletes and coaches across all sports and disciplines.",
     learningPoints: [
       "How rankings, championships and national team selection translate to EB-1A criteria",

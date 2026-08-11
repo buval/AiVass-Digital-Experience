@@ -102,6 +102,11 @@ export default function GuideDetail() {
             <h1 className="font-serif text-[36px] md:text-[60px] text-cream leading-none tracking-[-0.05em]">
               {guide.name}
             </h1>
+            {guide.heroTagline && (
+              <p className="mt-4 max-w-[560px] text-[15px] md:text-[18px] text-cream/85 leading-[1.5]">
+                {guide.heroTagline}
+              </p>
+            )}
           </div>
         </div>
       </div>
