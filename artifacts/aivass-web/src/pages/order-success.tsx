@@ -38,6 +38,8 @@ export default function OrderSuccess() {
   const sessionId = params.get("session_id");
 
   const [state, setState] = useState<State>({ status: "loading" });
+  const [activeToken, setActiveToken] = useState<string | null>(null);
+  const [completedTokens, setCompletedTokens] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (!sessionId) {
@@ -59,15 +61,19 @@ export default function OrderSuccess() {
         // Download all guides (usually 1, or 6 for the complete collection)
         for (const item of downloads) {
           const filename = `${item.guideName}.pdf`;
+          setActiveToken(item.token);
           try {
             await triggerDownload(item.token, filename);
+            setCompletedTokens((prev) => new Set([...prev, item.token]));
             // Small delay between multiple downloads so browser doesn't block them
             await new Promise((r) => setTimeout(r, 800));
           } catch {
             // Continue even if one fails — user can retry via /download/:token
+            setCompletedTokens((prev) => new Set([...prev, item.token]));
           }
         }
 
+        setActiveToken(null);
         setState({ status: "done", items: downloads });
       })
       .catch((err: Error) => {
@@ -97,14 +103,33 @@ export default function OrderSuccess() {
             <h1 className="text-[40px] md:text-[60px] font-serif leading-none tracking-[-0.05em] mb-6">
               Downloading now.
             </h1>
-            <div className="space-y-2 mb-8 w-full">
-              {state.items.map((item) => (
-                <p key={item.token} className="text-[15px] text-ox-light leading-[1.65]">
-                  {item.guideName}
-                </p>
-              ))}
+            <div className="space-y-3 mb-8 w-full text-left border border-cream/10 p-6">
+              {state.items.map((item) => {
+                const isDone = completedTokens.has(item.token);
+                const isActive = activeToken === item.token;
+                const isPending = !isDone && !isActive;
+                return (
+                  <div key={item.token} className="flex items-center justify-between gap-4">
+                    <p className={`text-[14px] leading-[1.65] transition-colors ${isDone ? "text-cream/50" : isActive ? "text-cream" : "text-ox-light/50"}`}>
+                      {item.guideName}
+                    </p>
+                    <span className="shrink-0 w-4 h-4 flex items-center justify-center">
+                      {isDone && (
+                        <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 text-cream/40">
+                          <path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                      {isActive && (
+                        <div className="w-3.5 h-3.5 border border-ox-light/30 border-t-cream rounded-full animate-spin" />
+                      )}
+                      {isPending && (
+                        <div className="w-1.5 h-1.5 rounded-full bg-cream/20" />
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-            <div className="w-8 h-8 border-2 border-ox-light/30 border-t-ox-light rounded-full animate-spin mb-8" />
             <p className="text-[12px] text-cream/40 leading-[1.6]">
               Your download should start automatically. Check your downloads folder.
             </p>
