@@ -8,4 +8,4 @@ Editorial images containing a person's face must never crop the head. Use `objec
 
 **Why:** User explicitly requested this ("make sure we are not cutting faces… remember this forever") after the Businesses page hero cut the top of the subject's head at `object-[center_30%]`.
 
-**How to apply:** Any time an editorial/hero image with a person is added or a container height changes, check the face is fully visible. Current values: businesses 12%, individuals 25%, about 18% — adjust these if faces get clipped after layout changes.
+**How to apply:** Any time an editorial/hero image with a person is added or a container height changes, check the face is fully visible. Current values: businesses 12%, individuals 25%, about 18%, guide-detail heroes 18% — adjust these if faces get clipped after layout changes. User re-confirmed this rule on 2026-08-11 when the guide-detail hero cut the athlete's face.

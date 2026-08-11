@@ -29,5 +29,13 @@ if [ ${#images[@]} -eq 0 ]; then
 fi
 
 echo "[strip-image-metadata] Stripping metadata from ${#images[@]} image(s)…"
-magick mogrify -strip "${images[@]}"
-echo "[strip-image-metadata] Done."
+failed=0
+for img in "${images[@]}"; do
+  if ! magick mogrify -strip "$img" 2>/dev/null; then
+    echo "[strip-image-metadata] WARNING: could not strip $img (corrupt or unreadable) — skipping."
+    failed=$((failed + 1))
+  fi
+done
+echo "[strip-image-metadata] Done (${failed} skipped)."
+# Never block dev/build on a bad image — the pin is cosmetic.
+exit 0
