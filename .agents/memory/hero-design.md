@@ -20,3 +20,6 @@ Hero uses `hero-arch-a.jpg` (stone arch, olive tree, Mediterranean light). Absol
 - Section 03 (standalone "Automation with Soul" manifesto) — folded into hero
 - Section 10 (Founder quote) — redundant with editorial strip
 - Numbered eyebrows ("01 ·", "02 ·") — replaced with descriptive labels
+
+## Living hero (2026-08-11)
+Home hero is now a cinemagraph video (`public/videos/hero-arch-living-web.mp4`, ~3.3MB, 8s loop: olive leaves sway, sea shimmers) with `hero-arch-a.jpg` as poster and as full fallback under prefers-reduced-motion. "Automation with Soul." tagline does a staggered blur-fade word reveal then a slow breathe. Source 42MB original in attached_assets/generated_videos/ — don't ship it; always compress with ffmpeg crf 28.

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { Triad } from "@/components/brand/Triad";
 import { MagicConstellation } from "@/components/brand/MagicConstellation";
@@ -28,7 +28,21 @@ function useScrollReveal() {
   }, []);
 }
 
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setReduced(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
+
 export default function Home() {
+  const prefersReducedMotion = usePrefersReducedMotion();
   useSeoMeta({
     title: "AiVass — Building Extraordinary Futures",
     description: "A boutique transformation studio where intelligent systems, human connection and strategic architecture come together. Automation with Soul.",
@@ -47,13 +61,28 @@ export default function Home() {
         {/* Portrait — right side, full bleed, gradient-faded into background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-y-0 right-0 w-[62%] md:w-[58%]">
-            <img
-              src={`${import.meta.env.BASE_URL}images/hero-arch-a.jpg`}
-              alt=""
-              className="w-full h-full object-cover"
-              style={{ objectPosition: "center 15%" }}
-              loading="eager"
-            />
+            {prefersReducedMotion ? (
+              <img
+                src={`${import.meta.env.BASE_URL}images/hero-arch-a.jpg`}
+                alt=""
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "center 15%" }}
+                loading="eager"
+              />
+            ) : (
+              <video
+                className="w-full h-full object-cover"
+                style={{ objectPosition: "center 40%" }}
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={`${import.meta.env.BASE_URL}images/hero-arch-a.jpg`}
+                aria-hidden="true"
+              >
+                <source src={`${import.meta.env.BASE_URL}videos/hero-arch-living-web.mp4`} type="video/mp4" />
+              </video>
+            )}
             {/* Seamless left fade — arch stone wall is already cream, so this is very gentle */}
             <div
               className="absolute inset-0"
@@ -134,15 +163,31 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Tagline — desktop pull quote */}
+            {/* Tagline — desktop pull quote, soft dreamlike reveal */}
             <div className="hidden md:block pb-[2px]">
+              <style>{`
+                @keyframes soul-word {
+                  from { opacity: 0; filter: blur(6px); transform: translateY(10px); }
+                  to   { opacity: 1; filter: blur(0);   transform: translateY(0); }
+                }
+                @keyframes soul-breathe {
+                  0%, 100% { opacity: 0.85; }
+                  50% { opacity: 1; }
+                }
+                .soul-w { display: inline-block; opacity: 0; animation: soul-word 1.6s cubic-bezier(.22,.61,.36,1) forwards; }
+                .soul-tag { animation: soul-breathe 7s ease-in-out 4.5s infinite; }
+                @media (prefers-reduced-motion: reduce) {
+                  .soul-w { animation: none; opacity: 1; }
+                  .soul-tag { animation: none; }
+                }
+              `}</style>
               <p
-                className="font-serif italic leading-[1.05] text-navy/25"
-                style={{ fontSize: "clamp(22px, 2.4vw, 34px)" }}
+                className="soul-tag font-serif italic leading-[1.05] text-navy/40"
+                style={{ fontSize: "clamp(24px, 2.6vw, 38px)" }}
               >
-                Automation{" "}
-                <span className="not-italic font-normal text-navy/18">with</span>{" "}
-                <span className="text-oxblood/40">Soul.</span>
+                <span className="soul-w" style={{ animationDelay: "1.1s" }}>Automation</span>{" "}
+                <span className="soul-w not-italic font-normal text-navy/30" style={{ animationDelay: "1.7s" }}>with</span>{" "}
+                <span className="soul-w text-oxblood/60" style={{ animationDelay: "2.3s" }}>Soul.</span>
               </p>
             </div>
           </div>
