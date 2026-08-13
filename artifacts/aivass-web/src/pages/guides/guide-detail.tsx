@@ -2,11 +2,13 @@ import { Link, useParams } from "wouter";
 import { GUIDES, BUNDLE, guideCheckoutUrl, guideSampleUrl, formatPrice } from "@/data/guides";
 import { useSeoMeta } from "@/lib/seo";
 import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics";
+import { usePressFeedback } from "@/lib/use-press-feedback";
 import { useEffect } from "react";
 
 export default function GuideDetail() {
   const params = useParams();
   const slug = params.slug;
+  const { isPressed, press } = usePressFeedback();
 
   // Find the guide (including bundle)
   const guide = [...GUIDES, BUNDLE].find((g) => g.slug === slug);
@@ -176,20 +178,28 @@ export default function GuideDetail() {
                   href={guideCheckoutUrl(guide.slug)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-fill !bg-cream !text-navy hover:!bg-paper w-full text-center block"
-                  onClick={() => trackGuidePurchaseClick(guide.slug)}
+                  className={`btn-fill !bg-cream !text-navy hover:!bg-paper w-full text-center block ${isPressed("buy") ? "opacity-70" : ""}`}
+                  aria-live="polite"
+                  onClick={(e) => {
+                    if (isPressed("buy")) { e.preventDefault(); return; }
+                    press("buy"); trackGuidePurchaseClick(guide.slug);
+                  }}
                 >
-                  Purchase →
+                  {isPressed("buy") ? "Opening secure checkout…" : "Purchase →"}
                 </a>
                 {guide.sampleSlug && (
                   <a
                     href={guideSampleUrl(guide.sampleSlug)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-outline !border-cream/40 !text-cream hover:!border-cream w-full text-center block"
-                    onClick={() => trackGuideSampleClick(guide.slug)}
+                    className={`btn-outline !border-cream/40 !text-cream hover:!border-cream w-full text-center block ${isPressed("sample") ? "opacity-70" : ""}`}
+                    aria-live="polite"
+                    onClick={(e) => {
+                      if (isPressed("sample")) { e.preventDefault(); return; }
+                      press("sample"); trackGuideSampleClick(guide.slug);
+                    }}
                   >
-                    View Free Sample ↗
+                    {isPressed("sample") ? "Opening sample…" : "View Free Sample ↗"}
                   </a>
                 )}
               </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Triad } from "@/components/brand/Triad";
 import { useSeoMeta } from "@/lib/seo";
 
@@ -20,6 +20,7 @@ type LookupState =
   | { status: "error"; message: string };
 
 type RefreshState = Record<string, "loading" | "done" | "error">;
+type DownloadState = Record<string, "loading" | "error">;
 
 async function triggerDownload(token: string, filename: string) {
   const res = await fetch(`/api/download/${token}`);
@@ -41,6 +42,9 @@ export default function MyDownloads() {
   const [email, setEmail] = useState("");
   const [lookup, setLookup] = useState<LookupState>({ status: "idle" });
   const [refreshState, setRefreshState] = useState<RefreshState>({});
+  const [downloadState, setDownloadState] = useState<DownloadState>({});
+  // Monotonic id so responses from a superseded lookup are ignored
+  const lookupIdRef = useRef(0);
   // Track locally-refreshed tokens so UI updates immediately
   const [refreshedPurchases, setRefreshedPurchases] = useState<Record<string, Purchase>>({});
 
@@ -49,8 +53,10 @@ export default function MyDownloads() {
     const trimmed = email.trim().toLowerCase();
     if (!trimmed) return;
 
+    const lookupId = ++lookupIdRef.current;
     setLookup({ status: "loading" });
     setRefreshState({});
+    setDownloadState({});
     setRefreshedPurchases({});
 
     fetch(`/api/my-downloads?email=${encodeURIComponent(trimmed)}`)
@@ -60,14 +66,36 @@ export default function MyDownloads() {
         return body as { purchases: Purchase[] };
       })
       .then(({ purchases }) => {
+        if (lookupId !== lookupIdRef.current) return; // superseded by a newer lookup
         setLookup({ status: "done", email: trimmed, purchases });
       })
       .catch((err: Error) => {
-        setLookup({ status: "error", message: err.message });
+        if (lookupId !== lookupIdRef.current) return;
+        const offline = typeof navigator !== "undefined" && !navigator.onLine;
+        setLookup({
+          status: "error",
+          message: offline
+            ? "You appear to be offline. Reconnect and try again."
+            : err.message,
+        });
       });
   }
 
+  function handleDownload(p: Purchase) {
+    setDownloadState((s) => ({ ...s, [p.token]: "loading" }));
+    triggerDownload(p.token, `${p.guideName}.pdf`)
+      .then(() =>
+        setDownloadState((s) => {
+          const next = { ...s };
+          delete next[p.token];
+          return next;
+        }),
+      )
+      .catch(() => setDownloadState((s) => ({ ...s, [p.token]: "error" })));
+  }
+
   function handleRefresh(purchase: Purchase, lookedUpEmail: string) {
+    const lookupId = lookupIdRef.current;
     setRefreshState((s) => ({ ...s, [purchase.guideSlug]: "loading" }));
 
     fetch("/api/my-downloads/refresh", {
@@ -81,6 +109,7 @@ export default function MyDownloads() {
         return body as { token: string; guideName: string; attemptsRemaining: number; expiresAt: string };
       })
       .then((refreshed) => {
+        if (lookupId !== lookupIdRef.current) return; // a newer lookup replaced this list
         setRefreshState((s) => ({ ...s, [purchase.guideSlug]: "done" }));
         setRefreshedPurchases((prev) => ({
           ...prev,
@@ -95,9 +124,9 @@ export default function MyDownloads() {
           },
         }));
       })
-      .catch((err: Error) => {
+      .catch(() => {
+        if (lookupId !== lookupIdRef.current) return;
         setRefreshState((s) => ({ ...s, [purchase.guideSlug]: "error" }));
-        alert(err.message);
       });
   }
 
@@ -139,7 +168,15 @@ export default function MyDownloads() {
 
         {/* Results */}
         {lookup.status === "error" && (
-          <p className="text-[14px] text-red-400 text-center">{lookup.message}</p>
+          <div role="alert" className="w-full text-center border border-ox-light/30 px-6 py-5">
+            <p className="text-[14px] text-ox-light mb-1">{lookup.message}</p>
+            <p className="text-[12px] text-cream/40">
+              Check the address and try again, or contact{" "}
+              <a href="mailto:connect@aivass.com" className="underline hover:text-cream">
+                connect@aivass.com
+              </a>.
+            </p>
+          </div>
         )}
 
         {lookup.status === "done" && displayedPurchases.length === 0 && (
@@ -167,6 +204,7 @@ export default function MyDownloads() {
             <div className="border border-cream/10 divide-y divide-cream/10">
               {displayedPurchases.map((p) => {
                 const rState = refreshState[p.guideSlug];
+                const dState = downloadState[p.token];
                 const expiresDate = new Date(p.expiresAt);
                 const expiresLabel = p.expired
                   ? "Expired"
@@ -185,17 +223,18 @@ export default function MyDownloads() {
                       </p>
                     </div>
 
-                    <div className="shrink-0">
+                    <div className="shrink-0 flex flex-col items-end gap-1">
                       {p.canDownload && (
                         <button
-                          onClick={() =>
-                            triggerDownload(p.token, `${p.guideName}.pdf`).catch(() =>
-                              alert("Download failed. Please try again."),
-                            )
-                          }
-                          className="text-[11px] tracking-[0.08em] uppercase text-cream/60 hover:text-cream transition-colors whitespace-nowrap"
+                          onClick={() => handleDownload(p)}
+                          disabled={dState === "loading"}
+                          className="text-[11px] tracking-[0.08em] uppercase text-cream/60 hover:text-cream transition-colors whitespace-nowrap disabled:opacity-50"
                         >
-                          Download →
+                          {dState === "loading"
+                            ? "Downloading…"
+                            : dState === "error"
+                              ? "Failed — try again →"
+                              : "Download →"}
                         </button>
                       )}
 
@@ -205,8 +244,13 @@ export default function MyDownloads() {
                           disabled={rState === "loading"}
                           className="text-[11px] tracking-[0.08em] uppercase text-ox-light hover:text-cream transition-colors whitespace-nowrap disabled:opacity-40"
                         >
-                          {rState === "loading" ? "Refreshing…" : "Refresh link →"}
+                          {rState === "loading" ? "Refreshing…" : rState === "error" ? "Failed — retry →" : "Refresh link →"}
                         </button>
+                      )}
+                      {rState === "error" && !p.canDownload && (
+                        <span className="text-[10px] text-ox-light/70">
+                          Couldn't refresh — try again or email connect@aivass.com
+                        </span>
                       )}
                     </div>
                   </div>

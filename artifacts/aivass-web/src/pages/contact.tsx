@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
+import { usePressFeedback } from "@/lib/use-press-feedback";
 import { useSeoMeta } from "@/lib/seo";
 import { trackAssessmentClick, trackDiscussPartnership } from "@/lib/analytics";
 
@@ -82,6 +83,7 @@ function ConstellationMark() {
 
 /* ─── Page ──────────────────────────────────────────────────────── */
 export default function Contact() {
+  const { isPressed, press } = usePressFeedback();
   useSeoMeta({
     title: "Connect — Begin the Architecture",
     description: "Start a conversation with AiVass. Book a Strategic Profile Assessment for individuals, or discuss a partnership for businesses and organizations.",
@@ -159,10 +161,14 @@ export default function Contact() {
               href={STRATEGIC_ASSESSMENT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-[11px] tracking-[0.14em] uppercase text-cream border border-cream/30 hover:border-cream/70 hover:bg-cream/8 px-7 py-3.5 transition-all duration-300"
-              onClick={() => trackAssessmentClick("connect-page")}
+              className={`inline-block text-[11px] tracking-[0.14em] uppercase text-cream border border-cream/30 hover:border-cream/70 hover:bg-cream/8 px-7 py-3.5 transition-all duration-300 ${isPressed("book") ? "opacity-70" : ""}`}
+              aria-live="polite"
+              onClick={(e) => {
+                if (isPressed("book")) { e.preventDefault(); return; }
+                press("book"); trackAssessmentClick("connect-page");
+              }}
             >
-              Book Assessment →
+              {isPressed("book") ? "Opening booking…" : "Book Assessment →"}
             </a>
           </div>
 

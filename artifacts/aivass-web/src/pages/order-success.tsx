@@ -16,6 +16,8 @@ type State =
   | { status: "done"; items: DownloadItem[] }
   | { status: "error"; message: string };
 
+type RetryState = Record<string, "idle" | "working" | "done" | "failed">;
+
 async function triggerDownload(token: string, filename: string) {
   const res = await fetch(`/api/download/${token}`);
   if (!res.ok) throw new Error(`Download failed: ${res.status}`);
@@ -40,12 +42,28 @@ export default function OrderSuccess() {
   const [state, setState] = useState<State>({ status: "loading" });
   const [activeToken, setActiveToken] = useState<string | null>(null);
   const [completedTokens, setCompletedTokens] = useState<Set<string>>(new Set());
+  const [failedTokens, setFailedTokens] = useState<Set<string>>(new Set());
+  const [retryState, setRetryState] = useState<RetryState>({});
+  const [slowHint, setSlowHint] = useState(false);
+  const [retryNonce, setRetryNonce] = useState(0);
+
+  // Gentle reassurance if verification takes a while
+  useEffect(() => {
+    if (state.status !== "loading") return;
+    const t = setTimeout(() => setSlowHint(true), 8000);
+    return () => clearTimeout(t);
+  }, [state.status]);
 
   useEffect(() => {
     if (!sessionId) {
       setState({ status: "error", message: "No session found. If you completed a purchase, check your email or contact connect@aivass.com." });
       return;
     }
+
+    setState({ status: "loading" });
+    setSlowHint(false);
+    setCompletedTokens(new Set());
+    setFailedTokens(new Set());
 
     fetch(`/api/order-complete?session_id=${encodeURIComponent(sessionId)}`)
       .then(async (res) => {
@@ -68,8 +86,8 @@ export default function OrderSuccess() {
             // Small delay between multiple downloads so browser doesn't block them
             await new Promise((r) => setTimeout(r, 800));
           } catch {
-            // Continue even if one fails — user can retry via /download/:token
-            setCompletedTokens((prev) => new Set([...prev, item.token]));
+            // Mark as failed so the user sees it and can retry below
+            setFailedTokens((prev) => new Set([...prev, item.token]));
           }
         }
 
@@ -77,9 +95,29 @@ export default function OrderSuccess() {
         setState({ status: "done", items: downloads });
       })
       .catch((err: Error) => {
-        setState({ status: "error", message: err.message });
+        const offline = typeof navigator !== "undefined" && !navigator.onLine;
+        setState({
+          status: "error",
+          message: offline
+            ? "You appear to be offline. Reconnect and try again — your purchase is safe."
+            : err.message,
+        });
       });
-  }, [sessionId]);
+  }, [sessionId, retryNonce]);
+
+  function handleManualDownload(item: DownloadItem) {
+    setRetryState((s) => ({ ...s, [item.token]: "working" }));
+    triggerDownload(item.token, `${item.guideName}.pdf`)
+      .then(() => {
+        setRetryState((s) => ({ ...s, [item.token]: "done" }));
+        setFailedTokens((prev) => {
+          const next = new Set(prev);
+          next.delete(item.token);
+          return next;
+        });
+      })
+      .catch(() => setRetryState((s) => ({ ...s, [item.token]: "failed" })));
+  }
 
   return (
     <div className="bg-navy text-cream min-h-screen pt-[120px] pb-[100px] flex flex-col items-center text-center px-6">
@@ -92,9 +130,19 @@ export default function OrderSuccess() {
               Purchase confirmed.
             </h1>
             <p className="text-[15px] text-ox-light leading-[1.65] mb-8">
-              Preparing your download…
+              Verifying your purchase and preparing your download…
             </p>
             <div className="w-8 h-8 border-2 border-ox-light/30 border-t-ox-light rounded-full animate-spin" />
+            {slowHint && (
+              <p className="text-[12px] text-cream/40 leading-[1.6] mt-8 max-w-[380px]">
+                This is taking a little longer than usual — your payment is confirmed
+                and your guides are safe. If nothing happens in the next minute,{" "}
+                <Link href="/my-downloads" className="underline hover:text-cream">
+                  visit My Downloads
+                </Link>{" "}
+                with your checkout email.
+              </p>
+            )}
           </>
         )}
 
@@ -106,8 +154,9 @@ export default function OrderSuccess() {
             <div className="space-y-3 mb-8 w-full text-left border border-cream/10 p-6">
               {state.items.map((item) => {
                 const isDone = completedTokens.has(item.token);
+                const isFailed = failedTokens.has(item.token);
                 const isActive = activeToken === item.token;
-                const isPending = !isDone && !isActive;
+                const isPending = !isDone && !isActive && !isFailed;
                 return (
                   <div key={item.token} className="flex items-center justify-between gap-4">
                     <p className={`text-[14px] leading-[1.65] transition-colors ${isDone ? "text-cream/50" : isActive ? "text-cream" : "text-ox-light/50"}`}>
@@ -118,6 +167,11 @@ export default function OrderSuccess() {
                         <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 text-cream/40">
                           <path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
+                      )}
+                      {isFailed && (
+                        <span className="text-ox-light text-[12px] leading-none" title="Will offer retry">
+                          !
+                        </span>
                       )}
                       {isActive && (
                         <div className="w-3.5 h-3.5 border border-ox-light/30 border-t-cream rounded-full animate-spin" />
@@ -139,25 +193,56 @@ export default function OrderSuccess() {
         {state.status === "done" && (
           <>
             <h1 className="text-[40px] md:text-[60px] font-serif leading-none tracking-[-0.05em] mb-6">
-              {state.items.length > 1 ? "Your guides are ready." : "Your guide is ready."}
+              {failedTokens.size > 0
+                ? "Almost there."
+                : state.items.length > 1 ? "Your guides are ready." : "Your guide is ready."}
             </h1>
+            {failedTokens.size > 0 && (
+              <p className="text-[13px] text-ox-light leading-[1.65] mb-6 max-w-[420px]">
+                {failedTokens.size === 1
+                  ? "One download didn't start automatically — use the button below to try it again."
+                  : "Some downloads didn't start automatically — use the buttons below to try them again."}
+              </p>
+            )}
             <div className="space-y-3 mb-8 w-full text-left border border-cream/10 p-6">
-              {state.items.map((item) => (
-                <div key={item.token} className="flex items-center justify-between gap-4">
-                  <p className="text-[14px] text-ox-light">{item.guideName}</p>
-                  <a
-                    href={`/api/download/${item.token}`}
-                    className="text-[11px] tracking-[0.08em] uppercase text-cream/60 hover:text-cream transition-colors whitespace-nowrap"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      triggerDownload(item.token, `${item.guideName}.pdf`).catch(() => null);
-                    }}
-                  >
-                    Download again →
-                  </a>
-                </div>
-              ))}
+              {state.items.map((item) => {
+                const rs = retryState[item.token] ?? "idle";
+                const isFailed = failedTokens.has(item.token);
+                return (
+                  <div key={item.token} className="flex items-center justify-between gap-4">
+                    <p className="text-[14px] text-ox-light">{item.guideName}</p>
+                    <button
+                      type="button"
+                      disabled={rs === "working"}
+                      className={`text-[11px] tracking-[0.08em] uppercase transition-colors whitespace-nowrap disabled:opacity-60 ${
+                        isFailed ? "text-cream border border-ox-light/50 px-3 py-1.5 hover:bg-ox-light/10" : "text-cream/60 hover:text-cream"
+                      }`}
+                      onClick={() => handleManualDownload(item)}
+                    >
+                      {rs === "working"
+                        ? "Downloading…"
+                        : rs === "failed"
+                          ? "Failed — try again"
+                          : isFailed
+                            ? "Retry download →"
+                            : "Download again →"}
+                    </button>
+                  </div>
+                );
+              })}
             </div>
+            {Object.values(retryState).includes("failed") && (
+              <p className="text-[12px] text-ox-light leading-[1.6] mb-6 max-w-[420px]">
+                Still not working? Your links stay valid —{" "}
+                <Link href="/my-downloads" className="underline hover:text-cream">
+                  My Downloads
+                </Link>{" "}
+                always has them, or write to{" "}
+                <a href="mailto:connect@aivass.com" className="underline hover:text-cream">
+                  connect@aivass.com
+                </a>.
+              </p>
+            )}
             <p className="text-[12px] text-cream/40 leading-[1.6] mb-8">
               Each link works for <strong className="text-cream/60">3 downloads</strong> and expires in 72 hours.
               Need it again later?{" "}
@@ -183,15 +268,26 @@ export default function OrderSuccess() {
             <p className="text-[15px] text-ox-light leading-[1.65] mb-8">
               {state.message}
             </p>
-            <a
-              href={`mailto:connect@aivass.com?subject=Download issue&body=Session: ${sessionId ?? "unknown"}`}
-              className="btn-outline-light mb-6"
-            >
-              Contact Support
-            </a>
-            <Link href="/guides" className="text-[12px] text-cream/50 hover:text-cream">
-              Back to Guides
-            </Link>
+            <div className="flex flex-col items-center gap-4">
+              {sessionId && (
+                <button
+                  type="button"
+                  onClick={() => setRetryNonce((n) => n + 1)}
+                  className="btn-outline-light"
+                >
+                  Try Again
+                </button>
+              )}
+              <a
+                href={`mailto:connect@aivass.com?subject=Download issue&body=Session: ${sessionId ?? "unknown"}`}
+                className="text-[12px] text-cream/60 hover:text-cream underline"
+              >
+                Contact Support
+              </a>
+              <Link href="/guides" className="text-[12px] text-cream/50 hover:text-cream">
+                Back to Guides
+              </Link>
+            </div>
           </>
         )}
       </div>

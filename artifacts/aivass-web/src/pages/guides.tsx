@@ -3,8 +3,10 @@ import { CriteriaConstellation } from "@/components/CriteriaConstellation";
 import { GUIDES, guideCheckoutUrl, guideSampleUrl, BUNDLE, formatPrice } from "@/data/guides";
 import { useSeoMeta } from "@/lib/seo";
 import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics";
+import { usePressFeedback } from "@/lib/use-press-feedback";
 
 export default function Guides() {
+  const { isPressed, press } = usePressFeedback();
   useSeoMeta({
     title: "EB-1A Guides for Extraordinary Ability",
     description:
@@ -96,20 +98,28 @@ export default function Guides() {
                       href={guideSampleUrl(guide.sampleSlug)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-outline flex-1 !px-2 text-center"
-                      onClick={() => trackGuideSampleClick(guide.slug)}
+                      className={`btn-outline flex-1 !px-2 text-center ${isPressed(`sample-${guide.slug}`) ? "opacity-70" : ""}`}
+                      aria-live="polite"
+                      onClick={(e) => {
+                        if (isPressed(`sample-${guide.slug}`)) { e.preventDefault(); return; }
+                        press(`sample-${guide.slug}`); trackGuideSampleClick(guide.slug);
+                      }}
                     >
-                      Free Sample
+                      {isPressed(`sample-${guide.slug}`) ? "Opening…" : "Free Sample"}
                     </a>
                   )}
                   <a
                     href={guideCheckoutUrl(guide.slug)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-fill flex-1 !px-2 text-center"
-                    onClick={() => trackGuidePurchaseClick(guide.slug)}
+                    className={`btn-fill flex-1 !px-2 text-center ${isPressed(`buy-${guide.slug}`) ? "opacity-70" : ""}`}
+                    aria-live="polite"
+                    onClick={(e) => {
+                      if (isPressed(`buy-${guide.slug}`)) { e.preventDefault(); return; }
+                      press(`buy-${guide.slug}`); trackGuidePurchaseClick(guide.slug);
+                    }}
                   >
-                    Purchase →
+                    {isPressed(`buy-${guide.slug}`) ? "Opening checkout…" : "Purchase →"}
                   </a>
                 </div>
 
@@ -140,10 +150,14 @@ export default function Guides() {
               href={guideCheckoutUrl(BUNDLE.slug)}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-fill !bg-cream !text-navy hover:!bg-paper w-full"
-              onClick={() => trackGuidePurchaseClick(BUNDLE.slug)}
+              className={`btn-fill !bg-cream !text-navy hover:!bg-paper w-full ${isPressed("buy-bundle") ? "opacity-70" : ""}`}
+              aria-live="polite"
+              onClick={(e) => {
+                if (isPressed("buy-bundle")) { e.preventDefault(); return; }
+                press("buy-bundle"); trackGuidePurchaseClick(BUNDLE.slug);
+              }}
             >
-              Get the Complete Collection →
+              {isPressed("buy-bundle") ? "Opening secure checkout…" : "Get the Complete Collection →"}
             </a>
           </div>
         </div>
