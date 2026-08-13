@@ -153,9 +153,10 @@ export default function Home() {
             style={{ transitionDelay: "220ms" }}
           >
             <div>
-              <p className="text-[15px] md:text-[16px] text-navy-mid max-w-[380px] leading-[1.68] mb-7">
-                Where intelligent systems, human connection and strategic
-                architecture come together to build what comes next.
+              <p className="text-[15px] md:text-[16px] text-navy-mid max-w-[400px] leading-[1.68] mb-7">
+                Field-specific EB-1A guides and strategic advisory that turn
+                your achievements into a green-card-ready petition — evidence,
+                not hope.
               </p>
               <div className="flex flex-wrap gap-5 items-center">
                 <Link href="/solutions" className="btn-fill">Explore AiVass</Link>
@@ -202,6 +203,43 @@ export default function Home() {
               animation: "ambient-float 2.4s ease-in-out infinite",
             }}
           />
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════
+          HOW IT HELPS YOUR PETITION — the "what", fast
+      ═══════════════════════════════════════════════════════ */}
+      <section className="bg-cream border-t border-navy/8 py-[50px] md:py-[64px]">
+        <div className="wrap">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-[5vw]">
+            {[
+              {
+                n: "01",
+                title: "The guides",
+                body: "Field-specific EB-1A playbooks — for athletes, founders, artists, scientists and educators — written around how USCIS actually reads a petition.",
+              },
+              {
+                n: "02",
+                title: "Your evidence, mapped",
+                body: "Each guide maps your rankings, funding, press and awards onto the ten USCIS criteria, so you know exactly which of your achievements count — and how to prove them.",
+              },
+              {
+                n: "03",
+                title: "A petition that reads like evidence",
+                body: "You finish with a structured evidence portfolio and a petition narrative that argues your case the way an officer expects to see it.",
+              },
+            ].map((item, i) => (
+              <div key={item.n} data-reveal style={{ transitionDelay: `${i * 120}ms` }}>
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span className="font-serif text-[26px] text-oxblood/45">{item.n}</span>
+                  <h3 className="font-serif text-[19px] md:text-[21px] tracking-[-0.02em]">{item.title}</h3>
+                </div>
+                <p className="text-[13.5px] md:text-[14px] text-navy-mid leading-[1.7] max-w-[340px]">
+                  {item.body}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
