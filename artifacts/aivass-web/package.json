@@ -9,6 +9,7 @@
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
     "prebuild": "bash scripts/strip-image-metadata.sh",
     "build": "vite build --config vite.config.ts",
+    "postbuild": "node scripts/prerender-articles.mjs",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

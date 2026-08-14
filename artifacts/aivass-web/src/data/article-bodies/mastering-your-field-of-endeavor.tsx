@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { ARTICLES } from "@/data/articles";
 import {
   CoherencePyramid,
   FieldFunnel,
@@ -33,6 +34,10 @@ function Bullets({ items }: { items: React.ReactNode[] }) {
   );
 }
 
+// Single source of truth for FAQ + key takeaways — also used for FAQPage
+// JSON-LD (client + build-time prerender). Keeps visible content and schema identical.
+const ARTICLE_DATA = ARTICLES.find((a) => a.slug === "mastering-your-field-of-endeavor")!;
+
 export default function MasteringYourFieldOfEndeavorBody() {
   return (
     <div className="max-w-[720px]">
@@ -58,6 +63,16 @@ export default function MasteringYourFieldOfEndeavorBody() {
         athlete. By the end, you'll know exactly how to identify, articulate, and defend your field of
         endeavor.
       </p>
+
+      {/* Key takeaways — direct-answer block for readers and answer engines.
+          Content sourced from ARTICLE_DATA.keyTakeaways (shared with prerender). */}
+      <section aria-label="Key takeaways" className="bg-paper border border-navy/15 p-6 md:p-8 my-10">
+        <div className="text-[10px] tracking-[0.18em] uppercase text-oxblood mb-4">Key Takeaways</div>
+        <p className="text-[14px] md:text-[15px] text-navy leading-[1.75] mb-4">
+          <strong>{ARTICLE_DATA.keyTakeaways![0]}</strong>
+        </p>
+        <Bullets items={ARTICLE_DATA.keyTakeaways!.slice(1)} />
+      </section>
 
       {/* ── PART 1 ── */}
       <h2 className={H2} id="what-is">
@@ -500,111 +515,13 @@ export default function MasteringYourFieldOfEndeavorBody() {
       <h2 className={H2} id="faq">
         Frequently Asked Questions
       </h2>
+      {/* FAQ content comes from ARTICLE_DATA.faq — the exact same strings used
+          for FAQPage JSON-LD, keeping visible content and schema identical. */}
       <FaqAccordion
-        items={[
-          {
-            q: "Can my field of endeavor be interdisciplinary?",
-            a: (
-              <>
-                <p className="mb-3">
-                  Yes, but frame it carefully. Choose a primary field that has an established community
-                  of practitioners, recognition mechanisms (awards, conferences, publications), and
-                  clear criteria for extraordinary ability.
-                </p>
-                <p>
-                  Say "bioinformatics" or "computational biology" — not "I work in both biology and
-                  computer science."
-                </p>
-              </>
-            ),
-          },
-          {
-            q: "I changed industries completely. Can I still make this work?",
-            a: (
-              <>
-                <p className="mb-3">
-                  Sometimes. Ask yourself: did your core expertise transfer? Can you frame both roles
-                  under one broader field? Do you have recognition in the new field?
-                </p>
-                <p className="mb-3">
-                  <strong className="text-navy">Works:</strong> Software Engineer → Product Manager,
-                  under "user-centric product development for consumer applications."
-                </p>
-                <p>
-                  <strong className="text-navy">Difficult:</strong> Chemical Engineer → Real Estate
-                  Investor — no obvious field connects these.
-                </p>
-              </>
-            ),
-          },
-          {
-            q: "Should I use academic language or everyday language?",
-            a: (
-              <>
-                <p className="mb-3">Use professional language that's accessible but precise.</p>
-                <p className="mb-2"><em>Too academic:</em> "The sociotechnical implications of algorithmic bias in machine learning systems deployed at scale."</p>
-                <p className="mb-2"><em>Too casual:</em> "I'm really good at making AI not be racist."</p>
-                <p><em>Just right:</em> "Ethical AI development, specifically addressing bias in machine learning systems."</p>
-              </>
-            ),
-          },
-          {
-            q: "USCIS said my field was too broad. What now?",
-            a: (
-              <>
-                <p className="mb-3">
-                  In your response: narrow the definition with specific expertise areas, provide
-                  context about what the field includes and excludes, show clear boundaries by
-                  referencing specific communities, journals, and conferences, and reframe your
-                  evidence to emphasize depth in the narrower field.
-                </p>
-                <p>
-                  Before: "My field is marketing." After: "My field is growth marketing for B2B SaaS
-                  companies, specifically customer acquisition and retention strategies for enterprise
-                  software."
-                </p>
-              </>
-            ),
-          },
-          {
-            q: "I have achievements in two separate fields. Which should I choose?",
-            a: (
-              <p>
-                Choose the field where you have more recent recognition, stronger evidence across
-                multiple criteria, clearer future plans in the U.S., and better recommendation
-                letters. <strong className="text-navy">One strong field beats two weak fields.</strong>
-              </p>
-            ),
-          },
-          {
-            q: "Can I work in a different field after my green card is approved?",
-            a: (
-              <p>
-                Technically yes — the green card doesn't restrict your job. However, your I-140
-                petition is tied to your stated field and future plans, and changing fields
-                immediately after approval could raise questions. It's safest to continue in your
-                field for at least 1–2 years post-approval.
-              </p>
-            ),
-          },
-          {
-            q: "What if my field is very new or emerging?",
-            a: (
-              <>
-                <p className="mb-3">
-                  Emerging fields can work if you can demonstrate a community (practitioners,
-                  conferences, publications), recognition mechanisms, and precedent. Fields like
-                  prompt engineering for large language models, NFT art, short-form video strategy,
-                  and CRISPR applications have all worked.
-                </p>
-                <p>
-                  The key: show that it's a <em>field</em> — with practitioners and standards — not
-                  just a trend or a tool.
-                </p>
-              </>
-            ),
-          },
-        ]}
+        items={ARTICLE_DATA.faq!.map(({ q, a }) => ({
+          q,
+          a: <p>{a}</p>,
+        }))}
       />
 
       {/* ── PART 13 ── */}

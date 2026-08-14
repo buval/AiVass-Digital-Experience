@@ -100,15 +100,33 @@ export default function ArticleDetail() {
       ],
     };
 
+    const faqLd = article.faq?.length
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: article.faq.map(({ q, a }) => ({
+            "@type": "Question",
+            name: q,
+            acceptedAnswer: { "@type": "Answer", text: a },
+          })),
+        }
+      : null;
+
+    // Remove any existing SEO LD scripts first — including prerendered ones
+    // baked into the static HTML — so navigation never leaves stale/duplicate
+    // Article/FAQ entities in <head>.
+    document.querySelectorAll("script[data-seo-ld]").forEach((s) => s.remove());
+
     const scripts: HTMLScriptElement[] = [];
-    [articleLd, breadcrumbLd].forEach((ld) => {
+    [articleLd, breadcrumbLd, ...(faqLd ? [faqLd] : [])].forEach((ld) => {
       const s = document.createElement("script");
       s.type = "application/ld+json";
+      s.setAttribute("data-seo-ld", "");
       s.text = JSON.stringify(ld);
       document.head.appendChild(s);
       scripts.push(s);
     });
-    return () => { scripts.forEach((s) => document.head.removeChild(s)); };
+    return () => { scripts.forEach((s) => s.remove()); };
   }, [article]);
 
   if (!article) {
