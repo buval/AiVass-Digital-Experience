@@ -62,6 +62,13 @@ export const ARTICLES: Article[] = [
     relatedGuides: ["eb1a-master"],
     relatedArticles: ["eb1a-critical-role-criterion"],
     hasToc: false,
+    keyTakeaways: [
+      "Transformation is not a change in behavior — it is a change in identity, the internal picture you hold of who you are. Behavior is what you can see; identity is what's carrying it.",
+      "Your self-image acts like a thermostat: no matter how high you set your goals, behavior drifts back to the level your identity is set to. Lasting change requires resetting the thermostat, not increasing the force applied to old habits.",
+      "Willpower is a momentary lift; identity is a lifetime carry. Plans fail not from lack of discipline, but because the person inside never actually changed.",
+      "The anchoring question \u201CWhat would the person I\u2019m becoming do right now?\u201D bypasses motivation and routes every choice through identity \u2014 repeated often enough, it becomes a reflex.",
+      "Real transformation is gradual and quiet: feed the new identity with small consistent evidence day after day, and the landscape changes without your noticing.",
+    ],
   },
   {
     id: "mastering-your-field-of-endeavor",
@@ -147,5 +154,39 @@ export const ARTICLES: Article[] = [
     relatedGuides: ["eb1a-master", "eb1a-science"],
     relatedArticles: ["from-surviving-to-thriving"],
     hasToc: true,
+    keyTakeaways: [
+      "EB-1A Criterion 8 requires evidence of a leading or critical role for organizations with a distinguished reputation — it centers on functional impact, not external recognition. You only need to prove one of the two role types.",
+      "A leading role is defined by authority and direction (title, reporting structure, decision-making power); a critical role is defined by essentiality to outcomes regardless of title.",
+      "The organization\u2019s distinguished reputation is a separate, mandatory evidentiary burden — you must prove both your role and the organization\u2019s standing independently.",
+      "Strong Criterion 8 petitions present evidence across four categories: organizational documentation, quantified impact documentation, external validation (expert letters, press), and organizational reputation evidence.",
+      "Expert recommendation letters must cite specific contributions, named projects, quantified impact, and explain why your expertise was uniquely critical \u2014 generic praise is immediately discounted by adjudicators.",
+      "Under the Kazarian two-step, Criterion 8 evidence must connect to your broader narrative of sustained national or international acclaim, not just prove a single role in isolation.",
+    ],
+    faq: [
+      {
+        q: "What is the difference between a leading role and a critical role for EB-1A Criterion 8?",
+        a: "A leading role is defined by authority and direction \u2014 your title, reporting structure, decision-making power, and team size. A critical role is defined by essentiality: your specific contributions were necessary for the organization\u2019s outcomes, regardless of your title. You only need to prove one, so choose the framing that best fits your strongest evidence.",
+      },
+      {
+        q: "Does the size of the organization matter for Criterion 8?",
+        a: "Size alone does not determine distinguished reputation. A small startup with prestigious investors, groundbreaking technology, and notable press coverage can qualify just as well as a Fortune 500 company. What matters is that the organization is recognized within its field \u2014 through rankings, media coverage, awards, or notable clients and partners.",
+      },
+      {
+        q: "Can I use a lesser-known or startup organization for Criterion 8?",
+        a: "Yes, but you must document its distinguished reputation specifically. Focus on factors such as venture funding from top-tier investors, press coverage in recognized publications, industry association recognition, notable clients or government contracts, or groundbreaking technology. Generic descriptions of the company\u2019s mission are not sufficient.",
+      },
+      {
+        q: "How many expert recommendation letters do I need for Criterion 8?",
+        a: "USCIS does not specify a number, but strong petitions typically include at least two expert letters that specifically address your Criterion 8 claim. Each letter should identify the writer\u2019s qualifications, describe your specific contributions and their impact, and explain why those contributions were critical \u2014 not merely helpful \u2014 to the organization\u2019s mission.",
+      },
+      {
+        q: "What is the most common Request for Evidence (RFE) on Criterion 8?",
+        a: "The most common RFE asks petitioners to explain how their role differed from others with similar titles. Prepare this distinction proactively: document specific contributions, outcomes, and expertise that were unique to you \u2014 not shared by peers in comparable positions \u2014 so you are not caught off guard by the request.",
+      },
+      {
+        q: "Can I claim Criterion 8 for multiple organizations?",
+        a: "Yes. You can present Criterion 8 claims for multiple organizations, which can strengthen your petition by showing a pattern of leading or critical roles rather than a single instance. Each claim requires independent evidence of your role and the organization\u2019s distinguished reputation.",
+      },
+    ],
   },
 ];

@@ -1,4 +1,6 @@
 import { Link } from "wouter";
+import { ARTICLES } from "@/data/articles";
+import { FaqAccordion } from "./field-of-endeavor-interactives";
 
 /**
  * Full article body — "EB-1A Criterion 8: Leading or Critical Role — The Complete Evidence Guide"
@@ -8,6 +10,9 @@ import { Link } from "wouter";
  *
  * DO NOT edit substance without owner approval.
  */
+
+// Single source of truth for key takeaways and FAQ — also consumed by prerender for crawler-visible HTML and FAQPage JSON-LD.
+const ARTICLE_DATA = ARTICLES.find((a) => a.slug === "eb1a-critical-role-criterion")!;
 
 export default function Eb1aCriterion8Body() {
   return (
@@ -37,6 +42,23 @@ export default function Eb1aCriterion8Body() {
           critical role for organizations or establishments that have a distinguished reputation."
         </p>
       </div>
+
+      {/* Key takeaways — direct-answer block for readers and answer engines.
+          Content sourced from ARTICLE_DATA.keyTakeaways (shared with prerender). */}
+      <section aria-label="Key takeaways" className="bg-paper border border-navy/15 p-6 md:p-8 my-10">
+        <div className="text-[10px] tracking-[0.18em] uppercase text-oxblood mb-4">Key Takeaways</div>
+        <p className="text-[14px] md:text-[15px] text-navy leading-[1.75] mb-4">
+          <strong>{ARTICLE_DATA.keyTakeaways![0]}</strong>
+        </p>
+        <ul className="space-y-3">
+          {ARTICLE_DATA.keyTakeaways!.slice(1).map((item, i) => (
+            <li key={i} className="flex items-start gap-4 text-[14px] md:text-[15px] text-navy-mid leading-[1.65]">
+              <span className="flex-shrink-0 w-[5px] h-[5px] rounded-full bg-oxblood mt-[10px]" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {/* SECTION 2 */}
       <h2 className="font-serif text-[28px] md:text-[36px] tracking-[-0.03em] text-navy mb-5 mt-14" id="leading-vs-critical">
@@ -396,6 +418,19 @@ export default function Eb1aCriterion8Body() {
           </div>
         ))}
       </div>
+
+      {/* SECTION 10 — FAQ */}
+      <h2 className="font-serif text-[28px] md:text-[36px] tracking-[-0.03em] text-navy mb-5 mt-14" id="faq">
+        Frequently Asked Questions
+      </h2>
+      {/* FAQ content sourced from ARTICLE_DATA.faq — same strings used for FAQPage JSON-LD,
+          keeping visible content and structured data identical. */}
+      <FaqAccordion
+        items={ARTICLE_DATA.faq!.map(({ q, a }) => ({
+          q,
+          a: <p>{a}</p>,
+        }))}
+      />
 
       {/* CTA box */}
       <div className="bg-navy text-cream p-8 md:p-10">

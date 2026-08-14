@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { ARTICLES } from "@/data/articles";
 
 /**
  * Full article body — "From Surviving to Thriving"
@@ -8,6 +9,9 @@ import { Link } from "wouter";
  *
  * DO NOT edit substance without owner approval.
  */
+
+// Single source of truth for key takeaways — also consumed by prerender for crawler-visible HTML.
+const ARTICLE_DATA = ARTICLES.find((a) => a.slug === "from-surviving-to-thriving")!;
 
 export default function FromSurvivingToThrivingBody() {
   return (
@@ -27,10 +31,27 @@ export default function FromSurvivingToThrivingBody() {
         noticing — the world around you begins to rearrange itself to match the person you've decided to
         be.
       </p>
-      <p className="text-[16px] md:text-[17px] text-navy-mid leading-[1.9] mb-12">
+      <p className="text-[16px] md:text-[17px] text-navy-mid leading-[1.9] mb-10">
         This is the quiet mechanism behind every real transformation. Not louder effort. A truer
         self-image.
       </p>
+
+      {/* Key takeaways — direct-answer block for readers and answer engines.
+          Content sourced from ARTICLE_DATA.keyTakeaways (shared with prerender). */}
+      <section aria-label="Key takeaways" className="bg-paper border border-navy/15 p-6 md:p-8 my-10">
+        <div className="text-[10px] tracking-[0.18em] uppercase text-oxblood mb-4">Key Takeaways</div>
+        <p className="text-[14px] md:text-[15px] text-navy leading-[1.75] mb-4">
+          <strong>{ARTICLE_DATA.keyTakeaways![0]}</strong>
+        </p>
+        <ul className="space-y-3">
+          {ARTICLE_DATA.keyTakeaways!.slice(1).map((item, i) => (
+            <li key={i} className="flex items-start gap-4 text-[14px] md:text-[15px] text-navy-mid leading-[1.65]">
+              <span className="flex-shrink-0 w-[5px] h-[5px] rounded-full bg-oxblood mt-[10px]" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {/* Section 1 */}
       <h2 className="font-serif text-[28px] md:text-[36px] tracking-[-0.03em] text-navy mb-5 mt-12" id="transformation">
