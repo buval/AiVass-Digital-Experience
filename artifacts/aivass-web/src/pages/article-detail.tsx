@@ -7,6 +7,24 @@ import { useSeoMeta } from "@/lib/seo";
 
 /** Table of contents sections for long articles — keyed by article slug. */
 const TOC_SECTIONS: Record<string, { id: string; label: string }[]> = {
+  "mastering-your-field-of-endeavor": [
+    { id: "what-is", label: "What Is a Field of Endeavor?" },
+    { id: "framework", label: "The Coherence Pyramid" },
+    { id: "identify", label: "How to Identify Your Field" },
+    { id: "career-evolution", label: "Career Evolution" },
+    { id: "examples", label: "Real-World Examples" },
+    { id: "soc-codes", label: "SOC Codes vs. Reality" },
+    { id: "mistakes", label: "Six Common Mistakes" },
+    { id: "statement", label: "Crafting Your Statement" },
+    { id: "timeline", label: "Past, Present & Future" },
+    { id: "petition-letters", label: "Petition Letter Practices" },
+    { id: "checklist", label: "Self-Assessment Checklist" },
+    { id: "faq", label: "FAQ" },
+    { id: "case-study", label: "Case Study" },
+    { id: "advanced", label: "Advanced Strategies" },
+    { id: "action-plan", label: "Your Action Plan" },
+    { id: "final-thoughts", label: "Final Thoughts" },
+  ],
   "eb1a-critical-role-criterion": [
     { id: "what-is", label: "What Is Criterion 8?" },
     { id: "leading-vs-critical", label: "Leading vs. Critical Role" },
