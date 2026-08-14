@@ -119,6 +119,9 @@ export const trackDiscussPartnership = (location: string) =>
 export const trackGuidePurchaseClick = (slug: string) =>
   track("guide_purchase_click", { guide_slug: slug });
 
+export const trackGuidesExploreClick = (location: string) =>
+  track("guides_explore_click", { location });
+
 /** Guide sample PDF click */
 export const trackGuideSampleClick = (slug: string) =>
   track("guide_sample_click", { guide_slug: slug });

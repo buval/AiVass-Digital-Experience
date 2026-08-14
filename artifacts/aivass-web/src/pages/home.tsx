@@ -7,7 +7,7 @@ import { GUIDES } from "@/data/guides";
 import { ARTICLES } from "@/data/articles";
 import { STRATEGIC_ASSESSMENT_URL } from "@/config/booking";
 import { useSeoMeta } from "@/lib/seo";
-import { trackAssessmentClick, trackGuidePurchaseClick } from "@/lib/analytics";
+import { trackAssessmentClick, trackGuidesExploreClick } from "@/lib/analytics";
 
 function useScrollReveal() {
   useEffect(() => {
@@ -154,13 +154,12 @@ export default function Home() {
           >
             <div>
               <p className="text-[15px] md:text-[16px] text-navy-mid max-w-[400px] leading-[1.68] mb-7">
-                Field-specific EB-1A guides and strategic advisory that turn
-                your achievements into a green-card-ready petition — evidence,
-                not hope.
+                Where intelligent systems, human connection and strategic
+                architecture come together to build what comes next.
               </p>
               <div className="flex flex-wrap gap-5 items-center">
                 <Link href="/solutions" className="btn-fill">Explore AiVass</Link>
-                <a href="#three-paths" className="link-under">Find Your Path ↗</a>
+                <a href="#what-we-do" className="link-under">Find Your Path ↗</a>
               </div>
             </div>
 
@@ -207,38 +206,110 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════
-          HOW IT HELPS YOUR PETITION — the "what", fast
+          WHAT WE DO TODAY — current practice, built for siblings
       ═══════════════════════════════════════════════════════ */}
-      <section className="bg-cream border-t border-navy/8 py-[50px] md:py-[64px]">
+      <section id="what-we-do" className="bg-cream border-t border-navy/8 py-[60px] md:py-[90px] scroll-mt-20">
         <div className="wrap">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-[5vw]">
-            {[
-              {
-                n: "01",
-                title: "The guides",
-                body: "Field-specific EB-1A playbooks — for athletes, founders, artists, scientists and educators — written around how USCIS actually reads a petition.",
-              },
-              {
-                n: "02",
-                title: "Your evidence, mapped",
-                body: "Each guide maps your rankings, funding, press and awards onto the ten USCIS criteria, so you know exactly which of your achievements count — and how to prove them.",
-              },
-              {
-                n: "03",
-                title: "A petition that reads like evidence",
-                body: "You finish with a structured evidence portfolio and a petition narrative that argues your case the way an officer expects to see it.",
-              },
-            ].map((item, i) => (
-              <div key={item.n} data-reveal style={{ transitionDelay: `${i * 120}ms` }}>
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="font-serif text-[26px] text-oxblood/45">{item.n}</span>
-                  <h3 className="font-serif text-[19px] md:text-[21px] tracking-[-0.02em]">{item.title}</h3>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-[36px] md:mb-[52px]">
+            <div>
+              <div className="eyebrow mb-5" data-reveal>What we do today</div>
+              <h2
+                className="text-[38px] md:text-[clamp(38px,5vw,66px)] leading-[0.96] tracking-[-0.06em]"
+                data-reveal
+                style={{ transitionDelay: "80ms" }}
+              >
+                One practice, live.<br />
+                <span className="text-oxblood italic">Extraordinary ability.</span>
+              </h2>
+            </div>
+            <p
+              className="text-[13.5px] md:text-[14px] text-grey leading-[1.7] max-w-[360px] md:text-right"
+              data-reveal
+              style={{ transitionDelay: "160ms" }}
+            >
+              AiVass builds one practice at a time, to the standard the name demands.
+              The first is live now.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-[1px] bg-navy/10" data-reveal style={{ transitionDelay: "120ms" }}>
+            {/* ACTIVE PRACTICE — EB-1A */}
+            <article className="bg-navy text-cream p-7 md:p-10 relative overflow-hidden">
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 85% 15%, rgba(217,163,155,0.08) 0%, transparent 55%)",
+                }}
+              />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="inline-flex items-center gap-2 text-[9px] tracking-[0.16em] uppercase text-ox-light border border-ox-light/40 px-3 py-1">
+                    <span className="w-[5px] h-[5px] rounded-full bg-ox-light animate-pulse motion-reduce:animate-none" />
+                    Live now
+                  </span>
+                  <span className="text-[9px] tracking-[0.16em] uppercase text-cream/40">Practice 01</span>
                 </div>
-                <p className="text-[13.5px] md:text-[14px] text-navy-mid leading-[1.7] max-w-[340px]">
-                  {item.body}
+                <h3 className="font-serif text-[26px] md:text-[34px] leading-[1.05] tracking-[-0.04em] mb-4">
+                  EB-1A Extraordinary Ability
+                </h3>
+                <p className="text-[13.5px] md:text-[14px] text-cream/75 leading-[1.7] max-w-[460px] mb-7">
+                  Field-specific guides and strategic advisory that turn your achievements
+                  into a green-card-ready petition — evidence, not hope.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+                  {[
+                    ["The guides", "Field-specific playbooks written around how USCIS actually reads a petition."],
+                    ["Evidence, mapped", "Your rankings, funding, press and awards mapped onto the ten USCIS criteria."],
+                    ["A petition that argues", "A structured portfolio and narrative that reads the way an officer expects."],
+                  ].map(([t, b]) => (
+                    <div key={t} className="border-t border-cream/15 pt-3">
+                      <div className="font-serif text-[15px] mb-1">{t}</div>
+                      <p className="text-[11.5px] text-cream/60 leading-[1.6]">{b}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-5 items-center">
+                  <Link href="/guides" className="btn-fill !bg-cream !text-navy hover:!bg-paper" onClick={() => trackGuidesExploreClick("home-practice-eb1a")}>
+                    Explore the Guides
+                  </Link>
+                  <a
+                    href={STRATEGIC_ASSESSMENT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-under text-ox-light text-[11px] tracking-[0.06em]"
+                    onClick={() => trackAssessmentClick("home-practice-eb1a")}
+                  >
+                    Assess Your Profile ↗
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            {/* NEXT PRACTICES — sibling slot, intentionally quiet */}
+            <aside className="bg-paper p-7 md:p-10 flex flex-col justify-between">
+              <div>
+                <span className="text-[9px] tracking-[0.16em] uppercase text-navy-mid block mb-6">
+                  Practices 02+ · In development
+                </span>
+                <h3 className="font-serif text-[20px] md:text-[24px] leading-[1.15] tracking-[-0.03em] text-navy/70 mb-4">
+                  The next chapters are<br />
+                  <span className="italic text-oxblood/60">already being written.</span>
+                </h3>
+                <p className="text-[12.5px] text-grey leading-[1.7] max-w-[300px]">
+                  The same architecture — intelligent systems, human connection,
+                  strategic depth — applied to new industries. Announced when
+                  they meet the standard.
                 </p>
               </div>
-            ))}
+              <div className="mt-8 flex items-center gap-3 text-navy/25">
+                <svg viewBox="0 0 16 16" className="w-[11px] h-[11px]" fill="currentColor">
+                  <path d="M8 0 L9.6 6.4 L16 8 L9.6 9.6 L8 16 L6.4 9.6 L0 8 L6.4 6.4Z" />
+                </svg>
+                <div className="flex-1 h-px bg-navy/10" />
+                <span className="text-[9px] tracking-[0.16em] uppercase">Coming next</span>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
@@ -728,6 +799,48 @@ export default function Home() {
             Ideas for building<br />
             <span className="text-oxblood italic">what comes next.</span>
           </h2>
+
+          {/* FEATURED INTERACTIVE ARTICLE */}
+          {(() => {
+            const featured = ARTICLES.find((a) => a.slug === "mastering-your-field-of-endeavor") ?? ARTICLES[0];
+            return (
+              <Link
+                href={`/insights/articles/${featured.slug}`}
+                className="group grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-[1px] bg-navy/10 mb-5 md:mb-[18px] border border-navy/10"
+                data-reveal
+              >
+                <div className="relative overflow-hidden aspect-[16/9] md:aspect-auto md:min-h-[300px] bg-navy">
+                  {featured.heroImage && (
+                    <img
+                      src={`${import.meta.env.BASE_URL}images/${featured.heroImage}`}
+                      alt={featured.heroAlt}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1200ms] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                      loading="lazy"
+                    />
+                  )}
+                </div>
+                <div className="bg-cream p-7 md:p-10 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-3 mb-5">
+                      <span className="text-[9px] tracking-[0.16em] uppercase text-cream bg-oxblood px-3 py-1">Interactive</span>
+                      <span className="text-[9px] tracking-[0.16em] uppercase text-navy-mid">
+                        Featured · {featured.readingTime} min read
+                      </span>
+                    </div>
+                    <h3 className="font-serif text-[22px] md:text-[28px] leading-[1.12] tracking-[-0.03em] mb-3 group-hover:text-oxblood transition-colors">
+                      {featured.title}
+                    </h3>
+                    <p className="text-[13px] text-navy-mid leading-[1.7] max-w-[420px]">
+                      {featured.excerpt}
+                    </p>
+                  </div>
+                  <span className="link-under text-oxblood inline-block w-max mt-6 text-[11px] tracking-[0.06em]">
+                    Read the Interactive Guide →
+                  </span>
+                </div>
+              </Link>
+            );
+          })()}
 
           <div className="flex flex-col md:flex-row gap-5 md:gap-[18px]">
             {/* THE STRATEGIST */}
