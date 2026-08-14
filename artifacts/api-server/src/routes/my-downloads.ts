@@ -1,26 +1,205 @@
 import { Router } from "express";
 import { eq, desc } from "drizzle-orm";
-import { randomUUID } from "crypto";
-import { db, pool, downloadTokensTable } from "@workspace/db";
+import { randomUUID, randomInt, createHash, timingSafeEqual } from "crypto";
+import { db, pool, downloadTokensTable, downloadAccessCodesTable } from "@workspace/db";
 import { logger } from "../lib/logger.js";
 import { GUIDE_NAMES } from "./order.js";
-import { sendDownloadEmail } from "../lib/email.js";
+import { sendDownloadEmail, sendAccessCodeEmail } from "../lib/email.js";
 
 const router = Router();
 
+const CODE_TTL_MS = 15 * 60 * 1000; // code valid 15 minutes
+const SESSION_TTL_MS = 30 * 60 * 1000; // verified session valid 30 minutes
+const MAX_CODES_PER_WINDOW = 3; // unexpired codes per email
+const CODE_ATTEMPTS = 5; // wrong guesses allowed per code
+
+function hashCode(email: string, code: string): string {
+  return createHash("sha256").update(`${email}:${code}`).digest("hex");
+}
+
+function safeEqualHex(a: string, b: string): boolean {
+  const ba = Buffer.from(a, "hex");
+  const bb = Buffer.from(b, "hex");
+  return ba.length === bb.length && timingSafeEqual(ba, bb);
+}
+
 /**
- * GET /api/my-downloads?email=buyer@example.com
- *
- * Returns all purchases associated with the given email, grouped by guide.
- * Each entry shows the most-useful token (valid > exhausted > expired).
+ * Validates the access session supplied via the X-Access-Token header.
+ * Returns the verified email, or null (response already sent) on failure.
  */
-router.get("/", async (req, res): Promise<void> => {
-  const email = (req.query.email as string | undefined)?.trim().toLowerCase();
+async function requireSession(req: { headers: Record<string, unknown> }, res: {
+  status: (n: number) => { json: (b: unknown) => void };
+}): Promise<string | null> {
+  const token = (req.headers["x-access-token"] as string | undefined)?.trim();
+  if (!token) {
+    res.status(401).json({ error: "Verification required.", code: "unverified" });
+    return null;
+  }
+
+  const now = new Date();
+  const [row] = await db
+    .select()
+    .from(downloadAccessCodesTable)
+    .where(eq(downloadAccessCodesTable.sessionToken, token))
+    .limit(1);
+
+  if (!row || !row.sessionExpiresAt || now > row.sessionExpiresAt) {
+    res.status(401).json({ error: "Your session has expired. Please verify your email again.", code: "session_expired" });
+    return null;
+  }
+
+  return row.email;
+}
+
+/**
+ * POST /api/my-downloads/request-code
+ * Body: { email }
+ *
+ * Emails a one-time 6-digit code. Always responds with the same generic
+ * message so the endpoint never reveals whether an email has purchases.
+ */
+router.post("/request-code", async (req, res): Promise<void> => {
+  const email = (req.body?.email as string | undefined)?.trim().toLowerCase();
 
   if (!email || !email.includes("@")) {
     res.status(400).json({ error: "A valid email address is required." });
     return;
   }
+
+  const code = String(randomInt(0, 1000000)).padStart(6, "0");
+  const expiresAt = new Date(Date.now() + CODE_TTL_MS);
+
+  // Rate-limit check and insert run inside one transaction guarded by a
+  // per-email advisory lock so concurrent requests cannot exceed the cap.
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    await client.query("SELECT pg_advisory_xact_lock(hashtext($1)::bigint)", [
+      `access-code:${email}`,
+    ]);
+
+    const { rows: active } = await client.query(
+      `SELECT id FROM download_access_codes
+        WHERE email = $1 AND expires_at > now() AND consumed_at IS NULL`,
+      [email],
+    );
+
+    if (active.length >= MAX_CODES_PER_WINDOW) {
+      await client.query("ROLLBACK");
+      res.status(429).json({
+        error: "Too many codes requested. Please wait a few minutes and use the most recent code from your inbox.",
+      });
+      return;
+    }
+
+    await client.query(
+      `INSERT INTO download_access_codes (id, email, code_hash, attempts_remaining, expires_at)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [randomUUID(), email, hashCode(email, code), CODE_ATTEMPTS, expiresAt],
+    );
+
+    await client.query("COMMIT");
+  } catch (err) {
+    await client.query("ROLLBACK").catch(() => {});
+    throw err;
+  } finally {
+    client.release();
+  }
+
+  try {
+    await sendAccessCodeEmail({ to: email, code });
+    logger.info({ email }, "Access code sent");
+  } catch (err) {
+    logger.error({ err, email }, "Failed to send access code email");
+    res.status(502).json({ error: "We couldn't send the email right now. Please try again in a moment." });
+    return;
+  }
+
+  res.json({ ok: true, message: "If this address has purchases, a code is on its way." });
+});
+
+/**
+ * POST /api/my-downloads/verify-code
+ * Body: { email, code }
+ *
+ * On success returns a short-lived access token used to gate lookups/refreshes.
+ */
+router.post("/verify-code", async (req, res): Promise<void> => {
+  const email = (req.body?.email as string | undefined)?.trim().toLowerCase();
+  const code = (req.body?.code as string | undefined)?.trim();
+
+  if (!email || !email.includes("@") || !code || !/^\d{6}$/.test(code)) {
+    res.status(400).json({ error: "Enter the 6-digit code from your email.", code: "bad_input" });
+    return;
+  }
+
+  // Atomically claim one attempt on the most recent live code. Only a
+  // request that wins a claim slot may compare against the hash — this
+  // bounds total guesses at CODE_ATTEMPTS even under concurrent requests.
+  const { rows: claimed } = await pool.query<{
+    id: string;
+    code_hash: string;
+    attempts_remaining: number;
+  }>(
+    `UPDATE download_access_codes
+        SET attempts_remaining = attempts_remaining - 1
+      WHERE attempts_remaining > 0
+        AND id = (
+          SELECT id FROM download_access_codes
+           WHERE email = $1 AND expires_at > now()
+             AND consumed_at IS NULL AND attempts_remaining > 0
+           ORDER BY created_at DESC
+           LIMIT 1
+        )
+      RETURNING id, code_hash, attempts_remaining`,
+    [email],
+  );
+
+  const row = claimed[0];
+  if (!row) {
+    res.status(410).json({ error: "This code has expired. Request a new one.", code: "expired" });
+    return;
+  }
+
+  if (!safeEqualHex(row.code_hash, hashCode(email, code))) {
+    const remaining = row.attempts_remaining;
+    res.status(401).json({
+      error: remaining > 0
+        ? "That code doesn't match. Check your email and try again."
+        : "Too many incorrect attempts. Request a new code.",
+      code: remaining > 0 ? "wrong_code" : "attempts_exhausted",
+    });
+    return;
+  }
+
+  const sessionToken = randomUUID();
+  const sessionExpiresAt = new Date(Date.now() + SESSION_TTL_MS);
+
+  // Conditional consume: only one matching request can mint a session.
+  const { rowCount: consumedCount } = await pool.query(
+    `UPDATE download_access_codes
+        SET consumed_at = now(), session_token = $2, session_expires_at = $3
+      WHERE id = $1 AND consumed_at IS NULL`,
+    [row.id, sessionToken, sessionExpiresAt],
+  );
+
+  if (!consumedCount) {
+    res.status(410).json({ error: "This code has already been used. Request a new one.", code: "expired" });
+    return;
+  }
+
+  logger.info({ email }, "Access code verified");
+  res.json({ accessToken: sessionToken, expiresAt: sessionExpiresAt.toISOString() });
+});
+
+/**
+ * GET /api/my-downloads
+ * Requires X-Access-Token from a verified email session.
+ * Returns all purchases for the verified email, grouped by guide.
+ */
+router.get("/", async (req, res): Promise<void> => {
+  const email = await requireSession(req, res);
+  if (!email) return;
 
   const now = new Date();
 
@@ -32,7 +211,7 @@ router.get("/", async (req, res): Promise<void> => {
     .orderBy(desc(downloadTokensTable.createdAt));
 
   if (rows.length === 0) {
-    res.json({ purchases: [] });
+    res.json({ email, purchases: [] });
     return;
   }
 
@@ -89,35 +268,25 @@ router.get("/", async (req, res): Promise<void> => {
     return a.guideName.localeCompare(b.guideName);
   });
 
-  logger.info({ email, count: purchases.length }, "my-downloads lookup");
-  res.json({ purchases });
+  logger.info({ email, count: purchases.length }, "my-downloads lookup (verified)");
+  res.json({ email, purchases });
 });
 
 /**
  * POST /api/my-downloads/refresh
+ * Requires X-Access-Token from a verified email session.
+ * Body: { guideSlug: string }
  *
- * Body: { email: string; guideSlug: string }
- *
- * Automatically issues a fresh 72-hour / 3-attempt token when the buyer's
- * existing token is expired or exhausted. The buyer must have previously
- * purchased that guide (verified by existing token in DB).
- *
- * All checks (active-token guard, lifetime cap) and the insert are performed
- * inside a single transaction that holds a PostgreSQL advisory lock keyed on
- * email+guideSlug, making the operation atomic even under concurrent requests.
- *
- * Lifetime cap: MAX_LIFETIME_TOKENS total rows per email+guideSlug, including
- * the original purchase token. A buyer therefore gets up to
- * (MAX_LIFETIME_TOKENS - 1) refreshes after their first token.
+ * Issues a fresh 72-hour / 3-attempt token when the buyer's existing token
+ * is expired or exhausted. The buyer must have previously purchased that
+ * guide (verified by existing token in DB) — and the email is taken from
+ * the verified session, never from the request body.
  */
 router.post("/refresh", async (req, res): Promise<void> => {
-  const email = (req.body?.email as string | undefined)?.trim().toLowerCase();
-  const guideSlug = (req.body?.guideSlug as string | undefined)?.trim();
+  const email = await requireSession(req, res);
+  if (!email) return;
 
-  if (!email || !email.includes("@")) {
-    res.status(400).json({ error: "A valid email address is required." });
-    return;
-  }
+  const guideSlug = (req.body?.guideSlug as string | undefined)?.trim();
 
   if (!guideSlug) {
     res.status(400).json({ error: "guideSlug is required." });

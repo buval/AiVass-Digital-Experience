@@ -7,7 +7,7 @@ import { logger } from "../lib/logger.js";
 
 const router = Router();
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2025-05-28.basil" });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-07-29.dahlia" });
 
 // Stripe product ID → guide slug (from live Stripe dashboard)
 const PRODUCT_ID_TO_SLUG: Record<string, string> = {

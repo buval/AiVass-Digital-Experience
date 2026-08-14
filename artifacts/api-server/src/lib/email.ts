@@ -12,6 +12,69 @@ function getResend(): Resend {
   return resend;
 }
 
+export async function sendAccessCodeEmail({
+  to,
+  code,
+}: {
+  to: string;
+  code: string;
+}): Promise<void> {
+  if (!resend) {
+    logger.warn("RESEND_API_KEY not set — skipping email delivery");
+    return;
+  }
+
+  const { error } = await resend.emails.send({
+    from: "AiVass Guides <guides@aivass.com>",
+    to,
+    subject: `Your AiVass access code: ${code}`,
+    html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body style="margin:0;padding:0;background:#FDFBF6;font-family:'DM Sans',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#FDFBF6;padding:48px 0;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+        <tr><td style="padding:0 0 32px 0;">
+          <p style="margin:0;font-family:Georgia,serif;font-size:22px;color:#12233F;letter-spacing:0.04em;">
+            AiVass<span style="color:#7E3033;">✦</span>
+          </p>
+        </td></tr>
+        <tr><td style="background:#12233F;padding:48px 40px;border-radius:2px;">
+          <p style="margin:0 0 8px 0;font-family:Georgia,serif;font-size:28px;color:#F7F3E9;line-height:1.3;">
+            Your access code.
+          </p>
+          <p style="margin:16px 0 0 0;font-size:15px;color:#D9A39B;line-height:1.7;">
+            Enter this code on the My Downloads page to access your guides:
+          </p>
+          <p style="margin:28px 0;font-family:Georgia,serif;font-size:40px;letter-spacing:0.35em;color:#F7F3E9;text-align:center;">
+            ${code}
+          </p>
+          <p style="margin:0;font-size:13px;color:rgba(247,243,233,0.6);line-height:1.7;">
+            This code expires in 15 minutes. If you didn't request it, you can safely ignore this email.
+          </p>
+        </td></tr>
+        <tr><td style="padding:28px 8px 0 8px;">
+          <p style="margin:0;font-size:12px;color:#8A8F98;line-height:1.7;">
+            AiVass · Building Extraordinary Futures · connect@aivass.com
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`,
+  });
+
+  if (error) {
+    throw new Error(`Resend error: ${error.message}`);
+  }
+}
+
 export async function sendDownloadEmail({
   to,
   guideName,

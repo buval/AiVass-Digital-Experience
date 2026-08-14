@@ -44,20 +44,8 @@ router.get("/:token", async (req, res): Promise<void> => {
     return;
   }
 
-  // 4. Decrement attempts atomically
-  await db
-    .update(downloadTokensTable)
-    .set({ attemptsRemaining: sql`${downloadTokensTable.attemptsRemaining} - 1` })
-    .where(
-      and(
-        eq(downloadTokensTable.token, token),
-        gt(downloadTokensTable.attemptsRemaining, 0),
-      ),
-    );
-
-  const remaining = record.attemptsRemaining - 1;
-
-  // 5. Fetch PDF from Object Storage
+  // 4. Verify storage BEFORE consuming an attempt, so a missing file or
+  //    misconfiguration never burns one of the buyer's downloads.
   const bucketId = process.env.DEFAULT_OBJECT_STORAGE_BUCKET_ID;
   if (!bucketId) {
     logger.error("DEFAULT_OBJECT_STORAGE_BUCKET_ID not set");
@@ -79,6 +67,25 @@ router.get("/:token", async (req, res): Promise<void> => {
   const fileSize = metadata.size?.toString();
   const filename = GUIDE_FILENAMES[record.guideSlug] ?? `${record.guideSlug}.pdf`;
 
+  // 5. Claim an attempt atomically — only proceed if this request won a slot.
+  const claimed = await db
+    .update(downloadTokensTable)
+    .set({ attemptsRemaining: sql`${downloadTokensTable.attemptsRemaining} - 1` })
+    .where(
+      and(
+        eq(downloadTokensTable.token, token),
+        gt(downloadTokensTable.attemptsRemaining, 0),
+      ),
+    )
+    .returning({ attemptsRemaining: downloadTokensTable.attemptsRemaining });
+
+  if (claimed.length === 0) {
+    res.status(410).json({ error: "Download limit reached", code: "exhausted", attemptsRemaining: 0 });
+    return;
+  }
+
+  const remaining = claimed[0].attemptsRemaining;
+
   logger.info({ token, guideSlug: record.guideSlug, remaining }, "Serving guide download");
 
   res.setHeader("Content-Type", "application/pdf");
@@ -88,7 +95,28 @@ router.get("/:token", async (req, res): Promise<void> => {
   res.setHeader("X-Filename", filename);
   if (fileSize) res.setHeader("Content-Length", fileSize);
 
-  file.createReadStream().pipe(res);
+  const stream = file.createReadStream();
+
+  // If the storage read fails server-side before delivery completes,
+  // refund the attempt — the buyer never received the file.
+  stream.on("error", async (err) => {
+    logger.error({ err, token }, "Storage stream error — refunding download attempt");
+    try {
+      await db
+        .update(downloadTokensTable)
+        .set({ attemptsRemaining: sql`${downloadTokensTable.attemptsRemaining} + 1` })
+        .where(eq(downloadTokensTable.token, token));
+    } catch (refundErr) {
+      logger.error({ refundErr, token }, "Failed to refund download attempt");
+    }
+    if (!res.headersSent) {
+      res.status(503).json({ error: "Download failed. Please try again." });
+    } else {
+      res.destroy();
+    }
+  });
+
+  stream.pipe(res);
 });
 
 export default router;

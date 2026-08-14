@@ -30,3 +30,6 @@ Guide PDFs stored at `guides/{slug}.pdf` in bucket `replit-objstore-46edb847-551
 
 ## DB schema
 Table: `download_tokens` — token (UUID PK), guide_slug, buyer_email, attempts_remaining (default 3), expires_at (72h), created_at, stripe_session_id
+
+## Verified access (Aug 2026)
+My Downloads recovery requires proof of mailbox ownership (one-time emailed code -> short-lived session) before any purchase data or tokens are returned. **Why:** email-only lookup let anyone with a buyer's address steal live download links. **How to apply:** any new endpoint returning purchase info or tokens must be gated behind the verified session; keep guess/rate limits atomic under concurrency. Webhook fulfillment only for Stripe payment_status=paid (async payments fulfill via async_payment_succeeded).

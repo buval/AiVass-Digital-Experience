@@ -20,7 +20,7 @@ import { sendDownloadEmail, sendAdminAlertEmail } from "../lib/email.js";
 
 const router = Router();
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2025-05-28.basil" });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-07-29.dahlia" });
 
 // Stripe product ID → guide slug (matches live Stripe dashboard)
 const PRODUCT_ID_TO_SLUG: Record<string, string> = {
@@ -68,12 +68,15 @@ router.post(
       return;
     }
 
-    if (event.type === "checkout.session.completed") {
+    if (
+      event.type === "checkout.session.completed" ||
+      event.type === "checkout.session.async_payment_succeeded"
+    ) {
       const session = event.data.object as Stripe.Checkout.Session;
       try {
         await handleCheckoutCompleted(session);
       } catch (err) {
-        logger.error({ err }, "Error processing checkout.session.completed");
+        logger.error({ err, eventType: event.type }, "Error processing checkout fulfillment event");
         const msg = err instanceof Error ? err.message : String(err);
         await sendAdminAlertEmail({
           subject: "Checkout fulfillment failed",
@@ -100,6 +103,17 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const full = await stripe.checkout.sessions.retrieve(session.id, {
     expand: ["line_items.data.price.product"],
   });
+
+  // Only fulfill verified-paid sessions. checkout.session.completed can fire
+  // while an asynchronous payment method is still pending or unpaid — those
+  // sessions are fulfilled later by checkout.session.async_payment_succeeded.
+  if (full.payment_status !== "paid") {
+    logger.info(
+      { sessionId: session.id, paymentStatus: full.payment_status },
+      "Webhook: session not paid yet — skipping fulfillment",
+    );
+    return;
+  }
 
   const buyerEmail = full.customer_details?.email ?? "unknown";
   const lineItems = full.line_items?.data ?? [];
