@@ -1,17 +1,14 @@
 import { Router } from "express";
 import Stripe from "stripe";
-import { randomUUID } from "crypto";
-import { eq } from "drizzle-orm";
-import { db, downloadTokensTable } from "@workspace/db";
 import { logger } from "../lib/logger.js";
 import {
-  getGuideSlugsForProduct,
+  getGuideSlugsForPurchase,
   GUIDE_NAMES,
 } from "../lib/guide-catalog.js";
+import { getUncachableStripeClient } from "../lib/stripe-client.js";
+import { getOrCreateCheckoutDownloadToken } from "../lib/download-token.js";
 
 const router = Router();
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-07-29.dahlia" });
 
 export interface DownloadReady {
   token: string;
@@ -37,6 +34,7 @@ router.get("/order-complete", async (req, res): Promise<void> => {
 
   let session: Stripe.Checkout.Session;
   try {
+    const stripe = await getUncachableStripeClient();
     session = await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ["line_items.data.price.product"],
     });
@@ -54,57 +52,47 @@ router.get("/order-complete", async (req, res): Promise<void> => {
   const lineItems = session.line_items?.data ?? [];
   const downloads: DownloadReady[] = [];
 
-  // Idempotent: load all existing tokens for this session once
-  const existing = await db
-    .select()
-    .from(downloadTokensTable)
-    .where(eq(downloadTokensTable.stripeSessionId, sessionId))
-    .limit(20);
-
   for (const item of lineItems) {
+    const price = item.price;
     const product = item.price?.product as Stripe.Product | null;
-    if (!product?.id) continue;
+    if (!price || !product?.id) continue;
 
-    // Resolve to a list of slugs — bundles expand to multiple individual guides
-    const slugs = getGuideSlugsForProduct(product.id);
+    // Fulfill only the exact server-owned product + price configuration.
+    const slugs = getGuideSlugsForPurchase({
+      productId: product.id,
+      priceId: price.id,
+      unitAmount: price.unit_amount,
+      currency: price.currency,
+    });
 
     if (slugs.length === 0) {
-      logger.warn({ productId: product.id }, "Unknown product — no guide slug mapped");
+      logger.warn(
+        { productId: product.id, priceId: price.id },
+        "Unknown or mismatched Stripe line item",
+      );
       continue;
     }
 
     for (const guideSlug of slugs) {
-      const match = existing.find((r) => r.guideSlug === guideSlug);
+      const { token, created } = await getOrCreateCheckoutDownloadToken({
+        sessionId,
+        guideSlug,
+        buyerEmail: session.customer_details?.email ?? "unknown",
+      });
 
-      if (match) {
-        downloads.push({
-          token: match.token,
-          guideSlug: match.guideSlug,
-          guideName: GUIDE_NAMES[match.guideSlug] ?? guideSlug,
-          attemptsRemaining: match.attemptsRemaining,
-        });
-      } else {
-        const token = randomUUID();
-        const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000); // 72 h
-
-        await db.insert(downloadTokensTable).values({
-          token,
-          guideSlug,
-          buyerEmail: session.customer_details?.email ?? "unknown",
-          attemptsRemaining: 3,
-          expiresAt,
-          stripeSessionId: sessionId,
-        });
-
-        logger.info({ token, guideSlug, sessionId }, "Download token created");
-
-        downloads.push({
-          token,
-          guideSlug,
-          guideName: GUIDE_NAMES[guideSlug] ?? guideSlug,
-          attemptsRemaining: 3,
-        });
+      if (created) {
+        logger.info(
+          { token: token.token, guideSlug, sessionId },
+          "Download token created",
+        );
       }
+
+      downloads.push({
+        token: token.token,
+        guideSlug: token.guideSlug,
+        guideName: GUIDE_NAMES[token.guideSlug] ?? guideSlug,
+        attemptsRemaining: token.attemptsRemaining,
+      });
     }
   }
 

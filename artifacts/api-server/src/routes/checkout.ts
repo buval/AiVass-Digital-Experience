@@ -5,11 +5,9 @@ import {
   CreateCheckoutSessionBody,
 } from "@workspace/api-zod";
 import { getGuideCatalogEntry } from "../lib/guide-catalog.js";
+import { getUncachableStripeClient } from "../lib/stripe-client.js";
 
 const router = Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-07-29.dahlia",
-});
 
 const APP_ORIGIN = "https://aivass.com";
 
@@ -34,50 +32,23 @@ function resolveAppOrigin(requestOrigin: string | undefined): string {
 }
 
 async function resolveCheckoutPrice(
+  stripe: Stripe,
+  priceId: string,
   productId: string,
   expectedAmount: number,
 ): Promise<Stripe.Price> {
-  const product = await stripe.products.retrieve(productId, {
-    expand: ["default_price"],
-  });
-
-  if (!product.active) {
-    throw new Error(`Stripe product ${productId} is inactive`);
-  }
-
-  let price: Stripe.Price | null = null;
-  if (typeof product.default_price === "string") {
-    price = await stripe.prices.retrieve(product.default_price);
-  } else if (product.default_price) {
-    price = product.default_price;
-  }
-
-  // Some legacy Stripe products do not have default_price set. Select only an
-  // active one-time USD price that exactly matches the server-owned catalog.
-  if (!price) {
-    const prices = await stripe.prices.list({
-      product: productId,
-      active: true,
-      type: "one_time",
-      limit: 100,
-    });
-    price = prices.data.find(
-      (candidate) =>
-        candidate.currency === "usd" &&
-        candidate.unit_amount === expectedAmount,
-    ) ?? null;
-  }
+  const price = await stripe.prices.retrieve(priceId);
+  const resolvedProductId =
+    typeof price.product === "string" ? price.product : price.product.id;
 
   if (
-    !price ||
     !price.active ||
     price.type !== "one_time" ||
     price.currency !== "usd" ||
-    price.unit_amount !== expectedAmount
+    price.unit_amount !== expectedAmount ||
+    resolvedProductId !== productId
   ) {
-    throw new Error(
-      `No active USD price matching ${expectedAmount} cents for ${productId}`,
-    );
+    throw new Error(`Stripe price configuration is invalid for ${productId}`);
   }
 
   return price;
@@ -99,7 +70,10 @@ router.post("/checkout-session", async (req, res): Promise<void> => {
   }
 
   try {
+    const stripe = await getUncachableStripeClient();
     const price = await resolveCheckoutPrice(
+      stripe,
+      guide.priceId,
       guide.productId,
       guide.expectedAmount,
     );

@@ -1,35 +1,16 @@
 ---
 name: Guide download fulfillment system
-description: How Stripe purchases map to guide PDFs via download tokens
+description: Concurrency and delivery guarantees for guide download tokens and email
 ---
 
 ## Rule
-No email. Instant download on `/order-success?session_id=...` page.
+Paid checkout supports both immediate download on the order-success page and emailed download links. Both paths must converge on one canonical token per Stripe session and guide.
 
-**Why:** User chose instant browser download over email delivery.
+**Why:** Stripe webhook delivery and the buyer's success-page request can arrive concurrently. Select-then-insert logic can mint duplicate valid tokens and duplicate webhook retries can resend email.
 
 **How to apply:**
-- Stripe payment links must have success URL: `https://aivass.com/order-success?session_id={CHECKOUT_SESSION_ID}`
-- Frontend calls `GET /api/order-complete?session_id=...`
-- API verifies payment via Stripe, maps product ID → slug, creates token in `download_tokens` table
-- Frontend then fetches `GET /api/download/:token` → streams PDF from Object Storage
-
-## Product ID → Slug mapping (live Stripe)
-```
-prod_UuuNVJM174nKvQ → eb1a-master
-prod_UuubGa79bq84fn → eb1a-business
-prod_UuucU0qjBiiFYp → eb1a-arts
-prod_UuudKN57E7YBxm → eb1a-athletics
-prod_Uuuecov9ZMnSbo → eb1a-education
-prod_Uuuf4bMQ91y7V0 → eb1a-science
-prod_UuufVso7YgP9cq → eb1a-complete (NO PDF yet — task #26)
-```
-
-## Object storage paths
-Guide PDFs stored at `guides/{slug}.pdf` in bucket `replit-objstore-46edb847-551b-4dde-91e9-145c1a7d338f`.
-
-## DB schema
-Table: `download_tokens` — token (UUID PK), guide_slug, buyer_email, attempts_remaining (default 3), expires_at (72h), created_at, stripe_session_id
-
-## Verified access (Aug 2026)
-My Downloads recovery requires proof of mailbox ownership (one-time emailed code -> short-lived session) before any purchase data or tokens are returned. **Why:** email-only lookup let anyone with a buyer's address steal live download links. **How to apply:** any new endpoint returning purchase info or tokens must be gated behind the verified session; keep guess/rate limits atomic under concurrency. Webhook fulfillment only for Stripe payment_status=paid (async payments fulfill via async_payment_succeeded).
+- Enforce database uniqueness for the canonical session-and-guide token and use conflict-safe insert/read behavior.
+- Recovery/refresh tokens are separate from the canonical checkout token and must not reuse its session identity.
+- Treat email sending as leased work: reclaim stale claims, mark success only after the provider accepts the message, and use a stable provider idempotency key so retries do not duplicate delivery.
+- Return a retryable webhook error while another delivery claim is active; do not acknowledge work that could otherwise become permanently stranded.
+- Verify exact catalog product, price, amount, currency, and paid status before issuing any token.

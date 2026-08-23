@@ -28,7 +28,7 @@ app.use(
 app.use(cors());
 // Webhook routes need raw body for Stripe signature verification — skip express.json() for them
 app.use((req, _res, next) => {
-  if (req.path.startsWith("/webhooks/")) return next();
+  if (req.path.startsWith("/api/webhooks/")) return next();
   express.json()(req, _res, next);
 });
 app.use(express.urlencoded({ extended: true }));

@@ -369,13 +369,13 @@ router.post("/refresh", async (req, res): Promise<void> => {
     // Issue a fresh token
     const token = randomUUID();
     const expiresAt = new Date(Date.now() + 72 * 60 * 60 * 1000);
-    const stripeSessionId = matching[0].stripe_session_id ?? null;
-
     await client.query(
       `INSERT INTO download_tokens
          (token, guide_slug, buyer_email, attempts_remaining, expires_at, stripe_session_id)
        VALUES ($1, $2, $3, $4, $5, $6)`,
-      [token, guideSlug, email, 3, expiresAt, stripeSessionId],
+      // Refreshed access tokens are not the canonical token created for a
+      // Stripe session, so they intentionally leave stripe_session_id null.
+      [token, guideSlug, email, 3, expiresAt, null],
     );
 
     await client.query("COMMIT");

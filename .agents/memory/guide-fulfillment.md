@@ -1,30 +1,20 @@
 ---
 name: Guide fulfillment system
-description: How the Stripe webhook → download token → email → PDF download pipeline works, and what the owner must do before it is live.
+description: Durable checkout and Stripe credential rules for paid guide fulfillment
 ---
 
-# Guide Fulfillment System
+## Rule
 
-## Architecture
-1. Stripe fires `checkout.session.completed` to `POST /api/webhooks/stripe`
-2. Webhook creates a `download_tokens` row (72h / 3 attempts) and emails the buyer via Resend
-3. Buyer clicks `https://aivass.com/download/{token}` → frontend at `/download/:token`
-4. Frontend calls `GET /api/download/{token}/info` (no attempt consumed) to show status
-5. On button click, frontend calls `GET /api/download/{token}` which decrements attempts and streams the PDF from Object Storage
+Create a new Stripe Checkout Session on the server for every Purchase click. The browser may submit only an allowlisted guide slug; product, price, amount, and currency selection stay server-owned and are revalidated before checkout and fulfillment.
 
-## Critical owner setup steps (not automated)
-- **Stripe Payment Links metadata**: Each static payment link (in `STRIPE_CHECKOUT_URLS`) must have `guide_slug` set in its metadata in the Stripe dashboard (Payment Links → Edit → Metadata). Without this, the webhook receives the event but cannot identify which guide was purchased.
-- **PDF uploads**: Full guide PDFs must be uploaded to Object Storage under the key `guides/{slug}.pdf` (e.g. `guides/eb1a-master.pdf`). Use the Replit Object Storage pane.
-- **Sample PDFs**: Free sample PDFs go in `artifacts/aivass-web/public/samples/{slug}-sample.pdf`.
-- **Resend domain**: The `aivass.com` domain must be verified in Resend, and emails sent from `guides@aivass.com`.
-- **Stripe webhook endpoint**: Registered in Stripe dashboard pointing to `https://aivass.com/api/webhooks/stripe`, listening for `checkout.session.completed`.
+**Why:** Copied Checkout Session URLs are single-use and eventually open Stripe's completed/expired page. Server-created sessions avoid stale links and prevent the browser from choosing arbitrary Stripe prices.
 
-## Key files
-- `artifacts/api-server/src/routes/webhook.ts` — Stripe webhook handler
-- `artifacts/api-server/src/routes/download.ts` — download + info endpoints
-- `artifacts/api-server/src/lib/guideStorage.ts` — streams PDF from GCS
-- `artifacts/api-server/src/lib/email.ts` — Resend email sender
-- `lib/db/src/schema/download-tokens.ts` — DB table
-- `artifacts/aivass-web/src/pages/download.tsx` — download page
+**How to apply:** Redirect to Stripe in the same tab. Keep the permanent guide page as the public/structured-data URL, not a Checkout Session URL. Preserve the success URL session placeholder so paid sessions can be verified before issuing downloads.
 
-**Why:** Static Stripe payment links don't pass dynamic metadata automatically — it must be configured per-link in the Stripe dashboard.
+## Managed Stripe credential
+
+The injected `mk_` Stripe environment value is not a Stripe SDK secret key. Resolve the authenticated production connection server-side through Replit's connection API and use its `settings.secret`; never expose or log it.
+
+**Why:** Passing the managed marker directly to Stripe fails authentication even though the Replit Stripe connection is valid.
+
+**How to apply:** Obtain a fresh server-side client for checkout, order verification, and authenticated webhook-event retrieval. Keep webhook signature verification primary; authenticated event retrieval is the fallback when the endpoint's current signing secret is not yet available to the runtime.

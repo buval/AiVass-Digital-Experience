@@ -79,21 +79,24 @@ export async function sendDownloadEmail({
   to,
   guideName,
   downloadUrl,
+  idempotencyKey,
 }: {
   to: string;
   guideName: string;
   downloadUrl: string;
+  idempotencyKey?: string;
 }): Promise<void> {
   if (!resend) {
     logger.warn("RESEND_API_KEY not set — skipping email delivery");
     return;
   }
 
-  const { error } = await resend.emails.send({
-    from: "AiVass Guides <guides@aivass.com>",
-    to,
-    subject: `Your guide is ready — ${guideName}`,
-    html: `
+  const { error } = await resend.emails.send(
+    {
+      from: "AiVass Guides <guides@aivass.com>",
+      to,
+      subject: `Your guide is ready — ${guideName}`,
+      html: `
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,7 +156,9 @@ export async function sendDownloadEmail({
 </body>
 </html>
     `.trim(),
-  });
+    },
+    idempotencyKey ? { idempotencyKey } : undefined,
+  );
 
   if (error) {
     logger.error({ error }, "Failed to send download email");
