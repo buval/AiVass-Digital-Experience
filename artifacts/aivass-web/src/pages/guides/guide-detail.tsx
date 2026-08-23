@@ -1,14 +1,16 @@
 import { Link, useParams } from "wouter";
-import { GUIDES, BUNDLE, guideCheckoutUrl, guideSampleUrl, formatPrice } from "@/data/guides";
+import { GUIDES, BUNDLE, guideSampleUrl, formatPrice } from "@/data/guides";
 import { useSeoMeta } from "@/lib/seo";
 import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics";
 import { usePressFeedback } from "@/lib/use-press-feedback";
+import { useGuideCheckout } from "@/lib/use-guide-checkout";
 import { useEffect } from "react";
 
 export default function GuideDetail() {
   const params = useParams();
   const slug = params.slug;
   const { isPressed, press } = usePressFeedback();
+  const checkout = useGuideCheckout();
 
   // Find the guide (including bundle)
   const guide = [...GUIDES, BUNDLE].find((g) => g.slug === slug);
@@ -45,7 +47,7 @@ export default function GuideDetail() {
         price: (guide.priceCents / 100).toFixed(2),
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: guideCheckoutUrl(guide.slug),
+        url: `https://aivass.com/guides/${guide.slug}`,
       },
       ...(guide.heroImage
         ? { image: `https://aivass.com/images/${guide.heroImage}` }
@@ -174,19 +176,23 @@ export default function GuideDetail() {
               <div className="text-[11px] tracking-[0.1em] text-ox-light uppercase mb-8">PDF download · Instant access</div>
 
               <div className="space-y-3">
-                <a
-                  href={guideCheckoutUrl(guide.slug)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`btn-fill !bg-cream !text-navy hover:!bg-paper w-full text-center block ${isPressed("buy") ? "opacity-70" : ""}`}
+                <button
+                  type="button"
+                  disabled={checkout.pendingSlug !== null}
+                  className={`btn-fill !bg-cream !text-navy hover:!bg-paper w-full text-center block disabled:cursor-wait ${checkout.pendingSlug === guide.slug ? "opacity-70" : ""}`}
                   aria-live="polite"
-                  onClick={(e) => {
-                    if (isPressed("buy")) { e.preventDefault(); return; }
-                    press("buy"); trackGuidePurchaseClick(guide.slug);
+                  onClick={() => {
+                    trackGuidePurchaseClick(guide.slug);
+                    void checkout.openCheckout(guide.slug);
                   }}
                 >
-                  {isPressed("buy") ? "Opening secure checkout…" : "Purchase →"}
-                </a>
+                  {checkout.pendingSlug === guide.slug ? "Opening secure checkout…" : "Purchase →"}
+                </button>
+                {checkout.errorSlug === guide.slug && checkout.error && (
+                  <p role="alert" className="text-[11px] leading-[1.5] text-ox-light">
+                    {checkout.error}
+                  </p>
+                )}
                 {guide.sampleSlug && (
                   <a
                     href={guideSampleUrl(guide.sampleSlug)}

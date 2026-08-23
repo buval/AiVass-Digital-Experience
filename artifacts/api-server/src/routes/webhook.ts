@@ -15,34 +15,15 @@ import { eq } from "drizzle-orm";
 import { db } from "@workspace/db";
 import { downloadTokensTable } from "@workspace/db/schema";
 import { logger } from "../lib/logger.js";
-import { GUIDE_NAMES } from "./order.js";
+import {
+  getGuideSlugsForProduct,
+  GUIDE_NAMES,
+} from "../lib/guide-catalog.js";
 import { sendDownloadEmail, sendAdminAlertEmail } from "../lib/email.js";
 
 const router = Router();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-07-29.dahlia" });
-
-// Stripe product ID → guide slug (matches live Stripe dashboard)
-const PRODUCT_ID_TO_SLUG: Record<string, string> = {
-  "prod_UuuNVJM174nKvQ": "eb1a-master",
-  "prod_UuubGa79bq84fn": "eb1a-business",
-  "prod_UuucU0qjBiiFYp": "eb1a-arts",
-  "prod_UuudKN57E7YBxm": "eb1a-athletics",
-  "prod_Uuuecov9ZMnSbo": "eb1a-education",
-  "prod_Uuuf4bMQ91y7V0": "eb1a-science",
-};
-
-// Bundle products expand to multiple individual guide slugs
-const BUNDLE_PRODUCT_SLUGS: Record<string, string[]> = {
-  "prod_UuufVso7YgP9cq": [
-    "eb1a-master",
-    "eb1a-business",
-    "eb1a-arts",
-    "eb1a-athletics",
-    "eb1a-education",
-    "eb1a-science",
-  ],
-};
 
 // Raw body parser — Stripe signature verification requires the raw buffer
 router.post(
@@ -130,9 +111,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     if (!product?.id) continue;
 
     // Resolve to a list of slugs — bundles expand to multiple individual guides
-    const bundleSlugs = BUNDLE_PRODUCT_SLUGS[product.id];
-    const singleSlug = PRODUCT_ID_TO_SLUG[product.id];
-    const slugs: string[] = bundleSlugs ?? (singleSlug ? [singleSlug] : []);
+    const slugs = getGuideSlugsForProduct(product.id);
 
     if (slugs.length === 0) {
       logger.warn({ productId: product.id }, "Unknown product ID in webhook");

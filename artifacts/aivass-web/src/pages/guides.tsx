@@ -1,12 +1,14 @@
 import { Link } from "wouter";
 import { CriteriaConstellation } from "@/components/CriteriaConstellation";
-import { GUIDES, guideCheckoutUrl, guideSampleUrl, BUNDLE, formatPrice } from "@/data/guides";
+import { GUIDES, guideSampleUrl, BUNDLE, formatPrice } from "@/data/guides";
 import { useSeoMeta } from "@/lib/seo";
 import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics";
 import { usePressFeedback } from "@/lib/use-press-feedback";
+import { useGuideCheckout } from "@/lib/use-guide-checkout";
 
 export default function Guides() {
   const { isPressed, press } = usePressFeedback();
+  const checkout = useGuideCheckout();
   useSeoMeta({
     title: "EB-1A Guides for Extraordinary Ability",
     description:
@@ -108,20 +110,24 @@ export default function Guides() {
                       {isPressed(`sample-${guide.slug}`) ? "Opening…" : "Free Sample"}
                     </a>
                   )}
-                  <a
-                    href={guideCheckoutUrl(guide.slug)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`btn-fill flex-1 !px-2 text-center ${isPressed(`buy-${guide.slug}`) ? "opacity-70" : ""}`}
+                  <button
+                    type="button"
+                    disabled={checkout.pendingSlug !== null}
+                    className={`btn-fill flex-1 !px-2 text-center disabled:cursor-wait ${checkout.pendingSlug === guide.slug ? "opacity-70" : ""}`}
                     aria-live="polite"
-                    onClick={(e) => {
-                      if (isPressed(`buy-${guide.slug}`)) { e.preventDefault(); return; }
-                      press(`buy-${guide.slug}`); trackGuidePurchaseClick(guide.slug);
+                    onClick={() => {
+                      trackGuidePurchaseClick(guide.slug);
+                      void checkout.openCheckout(guide.slug);
                     }}
                   >
-                    {isPressed(`buy-${guide.slug}`) ? "Opening checkout…" : "Purchase →"}
-                  </a>
+                    {checkout.pendingSlug === guide.slug ? "Opening checkout…" : "Purchase →"}
+                  </button>
                 </div>
+                {checkout.errorSlug === guide.slug && checkout.error && (
+                  <p role="alert" className="mt-3 text-[11px] leading-[1.5] text-oxblood">
+                    {checkout.error}
+                  </p>
+                )}
 
                 <div className="mt-3 text-center">
                   <Link href={`/guides/${guide.slug}`} className="text-[10px] tracking-[0.12em] uppercase text-grey hover:text-oxblood transition-colors">
@@ -146,19 +152,23 @@ export default function Guides() {
             <span className="text-[11px] tracking-[0.1em] text-ox-light uppercase mb-8">
               Save vs. buying individually
             </span>
-            <a
-              href={guideCheckoutUrl(BUNDLE.slug)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`btn-fill !bg-cream !text-navy hover:!bg-paper w-full ${isPressed("buy-bundle") ? "opacity-70" : ""}`}
+            <button
+              type="button"
+              disabled={checkout.pendingSlug !== null}
+              className={`btn-fill !bg-cream !text-navy hover:!bg-paper w-full disabled:cursor-wait ${checkout.pendingSlug === BUNDLE.slug ? "opacity-70" : ""}`}
               aria-live="polite"
-              onClick={(e) => {
-                if (isPressed("buy-bundle")) { e.preventDefault(); return; }
-                press("buy-bundle"); trackGuidePurchaseClick(BUNDLE.slug);
+              onClick={() => {
+                trackGuidePurchaseClick(BUNDLE.slug);
+                void checkout.openCheckout(BUNDLE.slug);
               }}
             >
-              {isPressed("buy-bundle") ? "Opening secure checkout…" : "Get the Complete Collection →"}
-            </a>
+              {checkout.pendingSlug === BUNDLE.slug ? "Opening secure checkout…" : "Get the Complete Collection →"}
+            </button>
+            {checkout.errorSlug === BUNDLE.slug && checkout.error && (
+              <p role="alert" className="mt-4 max-w-[260px] text-[11px] leading-[1.5] text-ox-light">
+                {checkout.error}
+              </p>
+            )}
           </div>
         </div>
 

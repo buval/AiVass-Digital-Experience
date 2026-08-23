@@ -3,7 +3,7 @@ import { eq, desc } from "drizzle-orm";
 import { randomUUID, randomInt, createHash, timingSafeEqual } from "crypto";
 import { db, pool, downloadTokensTable, downloadAccessCodesTable } from "@workspace/db";
 import { logger } from "../lib/logger.js";
-import { GUIDE_NAMES } from "./order.js";
+import { GUIDE_NAMES } from "../lib/guide-catalog.js";
 import { sendDownloadEmail, sendAccessCodeEmail } from "../lib/email.js";
 
 const router = Router();

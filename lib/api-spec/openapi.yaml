@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: checkout
+    description: Guide checkout operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /checkout-session:
+    post:
+      operationId: createCheckoutSession
+      tags: [checkout]
+      summary: Create a fresh guide checkout
+      description: Creates a new Stripe Checkout Session for one known guide or collection.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CheckoutSelection"
+      responses:
+        "201":
+          description: Checkout created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckoutSession"
+        "400":
+          description: Invalid guide selection
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "502":
+          description: Stripe checkout could not be created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +66,37 @@ components:
           type: string
       required:
         - status
+    CheckoutSelection:
+      type: object
+      additionalProperties: false
+      properties:
+        guideSlug:
+          type: string
+          enum:
+            - eb1a-master
+            - eb1a-business
+            - eb1a-arts
+            - eb1a-athletics
+            - eb1a-education
+            - eb1a-science
+            - eb1a-complete
+      required:
+        - guideSlug
+    CheckoutSession:
+      type: object
+      additionalProperties: false
+      properties:
+        url:
+          type: string
+          minLength: 1
+      required:
+        - url
+    ApiError:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: string
+      required:
+        - error
 

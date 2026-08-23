@@ -1,7 +1,7 @@
 // Real AiVass guide products — sourced from /api/guides on the live site (2026-08-10)
 // DO NOT edit names, slugs, descriptions or prices without confirming against live Stripe products.
-// Purchase CTAs currently link to https://aivass.com/guides/${slug} until checkout is migrated to this build.
-// TODO: When checkout is migrated, replace purchaseUrl with internal Stripe payment link.
+// Purchase CTAs request a fresh Stripe Checkout Session from /api/checkout-session.
+// Product and price IDs stay server-side; this file is display content only.
 // Hero images generated 2026-08-10 — stored in public/images/
 
 export interface Guide {
@@ -196,30 +196,6 @@ export const BUNDLE: Guide = {
   ],
   relatedGuides: [],
 };
-
-// Checkout: direct Stripe payment links — all 7 guides wired.
-// Sourced from live aivass.com checkout sessions (2026-08-10).
-// eb1a-arts verified 2026-08-10: checkout page loads with correct product name, price ($79), and merchant.
-const STRIPE_CHECKOUT_URLS: Record<string, string> = {
-  "eb1a-master":
-    "https://checkout.stripe.com/c/pay/cs_live_a1J6igGyP4dI2oWFB2TmI3TAnjExUVDXZj2BTWvWyjjNX4dVjhLTumnDEz#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRXPWlfazUydG1gcUtTZ39BTV88VHddX0A2XFRmRnYwV09gfF9RU2dxdHxuUVBWUVM9aT1McU1Bc0tzTEc1aWxcR3B1M2tiXzRhdDBGNnBpPW02Zm5cVnY1NXFDb2F%2FNW9UJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJjQ3NzY2YycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-  "eb1a-business":
-    "https://checkout.stripe.com/c/pay/cs_live_a1tIkxe4xv8LtuOqq7g1kkg2GJbRiytRoYlqNkQ3wu5MnYKNcKmJopigUg#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRXPWlfazUydG1gcUtTZ39BTV88VHddX0A2XFRmRnYwV09gfF9RU2dxdHxuUVBWUVM9aT1McU1Bc0tzTEc1aWxcR3B1M2tiXzRhdDBGNnBpPW02Zm5cVnY1NXFDb2F%2FNW9UJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJjQ3NzY2YycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-  "eb1a-arts":
-    "https://checkout.stripe.com/g/pay/cs_live_a15wx9u5OVR4ufYtKnNzMHFJVLOe3lzHMVmtIwaKAy1ZpyBw4jHgVkbPEf#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8ncXdgZHFoYGtxWjcnKSdicGRmZGhqaWBMa2xxVXdgY2BxZm1TZHdsZGtxJz8nZmprcXdqaScpJ2JwZGZkaGppYElqZGFsa2JWZndgYGtTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRXPWlfazUydG1gcUtTZ39BTV88VHddX0A2XFRmRnYwV09gfF9RU2dxdHxuUVBWUVM9aT1McU1Bc0tzTEc1aWxcR3B1M2tiXzRhdDBGNnBpPW02Zm5cVnY1NXFDb2F%2FNW9UJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJjQ3NzY2YycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-  "eb1a-athletics":
-    "https://checkout.stripe.com/c/pay/cs_live_a1aP4iZSr7AGwNTwGeyVY8b29UHzyjs4SrIEvxKNQFUYm77f3ltiDGcCWV#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRXPWlfazUydG1gcUtTZ39BTV88VHddX0A2XFRmRnYwV09gfF9RU2dxdHxuUVBWUVM9aT1McU1Bc0tzTEc1aWxcR3B1M2tiXzRhdDBGNnBpPW02Zm5cVnY1NXFDb2F%2FNW9UJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJjQ3NzY2YycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-  "eb1a-education":
-    "https://checkout.stripe.com/c/pay/cs_live_a1dkma52P3IbDzEJcpWwnQTy2PuOAqBz8bsdCB79i7bb0e0AVniaVh7riU#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRXPWlfazUydG1gcUtTZ39BTV88VHddX0A2XFRmRnYwV09gfF9RU2dxdHxuUVBWUVM9aT1McU1Bc0tzTEc1aWxcR3B1M2tiXzRhdDBGNnBpPW02Zm5cVnY1NXFDb2F%2FNW9UJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJjQ3NzY2YycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-  "eb1a-science":
-    "https://checkout.stripe.com/c/pay/cs_live_a1SskRkmUULEBP2pRoMhu3w0djmHZEj6e2xyna9FiQ3CdkOO4ZaZof4eZU#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRXPWlfazUydG1gcUtTZ39BTV88VHddX0A2XFRmRnYwV09gfF9RU2dxdHxuUVBWUVM9aT1McU1Bc0tzTEc1aWxcR3B1M2tiXzRhdDBGNnBpPW02Zm5cVnY1NXFDb2F%2FNW9UJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJjQ3NzY2YycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-  "eb1a-complete":
-    "https://checkout.stripe.com/c/pay/cs_live_a1fwMLKlihsOJr79mhmwgznVKV4nvu0UHGmdYIVK3XU05sIpcKUxNqcHSg#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWmlsc2BaMDRXPWlfazUydG1gcUtTZ39BTV88VHddX0A2XFRmRnYwV09gfF9RU2dxdHxuUVBWUVM9aT1McU1Bc0tzTEc1aWxcR3B1M2tiXzRhdDBGNnBpPW02Zm5cVnY1NXFDb2F%2FNW9UJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJjQ3NzY2YycpJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-};
-
-export function guideCheckoutUrl(slug: string): string {
-  return STRIPE_CHECKOUT_URLS[slug] ?? `https://aivass.com/guides/${slug}`;
-}
 
 export function guideSampleUrl(slug: string): string {
   return `/samples/${slug}-sample.pdf`;

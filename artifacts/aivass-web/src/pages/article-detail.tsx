@@ -1,9 +1,10 @@
 import { Link, useParams } from "wouter";
 import { useEffect } from "react";
 import { ARTICLES } from "@/data/articles";
-import { GUIDES, guideCheckoutUrl, guideSampleUrl } from "@/data/guides";
+import { GUIDES, guideSampleUrl } from "@/data/guides";
 import { ARTICLE_BODIES } from "@/data/article-bodies/index";
 import { useSeoMeta } from "@/lib/seo";
+import { useGuideCheckout } from "@/lib/use-guide-checkout";
 
 /** Table of contents sections for long articles — keyed by article slug. */
 const TOC_SECTIONS: Record<string, { id: string; label: string }[]> = {
@@ -43,6 +44,7 @@ export default function ArticleDetail() {
   const slug = params.slug;
   const article = ARTICLES.find((a) => a.slug === slug);
   const ArticleBody = article ? ARTICLE_BODIES[article.slug] : null;
+  const checkout = useGuideCheckout();
 
   // Per-article SEO meta — canonical at /insights/articles/{slug}
   useSeoMeta(
@@ -255,15 +257,20 @@ export default function ArticleDetail() {
                       <Link href={`/guides/${guide.slug}`} className="btn-outline text-[10px]">
                         View Guide
                       </Link>
-                      <a
-                        href={guideCheckoutUrl(guide.slug)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn text-[10px]"
+                      <button
+                        type="button"
+                        disabled={checkout.pendingSlug !== null}
+                        className="btn text-[10px] disabled:cursor-wait disabled:opacity-70"
+                        onClick={() => void checkout.openCheckout(guide.slug)}
                       >
-                        Purchase →
-                      </a>
+                        {checkout.pendingSlug === guide.slug ? "Opening checkout…" : "Purchase →"}
+                      </button>
                     </div>
+                    {checkout.errorSlug === guide.slug && checkout.error && (
+                      <p role="alert" className="mt-3 text-[11px] leading-[1.5] text-oxblood">
+                        {checkout.error}
+                      </p>
+                    )}
                   </div>
                 ))}
 
