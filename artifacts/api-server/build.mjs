@@ -13,12 +13,16 @@ const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 async function buildAll() {
   const distDir = path.resolve(artifactDir, "dist");
   await rm(distDir, { recursive: true, force: true });
+  const entryPoints = {
+    index: path.resolve(artifactDir, "src/index.ts"),
+    app: path.resolve(artifactDir, "src/app.ts"),
+  };
+  if (process.env.BUILD_TESTING === "1") {
+    entryPoints.testing = path.resolve(artifactDir, "src/testing.ts");
+  }
 
   await esbuild({
-    entryPoints: {
-      index: path.resolve(artifactDir, "src/index.ts"),
-      app: path.resolve(artifactDir, "src/app.ts"),
-    },
+    entryPoints,
     platform: "node",
     bundle: true,
     format: "esm",

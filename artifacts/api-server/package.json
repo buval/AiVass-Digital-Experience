@@ -8,6 +8,7 @@
     "build": "node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "BUILD_TESTING=1 pnpm run build && node --test tests/*.test.mjs",
     "test:webhook": "pnpm run build && node --test tests/webhook-signature.test.mjs"
   },
   "dependencies": {
