@@ -206,8 +206,8 @@ for (const article of ARTICLES) {
     article.slug,
   );
 
-  // Write both forms so the static server matches the URL with or without a
-  // trailing slash: /articles/<slug> → <slug>.html, /articles/<slug>/ → <slug>/index.html
+  // Write a flat .html target for the production clean-path rewrite and a
+  // nested index.html fallback for direct static access.
   const outDir = join(distDir, "insights/articles", article.slug);
   mkdirSync(outDir, { recursive: true });
   writeFileSync(join(outDir, "index.html"), html);

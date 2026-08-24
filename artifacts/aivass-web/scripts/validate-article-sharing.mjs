@@ -58,19 +58,36 @@ for (const filename of articleFiles) {
 }
 
 const artifactConfig = readFileSync(artifactConfigPath, "utf8");
-const trailingRewrite =
-  'from = "/insights/articles/*/"\nto = "/insights/articles/*.html"';
-const cleanRewrite =
-  'from = "/insights/articles/*"\nto = "/insights/articles/*.html"';
 const catchAllRewrite = 'from = "/*"\nto = "/index.html"';
+const catchAllIndex = artifactConfig.indexOf(catchAllRewrite);
 
-check(artifactConfig.includes(trailingRewrite), "trailing-slash article rewrite uses wildcard substitution");
-check(artifactConfig.includes(cleanRewrite), "clean article rewrite uses wildcard substitution");
 check(
-  artifactConfig.indexOf(trailingRewrite) < artifactConfig.indexOf(catchAllRewrite) &&
-    artifactConfig.indexOf(cleanRewrite) < artifactConfig.indexOf(catchAllRewrite),
-  "article rewrites run before the SPA fallback",
+  !artifactConfig.includes('from = "/insights/articles/*'),
+  "article routing does not use unsupported wildcard substitution",
 );
+
+for (const filename of articleFiles) {
+  const slug = basename(filename, ".html");
+  const target = `/insights/articles/${slug}.html`;
+  const cleanRewrite = `from = "/insights/articles/${slug}"\nto = "${target}"`;
+  const trailingRewrite = `from = "/insights/articles/${slug}/"\nto = "${target}"`;
+  const cleanIndex = artifactConfig.indexOf(cleanRewrite);
+  const trailingIndex = artifactConfig.indexOf(trailingRewrite);
+
+  check(cleanIndex >= 0, `${slug} clean path has an exact production rewrite`);
+  check(trailingIndex >= 0, `${slug} trailing-slash path has an exact production rewrite`);
+  check(
+    cleanIndex >= 0 &&
+      trailingIndex >= 0 &&
+      cleanIndex < catchAllIndex &&
+      trailingIndex < catchAllIndex,
+    `${slug} article rewrites run before the SPA fallback`,
+  );
+  check(
+    existsSync(join(appDir, "dist/public", target.slice(1))),
+    `${slug} production rewrite target exists`,
+  );
+}
 
 const insightsSource = readFileSync(insightsSourcePath, "utf8");
 check(

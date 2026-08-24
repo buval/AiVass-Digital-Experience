@@ -19,15 +19,40 @@ build = [ "pnpm", "--filter", "@workspace/aivass-web", "run", "build" ]
 serve = "static"
 publicDir = "artifacts/aivass-web/dist/public"
 
-# Route clean article paths to their prerendered .html files before the SPA
-# catch-all. Replit static rewrites use * wildcard substitution in both fields.
+# Replit artifact static rewrites do not interpolate wildcard captures. Keep an
+# exact clean-path mapping for every generated article; validation fails if a
+# future article is added without both forms.
 [[services.production.rewrites]]
-from = "/insights/articles/*/"
-to = "/insights/articles/*.html"
+from = "/insights/articles/support-system-every-immigrant-needs/"
+to = "/insights/articles/support-system-every-immigrant-needs.html"
 
 [[services.production.rewrites]]
-from = "/insights/articles/*"
-to = "/insights/articles/*.html"
+from = "/insights/articles/support-system-every-immigrant-needs"
+to = "/insights/articles/support-system-every-immigrant-needs.html"
+
+[[services.production.rewrites]]
+from = "/insights/articles/from-surviving-to-thriving/"
+to = "/insights/articles/from-surviving-to-thriving.html"
+
+[[services.production.rewrites]]
+from = "/insights/articles/from-surviving-to-thriving"
+to = "/insights/articles/from-surviving-to-thriving.html"
+
+[[services.production.rewrites]]
+from = "/insights/articles/mastering-your-field-of-endeavor/"
+to = "/insights/articles/mastering-your-field-of-endeavor.html"
+
+[[services.production.rewrites]]
+from = "/insights/articles/mastering-your-field-of-endeavor"
+to = "/insights/articles/mastering-your-field-of-endeavor.html"
+
+[[services.production.rewrites]]
+from = "/insights/articles/eb1a-critical-role-criterion/"
+to = "/insights/articles/eb1a-critical-role-criterion.html"
+
+[[services.production.rewrites]]
+from = "/insights/articles/eb1a-critical-role-criterion"
+to = "/insights/articles/eb1a-critical-role-criterion.html"
 
 # SPA catch-all: all other client-side routes fall back to the app shell.
 [[services.production.rewrites]]
