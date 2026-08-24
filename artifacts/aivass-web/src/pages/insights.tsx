@@ -155,47 +155,52 @@ export default function Insights() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-navy/10">
-            {ARTICLES.slice(0, 2).map((article) => (
-              <div
-                key={article.slug}
-                className="bg-paper hover:bg-cream/50 transition-colors group"
-              >
-                {/* Article hero thumbnail */}
-                {article.heroImage && (
+            {ARTICLES.slice(0, 2).map((article) => {
+              const cardImage = article.pageHeroImage ?? article.heroImage;
+              const cardImageAlt = article.pageHeroAlt ?? article.heroAlt;
+
+              return (
+                <div
+                  key={article.slug}
+                  className="bg-paper hover:bg-cream/50 transition-colors group"
+                >
+                  {/* Article hero thumbnail */}
+                  {cardImage && (
                   <div className="aspect-[16/9] overflow-hidden">
                     <img
-                      src={`${import.meta.env.BASE_URL}images/${article.heroImage}`}
-                      alt={article.heroAlt}
+                      src={`${import.meta.env.BASE_URL}images/${cardImage}`}
+                      alt={cardImageAlt}
                       className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                     />
                   </div>
-                )}
-                <div className="p-8 md:p-10">
-                  <div className="eyebrow mb-4">{article.categoryLabel}</div>
-                  <Link href={`/insights/articles/${article.slug}`}>
-                    <h3 className="font-serif text-[22px] md:text-[26px] leading-[1.2] tracking-[-0.03em] mb-3 hover:text-oxblood transition-colors cursor-pointer">
-                      {article.title}
-                    </h3>
-                  </Link>
-                  <p className="text-[13px] text-grey leading-[1.6] mb-6">{article.excerpt}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] tracking-[0.12em] uppercase text-oxblood">
-                      {new Date(article.publishedAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </span>
-                    <Link
-                      href={`/insights/articles/${article.slug}`}
-                      className="text-[10px] tracking-[0.12em] uppercase text-navy hover:text-oxblood transition-colors"
-                    >
-                      Read →
+                  )}
+                  <div className="p-8 md:p-10">
+                    <div className="eyebrow mb-4">{article.categoryLabel}</div>
+                    <Link href={`/insights/articles/${article.slug}`}>
+                      <h3 className="font-serif text-[22px] md:text-[26px] leading-[1.2] tracking-[-0.03em] mb-3 hover:text-oxblood transition-colors cursor-pointer">
+                        {article.title}
+                      </h3>
                     </Link>
+                    <p className="text-[13px] text-grey leading-[1.6] mb-6">{article.excerpt}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] tracking-[0.12em] uppercase text-oxblood">
+                        {new Date(article.publishedAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                      <Link
+                        href={`/insights/articles/${article.slug}`}
+                        className="text-[10px] tracking-[0.12em] uppercase text-navy hover:text-oxblood transition-colors"
+                      >
+                        Read →
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

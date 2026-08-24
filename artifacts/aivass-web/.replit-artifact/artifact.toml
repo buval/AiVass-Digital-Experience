@@ -19,17 +19,15 @@ build = [ "pnpm", "--filter", "@workspace/aivass-web", "run", "build" ]
 serve = "static"
 publicDir = "artifacts/aivass-web/dist/public"
 
-# Route article paths to their prerendered .html files (with per-article
-# JSON-LD) BEFORE the SPA catch-all. Both slug/ and slug match rules are
-# needed: Google's CDN issues a 301 no-slash→slash, so the slash form must
-# also be handled. The .html files are written by postbuild prerender-articles.mjs.
+# Route clean article paths to their prerendered .html files before the SPA
+# catch-all. Replit static rewrites use * wildcard substitution in both fields.
 [[services.production.rewrites]]
-from = "/insights/articles/:slug/"
-to = "/insights/articles/:slug.html"
+from = "/insights/articles/*/"
+to = "/insights/articles/*.html"
 
 [[services.production.rewrites]]
-from = "/insights/articles/:slug"
-to = "/insights/articles/:slug.html"
+from = "/insights/articles/*"
+to = "/insights/articles/*.html"
 
 # SPA catch-all: all other client-side routes fall back to the app shell.
 [[services.production.rewrites]]
