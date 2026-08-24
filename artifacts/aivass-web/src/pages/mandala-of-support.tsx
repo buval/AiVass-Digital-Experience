@@ -289,41 +289,10 @@ export default function MandalaOfSupport() {
         <hr className="border-0 border-t border-oxblood/30 m-0" />
       </div>
       
-      {/* ── SECTION 01: THE MODEL ──────────────────────────────────────────── */}
+      {/* ── SECTION 01: THE INSTRUMENT ─────────────────────────────────────── */}
       <section className="py-[60px] max-md:py-[40px]">
         <div className="max-w-[1160px] mx-auto px-6">
-          <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-[56px] items-start max-md:grid-cols-1 max-md:gap-[36px]">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.16em] uppercase text-oxblood mb-5">01 / The model</p>
-              <h2 className="font-serif text-[clamp(28px,3.6vw,44px)] leading-[1.1] mb-4">Five rings.</h2>
-              <p className="text-[14px] text-grey leading-[1.55] mb-4">
-                Support is not one thing you either have or don't. It is five layers,
-                each carrying a weight the others cannot. When one goes thin, another compensates —
-                quietly, and for longer than it should.
-              </p>
-              <div className="border-l-2 border-oxblood pl-[22px] py-[2px] mt-[30px] font-serif text-[21px] leading-[1.35] text-navy">
-                Most people abroad do not lack support. They have four rings doing the work of five.
-              </div>
-            </div>
-            <div>
-              {LAYERS.map((l, i) => (
-                <div key={i} className="grid grid-cols-[76px_1fr] gap-5 py-[18px] border-t border-navy/15 last:border-b last:border-b-navy/15">
-                  <div className="text-[10.5px] font-semibold tracking-[0.15em] uppercase text-oxblood pt-1">{l.tag}</div>
-                  <div>
-                    <h3 className="font-sans text-[15px] font-semibold mb-1 leading-snug">{l.title}</h3>
-                    <p className="m-0 text-[14.5px] text-grey leading-[1.55]">{l.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 02: THE INSTRUMENT ─────────────────────────────────────── */}
-      <section className="py-[60px] max-md:py-[40px]">
-        <div className="max-w-[1160px] mx-auto px-6">
-          <p className="text-[11px] font-semibold tracking-[0.16em] uppercase text-oxblood mb-5">02 / The instrument</p>
+          <p className="text-[11px] font-semibold tracking-[0.16em] uppercase text-oxblood mb-5">01 / The instrument</p>
           <h2 className="font-serif text-[clamp(28px,3.6vw,44px)] leading-[1.1] mb-4">Draw your wheel.</h2>
           <p className="text-[14px] text-grey leading-[1.55] mb-10 max-w-[60ch]">
             Score each one as it is today — not as you intend it to be by December. 
@@ -497,13 +466,13 @@ export default function MandalaOfSupport() {
         </div>
       </section>
 
-      {/* ── SECTION 03: YOUR READING ───────────────────────────────────────── */}
+      {/* ── SECTION 02: YOUR READING ───────────────────────────────────────── */}
       <section className="py-[60px] max-md:py-[40px]">
         <div className="max-w-[1160px] mx-auto px-6">
           <div className="border-t border-oxblood/30 pt-[36px]">
             <div className="grid grid-cols-[1.1fr_1fr] gap-[52px] max-md:grid-cols-1 max-md:gap-[36px]">
               <div>
-                <p className="text-[11px] font-semibold tracking-[0.16em] uppercase text-oxblood mb-5">03 / Your reading</p>
+                <p className="text-[11px] font-semibold tracking-[0.16em] uppercase text-oxblood mb-5">02 / Your reading</p>
                 <p id="verdict-text" className="font-serif text-[clamp(23px,2.8vw,32px)] leading-[1.28] mb-[18px]">
                   {verdict}
                 </p>
@@ -538,6 +507,37 @@ export default function MandalaOfSupport() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 03: THE MODEL ──────────────────────────────────────────── */}
+      <section className="py-[60px] max-md:py-[40px]">
+        <div className="max-w-[1160px] mx-auto px-6">
+          <div className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-[56px] items-start max-md:grid-cols-1 max-md:gap-[36px]">
+            <div>
+              <p className="text-[11px] font-semibold tracking-[0.16em] uppercase text-oxblood mb-5">03 / The model</p>
+              <h2 className="font-serif text-[clamp(28px,3.6vw,44px)] leading-[1.1] mb-4">Five rings.</h2>
+              <p className="text-[14px] text-grey leading-[1.55] mb-4">
+                Support is not one thing you either have or don't. It is five layers,
+                each carrying a weight the others cannot. When one goes thin, another compensates —
+                quietly, and for longer than it should.
+              </p>
+              <div className="border-l-2 border-oxblood pl-[22px] py-[2px] mt-[30px] font-serif text-[21px] leading-[1.35] text-navy">
+                Most people abroad do not lack support. They have four rings doing the work of five.
+              </div>
+            </div>
+            <div>
+              {LAYERS.map((layer) => (
+                <div key={layer.tag} className="grid grid-cols-[76px_1fr] gap-5 py-[18px] border-t border-navy/15 last:border-b last:border-b-navy/15">
+                  <div className="text-[10.5px] font-semibold tracking-[0.15em] uppercase text-oxblood pt-1">{layer.tag}</div>
+                  <div>
+                    <h3 className="font-sans text-[15px] font-semibold mb-1 leading-snug">{layer.title}</h3>
+                    <p className="m-0 text-[14.5px] text-grey leading-[1.55]">{layer.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
