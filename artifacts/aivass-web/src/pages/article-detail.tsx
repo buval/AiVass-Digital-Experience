@@ -178,35 +178,51 @@ export default function ArticleDetail() {
     .filter(Boolean) as typeof ARTICLES;
 
   const tocSections = TOC_SECTIONS[article.slug] ?? [];
-  const preserveFullHero =
+  const isSupportSystemFieldNote =
     article.slug === "support-system-every-immigrant-needs";
+  const pageHeroImage = article.pageHeroImage ?? article.heroImage;
+  const pageHeroAlt = article.pageHeroAlt ?? article.heroAlt;
 
   return (
     <div className="min-h-screen bg-cream">
       {/* HERO IMAGE */}
-      {article.heroImage && (
-        <div
-          className={
-            preserveFullHero
-              ? "w-full overflow-hidden bg-paper"
-              : "w-full h-[45vh] md:h-[58vh] overflow-hidden"
-          }
-        >
-          <img
-            src={`${import.meta.env.BASE_URL}images/${article.heroImage}`}
-            alt={article.heroAlt}
-            width={preserveFullHero ? 1200 : undefined}
-            height={preserveFullHero ? 627 : undefined}
-            className={
-              preserveFullHero
-                ? "block w-full h-auto"
-                : "w-full h-full object-cover"
-            }
-          />
-        </div>
+      {pageHeroImage && (
+        isSupportSystemFieldNote ? (
+          <div className="wrap max-w-[1180px] mx-auto pt-8 md:pt-12">
+            <div className="relative h-[280px] sm:h-[340px] md:h-[420px] overflow-hidden border border-navy/10 bg-paper">
+              <div className="absolute inset-0 md:right-[34%] overflow-hidden">
+                <img
+                  src={`${import.meta.env.BASE_URL}images/${pageHeroImage}`}
+                  alt={pageHeroAlt}
+                  width={1024}
+                  height={1024}
+                  className="h-full w-full object-cover object-[center_43%]"
+                />
+              </div>
+              <div className="absolute inset-y-0 right-0 hidden w-[34%] items-center justify-center border-l border-navy/10 bg-paper px-8 md:flex">
+                <img
+                  src={`${import.meta.env.BASE_URL}images/support-system-wheel.png`}
+                  alt=""
+                  width={1000}
+                  height={1000}
+                  aria-hidden="true"
+                  className="h-auto w-full max-w-[300px]"
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="w-full h-[45vh] md:h-[58vh] overflow-hidden">
+            <img
+              src={`${import.meta.env.BASE_URL}images/${pageHeroImage}`}
+              alt={pageHeroAlt}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )
       )}
 
-      <article className={`${article.heroImage ? "pt-[50px]" : "pt-[60px]"} pb-[100px]`}>
+      <article className={`${pageHeroImage ? "pt-[50px]" : "pt-[60px]"} pb-[100px]`}>
         <div className="wrap max-w-[860px] mx-auto">
 
           {/* Breadcrumb */}

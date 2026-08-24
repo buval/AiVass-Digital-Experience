@@ -23,6 +23,8 @@ export interface Article {
   heroAlt: string;                  // descriptive alt text for the hero image
   heroImageWidth?: number;
   heroImageHeight?: number;
+  pageHeroImage?: string;           // optional editorial hero; social metadata keeps using heroImage
+  pageHeroAlt?: string;
   relatedGuides: string[];          // guide slugs shown at end of article
   relatedArticles: string[];        // article slugs shown as related
   hasToc: boolean;                  // show table of contents (long articles)
@@ -72,6 +74,9 @@ export const ARTICLES: Article[] = [
       "The AiVass Mandala of Support — an eight-part wheel showing how full each area of life is, with four outer rings for the layers of support around it",
     heroImageWidth: 1200,
     heroImageHeight: 627,
+    pageHeroImage: "article-hero-support-system-editorial.jpg",
+    pageHeroAlt:
+      "Two women sharing a warm, attentive conversation over tea, with a hand-drawn support wheel on the table",
     relatedGuides: [],
     relatedArticles: ["from-surviving-to-thriving"],
     hasToc: false,

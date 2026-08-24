@@ -2,5 +2,6 @@
 - [Download fulfillment system](download-fulfillment.md) — canonical token races, crash-safe email leases, and provider-idempotent retries
 - [Object storage upload pattern](object-storage-upload.md) — must run from api-server dir with sidecar credentials, not root workspace
 - [Never crop faces](image-crop-rule.md) — editorial images with people must keep the full face visible at all viewport heights; user's permanent rule
+- [Field Note hero direction](field-note-hero.md) — on-page article heroes should feel human and editorial; reserve branded cover art for PDFs and social previews
 - [Article SEO prerender](article-prerender.md) — postbuild script writes crawler-visible article HTML; FAQ/takeaways single-sourced in articles.ts
 - [Guide fulfillment system](guide-fulfillment.md) — fresh server-created checkout sessions and managed Stripe credential resolution
