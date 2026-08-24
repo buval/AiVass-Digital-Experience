@@ -61,6 +61,20 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
         keep going.
       </p>
 
+      <section className="bg-navy text-cream p-8 md:p-10 mb-10">
+        <div className="eyebrow text-ox-light mb-4">A field note you can use</div>
+        <h3 className="font-serif text-[24px] md:text-[30px] leading-[1.2] mb-4">
+          Draw the shape of your support system.
+        </h3>
+        <p className="text-[14px] text-cream/80 leading-[1.7] mb-8 max-w-[510px]">
+          Score the eight dimensions of your life and the layers around them. The Mandala of Support
+          is free, private to your browser, and designed as a gentle signal — not a verdict.
+        </p>
+        <Link href="/insights/mandala-of-support" className="btn-fill !bg-cream !text-navy hover:!bg-paper">
+          Open the interactive mandala
+        </Link>
+      </section>
+
       <KeyTakeaways />
 
       <h2 id="independence" className={headingClass}>
