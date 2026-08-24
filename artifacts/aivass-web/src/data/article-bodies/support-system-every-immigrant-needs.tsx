@@ -9,6 +9,8 @@ const ARTICLE_DATA = ARTICLES.find(
 const bodyClass = "text-[15px] md:text-[16px] text-navy-mid leading-[1.85] mb-5";
 const headingClass =
   "font-serif text-[28px] md:text-[36px] tracking-[-0.03em] text-navy mb-5 mt-12";
+const fieldNotePdfUrl =
+  `${import.meta.env.BASE_URL}downloads/aivass-field-note-01-the-support-system.pdf`;
 
 function KeyTakeaways() {
   return (
@@ -320,6 +322,28 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
         <Link href="/insights/mandala-of-support" className="btn-fill !bg-cream !text-navy hover:!bg-paper">
           Open the interactive mandala
         </Link>
+      </section>
+
+      <section aria-labelledby="printable-field-note" className="border border-navy/15 bg-paper p-6 md:p-8 mt-5">
+        <div className="eyebrow text-oxblood mb-3">Printable companion</div>
+        <div className="flex flex-col md:flex-row md:items-end gap-6 md:justify-between">
+          <div className="max-w-[470px]">
+            <h2 id="printable-field-note" className="font-serif text-[22px] md:text-[27px] text-navy leading-[1.2] mb-3">
+              Keep the Field Note close.
+            </h2>
+            <p className="text-[14px] text-navy-mid leading-[1.7]">
+              Download the free 10-page printable Field Note to draw your wheel, reflect on the five
+              rings of support, and return to the practice whenever you need it.
+            </p>
+          </div>
+          <a
+            href={fieldNotePdfUrl}
+            download="AiVass-Field-Note-01-The-Support-System.pdf"
+            className="btn-outline shrink-0 text-center"
+          >
+            Download the Field Note (PDF)
+          </a>
+        </div>
       </section>
 
       <p className="text-[12px] text-grey leading-[1.7] mt-8">
