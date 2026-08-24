@@ -17,4 +17,18 @@ The injected `mk_` Stripe environment value is not a Stripe SDK secret key. Reso
 
 **Why:** Passing the managed marker directly to Stripe fails authentication even though the Replit Stripe connection is valid.
 
-**How to apply:** Obtain a fresh server-side client for checkout, order verification, and authenticated webhook-event retrieval. Keep webhook signature verification primary; authenticated event retrieval is the fallback when the endpoint's current signing secret is not yet available to the runtime.
+**How to apply:** Obtain a fresh server-side client for checkout, order verification, and post-signature fulfillment lookups.
+
+## Strict webhook authentication
+
+Require the current Stripe endpoint signing secret for every webhook delivery.
+Reject missing or invalid signatures without retrieving a claimed event ID as
+an authentication fallback.
+
+**Why:** An authenticated API lookup proves an event ID exists in the connected
+account, but it does not prove that the incoming delivery came from Stripe.
+Someone who learns an event ID must not be able to replay fulfillment.
+
+**How to apply:** Store and rotate the endpoint secret only through Replit
+Secrets, restart the API after rotation, and accept only events that Stripe's
+local signature verifier validates against the raw request body.

@@ -1,8 +1,8 @@
 /**
  * POST /api/webhooks/stripe
  *
- * Verifies the event with a signature or authenticated Stripe API lookup,
- * handles checkout.session.completed,
+ * Verifies the event with Stripe's endpoint signing secret, handles
+ * checkout.session.completed,
  * creates download tokens (idempotent per session+slug), and sends
  * the buyer a download email via Resend.
  *
@@ -26,7 +26,9 @@ import {
 import { sendDownloadEmail, sendAdminAlertEmail } from "../lib/email.js";
 
 const router = Router();
-const webhookVerifier = new Stripe("sk_test_webhook_verifier", {
+// `constructEvent` is a local HMAC check and never uses this placeholder
+// credential. Actual Stripe API calls use getUncachableStripeClient instead.
+const webhookVerifier = new Stripe("sk_test_local_signature_verifier", {
   apiVersion: "2026-07-29.dahlia",
 });
 
@@ -38,57 +40,34 @@ router.post(
     const sig = req.headers["stripe-signature"];
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
     const rawBody = req.body as Buffer;
-    let event: Stripe.Event | null = null;
-
-    if (webhookSecret && typeof sig === "string") {
-      try {
-        event = webhookVerifier.webhooks.constructEvent(
-          rawBody,
-          sig,
-          webhookSecret,
-        );
-      } catch {
-        // The live account was reconnected, so an older signing secret can
-        // coexist during migration. The authenticated API lookup below still
-        // proves that the event belongs to the connected production account.
-        logger.warn(
-          "Stripe signature did not match — verifying event through Stripe API",
-        );
-      }
+    if (!webhookSecret) {
+      logger.error(
+        "Stripe webhook signing secret is not configured; rejecting delivery",
+      );
+      res.status(503).json({ error: "Webhook verification is unavailable" });
+      return;
     }
 
-    if (!event) {
-      let claimedEventId: string | undefined;
-      try {
-        const claimed = JSON.parse(rawBody.toString("utf8")) as {
-          id?: unknown;
-        };
-        if (
-          typeof claimed.id === "string" &&
-          claimed.id.startsWith("evt_")
-        ) {
-          claimedEventId = claimed.id;
-        }
-      } catch {
-        // Handled by the invalid-payload response below.
-      }
+    if (typeof sig !== "string") {
+      logger.warn("Stripe webhook missing its signature; rejecting delivery");
+      res.status(400).json({ error: "Invalid Stripe signature" });
+      return;
+    }
 
-      if (!claimedEventId) {
-        res.status(400).json({ error: "Invalid Stripe event payload" });
-        return;
-      }
-
-      try {
-        const stripe = await getUncachableStripeClient();
-        event = await stripe.events.retrieve(claimedEventId);
-      } catch (err) {
-        logger.error(
-          { err, eventId: claimedEventId },
-          "Could not verify Stripe event through API",
-        );
-        res.status(500).json({ error: "Could not verify Stripe event" });
-        return;
-      }
+    let event: Stripe.Event;
+    try {
+      event = webhookVerifier.webhooks.constructEvent(
+        rawBody,
+        sig,
+        webhookSecret,
+      );
+    } catch {
+      // Do not retrieve a claimed event ID from Stripe here. That would let
+      // anyone who knows an event ID trigger fulfillment without proving this
+      // delivery came from Stripe.
+      logger.warn("Stripe webhook signature did not match; rejecting delivery");
+      res.status(400).json({ error: "Invalid Stripe signature" });
+      return;
     }
 
     if (
