@@ -5,6 +5,7 @@ import { GUIDES, guideSampleUrl } from "@/data/guides";
 import { ARTICLE_BODIES } from "@/data/article-bodies/index";
 import { useSeoMeta } from "@/lib/seo";
 import { useGuideCheckout } from "@/lib/use-guide-checkout";
+import { ArticleShareBar } from "@/components/article-share-bar";
 
 /** Table of contents sections for long articles — keyed by article slug. */
 const TOC_SECTIONS: Record<string, { id: string; label: string }[]> = {
@@ -228,7 +229,7 @@ export default function ArticleDetail() {
           </h1>
 
           {/* Author + date */}
-          <div className="flex flex-wrap items-center gap-4 text-[11px] tracking-[0.1em] uppercase text-grey mb-10 pb-10 border-b border-navy/10">
+          <div className="flex flex-wrap items-center gap-4 text-[11px] tracking-[0.1em] uppercase text-grey mb-6 pb-10 border-b border-navy/10">
             <span>By {article.author}</span>
             <span className="w-[1px] h-3 bg-navy/20" />
             <time dateTime={article.publishedAt}>
@@ -239,6 +240,12 @@ export default function ArticleDetail() {
               })}
             </time>
           </div>
+
+          <ArticleShareBar
+            title={article.title}
+            description={article.metaDescription}
+            canonicalUrl={`https://aivass.com/insights/articles/${article.slug}`}
+          />
 
           {/* Standfirst */}
           <p className="font-serif italic text-[20px] md:text-[26px] leading-[1.5] text-navy mb-12 max-w-[680px]">
