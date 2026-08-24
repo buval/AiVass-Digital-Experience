@@ -105,6 +105,19 @@ for (const article of ARTICLES) {
     .join("\n    ");
   html = setTag(html, /<\/head>/, () => `    ${ldScripts}\n  </head>`, "</head>", article.slug);
 
+  const articleSupplement = article.slug === "support-system-every-immigrant-needs"
+    ? [
+        `<h2>The support system underneath the visible systems</h2>`,
+        `<p>Immigration, employment, housing and healthcare are visible systems we learn to navigate. This Field Note maps the invisible system underneath: intimate belonging, friendship, purpose, practical infrastructure and a relationship with yourself.</p>`,
+        `<p>A move often weakens both unconditional love nearby and a felt sense of place, leaving work and portable friendships to carry more than they should. That is not a personal failure; it is a structure that can be rebuilt.</p>`,
+        `<h2>Use the Mandala of Support</h2>`,
+        `<p><a href="https://aivass.com/insights/mandala-of-support">Open the interactive Mandala of Support</a> to map eight dimensions of life and choose one relationship, ritual, resource or decision to strengthen next.</p>`,
+        `<h2>Helpful starting points</h2>`,
+        `<ul><li><a href="https://theopenatlas.org/">Open Atlas</a> — a community for high-skilled immigrants building their futures in the United States.</li><li><a href="https://www.cdc.gov/social-connectedness/improving/index.html">CDC: Improving Social Connectedness</a> — practical ways to build and strengthen connection.</li><li><a href="https://www.findhelp.org/">Findhelp</a> — search free and reduced-cost local services.</li><li><a href="https://www.nami.org/support-groups/">NAMI Support Groups</a> — peer and family support, including virtual groups.</li><li><a href="https://988lifeline.org/">988 Lifeline</a> — confidential, 24/7 support in the United States for emotional distress.</li></ul>`,
+        `<p>This Field Note is general information and personal reflection, not medical, psychological, legal or immigration advice.</p>`,
+      ]
+    : [];
+
   // Static semantic content for non-JS crawlers (LinkedIn, Perplexity, GPTBot).
   // Placed inside #root so React automatically replaces it on hydration —
   // browsers see the full app; crawlers that skip JS still read the answer.
@@ -126,6 +139,7 @@ for (const article of ARTICLES) {
           ...article.faq.map(({ q, a }) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`),
         ]
       : []),
+    ...articleSupplement,
     `<p><a href="${url}">Read the full interactive article on AiVass</a></p>`,
     `</article>`,
   ].join("\n      ");

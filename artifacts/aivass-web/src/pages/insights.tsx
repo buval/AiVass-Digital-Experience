@@ -126,12 +126,13 @@ export default function Insights() {
               Shorter observations, tactical lessons and emerging patterns from the edge of
               transformation — ideas worth capturing before they become conventional wisdom.
             </p>
-            <span
+            <Link
+              href="/insights/articles/support-system-every-immigrant-needs"
               className="link-under text-oxblood inline-block cursor-pointer"
               onClick={() => trackInsightView("field-notes")}
             >
-              Explore Notes
-            </span>
+              Read Latest Note
+            </Link>
           </article>
         </div>
 

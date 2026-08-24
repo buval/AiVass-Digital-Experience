@@ -25,6 +25,7 @@ import GuideDetail from '@/pages/guides/guide-detail';
 import Insights from '@/pages/insights';
 import Articles from '@/pages/articles';
 import ArticleDetail from '@/pages/article-detail';
+import MandalaOfSupport from '@/pages/mandala-of-support';
 import About from '@/pages/about';
 import Contact from '@/pages/contact';
 import Legal from '@/pages/legal';
@@ -72,6 +73,7 @@ function Router() {
 
           {/* Insights hub */}
           <Route path="/insights" component={Insights} />
+          <Route path="/insights/mandala-of-support" component={MandalaOfSupport} />
 
           {/* Articles — canonical at /insights/articles/:slug */}
           <Route path="/insights/articles" component={Articles} />

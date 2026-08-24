@@ -150,16 +150,30 @@ export default function ArticleDetail() {
     .filter(Boolean) as typeof ARTICLES;
 
   const tocSections = TOC_SECTIONS[article.slug] ?? [];
+  const preserveFullHero =
+    article.slug === "support-system-every-immigrant-needs";
 
   return (
     <div className="min-h-screen bg-cream">
       {/* HERO IMAGE */}
       {article.heroImage && (
-        <div className="w-full h-[45vh] md:h-[58vh] overflow-hidden">
+        <div
+          className={
+            preserveFullHero
+              ? "w-full overflow-hidden bg-paper"
+              : "w-full h-[45vh] md:h-[58vh] overflow-hidden"
+          }
+        >
           <img
             src={`${import.meta.env.BASE_URL}images/${article.heroImage}`}
             alt={article.heroAlt}
-            className="w-full h-full object-cover"
+            width={preserveFullHero ? 1200 : undefined}
+            height={preserveFullHero ? 627 : undefined}
+            className={
+              preserveFullHero
+                ? "block w-full h-auto"
+                : "w-full h-full object-cover"
+            }
           />
         </div>
       )}

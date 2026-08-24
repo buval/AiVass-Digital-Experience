@@ -40,6 +40,46 @@ export interface Article {
 
 export const ARTICLES: Article[] = [
   {
+    id: "support-system-every-immigrant-needs",
+    slug: "support-system-every-immigrant-needs",
+    title: "The Support System No One Helps You Build",
+    author: "Maria Boukhval",
+    publishedAt: "2026-08-23",
+    updatedAt: "2026-08-23",
+    category: "support-and-belonging",
+    categoryLabel: "Field Notes",
+    tags: ["immigrant-experience", "belonging", "community", "wellbeing"],
+    excerpt:
+      "Immigration, employment, housing, healthcare — we learn every visible system. Almost no one teaches the invisible one that carries us through all of it.",
+    metaDescription:
+      "A Field Note for immigrants building life far from family: map your support system, rebuild belonging, and use the Mandala of Support to see what needs care.",
+    keywords: [
+      "immigrant support system",
+      "belonging",
+      "loneliness",
+      "social connection",
+      "community building",
+      "emotional wellbeing",
+      "AiVass Field Notes",
+    ],
+    readingTime: 11,
+    featured: true,
+    coverImage: null,
+    heroImage: "field-notes-01-support-system-1200x627.png",
+    heroAlt:
+      "The AiVass Mandala of Support — an eight-part wheel showing how full each area of life is, with four outer rings for the layers of support around it",
+    relatedGuides: [],
+    relatedArticles: ["from-surviving-to-thriving"],
+    hasToc: false,
+    keyTakeaways: [
+      "A move often weakens both unconditional love nearby and a felt sense of place, leaving work and portable friendships to carry more than they should.",
+      "Independence is not the same as support: a strong life needs layers of intimate belonging, friendship, purpose, practical infrastructure, and a relationship with yourself.",
+      "Loneliness is not boredom. A full calendar can coexist with feeling unknown, so the goal is not more contacts but reciprocal relationships and repeated belonging.",
+      "The Mandala of Support is a non-judgmental way to see eight dimensions of life and choose one relationship, ritual, resource, or decision to strengthen next.",
+      "Support can be rebuilt through dependable long-distance rituals, a small local inner circle, repeated community, practical planning, rest, and professional support when needed.",
+    ],
+  },
+  {
     id: "from-surviving-to-thriving",
     slug: "from-surviving-to-thriving",
     title: "From Surviving to Thriving",
