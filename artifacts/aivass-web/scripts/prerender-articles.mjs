@@ -60,6 +60,25 @@ for (const article of ARTICLES) {
   html = setTag(html, /(<meta name="twitter:description" content=")[^"]*(")/, (m) => `${m[1]}${esc(desc)}${m[2]}`, "twitter:description", article.slug);
   html = setTag(html, /(<meta name="twitter:image" content=")[^"]*(")/, (m) => `${m[1]}${image}${m[2]}`, "twitter:image", article.slug);
 
+  const articleMeta = [
+    `<meta property="og:site_name" content="AiVass" />`,
+    `<meta property="og:locale" content="en_US" />`,
+    `<meta property="og:image:alt" content="${esc(article.heroAlt)}" />`,
+    ...(article.heroImageWidth
+      ? [`<meta property="og:image:width" content="${article.heroImageWidth}" />`]
+      : []),
+    ...(article.heroImageHeight
+      ? [`<meta property="og:image:height" content="${article.heroImageHeight}" />`]
+      : []),
+    `<meta property="article:published_time" content="${esc(article.publishedAt)}" />`,
+    `<meta property="article:modified_time" content="${esc(article.updatedAt)}" />`,
+    `<meta property="article:author" content="${esc(article.author)}" />`,
+    `<meta property="article:section" content="${esc(article.categoryLabel)}" />`,
+    ...article.tags.map((tag) => `<meta property="article:tag" content="${esc(tag)}" />`),
+    `<meta name="twitter:site" content="@AiVass_com" />`,
+    `<meta name="twitter:image:alt" content="${esc(article.heroAlt)}" />`,
+  ].join("\n    ");
+
   // Structured data
   const lds = [
     {
@@ -67,6 +86,10 @@ for (const article of ARTICLES) {
       "@type": "Article",
       headline: article.title,
       description: desc,
+      url,
+      articleSection: article.categoryLabel,
+      keywords: article.keywords,
+      inLanguage: "en-US",
       author: { "@type": "Person", name: article.author },
       datePublished: article.publishedAt,
       dateModified: article.updatedAt,
@@ -76,7 +99,22 @@ for (const article of ARTICLES) {
         logo: { "@type": "ImageObject", url: "https://aivass.com/favicon.svg" },
       },
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
-      ...(article.heroImage ? { image } : {}),
+      ...(article.heroImage
+        ? {
+            image: {
+              "@type": "ImageObject",
+              url: image,
+              ...(article.heroImageWidth ? { width: article.heroImageWidth } : {}),
+              ...(article.heroImageHeight ? { height: article.heroImageHeight } : {}),
+              caption: article.heroAlt,
+            },
+          }
+        : {}),
+      isPartOf: {
+        "@type": "Blog",
+        name: "AiVass Field Notes",
+        url: "https://aivass.com/insights/articles",
+      },
     },
     {
       "@context": "https://schema.org",
@@ -103,17 +141,33 @@ for (const article of ARTICLES) {
   const ldScripts = lds
     .map((ld) => `<script type="application/ld+json" data-seo-ld>${JSON.stringify(ld).replaceAll("</", "<\\/")}</script>`)
     .join("\n    ");
-  html = setTag(html, /<\/head>/, () => `    ${ldScripts}\n  </head>`, "</head>", article.slug);
+  html = setTag(
+    html,
+    /<\/head>/,
+    () => `    ${articleMeta}\n    ${ldScripts}\n  </head>`,
+    "</head>",
+    article.slug,
+  );
 
   const articleSupplement = article.slug === "support-system-every-immigrant-needs"
     ? [
         `<h2>The support system underneath the visible systems</h2>`,
         `<p>Immigration, employment, housing and healthcare are visible systems we learn to navigate. This Field Note maps the invisible system underneath: intimate belonging, friendship, purpose, practical infrastructure and a relationship with yourself.</p>`,
         `<p>A move often weakens both unconditional love nearby and a felt sense of place, leaving work and portable friendships to carry more than they should. That is not a personal failure; it is a structure that can be rebuilt.</p>`,
+        `<h2>What distance takes</h2>`,
+        `<p>Distance often removes two layers first: the people who love you unconditionally and the familiar ground of language, place and ordinary routine. Work and portable friendships survive the move, so they can quietly absorb more emotional weight than they should.</p>`,
+        `<h2>The five layers of an immigrant support system</h2>`,
+        `<ol><li><strong>Your relationship with yourself:</strong> sleep, food, movement, health, financial breathing room, emotional honesty, curiosity and a place where your nervous system can settle.</li><li><strong>Love and intimate belonging:</strong> family, partnership, chosen family and beloved animals — the circle that holds tenderness, home and the freedom to be unimpressive.</li><li><strong>Friendship and community:</strong> reciprocal relationships and repeated belonging with people who know the real you.</li><li><strong>Purpose and professional belonging:</strong> meaningful work, mentors, colleagues, creative practice and contribution.</li><li><strong>Practical infrastructure:</strong> housing, healthcare, money, legal stability, transport and knowing where to turn for professional help.</li></ol>`,
+        `<h2>Loneliness is not boredom</h2>`,
+        `<p>A full calendar can coexist with feeling unknown. The <a href="https://www.cdc.gov/social-connectedness/improving/index.html">CDC distinguishes social isolation from loneliness</a>: one concerns limited relationships or support, while the other is the felt experience of being alone or disconnected. The goal is not simply more contacts, but reciprocal relationships and repeated belonging.</p>`,
         `<h2>Use the Mandala of Support</h2>`,
-        `<p><a href="https://aivass.com/insights/mandala-of-support">Open the interactive Mandala of Support</a> to map eight dimensions of life and choose one relationship, ritual, resource or decision to strengthen next.</p>`,
+        `<p>The Mandala is a reflection tool, not a verdict. Give each dimension a score from one to ten, notice the shape honestly, and choose one relationship, ritual, resource or decision to strengthen next.</p>`,
+        `<ol><li>Inner Self</li><li>Family and Intimate Life</li><li>Friendship and Community</li><li>Health and the Body</li><li>Work, Career and Purpose</li><li>Money and Stability</li><li>Learning and Expansion</li><li>Joy, Rest and Play</li></ol>`,
+        `<p><a href="https://aivass.com/insights/mandala-of-support">Open the free interactive Mandala of Support</a>. Your scores remain private to your browser.</p>`,
+        `<h2>Where to begin when family is far away</h2>`,
+        `<ol><li>Name whether the support you need is emotional, physical, practical, professional, spiritual or financial.</li><li>Turn long-distance love into dependable rituals such as a fixed weekly call and a shared emergency plan.</li><li>Build a small local inner circle through consistent, reciprocal contact.</li><li>Choose repeated belonging — a weekly class, volunteer team, congregation, sports club or neighbourhood group — over endless networking.</li><li>Notice whether work and geography support the life you are trying to build.</li><li>Let hobbies and animals be real strands of support without asking them to carry everything.</li><li>Ask for professional support before the breaking point.</li></ol>`,
         `<h2>Helpful starting points</h2>`,
-        `<ul><li><a href="https://theopenatlas.org/">Open Atlas</a> — a community for high-skilled immigrants building their futures in the United States.</li><li><a href="https://www.cdc.gov/social-connectedness/improving/index.html">CDC: Improving Social Connectedness</a> — practical ways to build and strengthen connection.</li><li><a href="https://www.findhelp.org/">Findhelp</a> — search free and reduced-cost local services.</li><li><a href="https://www.nami.org/support-groups/">NAMI Support Groups</a> — peer and family support, including virtual groups.</li><li><a href="https://988lifeline.org/">988 Lifeline</a> — confidential, 24/7 support in the United States for emotional distress.</li></ul>`,
+        `<ul><li><a href="https://theopenatlas.org/">Open Atlas</a> — a community for high-skilled immigrants building their futures in the United States.</li><li><a href="https://www.cdc.gov/social-connectedness/improving/index.html">CDC: Improving Social Connectedness</a> — practical ways to build and strengthen connection.</li><li><a href="https://www.hhs.gov/surgeongeneral/reports-and-publications/recipes/index.html">U.S. Surgeon General: Recipes for Connection</a> — a free booklet on gathering people around food.</li><li><a href="https://www.findhelp.org/">Findhelp</a> — search free and reduced-cost local services.</li><li><a href="https://www.nami.org/support-groups/">NAMI Support Groups</a> — peer and family support, including virtual groups.</li><li><a href="https://988lifeline.org/">988 Lifeline</a> — confidential, 24/7 support in the United States for emotional distress.</li></ul>`,
         `<p>This Field Note is general information and personal reflection, not medical, psychological, legal or immigration advice.</p>`,
       ]
     : [];

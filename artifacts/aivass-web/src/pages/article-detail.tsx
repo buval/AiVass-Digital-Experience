@@ -57,6 +57,16 @@ export default function ArticleDetail() {
           ogImage: article.heroImage
             ? `https://aivass.com/images/${article.heroImage}`
             : undefined,
+          ogImageAlt: article.heroImage ? article.heroAlt : undefined,
+          ogImageWidth: article.heroImageWidth,
+          ogImageHeight: article.heroImageHeight,
+          article: {
+            publishedTime: article.publishedAt,
+            modifiedTime: article.updatedAt,
+            author: article.author,
+            section: article.categoryLabel,
+            tags: article.tags,
+          },
         }
       : {
           title: "Article not found — AiVass",
@@ -74,6 +84,10 @@ export default function ArticleDetail() {
       "@type": "Article",
       headline: article.title,
       description: article.metaDescription,
+      url: `https://aivass.com/insights/articles/${article.slug}`,
+      articleSection: article.categoryLabel,
+      keywords: article.keywords,
+      inLanguage: "en-US",
       author: { "@type": "Person", name: article.author },
       datePublished: article.publishedAt,
       dateModified: article.updatedAt,
@@ -87,8 +101,21 @@ export default function ArticleDetail() {
         "@id": `https://aivass.com/insights/articles/${article.slug}`,
       },
       ...(article.heroImage
-        ? { image: `https://aivass.com/images/${article.heroImage}` }
+        ? {
+            image: {
+              "@type": "ImageObject",
+              url: `https://aivass.com/images/${article.heroImage}`,
+              ...(article.heroImageWidth ? { width: article.heroImageWidth } : {}),
+              ...(article.heroImageHeight ? { height: article.heroImageHeight } : {}),
+              caption: article.heroAlt,
+            },
+          }
         : {}),
+      isPartOf: {
+        "@type": "Blog",
+        name: "AiVass Field Notes",
+        url: "https://aivass.com/insights/articles",
+      },
     };
 
     const breadcrumbLd = {

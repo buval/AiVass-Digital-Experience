@@ -1,13 +1,19 @@
 # robots.txt — AiVass (aivass.com)
-# Last updated: 2026-08-10
+# Last updated: 2026-08-23
 
 # ── Standard search engines ───────────────────────────────────────────────────
 User-agent: *
 Allow: /
 
-# ── OAI-SearchBot (ChatGPT web browsing / search citations) ──────────────────
-# Eligible for discovery and citation in ChatGPT Search — allowed.
+# ── AI search and answer engines ──────────────────────────────────────────────
+# Eligible for discovery and citation; separate from model-training crawlers.
 User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
 Allow: /
 
 # ── AI model-training crawlers — BLOCKED ─────────────────────────────────────
@@ -27,9 +33,6 @@ User-agent: Claude-Web
 Disallow: /
 
 User-agent: Google-Extended
-Disallow: /
-
-User-agent: PerplexityBot
 Disallow: /
 
 User-agent: Bytespider

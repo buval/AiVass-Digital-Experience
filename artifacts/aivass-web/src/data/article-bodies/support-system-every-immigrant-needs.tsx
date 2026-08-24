@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { ARTICLES } from "@/data/articles";
+import { FaqAccordion } from "./field-of-endeavor-interactives";
 
 const ARTICLE_DATA = ARTICLES.find(
   (article) => article.slug === "support-system-every-immigrant-needs",
@@ -11,10 +12,10 @@ const headingClass =
 
 function KeyTakeaways() {
   return (
-    <section aria-label="Key takeaways" className="bg-paper border border-navy/15 p-6 md:p-8 my-10">
-      <div className="text-[10px] tracking-[0.18em] uppercase text-oxblood mb-4">
+    <section aria-labelledby="key-takeaways" className="bg-paper border border-navy/15 p-6 md:p-8 my-10">
+      <h2 id="key-takeaways" className="text-[10px] tracking-[0.18em] uppercase text-oxblood mb-4">
         Key Takeaways
-      </div>
+      </h2>
       <p className="text-[14px] md:text-[15px] text-navy leading-[1.75] mb-4">
         <strong>{ARTICLE_DATA.keyTakeaways![0]}</strong>
       </p>
@@ -61,11 +62,11 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
         keep going.
       </p>
 
-      <section className="bg-navy text-cream p-8 md:p-10 mb-10">
+      <section aria-labelledby="mandala-top-cta" className="bg-navy text-cream p-8 md:p-10 mb-10">
         <div className="eyebrow text-ox-light mb-4">A field note you can use</div>
-        <h3 className="font-serif text-[24px] md:text-[30px] leading-[1.2] mb-4">
+        <h2 id="mandala-top-cta" className="font-serif text-[24px] md:text-[30px] leading-[1.2] mb-4">
           Draw the shape of your support system.
-        </h3>
+        </h2>
         <p className="text-[14px] text-cream/80 leading-[1.7] mb-8 max-w-[510px]">
           Score the eight dimensions of your life and the layers around them. The Mandala of Support
           is free, private to your browser, and designed as a gentle signal — not a verdict.
@@ -138,7 +139,16 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
         close enough to hold the unedited parts of your life.
       </p>
       <p className={bodyClass}>
-        The CDC draws a useful line here: social isolation is not having relationships or support
+        The{" "}
+        <a
+          href="https://www.cdc.gov/social-connectedness/improving/index.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-oxblood underline underline-offset-4 hover:text-navy"
+        >
+          CDC
+        </a>{" "}
+        draws a useful line here: social isolation is not having relationships or support
         from others, while loneliness is the feeling of being alone, disconnected, or not close to
         others. The two are related but not the same — which is why a person can be surrounded and
         still lonely. The CDC frames connectedness as the degree to which you have the number,
@@ -168,7 +178,7 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
         weight. It is to build in layers.
       </p>
 
-      <h2 id="layers" className={headingClass}>The layers</h2>
+      <h2 id="layers" className={headingClass}>The layers of an immigrant support system</h2>
       <div className="space-y-5 mb-12">
         {[
           ["At the center is you.", "Not your résumé, not your immigration status, not the role you perform for other people. You — as a body, a mind, a spirit. That center needs sleep, food, movement, health, financial breathing room, emotional honesty, curiosity, and a physical environment where your nervous system can settle. Everything outward is anchored here."],
@@ -244,8 +254,17 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
         ))}
       </div>
 
+      <section aria-labelledby="faq" className="my-12">
+        <h2 id="faq" className={headingClass}>
+          Frequently asked questions
+        </h2>
+        <FaqAccordion items={ARTICLE_DATA.faq!} />
+      </section>
+
       <section aria-labelledby="resources" className="bg-paper border border-navy/15 p-6 md:p-8 my-12">
-        <div className="text-[10px] tracking-[0.18em] uppercase text-oxblood mb-4">A few places to start</div>
+        <h2 id="resources" className="text-[10px] tracking-[0.18em] uppercase text-oxblood mb-4">
+          A few places to start
+        </h2>
         <ul className="space-y-4 text-[14px] text-navy-mid leading-[1.65]">
           {[
             ["Open Atlas", "https://theopenatlas.org/", "a community for high-skilled immigrants building their futures in the United States"],
@@ -289,11 +308,11 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
         “What kind of life, and what kind of support, allows me to remain fully myself?”
       </blockquote>
 
-      <section className="mt-12 bg-navy text-cream p-8 md:p-10">
+      <section aria-labelledby="mandala-bottom-cta" className="mt-12 bg-navy text-cream p-8 md:p-10">
         <div className="eyebrow text-ox-light mb-4">A field note you can use</div>
-        <h3 className="font-serif text-[24px] md:text-[30px] leading-[1.2] mb-4">
+        <h2 id="mandala-bottom-cta" className="font-serif text-[24px] md:text-[30px] leading-[1.2] mb-4">
           Draw the shape of your support system.
-        </h3>
+        </h2>
         <p className="text-[14px] text-cream/80 leading-[1.7] mb-8 max-w-[510px]">
           Score the eight dimensions of your life and the layers around them. The Mandala of Support
           is free, private to your browser, and designed as a gentle signal — not a verdict.

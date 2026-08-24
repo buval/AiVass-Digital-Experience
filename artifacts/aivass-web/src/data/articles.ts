@@ -21,6 +21,8 @@ export interface Article {
   coverImage: string | null;
   heroImage: string | null;         // hero image filename from public/images/
   heroAlt: string;                  // descriptive alt text for the hero image
+  heroImageWidth?: number;
+  heroImageHeight?: number;
   relatedGuides: string[];          // guide slugs shown at end of article
   relatedArticles: string[];        // article slugs shown as related
   hasToc: boolean;                  // show table of contents (long articles)
@@ -68,6 +70,8 @@ export const ARTICLES: Article[] = [
     heroImage: "field-notes-01-support-system-1200x627.png",
     heroAlt:
       "The AiVass Mandala of Support — an eight-part wheel showing how full each area of life is, with four outer rings for the layers of support around it",
+    heroImageWidth: 1200,
+    heroImageHeight: 627,
     relatedGuides: [],
     relatedArticles: ["from-surviving-to-thriving"],
     hasToc: false,
@@ -77,6 +81,28 @@ export const ARTICLES: Article[] = [
       "Loneliness is not boredom. A full calendar can coexist with feeling unknown, so the goal is not more contacts but reciprocal relationships and repeated belonging.",
       "The Mandala of Support is a non-judgmental way to see eight dimensions of life and choose one relationship, ritual, resource, or decision to strengthen next.",
       "Support can be rebuilt through dependable long-distance rituals, a small local inner circle, repeated community, practical planning, rest, and professional support when needed.",
+    ],
+    faq: [
+      {
+        q: "What is a support system for immigrants?",
+        a: "A support system is the layered network that helps you feel held and able to keep going: intimate belonging, friendship and community, purpose, practical infrastructure, and a relationship with yourself. For immigrants, rebuilding those layers can be as important as navigating the visible systems of work, housing, healthcare, and immigration.",
+      },
+      {
+        q: "How can I build support when my family lives abroad?",
+        a: "Turn long-distance love into dependable rituals, then build a small local inner circle through repeated, reciprocal contact. A weekly call, a regular class or volunteer group, practical local resources, and two or three people who know the real you can create steadier support over time.",
+      },
+      {
+        q: "What is the Mandala of Support?",
+        a: "The Mandala of Support is a free AiVass reflection tool that lets you score eight dimensions of life, notice which areas need care, and choose one relationship, ritual, resource, or decision to strengthen next. It is a signal for reflection, not a verdict.",
+      },
+      {
+        q: "What is the difference between loneliness and social isolation?",
+        a: "Loneliness is the felt experience of being alone, disconnected, or not close enough to others. Social isolation describes having limited relationships or support. They overlap, but a person can have a busy calendar and still feel lonely.",
+      },
+      {
+        q: "Where can I get help if emotional distress feels too heavy to carry alone?",
+        a: "Speak with a qualified mental-health professional or a trusted local support service. In the United States, the 988 Lifeline offers free, confidential support by call, text, or chat for emotional distress. If you are in immediate danger, contact local emergency services.",
+      },
     ],
   },
   {

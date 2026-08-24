@@ -37,6 +37,20 @@ function setLink(rel: string, href: string) {
   el.href = href;
 }
 
+function removeMeta(attr: string, value: string) {
+  document.querySelector(`meta[${attr}="${CSS.escape(value)}"]`)?.remove();
+}
+
+function replaceMetaList(attr: string, value: string, contents: string[]) {
+  document.querySelectorAll(`meta[${attr}="${CSS.escape(value)}"]`).forEach((el) => el.remove());
+  contents.forEach((content) => {
+    const el = document.createElement("meta");
+    el.setAttribute(attr, value);
+    el.setAttribute("content", content);
+    document.head.appendChild(el);
+  });
+}
+
 // ── Public API ────────────────────────────────────────────────────────────────
 export interface SeoMeta {
   /** Page title, WITHOUT "— AiVass" suffix (added automatically). */
@@ -48,7 +62,17 @@ export interface SeoMeta {
   ogDescription?: string;
   /** Full URL to og:image. Defaults to the brand OG image. */
   ogImage?: string;
+  ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   ogType?: "website" | "article";
+  article?: {
+    publishedTime: string;
+    modifiedTime: string;
+    author: string;
+    section: string;
+    tags: string[];
+  };
   /** Force noindex (in addition to the automatic staging noindex). */
   noIndex?: boolean;
 }
@@ -82,18 +106,57 @@ export function useSeoMeta(meta: SeoMeta) {
     setMeta("property", "og:url", canonical);
     setMeta("property", "og:type", meta.ogType ?? "website");
     setMeta("property", "og:image", meta.ogImage ?? DEFAULT_OG_IMAGE);
+    setMeta("property", "og:site_name", "AiVass");
+    setMeta("property", "og:locale", "en_US");
+    if (meta.ogImageAlt) setMeta("property", "og:image:alt", meta.ogImageAlt);
+    else removeMeta("property", "og:image:alt");
+    if (meta.ogImageWidth) setMeta("property", "og:image:width", String(meta.ogImageWidth));
+    else removeMeta("property", "og:image:width");
+    if (meta.ogImageHeight) setMeta("property", "og:image:height", String(meta.ogImageHeight));
+    else removeMeta("property", "og:image:height");
+
+    if (meta.article) {
+      setMeta("property", "article:published_time", meta.article.publishedTime);
+      setMeta("property", "article:modified_time", meta.article.modifiedTime);
+      setMeta("property", "article:author", meta.article.author);
+      setMeta("property", "article:section", meta.article.section);
+      replaceMetaList("property", "article:tag", meta.article.tags);
+    } else {
+      ["article:published_time", "article:modified_time", "article:author", "article:section"]
+        .forEach((name) => removeMeta("property", name));
+      replaceMetaList("property", "article:tag", []);
+    }
 
     // Twitter
     setMeta("name", "twitter:card", TWITTER_CARD);
     setMeta("name", "twitter:title", meta.ogTitle ?? fullTitle);
     setMeta("name", "twitter:description", meta.ogDescription ?? meta.description ?? "");
     setMeta("name", "twitter:image", meta.ogImage ?? DEFAULT_OG_IMAGE);
+    setMeta("name", "twitter:site", "@AiVass_com");
+    if (meta.ogImageAlt) setMeta("name", "twitter:image:alt", meta.ogImageAlt);
+    else removeMeta("name", "twitter:image:alt");
 
     // Cleanup — restore homepage defaults on unmount
     return () => {
       document.title = "AiVass — Building Extraordinary Futures";
       setMeta("name", "robots", "index, follow");
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [
+    meta.title,
+    meta.description,
+    meta.canonical,
+    meta.ogTitle,
+    meta.ogDescription,
+    meta.ogImage,
+    meta.ogImageAlt,
+    meta.ogImageWidth,
+    meta.ogImageHeight,
+    meta.ogType,
+    meta.noIndex,
+    meta.article?.publishedTime,
+    meta.article?.modifiedTime,
+    meta.article?.author,
+    meta.article?.section,
+    meta.article?.tags.join("|"),
+  ]);
 }
