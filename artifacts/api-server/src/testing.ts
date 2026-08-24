@@ -9,4 +9,6 @@ export {
   createWebhookRouter,
   fulfillCheckoutSession,
   type WebhookFulfillmentDependencies,
+  type WebhookVerificationAlertDependencies,
+  WebhookVerificationAlertMonitor,
 } from "./routes/webhook.js";

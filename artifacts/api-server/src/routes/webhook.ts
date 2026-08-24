@@ -33,6 +33,102 @@ const webhookVerifier = new Stripe("sk_test_local_signature_verifier", {
 
 type StripeClientFactory = () => Promise<Stripe>;
 type DownloadTokenCreator = typeof getOrCreateCheckoutDownloadToken;
+type AdminAlertSender = typeof sendAdminAlertEmail;
+
+const SIGNATURE_FAILURE_THRESHOLD = 5;
+const SIGNATURE_FAILURE_WINDOW_MS = 5 * 60 * 1000;
+const WEBHOOK_ALERT_COOLDOWN_MS = 6 * 60 * 60 * 1000;
+
+export interface WebhookVerificationAlertDependencies {
+  sendAdminAlert: AdminAlertSender;
+  now: () => number;
+  signatureFailureThreshold: number;
+  signatureFailureWindowMs: number;
+  alertCooldownMs: number;
+}
+
+const defaultWebhookVerificationAlertDependencies: WebhookVerificationAlertDependencies =
+  {
+    sendAdminAlert: sendAdminAlertEmail,
+    now: () => Date.now(),
+    signatureFailureThreshold: SIGNATURE_FAILURE_THRESHOLD,
+    signatureFailureWindowMs: SIGNATURE_FAILURE_WINDOW_MS,
+    alertCooldownMs: WEBHOOK_ALERT_COOLDOWN_MS,
+  };
+
+/**
+ * Tracks locally-observed verification failures and emits only bounded,
+ * sanitized operational alerts. This deliberately keeps no request data:
+ * webhook bodies and signatures must never be included in alerts or logs.
+ */
+export class WebhookVerificationAlertMonitor {
+  private signatureFailureCount = 0;
+  private signatureFailureWindowStartedAt: number | null = null;
+  private nextSignatureFailureAlertAt = 0;
+  private nextMissingSecretAlertAt = 0;
+
+  constructor(
+    private readonly dependencies: WebhookVerificationAlertDependencies =
+      defaultWebhookVerificationAlertDependencies,
+  ) {}
+
+  async reportMissingSigningSecret(): Promise<void> {
+    const now = this.dependencies.now();
+    if (now < this.nextMissingSecretAlertAt) return;
+
+    // Reserve the interval before attempting email so parallel requests cannot
+    // cause an alert flood if delivery is slow or unavailable.
+    this.nextMissingSecretAlertAt = now + this.dependencies.alertCooldownMs;
+    await this.dependencies.sendAdminAlert({
+      subject: "Stripe webhook signing secret is not configured",
+      body: [
+        "Stripe webhook verification is unavailable because STRIPE_WEBHOOK_SECRET is not configured.",
+        "",
+        "Action required: add the current Stripe endpoint signing secret in Replit Secrets, restart the API Server, and send a Stripe test event to confirm delivery succeeds.",
+        "",
+        "No webhook request contents, signature values, or buyer information are included in this alert.",
+      ].join("\n"),
+    });
+  }
+
+  async reportInvalidSignature(): Promise<void> {
+    const now = this.dependencies.now();
+    if (now < this.nextSignatureFailureAlertAt) return;
+
+    if (
+      this.signatureFailureWindowStartedAt === null ||
+      now - this.signatureFailureWindowStartedAt >=
+        this.dependencies.signatureFailureWindowMs
+    ) {
+      this.signatureFailureWindowStartedAt = now;
+      this.signatureFailureCount = 0;
+    }
+
+    this.signatureFailureCount += 1;
+    if (
+      this.signatureFailureCount <
+      this.dependencies.signatureFailureThreshold
+    ) {
+      return;
+    }
+
+    this.nextSignatureFailureAlertAt =
+      now + this.dependencies.alertCooldownMs;
+    this.signatureFailureCount = 0;
+    this.signatureFailureWindowStartedAt = null;
+
+    await this.dependencies.sendAdminAlert({
+      subject: "Repeated Stripe webhook signature verification failures",
+      body: [
+        `Stripe webhook signature verification failed ${this.dependencies.signatureFailureThreshold} times within ${Math.round(this.dependencies.signatureFailureWindowMs / 60_000)} minutes.`,
+        "",
+        "Action required: confirm the Stripe webhook endpoint uses the same current signing secret as STRIPE_WEBHOOK_SECRET in Replit Secrets. After a rotation, update the secret, restart the API Server, and send a Stripe test event.",
+        "",
+        `Further alerts of this type are limited to one every ${Math.round(this.dependencies.alertCooldownMs / 3_600_000)} hours. No webhook request contents, signature values, or buyer information are included in this alert.`,
+      ].join("\n"),
+    });
+  }
+}
 
 export interface WebhookFulfillmentDependencies {
   getStripeClient: StripeClientFactory;
@@ -52,10 +148,15 @@ const defaultFulfillmentDependencies: WebhookFulfillmentDependencies = {
   sendDownloadEmail,
 };
 
+const defaultWebhookVerificationAlertMonitor =
+  new WebhookVerificationAlertMonitor();
+
 // Raw body parser — Stripe signature verification requires the raw buffer
 export function createWebhookRouter(
   fulfillmentDependencies: WebhookFulfillmentDependencies =
     defaultFulfillmentDependencies,
+  verificationAlertMonitor: WebhookVerificationAlertMonitor =
+    defaultWebhookVerificationAlertMonitor,
 ) {
   const router = Router();
 
@@ -70,12 +171,14 @@ export function createWebhookRouter(
         logger.error(
           "Stripe webhook signing secret is not configured; rejecting delivery",
         );
+        await verificationAlertMonitor.reportMissingSigningSecret();
         res.status(503).json({ error: "Webhook verification is unavailable" });
         return;
       }
 
       if (typeof sig !== "string") {
         logger.warn("Stripe webhook missing its signature; rejecting delivery");
+        await verificationAlertMonitor.reportInvalidSignature();
         res.status(400).json({ error: "Invalid Stripe signature" });
         return;
       }
@@ -94,6 +197,7 @@ export function createWebhookRouter(
         logger.warn(
           "Stripe webhook signature did not match; rejecting delivery",
         );
+        await verificationAlertMonitor.reportInvalidSignature();
         res.status(400).json({ error: "Invalid Stripe signature" });
         return;
       }
