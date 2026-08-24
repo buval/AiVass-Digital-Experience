@@ -44,7 +44,7 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
           Open Atlas Summit 2026
         </a>
         , in a room full of conversations about visas, careers, funding and building a future in
-        America, two women asked me a question that had nothing to do with any of it:
+        America, two young women asked me a question that had nothing to do with any of it:
       </p>
       <blockquote className="font-serif italic text-[22px] md:text-[27px] text-navy leading-[1.45] border-l-[3px] border-oxblood pl-7 my-9">
         “You have been in the United States for nine years while your family is abroad. How do you
@@ -142,11 +142,12 @@ export default function SupportSystemEveryImmigrantNeedsBody() {
         you are sick.
       </p>
       <p className={bodyClass}>
-        Last month I adopted a cat. I did it because I was lonely, which felt like an embarrassing
-        reason until I said it out loud and watched three people nod. Luna did not replace human
-        relationships, and no single relationship should be asked to carry everything. But she
-        brought warmth, rhythm and living presence into a home that had been very quiet. Animals
-        belong in the emotional ecosystem. They just should not be the whole of it.
+        In February of this year, I adopted a cat. More than six months later, I am calmer and more
+        grounded. I did it because I was lonely, which felt like an embarrassing reason until I said
+        it out loud and watched three people nod. Luna did not replace human relationships, and no
+        single relationship should be asked to carry everything. But she brought warmth, rhythm and
+        living presence into a home that had been very quiet. Animals belong in the emotional
+        ecosystem. They just should not be the whole of it.
       </p>
       <p className={`${bodyClass} mb-12`}>
         The real answer is not to find one person, one pet, one job or one city to hold the entire
