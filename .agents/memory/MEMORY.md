@@ -5,3 +5,5 @@
 - [Field Note hero direction](field-note-hero.md) — on-page article heroes should feel human and editorial; reserve branded cover art for PDFs and social previews
 - [Article SEO prerender](article-prerender.md) — postbuild script writes crawler-visible article HTML; FAQ/takeaways single-sourced in articles.ts
 - [Guide fulfillment system](guide-fulfillment.md) — fresh server-created checkout sessions and managed Stripe credential resolution
+- [Sample delivery](sample-delivery.md) — native PDF activation, truthful cross-tab guidance, and lossless resource cleanup
+- [Browser test libraries](browser-test-environment.md) — keep Nix native libraries compatible and isolated from app runtime

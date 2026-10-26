@@ -198,7 +198,7 @@ export const BUNDLE: Guide = {
 };
 
 export function guideSampleUrl(slug: string): string {
-  return `/samples/${slug}-sample.pdf`;
+  return `${import.meta.env.BASE_URL}samples/${slug}-sample.pdf`;
 }
 
 export function formatPrice(cents: number): string {

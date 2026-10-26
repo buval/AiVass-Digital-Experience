@@ -1,13 +1,12 @@
 import { Link } from "wouter";
 import { CriteriaConstellation } from "@/components/CriteriaConstellation";
-import { GUIDES, guideSampleUrl, BUNDLE, formatPrice } from "@/data/guides";
+import { GUIDES, BUNDLE, formatPrice } from "@/data/guides";
 import { useSeoMeta } from "@/lib/seo";
-import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics";
-import { usePressFeedback } from "@/lib/use-press-feedback";
+import { trackGuidePurchaseClick } from "@/lib/analytics";
+import { GuideSampleLink, GuideSampleHelp } from "@/components/GuideSample";
 import { useGuideCheckout } from "@/lib/use-guide-checkout";
 
 export default function Guides() {
-  const { isPressed, press } = usePressFeedback();
   const checkout = useGuideCheckout();
   useSeoMeta({
     title: "EB-1A Guides for Extraordinary Ability",
@@ -96,19 +95,11 @@ export default function Guides() {
 
                 <div className="flex gap-3">
                   {guide.sampleSlug && (
-                    <a
-                      href={guideSampleUrl(guide.sampleSlug)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`btn-outline flex-1 !px-2 text-center ${isPressed(`sample-${guide.slug}`) ? "opacity-70" : ""}`}
-                      aria-live="polite"
-                      onClick={(e) => {
-                        if (isPressed(`sample-${guide.slug}`)) { e.preventDefault(); return; }
-                        press(`sample-${guide.slug}`); trackGuideSampleClick(guide.slug);
-                      }}
-                    >
-                      {isPressed(`sample-${guide.slug}`) ? "Opening…" : "Free Sample"}
-                    </a>
+                    <GuideSampleLink
+                      slug={guide.slug}
+                      sampleSlug={guide.sampleSlug}
+                      className="btn-outline flex-1 !px-2 text-center active:opacity-70"
+                    />
                   )}
                   <button
                     type="button"
@@ -123,6 +114,9 @@ export default function Guides() {
                     {checkout.pendingSlug === guide.slug ? "Opening checkout…" : "Purchase →"}
                   </button>
                 </div>
+                {guide.sampleSlug && (
+                  <GuideSampleHelp slug={guide.slug} sampleSlug={guide.sampleSlug} className="text-navy-mid" />
+                )}
                 {checkout.errorSlug === guide.slug && checkout.error && (
                   <p role="alert" className="mt-3 text-[11px] leading-[1.5] text-oxblood">
                     {checkout.error}

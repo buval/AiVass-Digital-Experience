@@ -1,15 +1,14 @@
 import { Link, useParams } from "wouter";
-import { GUIDES, BUNDLE, guideSampleUrl, formatPrice } from "@/data/guides";
+import { GUIDES, BUNDLE, formatPrice } from "@/data/guides";
 import { useSeoMeta } from "@/lib/seo";
-import { trackGuidePurchaseClick, trackGuideSampleClick } from "@/lib/analytics";
-import { usePressFeedback } from "@/lib/use-press-feedback";
+import { trackGuidePurchaseClick } from "@/lib/analytics";
+import { GuideSampleLink, GuideSampleHelp } from "@/components/GuideSample";
 import { useGuideCheckout } from "@/lib/use-guide-checkout";
 import { useEffect } from "react";
 
 export default function GuideDetail() {
   const params = useParams();
   const slug = params.slug;
-  const { isPressed, press } = usePressFeedback();
   const checkout = useGuideCheckout();
 
   // Find the guide (including bundle)
@@ -194,19 +193,14 @@ export default function GuideDetail() {
                   </p>
                 )}
                 {guide.sampleSlug && (
-                  <a
-                    href={guideSampleUrl(guide.sampleSlug)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`btn-outline !border-cream/40 !text-cream hover:!border-cream w-full text-center block ${isPressed("sample") ? "opacity-70" : ""}`}
-                    aria-live="polite"
-                    onClick={(e) => {
-                      if (isPressed("sample")) { e.preventDefault(); return; }
-                      press("sample"); trackGuideSampleClick(guide.slug);
-                    }}
-                  >
-                    {isPressed("sample") ? "Opening sample…" : "View Free Sample ↗"}
-                  </a>
+                  <>
+                    <GuideSampleLink
+                      slug={guide.slug}
+                      sampleSlug={guide.sampleSlug}
+                      className="btn-outline !border-cream/40 !text-cream hover:!border-cream w-full text-center block active:opacity-70"
+                    />
+                    <GuideSampleHelp slug={guide.slug} sampleSlug={guide.sampleSlug} className="text-cream/80" />
+                  </>
                 )}
               </div>
 
