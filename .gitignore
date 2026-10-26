@@ -46,5 +46,6 @@ Thumbs.db
 
 # Replit
 .cache/
+/generated-artifacts/article-publish-build/
 .local/
 .pythonlibs/
