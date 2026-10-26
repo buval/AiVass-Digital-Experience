@@ -26,7 +26,7 @@
     {
       "binding": "DB",
       "database_name": "aivass-store",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "c674ff47-6e16-4dea-97f4-8fb3e3a9310d",
       "migrations_dir": "cloudflare/migrations",
     },
   ],
