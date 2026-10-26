@@ -7,6 +7,10 @@ export { createCheckoutRouter } from "./routes/checkout.js";
 export { createOrderRouter } from "./routes/order.js";
 export { default as legacyArticlesRouter } from "./routes/legacy-articles.js";
 export {
+  checkArticlesAfterPublish, installArticleReleaseProbe, articleReleasePath,
+  articleStaticReleasePath, articleReleaseId,
+} from "./lib/article-publish-check.js";
+export {
   createWebhookRouter,
   fulfillCheckoutSession,
   type WebhookFulfillmentDependencies,

@@ -5,15 +5,20 @@ import {
 } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { ARTICLES } from "../src/data/articles.ts";
 
 const appDir = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const articlesDir = join(appDir, "dist/public/insights/articles");
 const artifactConfigPath = join(appDir, ".replit-artifact/artifact.toml");
 const insightsSourcePath = join(appDir, "src/pages/insights.tsx");
 const shareSourcePath = join(appDir, "src/components/article-share-bar.tsx");
-const { ARTICLES } = await import(join(appDir, "src/data/articles.ts"));
 const liveBaseUrl = process.argv.find((arg) => arg.startsWith("--base-url="))?.slice("--base-url=".length);
+const liveOnly = process.argv.includes("--live-only");
 const failures = [];
+if (liveOnly && !liveBaseUrl) {
+  console.error("FAIL --live-only requires --base-url=https://your-verified-production-domain");
+  process.exit(1);
+}
 
 function check(condition, label, detail = "") {
   if (condition) {
@@ -37,6 +42,7 @@ function getCanonical(html) {
   return tag?.match(/\bhref=(?:"([^"]*)"|'([^']*)')/i)?.slice(1).find(Boolean);
 }
 
+if (!liveOnly) {
 check(existsSync(articlesDir), "generated article directory exists");
 
 const articleFiles = existsSync(articlesDir)
@@ -111,8 +117,9 @@ check(
     shareSource.includes("url: canonicalUrl"),
   "every share action uses the canonical article URL",
 );
+}
 
-// Opt in after publishing: test the real static host rather than treating
+// After publishing: test the real static host rather than treating
 // matching configuration strings as evidence that deployed routing works.
 if (liveBaseUrl) {
   const base = new URL(liveBaseUrl);
@@ -129,11 +136,14 @@ if (liveBaseUrl) {
         check(response.status === 200, `live ${path} returns 200`, `got ${response.status}`);
         check(
           new URL(response.url).origin === base.origin &&
+            !new URL(response.url).search && !new URL(response.url).hash &&
             [`/insights/articles/${article.slug}`, `/insights/articles/${article.slug}/`]
               .includes(new URL(response.url).pathname),
           `live ${path} keeps a clean article URL`,
+          `requested ${new URL(path, base)}; final ${response.url}`,
         );
-        check(getCanonical(html) === canonical, `live ${path} canonical`);
+        check(getCanonical(html) === canonical, `live ${path} canonical`,
+          `expected ${canonical}; got ${getCanonical(html) ?? "missing"}`);
         for (const [name, value] of [
           ["og:url", canonical],
           ["og:title", `${article.title} — AiVass`],
@@ -144,10 +154,18 @@ if (liveBaseUrl) {
         ]) {
           const escaped = value.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
             .replaceAll(">", "&gt;").replaceAll('"', "&quot;");
-          check(getMeta(html, "property", name) === escaped, `live ${path} ${name}`);
+          check(getMeta(html, "property", name) === escaped, `live ${path} ${name}`,
+            `expected ${escaped}; got ${getMeta(html, "property", name) ?? "missing"}`);
         }
-        check(html.includes("<article>") && html.includes("<h1>"),
-          `live ${path} includes crawler-readable article content`);
+        const articleBody = html.match(/<article\b[^>]*>([\s\S]*?)<\/article>/i)?.[1] ?? "";
+        const bodyText = articleBody.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+          .replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+        const heading = articleBody.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? "";
+        const escapedTitle = article.title.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+        check(heading === escapedTitle && bodyText.length > 300,
+          `live ${path} includes crawler-readable article content`,
+          `expected article heading "${article.title}" and >300 characters of body; got heading "${heading}" and ${bodyText.length} characters`);
       } catch (error) {
         check(false, `live ${path} responds`, error.message);
       }
@@ -163,4 +181,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`\nArticle sharing validation passed for ${articleFiles.length} articles.`);
+console.log(`\nArticle sharing validation passed for ${ARTICLES.length} articles${liveBaseUrl ? ` on ${liveBaseUrl}` : ""}.`);

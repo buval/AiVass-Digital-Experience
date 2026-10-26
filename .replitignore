@@ -3,3 +3,5 @@
 
 # No need to store the pnpm store twice.
 .local
+# A fresh release identity is generated in each uploaded publish build.
+/generated-artifacts/article-publish-build/

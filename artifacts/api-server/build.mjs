@@ -5,6 +5,7 @@ import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
 import { rm } from "node:fs/promises";
 import { ARTICLES } from "../aivass-web/src/data/articles.ts";
+import { getArticlePublishRelease } from "../../scripts/article-publish-release.mjs";
 
 // Plugins (e.g. 'esbuild-plugin-pino') may use `require` to resolve dependencies
 globalThis.require = createRequire(import.meta.url);
@@ -17,6 +18,7 @@ async function buildAll() {
   const entryPoints = {
     index: path.resolve(artifactDir, "src/index.ts"),
     app: path.resolve(artifactDir, "src/app.ts"),
+    "validate-article-sharing": path.resolve(artifactDir, "../aivass-web/scripts/validate-article-sharing.mjs"),
   };
   if (process.env.BUILD_TESTING === "1") {
     entryPoints.testing = path.resolve(artifactDir, "src/testing.ts");
@@ -27,6 +29,7 @@ async function buildAll() {
     // or a separate filesystem lookup at runtime.
     define: {
       __ARTICLE_SLUGS__: JSON.stringify(ARTICLES.map(({ slug }) => slug)),
+      __ARTICLE_RELEASE_ID__: JSON.stringify(getArticlePublishRelease()),
     },
     entryPoints,
     platform: "node",

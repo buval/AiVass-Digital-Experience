@@ -1,6 +1,9 @@
 import app from "./app";
 import { logger } from "./lib/logger";
 import { ensureSchema } from "./lib/ensure-schema";
+import { installArticleReleaseProbe, checkArticlesAfterPublish } from "./lib/article-publish-check";
+
+installArticleReleaseProbe(app);
 
 const rawPort = process.env["PORT"];
 
@@ -25,6 +28,10 @@ ensureSchema()
       }
 
       logger.info({ port }, "Server listening");
+      // Do not block startup health checks or mistake build success for promotion.
+      void checkArticlesAfterPublish().catch((err) => {
+        logger.error({ err, check: "article-sharing-post-publish" }, "ARTICLE CHECK FAILED unexpectedly");
+      });
     });
   })
   .catch((err) => {
