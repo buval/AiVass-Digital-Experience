@@ -4,6 +4,7 @@
 - [Never crop faces](image-crop-rule.md) — editorial images with people must keep the full face visible at all viewport heights; user's permanent rule
 - [Field Note hero direction](field-note-hero.md) — on-page article heroes should feel human and editorial; reserve branded cover art for PDFs and social previews
 - [Article SEO prerender](article-prerender.md) — postbuild script writes crawler-visible article HTML; FAQ/takeaways single-sourced in articles.ts
+- [Article routing verification](article-routing.md) — schema-valid rewrites can still produce live 404s; verify clean URLs on the published host.
 - [Guide fulfillment system](guide-fulfillment.md) — fresh server-created checkout sessions and managed Stripe credential resolution
 - [Sample delivery](sample-delivery.md) — native PDF activation, truthful cross-tab guidance, and lossless resource cleanup
 - [Browser test libraries](browser-test-environment.md) — keep Nix native libraries compatible and isolated from app runtime
