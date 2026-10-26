@@ -3,6 +3,7 @@ import cors from "cors";
 import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
+import legacyArticlesRouter from "./routes/legacy-articles.js";
 
 const app: Express = express();
 
@@ -34,5 +35,6 @@ app.use((req, _res, next) => {
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
+app.use(legacyArticlesRouter);
 
 export default app;

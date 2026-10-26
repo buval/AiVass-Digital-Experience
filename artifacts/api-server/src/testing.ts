@@ -5,6 +5,7 @@
 export { GUIDE_CATALOG, getGuideSlugsForPurchase } from "./lib/guide-catalog.js";
 export { createCheckoutRouter } from "./routes/checkout.js";
 export { createOrderRouter } from "./routes/order.js";
+export { default as legacyArticlesRouter } from "./routes/legacy-articles.js";
 export {
   createWebhookRouter,
   fulfillCheckoutSession,

@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
 import { rm } from "node:fs/promises";
+import { ARTICLES } from "../aivass-web/src/data/articles.ts";
 
 // Plugins (e.g. 'esbuild-plugin-pino') may use `require` to resolve dependencies
 globalThis.require = createRequire(import.meta.url);
@@ -22,6 +23,11 @@ async function buildAll() {
   }
 
   await esbuild({
+    // Bundle the published catalog so redirects never depend on source files
+    // or a separate filesystem lookup at runtime.
+    define: {
+      __ARTICLE_SLUGS__: JSON.stringify(ARTICLES.map(({ slug }) => slug)),
+    },
     entryPoints,
     platform: "node",
     bundle: true,
