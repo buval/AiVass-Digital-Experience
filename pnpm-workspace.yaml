@@ -73,6 +73,7 @@ onlyBuiltDependencies:
   - esbuild
   - msw
   - unrs-resolver
+  - workerd
 
 overrides:
   # Typography's latest release pins a vulnerable parser; use the patched 6.x API.

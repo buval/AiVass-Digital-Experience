@@ -70,7 +70,7 @@ const BUNDLE_GUIDE_SLUGS: GuideSlug[] = [
 ];
 
 export function getGuideCatalogEntry(slug: string) {
-  return GUIDE_CATALOG[slug as GuideSlug];
+  return Object.hasOwn(GUIDE_CATALOG, slug) ? GUIDE_CATALOG[slug as GuideSlug] : undefined;
 }
 
 export function getGuideSlugsForProduct(productId: string): GuideSlug[] {
