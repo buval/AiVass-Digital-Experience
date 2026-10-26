@@ -43,3 +43,7 @@ timeoutMs = 20000
 
 [userenv.shared]
 VITE_GA_MEASUREMENT_ID = "G-PMQCRHET4N"
+
+[nix]
+channel = "stable-25_05"
+packages = ["freetype", "gumbo", "harfbuzz", "jbig2dec", "libjpeg_turbo", "mupdf", "openjpeg", "swig", "xcbuild"]

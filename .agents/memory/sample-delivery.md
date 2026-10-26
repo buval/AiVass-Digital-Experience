@@ -12,3 +12,9 @@ preserve touch, keyboard, modified-click, download, and no-JavaScript browser be
 **How to apply:** Provide truthful new-tab guidance and a download recovery path.
 When slimming future sample extracts, remove unused source-document resources
 before considering lossy image compression; verify text and rendered equivalence.
+
+Sample PDF purchase buttons must link to the matching guide's stable detail page,
+not a stored Stripe Checkout Session.
+
+**Why:** PDFs can stay downloaded for months; embedded payment sessions would
+expire. The guide page can always create a fresh checkout when the reader buys.
