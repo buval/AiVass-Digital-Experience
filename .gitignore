@@ -49,3 +49,12 @@ Thumbs.db
 /generated-artifacts/article-publish-build/
 .local/
 .pythonlibs/
+
+# Cloudflare state and local credentials
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+!.env.example

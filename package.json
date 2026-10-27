@@ -6,14 +6,25 @@
     "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
-    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
+    "build:cloudflare": "node cloudflare/build.mjs",
+    "check:cloudflare": "tsc -p cloudflare/tsconfig.json",
+    "test:cloudflare": "node --import tsx --test cloudflare/tests/*.test.ts",
+    "deploy:cloudflare": "wrangler deploy",
+    "db:cloudflare": "wrangler d1 migrations apply aivass-store --remote",
+    "upload:guides": "node cloudflare/upload-guides.mjs"
   },
   "private": true,
   "dependencies": {
     "@replit/connectors-sdk": "^0.4.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261019.1",
     "prettier": "^3.9.4",
-    "typescript": "~5.9.3"
-  }
+    "stripe": "22.4.0",
+    "tsx": "4.21.0",
+    "typescript": "~5.9.3",
+    "wrangler": "^4.152.0"
+  },
+  "packageManager": "pnpm@10.30.3"
 }

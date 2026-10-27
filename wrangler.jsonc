@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aivass",
+  "main": "cloudflare/worker.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "artifacts/aivass-web/dist/public",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": [
+      "/api",
+      "/api/*",
+      "/samples/*",
+      "/articles",
+      "/articles/*",
+      "/blog",
+      "/blog/*",
+      "/insights/articles/*",
+    ],
+  },
+  "vars": { "APP_ORIGIN": "https://aivass.com" },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "aivass-store",
+      "database_id": "c674ff47-6e16-4dea-97f4-8fb3e3a9310d",
+      "migrations_dir": "cloudflare/migrations",
+    },
+  ],
+  "r2_buckets": [{ "binding": "GUIDES", "bucket_name": "aivass-guides" }],
+  "triggers": { "crons": ["17 4 * * *"] },
+  "observability": { "enabled": true },
+}

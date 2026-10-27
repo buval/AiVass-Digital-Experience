@@ -43,9 +43,9 @@ export default function DownloadPage() {
         } else {
           const body = await res.json().catch(() => ({}));
           const code: "expired" | "exhausted" | "invalid" | "unknown" =
-            res.status === 410 ? "exhausted"
+            body.code === "expired" ? "expired"
+            : res.status === 410 ? "exhausted"
             : res.status === 404 ? "invalid"
-            : body.code === "expired" ? "expired"
             : "unknown";
           setState({ status: "error", code, attemptsRemaining: body.attemptsRemaining });
         }
