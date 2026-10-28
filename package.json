@@ -12,7 +12,8 @@
     "test:cloudflare": "node --import tsx --test cloudflare/tests/*.test.ts",
     "deploy:cloudflare": "wrangler deploy",
     "db:cloudflare": "wrangler d1 migrations apply aivass-store --remote",
-    "upload:guides": "node cloudflare/upload-guides.mjs"
+    "upload:guides": "node cloudflare/upload-guides.mjs",
+    "deploy:cloudflare:sandbox": "wrangler d1 migrations apply aivass-sandbox-store --remote --config wrangler.sandbox.jsonc && wrangler deploy --config wrangler.sandbox.jsonc"
   },
   "private": true,
   "dependencies": {
