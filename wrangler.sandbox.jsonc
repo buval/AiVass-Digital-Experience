@@ -21,7 +21,10 @@
       "/insights/articles/*",
     ],
   },
-  "vars": { "APP_ORIGIN": "https://aivass-sandbox.vitalitrade.workers.dev" },
+  "vars": {
+    "APP_ORIGIN": "https://aivass-sandbox.vitalitrade.workers.dev",
+    "STRIPE_CATALOG_JSON": "{\"eb1a-master\":{\"productId\":\"prod_VWhDJPKjkCcYMN\",\"priceId\":\"price_1UVdpXCLgS6ciNY87vlh21AN\"}}"
+  },
   "d1_databases": [
     {
       "binding": "DB",
