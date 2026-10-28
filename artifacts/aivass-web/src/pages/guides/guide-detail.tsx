@@ -4,11 +4,16 @@ import { useSeoMeta } from "@/lib/seo";
 import { trackGuidePurchaseClick } from "@/lib/analytics";
 import { GuideSampleLink, GuideSampleHelp } from "@/components/GuideSample";
 import { useGuideCheckout } from "@/lib/use-guide-checkout";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 export default function GuideDetail() {
   const params = useParams();
   const slug = params.slug;
+
+  // Guide navigation must show the selected guide, not retain the related-card scroll position.
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [slug]);
   const checkout = useGuideCheckout();
 
   // Find the guide (including bundle)
