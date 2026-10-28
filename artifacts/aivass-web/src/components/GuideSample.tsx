@@ -7,20 +7,16 @@ type SampleProps = {
   className?: string;
 };
 
-/** Let the browser navigate immediately, including modified clicks and Enter.
- * A cross-tab PDF's loading/rendering state cannot be inferred here.
- */
+/** Use normal same-tab navigation; modified clicks can still open a new tab. */
 export function GuideSampleLink({ slug, sampleSlug, className }: SampleProps) {
   return (
     <a
       href={guideSampleUrl(sampleSlug)}
-      target="_blank"
-      rel="noopener noreferrer"
       aria-describedby={`sample-help-${slug}`}
       className={className}
       onClick={() => trackGuideSampleClick(slug)}
     >
-      Free Sample ↗
+      Free Sample →
     </a>
   );
 }
@@ -28,7 +24,7 @@ export function GuideSampleLink({ slug, sampleSlug, className }: SampleProps) {
 export function GuideSampleHelp({ slug, sampleSlug, className }: SampleProps) {
   return (
     <p id={`sample-help-${slug}`} className={`mt-3 text-[11px] leading-[1.5] ${className ?? ""}`}>
-      PDF opens in a new tab. Slow or blank?{" "}
+      PDF opens in this tab. Prefer to save it?{" "}
       <a href={guideSampleUrl(sampleSlug)} download className="underline underline-offset-2">
         Download the sample
       </a>{" "}
