@@ -10,6 +10,8 @@ export interface Guide {
   name: string;
   subtitle: string;
   shortDescription: string;
+  searchTitle: string;
+  searchDescription: string;
   description: string;
   priceCents: number;
   pageCount: number;
@@ -25,12 +27,20 @@ export interface Guide {
   relatedGuides: string[];        // slugs of related guides (shown at bottom of detail page)
 }
 
+export const GUIDE_CATALOG = {
+  title: "EB-1A Evidence Guides by Profession",
+  description: "Compare the EB-1A Master Guide with five evidence guides for founders, artists, athletes, educators and scientists. Preview individual guides or explore the complete collection.",
+  intro: "Start with the Master Guide to organize a petition across fields. Choose a profession-specific guide for examples drawn from your work, or get all six PDFs in the complete collection.",
+};
+
 export const GUIDES: Guide[] = [
   {
     id: "53fa96ea-f9cd-4e6b-8d84-b53af5a92ce8",
     slug: "eb1a-master",
     name: "EB-1A Master Guide",
     subtitle: "The Strategic Evidence Framework",
+    searchTitle: "EB-1A Master Guide to Petition Evidence",
+    searchDescription: "Plan an EB-1A evidence portfolio across fields. Preview the 52-page Master Guide to organizing exhibits, reviewing the criteria and structuring a petition narrative.",
     shortDescription: "The complete strategic playbook for your EB-1A petition — 52 pages",
     description:
       "The complete strategic playbook for building an EB-1A petition: how adjudicators evaluate the 10 criteria, how to structure your evidence portfolio, and how to frame a winning narrative — across every field of endeavor.",
@@ -55,6 +65,8 @@ export const GUIDES: Guide[] = [
     slug: "eb1a-business",
     name: "EB-1A for Business Leaders",
     subtitle: "The Founder's Evidence Blueprint",
+    searchTitle: "EB-1A Evidence Guide for Founders and Executives",
+    searchDescription: "Explore how the 44-page business guide covers funding rounds, revenue impact, board roles and press coverage when organizing EB-1A evidence. Read a sample.",
     shortDescription: "EB-1A evidence blueprint for founders & executives — 44 pages",
     description:
       "A field-specific EB-1A guide for founders, executives, and operators: translating funding rounds, revenue impact, press, board roles, and industry influence into the evidence categories USCIS recognises.",
@@ -79,6 +91,8 @@ export const GUIDES: Guide[] = [
     slug: "eb1a-arts",
     name: "EB-1A for Artists & Creators",
     subtitle: "Proof of Brilliance",
+    searchTitle: "EB-1A Evidence Guide for Artists and Creators",
+    searchDescription: "Preview a 43-page EB-1A guide for artists, performers and designers. Explore ways to document exhibitions, sales records, press coverage and creative recognition.",
     shortDescription: "EB-1A evidence guide for artists & creators — 43 pages",
     description:
       "A field-specific EB-1A guide for artists, designers, performers, and creators: exhibitions, commercial success, press, distinguished reputation, and how creative careers map onto the 10 criteria.",
@@ -103,6 +117,8 @@ export const GUIDES: Guide[] = [
     slug: "eb1a-athletics",
     name: "EB-1A for Athletes & Coaches",
     subtitle: "Podium to Permanence",
+    searchTitle: "EB-1A Evidence Guide for Athletes and Coaches",
+    searchDescription: "Explore how to organize rankings, championship records, team selections and coaching achievements. Preview the 45-page EB-1A guide for athletes and coaches.",
     shortDescription: "EB-1A evidence guide for athletes & coaches — 45 pages",
     description:
       "A field-specific EB-1A guide for athletes and coaches: rankings, championships, national team selection, media coverage, and turning athletic achievement into a green-card-ready evidence portfolio.",
@@ -128,6 +144,8 @@ export const GUIDES: Guide[] = [
     slug: "eb1a-education",
     name: "EB-1A for Educators",
     subtitle: "The Academic Authority",
+    searchTitle: "EB-1A Evidence Guide for Educators and Professors",
+    searchDescription: "Preview a 47-page guide to documenting curriculum influence, teaching innovation, judging and publications for an EB-1A evidence portfolio in education.",
     shortDescription: "EB-1A evidence guide for educators — 47 pages",
     description:
       "A field-specific EB-1A guide for educators and academic leaders: teaching innovation, curriculum influence, awards, judging, publications, and building authority evidence beyond citation counts.",
@@ -153,6 +171,8 @@ export const GUIDES: Guide[] = [
     slug: "eb1a-science",
     name: "EB-1A for Scientists",
     subtitle: "The Researcher's Blueprint",
+    searchTitle: "EB-1A Evidence Guide for Scientists and Researchers",
+    searchDescription: "Explore peer review, citations, patents and original research contributions in this 44-page EB-1A evidence guide for scientists. Read a sample before buying.",
     shortDescription: "EB-1A evidence guide for scientists & researchers — 44 pages",
     description:
       "A field-specific EB-1A guide for scientists and researchers: publications, citations, peer review, original contributions, and framing research impact so adjudicators see extraordinary ability.",
@@ -179,6 +199,8 @@ export const BUNDLE: Guide = {
   slug: "eb1a-complete",
   name: "The Complete EB-1A Collection",
   subtitle: "All 6 guides — every field, one framework",
+  searchTitle: "Complete EB-1A Evidence Guide Collection",
+  searchDescription: "Compare the complete 275-page PDF collection, including the EB-1A Master Guide and five guides covering business, arts, athletics, education and science.",
   shortDescription: "All 6 EB-1A guides at a bundle discount — 275 pages total",
   description:
     "The full library: the Master Guide plus all five field-specific guides (Business, Arts, Athletics, Education, Science). Every download is personalised to you and delivered instantly after purchase.",

@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { CriteriaConstellation } from "@/components/CriteriaConstellation";
-import { GUIDES, BUNDLE, formatPrice } from "@/data/guides";
+import { GUIDES, GUIDE_CATALOG, BUNDLE, formatPrice } from "@/data/guides";
 import { useSeoMeta } from "@/lib/seo";
 import { trackGuidePurchaseClick } from "@/lib/analytics";
 import { GuideSampleLink, GuideSampleHelp } from "@/components/GuideSample";
@@ -9,9 +9,8 @@ import { useGuideCheckout } from "@/lib/use-guide-checkout";
 export default function Guides() {
   const checkout = useGuideCheckout();
   useSeoMeta({
-    title: "EB-1A Guides for Extraordinary Ability",
-    description:
-      "Strategic guides for EB-1A extraordinary ability petitions. 6 field-specific guides plus a complete collection — written for self-petitioners, delivered instantly as PDF downloads.",
+    title: GUIDE_CATALOG.title,
+    description: GUIDE_CATALOG.description,
     canonical: "https://aivass.com/guides",
   });
 
@@ -25,12 +24,11 @@ export default function Guides() {
           <div>
             <div className="eyebrow mb-6">Storefront</div>
             <h1 className="text-[50px] md:text-[80px] font-serif leading-none tracking-[-0.05em] mb-6">
-              Guides for<br />
-              <em className="text-oxblood italic">Extraordinary Futures.</em>
+              EB-1A Evidence Guides<br />
+              <em className="text-oxblood italic">by Profession</em>
             </h1>
             <p className="text-[16px] text-navy-mid max-w-[600px] leading-[1.65]">
-              Every guide you need to document, position and defend extraordinary ability. Written for
-              self-petitioners, delivered instantly as PDF downloads.
+              {GUIDE_CATALOG.intro}
             </p>
           </div>
         </div>
@@ -137,7 +135,7 @@ export default function Guides() {
         <div className="bg-navy text-cream p-[40px] md:p-[60px] flex flex-col md:flex-row items-center gap-10 md:gap-16">
           <div className="flex-1">
             <div className="eyebrow text-ox-light mb-4">The Bundle</div>
-            <h2 className="font-serif text-[36px] md:text-[48px] leading-tight mb-4">{BUNDLE.name}</h2>
+            <h2 className="font-serif text-[36px] md:text-[48px] leading-tight mb-4"><Link href={`/guides/${BUNDLE.slug}`}>{BUNDLE.name}</Link></h2>
             <p className="text-[16px] text-ox-light mb-6">All 6 guides · 275 pages</p>
             <p className="text-[14px] text-cream/70 leading-[1.6] max-w-[500px]">{BUNDLE.description}</p>
           </div>

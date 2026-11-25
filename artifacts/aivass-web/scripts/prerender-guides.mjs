@@ -17,7 +17,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const { GUIDES, BUNDLE } = await import(join(here, "../src/data/guides.ts"));
+const { GUIDES, BUNDLE, GUIDE_CATALOG } = await import(join(here, "../src/data/guides.ts"));
 
 const distDir = join(here, "../dist/public");
 const template = readFileSync(join(distDir, "index.html"), "utf8");
@@ -38,31 +38,37 @@ function setTag(html, pattern, make, label, slug) {
   return html.replace(pattern, () => make(m));
 }
 
+function renderMeta({ slug, url, title, desc, image, type }) {
+  let html = template;
+  html = setTag(html, /<title>[\s\S]*?<\/title>/, () => `<title>${esc(title)}</title>`, "<title>", slug);
+  html = setTag(html, /(<meta name="description" content=")[^"]*(")/, (m) => `${m[1]}${esc(desc)}${m[2]}`, "description", slug);
+  html = setTag(html, /(<link rel="canonical" href=")[^"]*(")/, (m) => `${m[1]}${url}${m[2]}`, "canonical", slug);
+  html = setTag(html, /(<meta property="og:url" content=")[^"]*(")/, (m) => `${m[1]}${url}${m[2]}`, "og:url", slug);
+  html = setTag(html, /(<meta property="og:title" content=")[^"]*(")/, (m) => `${m[1]}${esc(title)}${m[2]}`, "og:title", slug);
+  html = setTag(html, /(<meta property="og:description" content=")[^"]*(")/, (m) => `${m[1]}${esc(desc)}${m[2]}`, "og:description", slug);
+  html = setTag(html, /(<meta property="og:type" content=")[^"]*(")/, (m) => `${m[1]}${type}${m[2]}`, "og:type", slug);
+  html = setTag(html, /(<meta property="og:image" content=")[^"]*(")/, (m) => `${m[1]}${image}${m[2]}`, "og:image", slug);
+  html = setTag(html, /(<meta name="twitter:title" content=")[^"]*(")/, (m) => `${m[1]}${esc(title)}${m[2]}`, "twitter:title", slug);
+  html = setTag(html, /(<meta name="twitter:description" content=")[^"]*(")/, (m) => `${m[1]}${esc(desc)}${m[2]}`, "twitter:description", slug);
+  html = setTag(html, /(<meta name="twitter:image" content=")[^"]*(")/, (m) => `${m[1]}${image}${m[2]}`, "twitter:image", slug);
+
+  return html;
+}
+
 const allGuides = [...GUIDES, BUNDLE];
 let count = 0;
 
 for (const guide of allGuides) {
   const url = `https://aivass.com/guides/${guide.slug}`;
   // Match the runtime title used in guide-detail.tsx's useSeoMeta call
-  const title = `${guide.name} — ${guide.subtitle}`;
-  const desc = guide.shortDescription;
+  const title = `${guide.searchTitle} — AiVass`;
+  const desc = guide.searchDescription;
   const image = guide.heroImage
     ? `https://aivass.com/images/${guide.heroImage}`
     : "https://aivass.com/opengraph.jpg";
   const priceFormatted = `$${(guide.priceCents / 100).toFixed(0)}`;
 
-  let html = template;
-  html = setTag(html, /<title>[\s\S]*?<\/title>/, () => `<title>${esc(title)}</title>`, "<title>", guide.slug);
-  html = setTag(html, /(<meta name="description" content=")[^"]*(")/, (m) => `${m[1]}${esc(desc)}${m[2]}`, "description", guide.slug);
-  html = setTag(html, /(<link rel="canonical" href=")[^"]*(")/, (m) => `${m[1]}${url}${m[2]}`, "canonical", guide.slug);
-  html = setTag(html, /(<meta property="og:url" content=")[^"]*(")/, (m) => `${m[1]}${url}${m[2]}`, "og:url", guide.slug);
-  html = setTag(html, /(<meta property="og:title" content=")[^"]*(")/, (m) => `${m[1]}${esc(title)}${m[2]}`, "og:title", guide.slug);
-  html = setTag(html, /(<meta property="og:description" content=")[^"]*(")/, (m) => `${m[1]}${esc(desc)}${m[2]}`, "og:description", guide.slug);
-  html = setTag(html, /(<meta property="og:type" content=")[^"]*(")/, (m) => `${m[1]}product${m[2]}`, "og:type", guide.slug);
-  html = setTag(html, /(<meta property="og:image" content=")[^"]*(")/, (m) => `${m[1]}${image}${m[2]}`, "og:image", guide.slug);
-  html = setTag(html, /(<meta name="twitter:title" content=")[^"]*(")/, (m) => `${m[1]}${esc(title)}${m[2]}`, "twitter:title", guide.slug);
-  html = setTag(html, /(<meta name="twitter:description" content=")[^"]*(")/, (m) => `${m[1]}${esc(desc)}${m[2]}`, "twitter:description", guide.slug);
-  html = setTag(html, /(<meta name="twitter:image" content=")[^"]*(")/, (m) => `${m[1]}${image}${m[2]}`, "twitter:image", guide.slug);
+  let html = renderMeta({ slug: guide.slug, url, title, desc, image, type: "product" });
 
   // Structured data — Product + BreadcrumbList
   const lds = [
@@ -96,7 +102,7 @@ for (const guide of allGuides) {
     },
   ];
   const ldScripts = lds
-    .map((ld) => `<script type="application/ld+json" data-seo-ld>${JSON.stringify(ld).replaceAll("</", "<\\/")}</script>`)
+    .map((ld) => `<script type="application/ld+json" data-seo-ld data-guide-ld>${JSON.stringify(ld).replaceAll("</", "<\\/")}</script>`)
     .join("\n    ");
   html = setTag(html, /<\/head>/, () => `    ${ldScripts}\n  </head>`, "</head>", guide.slug);
 
@@ -104,12 +110,12 @@ for (const guide of allGuides) {
   // Placed inside #root so React automatically replaces it on hydration —
   // browsers see the full app; crawlers that skip JS still read the content.
   const staticBody = [
-    `<article itemscope itemtype="https://schema.org/Product">`,
+    `<article>`,
     `<nav aria-label="Breadcrumb"><a href="https://aivass.com/">Home</a> › <a href="https://aivass.com/guides">Guides</a> › ${esc(guide.name)}</nav>`,
-    `<h1 itemprop="name">${esc(guide.name)}</h1>`,
+    `<h1>${esc(guide.name)}</h1>`,
     `<p><strong>${esc(guide.subtitle)}</strong></p>`,
-    `<p itemprop="description">${esc(guide.description)}</p>`,
-    `<p>Price: <span itemprop="price">${esc(priceFormatted)}</span> · ${esc(guide.pageCount.toString())} pages</p>`,
+    `<p>${esc(guide.description)}</p>`,
+    `<p>Price: <span>${esc(priceFormatted)}</span> · ${esc(guide.pageCount.toString())} pages</p>`,
     ...(guide.audience ? [`<p><strong>Who this is for:</strong> ${esc(guide.audience)}</p>`] : []),
     ...(guide.learningPoints?.length
       ? [
@@ -117,7 +123,8 @@ for (const guide of allGuides) {
           `<ul>${guide.learningPoints.map((pt) => `<li>${esc(pt)}</li>`).join("")}</ul>`,
         ]
       : []),
-    `<p><a href="${url}">View the full guide on AiVass</a></p>`,
+    ...(guide.sampleSlug ? [`<p><a href="/samples/${esc(guide.sampleSlug)}-sample.pdf">Read a sample of ${esc(guide.name)}</a></p>`] : []),
+    `<p><a href="/guides">Compare all EB-1A guides</a></p>`,
     `</article>`,
   ].join("\n      ");
   html = setTag(
@@ -138,3 +145,21 @@ for (const guide of allGuides) {
 }
 
 console.log(`prerender-guides: wrote ${count} guide pages`);
+
+const catalogUrl = "https://aivass.com/guides";
+const catalogHtml = renderMeta({
+  slug: "guides",
+  url: catalogUrl,
+  title: GUIDE_CATALOG.title + " — AiVass",
+  desc: GUIDE_CATALOG.description,
+  type: "website",
+  image: "https://aivass.com/opengraph.jpg",
+});
+const cards = allGuides.map((guide) =>
+  `<li><h2><a href="/guides/${esc(guide.slug)}">${esc(guide.name)}</a></h2><p>${esc(guide.shortDescription)}</p></li>`
+);
+const catalogBody = `<main><h1>${esc(GUIDE_CATALOG.title)}</h1><p>${esc(GUIDE_CATALOG.intro)}</p><ul>${cards.join("")}</ul></main>`;
+const catalog = setTag(catalogHtml, /<div id="root"><\/div>/,
+  () => `<div id="root">${catalogBody}</div>`, "catalog content", "guides");
+writeFileSync(join(distDir, "guides.html"), catalog);
+writeFileSync(join(distDir, "guides/index.html"), catalog);
