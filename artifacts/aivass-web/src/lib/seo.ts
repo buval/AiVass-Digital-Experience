@@ -65,7 +65,7 @@ export interface SeoMeta {
   ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
-  ogType?: "website" | "article";
+  ogType?: "website" | "article" | "product";
   article?: {
     publishedTime: string;
     modifiedTime: string;

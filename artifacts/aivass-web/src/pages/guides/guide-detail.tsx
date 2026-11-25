@@ -22,16 +22,17 @@ export default function GuideDetail() {
   useSeoMeta(
     guide
       ? {
-          title: `${guide.name} — ${guide.subtitle}`,
-          description: guide.description,
+          title: guide.searchTitle,
+          description: guide.searchDescription,
           canonical: `https://aivass.com/guides/${guide.slug}`,
-          ogType: "website",
+          ogType: "product",
           ogImage: guide.heroImage
             ? `https://aivass.com/images/${guide.heroImage}`
             : undefined,
         }
       : {
           title: "Guide not found — AiVass",
+          noIndex: true,
           description: "The guide you requested could not be found.",
           canonical: "https://aivass.com/guides",
         }
@@ -39,6 +40,7 @@ export default function GuideDetail() {
 
   // Product structured data
   useEffect(() => {
+    document.querySelectorAll("script[data-guide-ld]").forEach((script) => script.remove());
     if (!guide) return;
     const ld = {
       "@context": "https://schema.org",
